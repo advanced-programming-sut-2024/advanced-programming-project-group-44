@@ -1,28 +1,32 @@
 package com.ap.gwentgame;
 
+import com.ap.gwentgame.model.User;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+
 public class App {
-    private Stage stage;
-    private static App instance;
+    private static ArrayList<User> allusers = new ArrayList<>();
+    private static Stage stage;
 
-    private App(Stage stage) {
-        this.stage = stage;
-    }
-
-    public static void runApplication(Stage stage) {
-        instance = new App(stage);
-    }
-
-    public static App getInstance() {
-        return instance;
-    }
-
-    public Stage getStage() {
+    public static Stage getStage() {
         return stage;
     }
 
-    public void setStage(Stage stage) {
-        this.stage = stage;
+    public static void setStage(Stage stage) {
+        App.stage = stage;
+    }
+
+    public static User getUserByName(String name){
+        for(User user : allusers){
+            if(user.getName().equals(name)){
+                return user;
+            }
+        }
+        return null;
+    }
+
+    public static void addUser(User user){
+        allusers.add(user);
     }
 }
