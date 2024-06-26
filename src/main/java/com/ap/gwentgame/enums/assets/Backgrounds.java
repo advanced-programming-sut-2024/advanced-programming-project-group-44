@@ -1,5 +1,7 @@
 package com.ap.gwentgame.enums.assets;
 
+import javafx.scene.image.Image;
+
 public enum Backgrounds {
     MainBG("mainBG.jpg");
 
@@ -9,7 +11,8 @@ public enum Backgrounds {
         this.name = name;
     }
 
-    public String getPath() {
-        return "src/main/resources/assets/images/backgrounds/" + name;
+    public Image getImage() {
+        String path = getClass().getResource("src/main/resources/assets/images/backgrounds/" + name).toExternalForm();
+        return new Image(path);
     }
 }

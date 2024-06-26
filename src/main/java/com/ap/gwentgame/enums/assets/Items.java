@@ -1,5 +1,7 @@
 package com.ap.gwentgame.enums.assets;
 
+import javafx.scene.image.Image;
+
 public enum Items {
     ;
 
@@ -9,7 +11,8 @@ public enum Items {
         this.name = name;
     }
 
-    public String getPath() {
-        return "src/main/resources/assets/images/items/" + name;
+    public Image getImage() {
+        String path = getClass().getResource("src/main/resources/assets/images/Items/" + name).toExternalForm();
+        return new Image(path);
     }
 }
