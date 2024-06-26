@@ -9,6 +9,8 @@ public class App {
     private static ArrayList<User> allusers = new ArrayList<>();
     private static Stage stage;
 
+    private static User loggedinUser;
+
     public static Stage getStage() {
         return stage;
     }
@@ -28,5 +30,11 @@ public class App {
 
     public static void addUser(User user){
         allusers.add(user);
+    }
+    public static User getLoggedinUser(){
+        return loggedinUser;
+    }
+    public static void setLoggedinUser(User user){
+        loggedinUser = user;
     }
 }
