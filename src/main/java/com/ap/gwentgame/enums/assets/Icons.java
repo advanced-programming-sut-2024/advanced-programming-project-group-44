@@ -3,7 +3,7 @@ package com.ap.gwentgame.enums.assets;
 import javafx.scene.image.Image;
 
 public enum Icons {
-    ;
+    BACK("Back.png"), MUTE("Mute.png"), UNMUTE("Unmute.png");
     private final String name;
 
     Icons(String name) {
