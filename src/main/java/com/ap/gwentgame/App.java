@@ -12,4 +12,5 @@ public class App {
     public static void setStage(Stage stage) {
         App.stage = stage;
     }
+
 }

@@ -12,6 +12,12 @@ public class User {
     private final String password;
     private final String nickName;
     private final String email;
+    private int gamesPlayed;
+    private int highestPoint;
+    private int rank;
+    private int wins;
+    private int draws;
+    private int losses;
     private final Question question;
     private final String answer;
     private final ArrayList<Card> deck;
@@ -24,6 +30,12 @@ public class User {
         this.email = email;
         this.question = question;
         this.answer = answer;
+        this.gamesPlayed = 0;
+        this.highestPoint = 0;
+        this.rank = 0;
+        this.wins = 0;
+        this.draws = 0;
+        this.losses = 0;
         this.deck = new ArrayList<Card>();
         this.gameHistory = new ArrayList<GameData>();
     }
@@ -50,6 +62,54 @@ public class User {
 
     public String getAnswer() {
         return answer;
+    }
+
+    public int getGamesPlayed() {
+        return gamesPlayed;
+    }
+
+    public int getHighestPoint() {
+        return highestPoint;
+    }
+
+    public int getRank() {
+        return rank;
+    }
+
+    public int getWins() {
+        return wins;
+    }
+
+    public int getDraws() {
+        return draws;
+    }
+
+    public int getLosses() {
+        return losses;
+    }
+
+    public void setGamesPlayed(int gamesPlayed) {
+        this.gamesPlayed = gamesPlayed;
+    }
+
+    public void setHighestPoint(int highestPoint) {
+        this.highestPoint = highestPoint;
+    }
+
+    public void setRank(int rank) {
+        this.rank = rank;
+    }
+
+    public void setWins(int wins) {
+        this.wins = wins;
+    }
+
+    public void setDraws(int draws) {
+        this.draws = draws;
+    }
+
+    public void setLosses(int losses) {
+        this.losses = losses;
     }
 
     public ArrayList<Card> getDeck() {
