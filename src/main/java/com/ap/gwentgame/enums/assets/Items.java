@@ -12,7 +12,9 @@ public enum Items {
     }
 
     public Image getImage() {
-        String path = getClass().getResource("src/main/resources/assets/images/Items/" + name).toExternalForm();
+        String path = getClass().getResource("/com/ap/gwentgame/images/items/" + name).toExternalForm();
         return new Image(path);
     }
+
+
 }

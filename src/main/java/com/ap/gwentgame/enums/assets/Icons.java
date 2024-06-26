@@ -11,7 +11,7 @@ public enum Icons {
     }
 
     public Image getImage() {
-        String path = getClass().getResource("src/main/resources/assets/images/Icons/" + name).toExternalForm();
+        String path = getClass().getResource("/com/ap/gwentgame/images/icons/" + name).toExternalForm();
         return new Image(path);
     }
 }
