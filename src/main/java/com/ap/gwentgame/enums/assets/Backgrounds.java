@@ -3,7 +3,7 @@ package com.ap.gwentgame.enums.assets;
 import javafx.scene.image.Image;
 
 public enum Backgrounds {
-    MainBG("MainBG.png");
+    MAINBG("MainBG.png");
 
     private final String name;
 
