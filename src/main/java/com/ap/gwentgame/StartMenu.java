@@ -16,9 +16,6 @@ public class StartMenu extends Application {
     public void start(Stage stage) throws IOException {
         App.setStage(stage);
 
-//        Image icon = new Image(getClass().getResourceAsStream("/icon/rocket (3).png"));
-//        stage.getIcons().add(icon);
-
         URL url = StartMenu.class.getResource("/com/ap/gwentgame/fxml/StartMenu.fxml");
         Pane root = FXMLLoader.load(url);
         Scene scene = new Scene(root);
@@ -29,6 +26,7 @@ public class StartMenu extends Application {
     }
 
     public static void main(String[] args) {
+        MusicController.getInstance().play();
         launch();
     }
 
