@@ -141,6 +141,23 @@ public class Utilities {
         }
         return true;
     }
+    public static boolean validatingUsernameForLoginMenu(TextField name){
+        if(name.getText() == null){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setHeaderText("invalid username");
+            alert.setContentText("enter a username first");
+            alert.show();
+            return false;
+        }
+        if (App.getUserByName(name.getText()) == null) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setHeaderText("No User");
+            alert.setContentText("Username was not found!");
+            alert.show();
+            return false;
+        }
+        return true;
+    }
     private static boolean isStrongPassword(String password) {
         String emailRegex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[&$@_*])[A-Za-z\\d&@$_*]{8,}$";
         return password.matches(emailRegex);
@@ -150,7 +167,7 @@ public class Utilities {
         return password.matches(emailRegex);
     }
     private static boolean isValidEmail(String email) {
-        String emailRegex = "^[a-zA-Z0-9._%+-]+@gmail\\.com$";
+        String emailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9._%+-]+\\.[a-zA-Z0-9._%+-]+$";
         return email.matches(emailRegex);
     }
     public static void generatePassword(PasswordField password , PasswordField repeatedPassword){
