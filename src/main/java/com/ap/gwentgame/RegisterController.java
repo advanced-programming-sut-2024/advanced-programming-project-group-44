@@ -154,6 +154,7 @@ public class RegisterController {
         User user = new User(name.getText(), password.getText(), nickName.getText(),
                 email.getText(), securityQuestion.getValue(), answer.getText());
         App.addUser(user);
+        App.setLoggedinUser(user);
         MainMenu main = new MainMenu();
         try {
             main.start(App.getStage());
