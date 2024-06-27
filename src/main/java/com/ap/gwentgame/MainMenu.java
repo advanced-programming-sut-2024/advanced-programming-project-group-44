@@ -12,7 +12,6 @@ public class MainMenu extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         App.setStage(stage);
-        stage.setTitle("Main Menu");
         URL url = getClass().getResource("/com/ap/gwentgame/fxml/MainMenu.fxml");
         Scene scene = new Scene(FXMLLoader.load(url));
         stage.setScene(scene);

@@ -1,16 +1,23 @@
 package com.ap.gwentgame;
 
 import com.ap.gwentgame.enums.assets.Backgrounds;
+import com.ap.gwentgame.enums.assets.Icons;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 public class MainMenuController {
     @FXML
     public ImageView MainImage;
+    @FXML
+    public ImageView mute;
+    @FXML
+    public Button muteButton;
 
     public void initialize() {
-        MainImage.setImage(Backgrounds.MainBG.getImage());
+        MainImage.setImage(Backgrounds.MAINBG.getImage());
+        mute.setImage(Icons.UNMUTE.getImage());
     }
 
     @FXML
@@ -35,8 +42,21 @@ public class MainMenuController {
     @FXML
     public void logout(MouseEvent mouseEvent) {
         try {
-            //TODO:  go to login menu
+            App.setLoggedinUser(null);
+            LoginMenu loginMenu = new LoginMenu();
+            loginMenu.start(App.getStage());
         } catch (Exception e) {
             e.printStackTrace();
     }
-}}
+}
+
+    public void mute(MouseEvent mouseEvent) {
+        if (MusicController.getInstance().getMediaPlayer().isMute()) {
+            MusicController.getInstance().getMediaPlayer().setMute(false);
+            mute.setImage(Icons.UNMUTE.getImage());
+        } else {
+            MusicController.getInstance().getMediaPlayer().setMute(true);
+            mute.setImage(Icons.MUTE.getImage());
+        }
+    }
+}
