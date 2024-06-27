@@ -24,7 +24,7 @@ public class Utilities {
     }
 
     public static boolean validatingUsername(TextField name) {
-        if (name.getText() == null) {
+        if (name.getText().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setHeaderText("invalid username");
             alert.setContentText("enter a username");
@@ -65,7 +65,7 @@ public class Utilities {
         return true;
     }
     public static boolean validatingPassword(PasswordField password , PasswordField repeatedPassword){
-        if (password.getText() == null) {
+        if (password.getText().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setHeaderText("invalid password");
             alert.setContentText("enter a password");
@@ -98,7 +98,7 @@ public class Utilities {
         return true;
     }
     public static boolean validatingNickname(TextField name , TextField nickName){
-        if (nickName.getText() == null) {
+        if (nickName.getText().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setHeaderText("invalid nickname");
             alert.setContentText("enter a nickname");
@@ -115,7 +115,7 @@ public class Utilities {
         return true;
     }
     public static boolean validatingEmail(TextField email){
-        if (email.getText() == null) {
+        if (email.getText().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setHeaderText("invalid email");
             alert.setContentText("enter your email");
@@ -132,7 +132,7 @@ public class Utilities {
         return true;
     }
     public static boolean validatingAnswer(TextField answer){
-        if (answer.getText() == null) {
+        if (answer.getText().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setHeaderText("set an answer");
             alert.setContentText("you should set an answer for the security question");
@@ -142,7 +142,7 @@ public class Utilities {
         return true;
     }
     public static boolean validatingUsernameForLoginMenu(TextField name){
-        if(name.getText() == null){
+        if(name.getText().isEmpty()){
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setHeaderText("invalid username");
             alert.setContentText("enter a username first");
