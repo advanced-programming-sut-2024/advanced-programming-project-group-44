@@ -1,0 +1,5 @@
+package com.ap.gwentgame.enums;
+
+public enum AbilityType {
+    BERSERKER, COMMANDERSHORN, DECOY, MARDROEME, MEDIC, MORALBOOST, MUSTER, SCORCH, SPY, TIGHTBOND, TRANSFORMERS, NONE;
+}
