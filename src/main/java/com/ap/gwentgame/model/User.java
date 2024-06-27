@@ -8,10 +8,10 @@ import com.ap.gwentgame.model.Game.GameData;
 import java.util.ArrayList;
 
 public class User {
-    private final String name;
-    private final String password;
-    private final String nickName;
-    private final String email;
+    private  String name;
+    private  String password;
+    private  String nickName;
+    private  String email;
     private int gamesPlayed;
     private int highestPoint;
     private int rank;
@@ -86,6 +86,22 @@ public class User {
 
     public int getLosses() {
         return losses;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public void setGamesPlayed(int gamesPlayed) {
