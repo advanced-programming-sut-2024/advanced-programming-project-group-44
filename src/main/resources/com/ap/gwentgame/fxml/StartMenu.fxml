@@ -1,7 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.ap.gwentgame.StartMenuController">
-</VBox>
+<AnchorPane prefHeight="561.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ap.gwentgame.StartMenuController">
+    <ImageView fx:id="imageview" fitWidth="1200" fitHeight="800">
+        <image>
+        </image>
+    </ImageView>
+    <children>
+        <FlowPane alignment="TOP_CENTER" layoutX="406.0" layoutY="17.0" prefHeight="543.0" prefWidth="391.0" vgap="100.0">
+            <children>
+                <Label alignment="CENTER" contentDisplay="CENTER" lineSpacing="30.0" prefHeight="87.0" prefWidth="388.0" text="Gwent" textAlignment="CENTER" textFill="#5f7cf2">
+                    <font>
+                        <Font size="37.0" />
+                    </font>
+                </Label>
+                <VBox alignment="CENTER" prefHeight="190.0" prefWidth="218.0" spacing="10.0">
+                    <children>
+                        <Label alignment="CENTER" prefHeight="69.0" prefWidth="218.0" text="Welcome to the game" textFill="#3d56ea">
+                            <font>
+                                <Font size="13.0" />
+                            </font>
+                        </Label>
+                        <Button mnemonicParsing="false" onMouseClicked="#goToRegiser" prefHeight="26.0" prefWidth="57.0" text="register" />
+                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#goToLogin" prefHeight="26.0" prefWidth="57.0" text="login" />
+                    </children>
+                </VBox>
+            </children>
+        </FlowPane>
+      <ImageView fitHeight="155.0" fitWidth="211.0" pickOnBounds="true" preserveRatio="true" />
+    </children>
+</AnchorPane>
