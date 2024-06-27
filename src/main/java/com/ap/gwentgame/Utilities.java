@@ -38,7 +38,7 @@ public class Utilities {
             alert.show();
             return false;
         }
-        if (App.getUserByName(name.getText()) != null) {
+        if (App.getUserByName(name.getText()) != null && name.getText().equals(App.getUserByName(name.getText()).getName())) {
             String suggestedUsername = "";
             do {
                 StringBuilder newUsername = new StringBuilder(name.getText());

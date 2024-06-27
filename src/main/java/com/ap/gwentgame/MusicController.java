@@ -9,6 +9,7 @@ public class MusicController {
     private static MusicController instance = null;
     private MediaPlayer mediaPlayer;
     private Media music;
+    private boolean isMuted = false;
 
     private MusicController() {
         music = Musics.STARTINGMUSIC.getMusic();
