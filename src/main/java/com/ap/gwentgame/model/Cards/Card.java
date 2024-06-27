@@ -13,6 +13,7 @@ public abstract class Card extends Item{
         this.ability = ability;
         this.placement = placement;
     }
+
     public void executeAction(){
         ability.run();
     }

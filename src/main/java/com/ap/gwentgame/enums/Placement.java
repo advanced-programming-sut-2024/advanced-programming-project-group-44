@@ -9,7 +9,10 @@ public enum Placement {
     AGILE(new int[]{1, 2}),
     WEATHER(new int[]{}),
     SPECIAL_PLACE(new int[]{1, 2, 3});
+
     private final ArrayList<Integer> allowedRows;
+    private int row;
+
     Placement(int[] allowedRowsList) {
         this.allowedRows = new ArrayList<Integer>();
         for (int i : allowedRowsList) {
@@ -17,10 +20,18 @@ public enum Placement {
         }
     }
 
-    private boolean isPlaceAllowed(int row){
-        if (this.allowedRows.contains(row)){
+    private boolean isPlaceAllowed(int row) {
+        if (this.allowedRows.contains(row)) {
             return true;
         }
         return false;
+    }
+
+    public void setRow(int row) {
+        this.row = row;
+    }
+
+    public int getRow() {
+        return this.row;
     }
 }
