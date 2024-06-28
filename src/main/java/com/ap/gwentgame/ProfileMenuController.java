@@ -55,8 +55,8 @@ public class ProfileMenuController {
 
     public void goToGameHistory(MouseEvent mouseEvent) {
         try {
-            GameHistory gameHistory = new GameHistory();
-            gameHistory.start(App.getStage());
+            //GameHistory gameHistory = new GameHistory();
+            //gameHistory.start(App.getStage());
         } catch (Exception e) {
             e.printStackTrace();
         }
