@@ -76,6 +76,16 @@ public class Player{
     public ArrayList<Card> getHand() {
         return hand;
     }
+    public void addCardToHand(Card card){
+        this.hand.add(card);
+        this.deck.remove(card);
+    }
+    public void addCardToDiscardPile(Card card , int numOfRow){
+        this.discardPile.add(card);
+        ArrayList cardsOfTheSpecificRow = this.rows[numOfRow];
+        cardsOfTheSpecificRow.remove(card);
+
+    }
 
     public ArrayList<Card> getDiscardPile() {
         return discardPile;
