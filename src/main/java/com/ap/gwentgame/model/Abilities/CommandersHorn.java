@@ -1,8 +1,27 @@
 package com.ap.gwentgame.model.Abilities;
 
+import com.ap.gwentgame.model.Cards.Card;
+import com.ap.gwentgame.model.Cards.UnitCard;
+import com.ap.gwentgame.model.Game.Board;
+import com.ap.gwentgame.model.Game.Player;
+
 public class CommandersHorn extends Ability{
+    public CommandersHorn(Card card) {
+        super(card);
+    }
+
     @Override
-    public void run() {
-        // TODO implement here
+    public void run(Board board) {
+        Player player = board.getCurrentPlayer();
+        int row = card.getPlacement().getRow();
+        for(Card targetCard : player.getRows()[row]){
+            if (targetCard instanceof UnitCard){
+                if(!((UnitCard) targetCard).isHero() && targetCard != card){
+                    UnitCard unitcard = ((UnitCard) targetCard);
+                    unitcard.setScore(unitcard.getScore() * 2);
+                }
+            }
+        }
+        //TODO do barabar kardan harkarti ke badesh too oon radif miad
     }
 }
