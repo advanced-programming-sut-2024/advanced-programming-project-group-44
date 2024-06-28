@@ -2,6 +2,7 @@ package com.ap.gwentgame.model.Cards;
 
 import com.ap.gwentgame.model.Abilities.Ability;
 import com.ap.gwentgame.enums.Placement;
+import com.ap.gwentgame.model.Game.Board;
 
 public abstract class Card extends Item{
     private final Ability ability;
@@ -14,8 +15,8 @@ public abstract class Card extends Item{
         this.placement = placement;
     }
 
-    public void executeAction(){
-        ability.run();
+    public void executeAction(Board board){
+        ability.run(board);
     }
 
     public Ability getAbility() {
