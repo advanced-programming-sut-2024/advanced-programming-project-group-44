@@ -76,15 +76,26 @@ public class Player{
     public ArrayList<Card> getHand() {
         return hand;
     }
-    public void addCardToHand(Card card){
+    public void addCardToHandFromDeck(Card card){
         this.hand.add(card);
         this.deck.remove(card);
     }
+    public void addCardToHandFromDiscardPile(Card card){
+        this.hand.add(card);
+        this.discardPile.remove(card);
+    }
+    public void addCardToDeckFromDiscardPile(Card card){
+        this.deck.add(card);
+        this.discardPile.remove(card);
+    }
     public void addCardToDiscardPile(Card card , int numOfRow){
         this.discardPile.add(card);
-        ArrayList cardsOfTheSpecificRow = this.rows[numOfRow];
+        ArrayList<Card> cardsOfTheSpecificRow = this.rows[numOfRow];
         cardsOfTheSpecificRow.remove(card);
 
+    }
+    public void addWeatherCardToDiscardPile(Card card){
+        this.discardPile.add(card);
     }
 
     public ArrayList<Card> getDiscardPile() {
