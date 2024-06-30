@@ -1,8 +1,25 @@
 package com.ap.gwentgame.model.Abilities;
 
+import com.ap.gwentgame.model.Cards.Card;
+import com.ap.gwentgame.model.Cards.UnitCard;
+import com.ap.gwentgame.model.Game.Board;
+import com.ap.gwentgame.model.Game.Player;
+
 public class MoralBoost extends Ability{
+
+    public MoralBoost(Card card) {
+        super(card);
+    }
+
     @Override
-    public void run() {
-        // TODO implement here
+    public void run(Board board) {
+        Player player = board.getCurrentPlayer();
+        int row = card.getPlacement().getRow();
+        for(Card targetCard : player.getRows()[row]){
+            if (targetCard instanceof UnitCard && targetCard != card){
+                UnitCard unitcard = ((UnitCard) targetCard);
+                unitcard.setScore(unitcard.getScore() + 1);
+            }
+        }
     }
 }

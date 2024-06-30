@@ -1,12 +1,31 @@
 package com.ap.gwentgame.model.Leaders;
 
-public class LordCommanderOfTheNorth extends Leader{
-    public LordCommanderOfTheNorth(String name){
+import com.ap.gwentgame.Utilities;
+import com.ap.gwentgame.model.Cards.Card;
+import com.ap.gwentgame.model.Cards.UnitCard;
+import com.ap.gwentgame.model.Game.Board;
+import com.ap.gwentgame.model.Game.Player;
+
+import java.util.ArrayList;
+import java.util.function.UnaryOperator;
+
+public class LordCommanderOfTheNorth extends Leader {
+    public LordCommanderOfTheNorth(String name) {
         super(name);
     }
 
     @Override
-    public void executeAbility(){
-        //TODO implement here
+    public void executeAbility(Board board) {
+        Player opponent = board.getOpponentPlayer();
+        int score = Utilities.calculateScoreOfRowNotHero(opponent, 2);
+        int maxScore = Utilities.calculateMaxScoreOfRowNotHero(opponent, 2);
+        if (score >= 10) {
+            for (Card card : opponent.getRows()[2]) {
+                if (card instanceof UnitCard && !((UnitCard) card).isHero()
+                        && ((UnitCard) card).getScore() == maxScore) {
+                    opponent.addCardToDiscardPile(card, 2);
+                }
+            }
+        }
     }
 }

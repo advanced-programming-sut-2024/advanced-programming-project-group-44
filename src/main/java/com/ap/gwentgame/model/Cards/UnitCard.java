@@ -6,7 +6,7 @@ import com.ap.gwentgame.model.Abilities.Ability;
 public class UnitCard extends Card{
     private final boolean isHero;
     private final boolean isExclusive;
-    private final int score;
+    private int score;
 
     public UnitCard(String name, int score, Placement placement, Ability ability, boolean isHero, boolean isExclusive){
         super(name, placement, ability);
@@ -25,5 +25,8 @@ public class UnitCard extends Card{
 
     public int getScore() {
         return score;
+    }
+    public void setScore(int score){
+        this.score = score;
     }
 }

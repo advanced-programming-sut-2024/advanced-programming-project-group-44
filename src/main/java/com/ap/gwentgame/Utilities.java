@@ -1,13 +1,15 @@
 package com.ap.gwentgame;
 
+import com.ap.gwentgame.model.Cards.Card;
+import com.ap.gwentgame.model.Cards.UnitCard;
+import com.ap.gwentgame.model.Game.Player;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.text.Text;
 
 import java.security.SecureRandom;
+import java.util.ArrayList;
 import java.util.Optional;
 
 public class Utilities {
@@ -222,6 +224,24 @@ public class Utilities {
             characters[randomIndex] = temp;
         }
         return new String(characters);
+    }
+    public static int calculateScoreOfRowNotHero(Player player , int row){
+        int score = 0;
+        for (Card card : player.getRows()[row]) {
+            if (card instanceof UnitCard && !((UnitCard) card).isHero()) {
+                score += ((UnitCard) card).getScore();
+            }
+        }
+        return score;
+    }
+    public static int calculateMaxScoreOfRowNotHero(Player player , int row){
+        int maxScore = 0;
+        for (Card card : player.getRows()[row]) {
+            if (card instanceof UnitCard && !((UnitCard) card).isHero()) {
+                if (((UnitCard) card).getScore() > maxScore) maxScore = ((UnitCard) card).getScore();
+            }
+        }
+        return maxScore;
     }
 
 }
