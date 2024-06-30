@@ -4,18 +4,14 @@ import com.ap.gwentgame.model.Leaders.Leader;
 
 public enum LeaderData {
     ;
-    private final int number;
     private final String name;
     private final Leader leader;
+    private final FactionType factionType;
 
-    LeaderData(int number, String name, Leader leader) {
-        this.number = number;
+    LeaderData(int number, String name, Leader leader, FactionType factionType) {
         this.name = name;
         this.leader = leader;
-    }
-
-    public int getNumber() {
-        return number;
+        this.factionType = factionType;
     }
 
     public String getName() {
@@ -24,5 +20,9 @@ public enum LeaderData {
 
     public Leader getLeader() {
         return leader;
+    }
+
+    public FactionType getFactionType() {
+        return factionType;
     }
 }
