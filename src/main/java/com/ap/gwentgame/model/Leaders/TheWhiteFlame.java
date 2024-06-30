@@ -17,7 +17,7 @@ public class TheWhiteFlame extends Leader{
         ArrayList<Card> deckCards = player.getDeck();
         for(Card card : deckCards){
             if(card.getName().contains("rain")){
-                //TODO play the fog card
+                card.executeAction(board);
                 //TODO check the name
             }
         }

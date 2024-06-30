@@ -17,7 +17,8 @@ public class PureBloodElf extends Leader{
         ArrayList<Card> deckCards = player.getDeck();
         for(Card card : deckCards){
             if(card.getName().contains("frost")){
-                //TODO play the fog card
+                card.executeAction(board);
+                //TODO choose card
             }
         }
     }

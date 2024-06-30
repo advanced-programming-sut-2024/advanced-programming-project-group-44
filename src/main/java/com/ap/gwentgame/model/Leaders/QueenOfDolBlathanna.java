@@ -15,7 +15,7 @@ public class QueenOfDolBlathanna extends Leader{
     public void executeAbility(Board board){
         Player opponent = board.getOpponentPlayer();
         int score = Utilities.calculateScoreOfRowNotHero(opponent , 0);
-        if(score >= 10) {
+        if(score >= 10){
             int maxScore = Utilities.calculateMaxScoreOfRowNotHero(opponent, 1);
             for (Card card : opponent.getRows()[1]) {
                 if (card instanceof UnitCard && !((UnitCard) card).isHero()

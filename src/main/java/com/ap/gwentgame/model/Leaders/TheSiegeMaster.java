@@ -17,7 +17,7 @@ public class TheSiegeMaster extends Leader{
         ArrayList<Card> deckCards = player.getDeck();
         for(Card card : deckCards){
             if(card.getName().contains("fog")){
-                //TODO play the fog card
+                card.executeAction(board);
             }
         }
     }

@@ -13,6 +13,15 @@ public class DestroyerOfWorlds extends Leader{
 
     @Override
     public void executeAbility(Board board){
-        //TODO choose the cards
+        Player player = board.getCurrentPlayer();
+        /*TODO choose the cards
+        Card firstChoosenCard = .... notHero
+        Card secondChoosenCard = ... notHero
+        player.addCardToDiscardPileFromHand(firstChoosenCard);
+        player.addCardToDiscardPileFromHand(secondChoosenCard);
+        Card chosenCardFromDeck = ....; notHero
+        player.addCardToHandFromDeck(chosenCardFromDeck);
+        */
+
     }
 }

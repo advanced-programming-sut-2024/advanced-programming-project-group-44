@@ -22,7 +22,7 @@ public class HisImperialMajesty extends Leader{
         ArrayList<Card> randomCards;
         if(handCardsOpponentNum < 4) randomCards = getRandomCards(handCardsOpponent , handCardsOpponentNum);
         else randomCards = getRandomCards(handCardsOpponent , 3);
-        //TODO shoe them to the player
+        //TODO show them to the player
 
     }
     public static ArrayList<Card> getRandomCards(ArrayList<Card> list, int numberOfCards) {

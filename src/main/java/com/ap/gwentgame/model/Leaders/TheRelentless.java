@@ -13,8 +13,14 @@ public class TheRelentless extends Leader{
 
     @Override
     public void executeAbility(Board board){
+
         Player opponent = board.getOpponentPlayer();
         ArrayList<Card> discardPileCards = opponent.getDiscardPile();
-        //TODO the rest
+        /*TODO the rest show them to player
+        Player player = board.getCurrentPlayer();
+        Card choosenCard = chosencard???
+        player.getHand().add(choosenCard);
+        opponent.getDeck().remove(choosenCard);
+         */
     }
 }

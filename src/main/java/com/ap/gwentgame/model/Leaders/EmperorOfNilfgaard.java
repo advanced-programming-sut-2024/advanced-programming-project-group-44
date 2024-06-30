@@ -1,6 +1,7 @@
 package com.ap.gwentgame.model.Leaders;
 
 import com.ap.gwentgame.model.Game.Board;
+import com.ap.gwentgame.model.Game.Player;
 
 public class EmperorOfNilfgaard extends Leader{
     public EmperorOfNilfgaard(String name){
@@ -9,6 +10,7 @@ public class EmperorOfNilfgaard extends Leader{
 
     @Override
     public void executeAbility(Board board){
-        //TODO cancel kardan ghabeliat farmande harif
+        Player opponent = board.getOpponentPlayer();
+        opponent.setLeader(null);
     }
 }

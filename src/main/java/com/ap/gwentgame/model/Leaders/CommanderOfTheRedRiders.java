@@ -18,7 +18,9 @@ public class CommanderOfTheRedRiders extends Leader{
         ArrayList<Card> deckCards = player.getDeck();
         for(Card card : deckCards){
             if(card instanceof Weather){
-                //TODO show the card ?
+                /*TODO show the card ?
+                Card choosenCard = ...
+                choosenCard.executeAction(board);*/
             }
         }
     }

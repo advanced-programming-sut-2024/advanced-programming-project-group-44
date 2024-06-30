@@ -16,6 +16,9 @@ public class HopeOfTheAenSeidhe extends Leader{
         Player player = board.getCurrentPlayer();
         ArrayList<Card> agileCards = player.getRows()[0];
         agileCards.addAll(player.getRows()[1]);
-        //TODO hmmm?
+        /*TODO hmmm?
+        Card card = choosenCard...
+        player.getRows()[i].remove(card);
+        player.getRows()[j].add(card);*/
     }
 }
