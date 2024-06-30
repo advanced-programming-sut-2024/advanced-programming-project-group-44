@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class Player{
     private final User user;
     private final Faction faction;
-    private final Leader leader;
+    private Leader leader;
     private int currentScore;
     private final int[] scores = new int[3];
     private int remainingHealth;
@@ -48,6 +48,7 @@ public class Player{
     public Leader getLeader() {
         return leader;
     }
+    public void setLeader(Leader leader){this.leader = leader;}
 
     public int getCurrentScore() {
         return currentScore;
@@ -92,7 +93,10 @@ public class Player{
         this.discardPile.add(card);
         ArrayList<Card> cardsOfTheSpecificRow = this.rows[numOfRow];
         cardsOfTheSpecificRow.remove(card);
-
+    }
+    public void addCardToDiscardPileFromHand(Card card){
+        this.discardPile.add(card);
+        this.hand.remove(card);
     }
     public void addWeatherCardToDiscardPile(Card card){
         this.discardPile.add(card);

@@ -12,4 +12,6 @@ public abstract class Ability {
     }
 
     public abstract void run(Board board);
+
+    public abstract void stop(Board board);
 }
