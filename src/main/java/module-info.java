@@ -6,8 +6,6 @@ module com.ap.gwentgame {
     requires javafx.media;
 
 
-    opens com.ap.gwentgame to javafx.fxml;
-    exports com.ap.gwentgame;
     exports com.ap.gwentgame.model;
     opens com.ap.gwentgame.model to javafx.fxml;
     exports com.ap.gwentgame.controller;
