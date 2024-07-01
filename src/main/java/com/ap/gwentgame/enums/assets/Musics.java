@@ -1,5 +1,6 @@
 package com.ap.gwentgame.enums.assets;
 
+import com.ap.gwentgame.controller.Utilities;
 import javafx.scene.image.Image;
 import javafx.scene.media.Media;
 
@@ -13,7 +14,6 @@ public enum Musics {
     }
 
     public Media getMusic() {
-        String path = getClass().getResource("/com/ap/gwentgame/soundtracks/" + name).toExternalForm();
-        return new Media(path);
+        return new Media(Utilities.getResourcePath("/com/ap/gwentgame/music/" + name));
     }
 }

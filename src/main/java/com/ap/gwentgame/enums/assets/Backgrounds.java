@@ -1,5 +1,6 @@
 package com.ap.gwentgame.enums.assets;
 
+import com.ap.gwentgame.controller.Utilities;
 import javafx.scene.image.Image;
 
 public enum Backgrounds {
@@ -12,7 +13,6 @@ public enum Backgrounds {
     }
 
     public Image getImage() {
-        String path = getClass().getResource("/com/ap/gwentgame/images/backgrounds/" + name).toExternalForm();
-        return new Image(path);
+        return new Image(Utilities.getResourcePath("/images/backgrounds/" + name));
     }
 }

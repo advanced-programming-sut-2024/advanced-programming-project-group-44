@@ -1,9 +1,15 @@
 package com.ap.gwentgame.enums.assets;
 
+import com.ap.gwentgame.controller.Utilities;
 import javafx.scene.image.Image;
 
 public enum Icons {
-    BACK("Back.png"), MUTE("Mute.png"), UNMUTE("Unmute.png");
+    BACK("Back.png"),
+    MUTE("Mute.png"),
+    UNMUTE("Unmute.png"),
+    CARD_COUNT("CardCount.png"),
+    LEADERS_ACTIVE("LeadersActive.png");
+
     private final String name;
 
     Icons(String name) {
@@ -11,7 +17,6 @@ public enum Icons {
     }
 
     public Image getImage() {
-        String path = getClass().getResource("/com/ap/gwentgame/images/icons/" + name).toExternalForm();
-        return new Image(path);
+        return new Image(Utilities.getResourcePath("/images/icons/ + name"));
     }
 }

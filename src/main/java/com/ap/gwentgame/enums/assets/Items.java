@@ -1,9 +1,11 @@
 package com.ap.gwentgame.enums.assets;
 
+import com.ap.gwentgame.controller.Utilities;
 import javafx.scene.image.Image;
 
 public enum Items {
-    ;
+    GEM_ON("GemOn.png"),
+    GEM_OFF("GemOff.png");
 
     private final String name;
 
@@ -12,8 +14,7 @@ public enum Items {
     }
 
     public Image getImage() {
-        String path = getClass().getResource("/com/ap/gwentgame/images/items/" + name).toExternalForm();
-        return new Image(path);
+        return new Image(Utilities.getResourcePath("/images/items/" + name));
     }
 
 

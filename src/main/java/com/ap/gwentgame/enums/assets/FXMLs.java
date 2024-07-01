@@ -25,8 +25,7 @@ public enum FXMLs {
 
     public Scene getScene() {
         try {
-            String path = Utilities.getResourcePath("/com/ap/gwentgame/fxmls/" + name);
-            return new Scene(FXMLLoader.load(new URL(path)));
+            return new Scene(FXMLLoader.load(new URL(Utilities.getResourcePath("fxml/" + name))));
         } catch (Exception e) {
             System.out.println("FXMLs.getScene() failed");
             return null;
