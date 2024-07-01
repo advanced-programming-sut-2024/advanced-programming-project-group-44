@@ -1,20 +1,21 @@
-package com.ap.gwentgame;
+package com.ap.gwentgame.view;
 
+import com.ap.gwentgame.enums.assets.FXMLs;
+import com.ap.gwentgame.model.App;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 
-public class MainMenu extends Application {
+public class LoginMenu extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         App.setStage(stage);
-        URL url = getClass().getResource("/com/ap/gwentgame/fxml/MainMenu.fxml");
-        Scene scene = new Scene(FXMLLoader.load(url));
-        stage.setScene(scene);
+        stage.setScene(FXMLs.LOGIN_MENU.getScene());
         stage.show();
     }
 

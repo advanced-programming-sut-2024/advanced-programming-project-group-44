@@ -1,7 +1,10 @@
-package com.ap.gwentgame;
+package com.ap.gwentgame.controller;
 
+import com.ap.gwentgame.view.MainMenu;
+import com.ap.gwentgame.view.StartMenu;
 import com.ap.gwentgame.enums.Question;
 import com.ap.gwentgame.enums.assets.Backgrounds;
+import com.ap.gwentgame.model.App;
 import com.ap.gwentgame.model.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;

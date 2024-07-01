@@ -1,6 +1,5 @@
-package com.ap.gwentgame;
+package com.ap.gwentgame.model;
 
-import com.ap.gwentgame.model.User;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;

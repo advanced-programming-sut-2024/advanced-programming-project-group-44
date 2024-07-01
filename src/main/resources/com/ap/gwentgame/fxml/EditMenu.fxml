@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ap.gwentgame.EditMenuController">
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ap.gwentgame.controller.EditMenuController">
    <children>
       <SplitPane dividerPositions="0.09837092731829573" orientation="VERTICAL" prefHeight="800.0" prefWidth="1200.0">
         <items>

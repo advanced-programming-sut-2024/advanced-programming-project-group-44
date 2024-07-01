@@ -1,13 +1,10 @@
 package com.ap.gwentgame.model.Leaders;
 
-import com.ap.gwentgame.Utilities;
+import com.ap.gwentgame.controller.Utilities;
 import com.ap.gwentgame.model.Cards.Card;
 import com.ap.gwentgame.model.Cards.UnitCard;
 import com.ap.gwentgame.model.Game.Board;
 import com.ap.gwentgame.model.Game.Player;
-
-import java.util.ArrayList;
-import java.util.function.UnaryOperator;
 
 public class LordCommanderOfTheNorth extends Leader {
     public LordCommanderOfTheNorth(String name) {

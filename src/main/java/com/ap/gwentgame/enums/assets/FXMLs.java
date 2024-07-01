@@ -1,16 +1,21 @@
 package com.ap.gwentgame.enums.assets;
 
-import com.ap.gwentgame.StartMenu;
-import com.ap.gwentgame.Utilities;
+import com.ap.gwentgame.controller.Utilities;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.layout.Pane;
 
 import java.net.URL;
 
 public enum FXMLs {
-    ;
+    START_MENU("StartMenu.fxml"),
+    MAIN_MENU("MainMenu.fxml"),
+    REGISTER_MENU("RegisterMenu.fxml"),
+    LOGIN_MENU("LoginMenu.fxml"),
+    PROFILE_MENU("ProfileMenu.fxml"),
+    EDIT_MENU("EditMenu.fxml"),
+    GAME_HISTORY("GameHistory.fxml"),
+    PREGAME_MENU("Game.fxml"),
+    BOARD("Board.fxml");
 
     private final String name;
 
@@ -28,6 +33,4 @@ public enum FXMLs {
         }
 
     }
-
-
 }

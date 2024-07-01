@@ -1,5 +1,7 @@
-package com.ap.gwentgame;
+package com.ap.gwentgame.view;
 
+import com.ap.gwentgame.enums.assets.FXMLs;
+import com.ap.gwentgame.model.App;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -12,9 +14,7 @@ public class EditMenu extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         App.setStage(stage);
-        URL url = getClass().getResource("/com/ap/gwentgame/fxml/EditMenu.fxml");
-        Scene scene = new Scene(FXMLLoader.load(url));
-        stage.setScene(scene);
+        stage.setScene(FXMLs.EDIT_MENU.getScene());
         stage.show();
     }
 

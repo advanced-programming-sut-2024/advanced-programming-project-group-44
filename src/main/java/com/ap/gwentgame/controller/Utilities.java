@@ -1,5 +1,6 @@
-package com.ap.gwentgame;
+package com.ap.gwentgame.controller;
 
+import com.ap.gwentgame.model.App;
 import com.ap.gwentgame.model.Cards.Card;
 import com.ap.gwentgame.model.Cards.UnitCard;
 import com.ap.gwentgame.model.Game.Player;
@@ -9,7 +10,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 import java.security.SecureRandom;
-import java.util.ArrayList;
 import java.util.Optional;
 
 public class Utilities {

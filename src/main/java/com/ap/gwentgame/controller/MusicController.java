@@ -1,4 +1,4 @@
-package com.ap.gwentgame;
+package com.ap.gwentgame.controller;
 
 import com.ap.gwentgame.enums.assets.Musics;
 import javafx.scene.media.Media;

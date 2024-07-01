@@ -1,6 +1,8 @@
-package com.ap.gwentgame;
+package com.ap.gwentgame.controller;
 
+import com.ap.gwentgame.view.ProfileMenu;
 import com.ap.gwentgame.enums.assets.Icons;
+import com.ap.gwentgame.model.App;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;

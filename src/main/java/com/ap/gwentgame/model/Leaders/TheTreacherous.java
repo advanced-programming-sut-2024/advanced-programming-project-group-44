@@ -1,6 +1,5 @@
 package com.ap.gwentgame.model.Leaders;
 
-import com.ap.gwentgame.Utilities;
 import com.ap.gwentgame.model.Abilities.Spy;
 import com.ap.gwentgame.model.Cards.Card;
 import com.ap.gwentgame.model.Cards.UnitCard;

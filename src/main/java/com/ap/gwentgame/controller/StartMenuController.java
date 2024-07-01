@@ -1,8 +1,9 @@
-package com.ap.gwentgame;
+package com.ap.gwentgame.controller;
 
+import com.ap.gwentgame.view.LoginMenu;
+import com.ap.gwentgame.view.RegisterMenu;
 import com.ap.gwentgame.enums.assets.Backgrounds;
-import javafx.fxml.FXML;
-import javafx.scene.image.Image;
+import com.ap.gwentgame.model.App;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import java.io.IOException;
