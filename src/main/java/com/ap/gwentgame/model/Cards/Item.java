@@ -1,6 +1,8 @@
 package com.ap.gwentgame.model.Cards;
 
-public class Item {
+import javafx.scene.layout.AnchorPane;
+
+public class Item extends AnchorPane {
     private final String name;
 
     public Item(String name) {
