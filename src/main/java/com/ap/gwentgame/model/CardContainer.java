@@ -8,15 +8,17 @@ import javafx.scene.layout.FlowPane;
 import java.util.ArrayList;
 
 public class CardContainer<T extends Item> extends FlowPane {
-    public CardContainer(int x, int y, int width, int height, int horizontalGap, int verticalGap) {
-        super();
+    public CardContainer() {
+        this.orientationProperty().setValue(Orientation.HORIZONTAL);
+    }
+
+    public void setVisuals(int x, int y, int width, int height, int horizontalGap, int verticalGap) {
         this.setLayoutX(x);
         this.setLayoutY(y);
         this.setPrefWidth(width);
         this.setPrefHeight(height);
         this.setHgap(horizontalGap);
         this.setVgap(verticalGap);
-        this.orientationProperty().setValue(Orientation.HORIZONTAL);
     }
 
     public void addCard(T card) {

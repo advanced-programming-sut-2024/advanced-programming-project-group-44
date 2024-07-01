@@ -1,26 +1,22 @@
 package com.ap.gwentgame.model.Cards;
 
+import com.ap.gwentgame.enums.FactionType;
 import com.ap.gwentgame.enums.Placement;
 import com.ap.gwentgame.model.Abilities.Ability;
+import com.ap.gwentgame.model.Factions.Faction;
 
 public class UnitCard extends Card{
     private final boolean isHero;
-    private final boolean isExclusive;
     private int score;
 
-    public UnitCard(String name, int score, Placement placement, Ability ability, boolean isHero, boolean isExclusive){
-        super(name, placement, ability);
+    public UnitCard(String name, int score, Placement placement, FactionType factionType, boolean isHero){
+        super(name, placement, factionType);
         this.score = score;
         this.isHero = isHero;
-        this.isExclusive = isExclusive;
     }
 
     public boolean isHero() {
         return isHero;
-    }
-
-    public boolean isExclusive() {
-        return isExclusive;
     }
 
     public int getScore() {

@@ -1,26 +1,25 @@
 package com.ap.gwentgame.enums;
 
-
-import com.ap.gwentgame.model.Abilities.Ability;
+import com.ap.gwentgame.model.Cards.UnitCard;
 
 import static com.ap.gwentgame.enums.AbilityType.*;
-import static com.ap.gwentgame.enums.Placement.*;
 import static com.ap.gwentgame.enums.FactionType.*;
+import static com.ap.gwentgame.enums.Placement.*;
 
 public enum UnitCardData {
-    DANDELION("Dandelion", 2, CLOSE_COMBAT, COMMANDERSHORN, ALL, 1, false),
-    YENNEFER_OF_VENGERBERG("Yennefer of Vengerberg", 7, RANGED_COMBAT, MEDIC, ALL, 1, true),
-    OLGIERD_VON_EVERC("Olgierd Von Everc", 6, AGILE, MORALBOOST, ALL, 1, false),
-    GAUNTER_ODIMM("Gaunter O’Dimm", 2, SIEGE, MUSTER, ALL, 1, false),
-    GAUNTER_ODIMM_DARKNESS("Gaunter O’DImm Darkness", 4, RANGED_COMBAT, MUSTER, ALL, 3, false),
-    VILLENTRETENMERTH("Villentretenmerth", 7, CLOSE_COMBAT, SCORCH, ALL, 1, false),
-    MYSTERIOUS_ELF("Mysterious Elf", 0, CLOSE_COMBAT, SPY, ALL, 1, true),
-    COW("Cow", 0, RANGED_COMBAT, TRANSFORMERS, ALL, 1, false),
-    EMIEL_REGIS("Emiel Regis", 5, CLOSE_COMBAT, NONE, ALL, 1, false),
-    GERALT_OF_RIVIA("Geralt of Rivia", 15, CLOSE_COMBAT, NONE, ALL, 1, true),
-    TRISS_MERIGOLD("Triss Merigold", 7, CLOSE_COMBAT, NONE, ALL, 1, true),
-    VESEMIR("Vesemir", 6, CLOSE_COMBAT, NONE, ALL, 1, false),
-    ZOLTAN_CHIVAY("Zoltan Chivay", 5, CLOSE_COMBAT, NONE, ALL, 1, false),
+    DANDELION("Dandelion", 2, CLOSE_COMBAT, COMMANDERSHORN, NEUTRAL, 1, false),
+    YENNEFER_OF_VENGERBERG("Yennefer of Vengerberg", 7, RANGED_COMBAT, MEDIC, NEUTRAL, 1, true),
+    OLGIERD_VON_EVERC("Olgierd Von Everc", 6, AGILE, MORALBOOST, NEUTRAL, 1, false),
+    GAUNTER_ODIMM("Gaunter O’Dimm", 2, SIEGE, MUSTER, NEUTRAL, 1, false),
+    GAUNTER_ODIMM_DARKNESS("Gaunter O’DImm Darkness", 4, RANGED_COMBAT, MUSTER, NEUTRAL, 3, false),
+    VILLENTRETENMERTH("Villentretenmerth", 7, CLOSE_COMBAT, SCORCH, NEUTRAL, 1, false),
+    MYSTERIOUS_ELF("Mysterious Elf", 0, CLOSE_COMBAT, SPY, NEUTRAL, 1, true),
+    COW("Cow", 0, RANGED_COMBAT, TRANSFORMERS, NEUTRAL, 1, false),
+    EMIEL_REGIS("Emiel Regis", 5, CLOSE_COMBAT, NONE, NEUTRAL, 1, false),
+    GERALT_OF_RIVIA("Geralt of Rivia", 15, CLOSE_COMBAT, NONE, NEUTRAL, 1, true),
+    TRISS_MERIGOLD("Triss Merigold", 7, CLOSE_COMBAT, NONE, NEUTRAL, 1, true),
+    VESEMIR("Vesemir", 6, CLOSE_COMBAT, NONE, NEUTRAL, 1, false),
+    ZOLTAN_CHIVAY("Zoltan Chivay", 5, CLOSE_COMBAT, NONE, NEUTRAL, 1, false),
     KAYRAN("Kayran", 8, AGILE, MORALBOOST, MONSTERS, 1, true),
     ARACHAS("Arachas", 4, CLOSE_COMBAT, MUSTER, MONSTERS, 3, false),
     ARACHAS_BEHEMOTH("Arachas Behemoth", 6, SIEGE, MUSTER, MONSTERS, 1, false),
@@ -162,45 +161,31 @@ public enum UnitCardData {
     private final int score;
     private final Placement placement;
     private final AbilityType abilityType;
-    private final FactionType faction;
+    private final FactionType factionType;
     private final int maxCount;
     private final boolean isHero;
 
-    UnitCardData(String name, int score, Placement placement, AbilityType abilityType, FactionType faction, int maxCount, boolean isHero) {
+    UnitCardData(String name, int score, Placement placement, AbilityType abilityType, FactionType factionType, int maxCount, boolean isHero) {
         this.name = name;
         this.score = score;
         this.placement = placement;
         this.abilityType = abilityType;
-        this.faction = faction;
+        this.factionType = factionType;
         this.maxCount = maxCount;
         this.isHero = isHero;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public int getScore() {
-        return score;
-    }
-
-    public Placement getPlacement() {
-        return placement;
-    }
-
-    public AbilityType getAbilityType() {
-        return abilityType;
-    }
-
-    public FactionType getFaction() {
-        return faction;
+    public UnitCard getUnitCard() {
+        UnitCard unitCard = new UnitCard(name, score, placement, factionType, isHero);
+        unitCard.setAbility(abilityType.getAbility(unitCard));
+        return unitCard;
     }
 
     public int getMaxCount() {
         return maxCount;
     }
 
-    public boolean isHero() {
-        return isHero;
+    public FactionType getFactionType() {
+        return factionType;
     }
 }
