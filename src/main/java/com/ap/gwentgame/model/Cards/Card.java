@@ -38,6 +38,10 @@ public abstract class Card extends Item {
         return placement;
     }
 
+    public FactionType getFactionType() {
+        return factionType;
+    }
+
     public Image getPreGameImage() {
         String path = Utilities.getResourcePath("/images/cards/pregame/" + factionType + "/" + getName() + ".jpg");
         return new Image(path);

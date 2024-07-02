@@ -3,6 +3,7 @@ package com.ap.gwentgame.enums;
 import com.ap.gwentgame.model.Cards.UnitCard;
 
 import static com.ap.gwentgame.enums.AbilityType.*;
+import static com.ap.gwentgame.enums.AbilityType.SCORCH;
 import static com.ap.gwentgame.enums.FactionType.*;
 import static com.ap.gwentgame.enums.Placement.*;
 

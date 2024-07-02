@@ -1,27 +1,25 @@
 package com.ap.gwentgame.model.Factions;
 
-import com.ap.gwentgame.model.Cards.Card;
+import com.ap.gwentgame.model.ItemContainer;
 import com.ap.gwentgame.model.Cards.Item;
+import com.ap.gwentgame.model.Cards.PreGameCard;
 import com.ap.gwentgame.model.Leaders.Leader;
 
-
-import java.util.ArrayList;
-import java.util.HashMap;
-
 public class Faction extends Item {
-    protected final ArrayList<Leader> leaders;
-    protected final HashMap<Card, Integer> cards;
+    protected final ItemContainer<Leader> leaders;
+    protected final ItemContainer<PreGameCard> cards;
+
     public Faction(String name) {
         super(name);
-        this.leaders = new ArrayList<Leader>();
-        this.cards = new HashMap<Card, Integer>();
+        leaders = new ItemContainer<>();
+        cards = new ItemContainer<>();
     }
 
-    public ArrayList<Leader> getLeaders() {
+    public ItemContainer<Leader> getLeaders() {
         return leaders;
     }
 
-    public HashMap<Card, Integer> getCards() {
+    public ItemContainer<PreGameCard> getCards() {
         return cards;
     }
 }

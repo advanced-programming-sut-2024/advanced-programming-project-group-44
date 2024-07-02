@@ -214,6 +214,7 @@ public class Utilities {
         SecureRandom random = new SecureRandom();
         return random.nextInt((max - min) + 1) + min;
     }
+
     private static String shuffleString(String input) {
         char[] characters = input.toCharArray();
         for (int i = 0; i < characters.length; i++) {
@@ -225,6 +226,7 @@ public class Utilities {
         }
         return new String(characters);
     }
+
     public static int calculateScoreOfRowNotHero(Player player , int row){
         int score = 0;
         for (Card card : player.getRows()[row]) {
@@ -234,6 +236,7 @@ public class Utilities {
         }
         return score;
     }
+
     public static int calculateMaxScoreOfRowNotHero(Player player , int row){
         int maxScore = 0;
         for (Card card : player.getRows()[row]) {

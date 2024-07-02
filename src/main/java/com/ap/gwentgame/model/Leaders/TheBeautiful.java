@@ -1,14 +1,14 @@
 package com.ap.gwentgame.model.Leaders;
 
-import com.ap.gwentgame.model.Abilities.CommandersHorn;
+import com.ap.gwentgame.enums.FactionType;
 import com.ap.gwentgame.model.Cards.Card;
 import com.ap.gwentgame.model.Cards.UnitCard;
 import com.ap.gwentgame.model.Game.Board;
 import com.ap.gwentgame.model.Game.Player;
 
 public class TheBeautiful extends Leader{
-    public TheBeautiful(String name){
-        super(name);
+    public TheBeautiful(String name, FactionType factionType) {
+        super(name, factionType);
     }
 
     @Override

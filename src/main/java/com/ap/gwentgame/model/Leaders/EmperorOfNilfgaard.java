@@ -1,11 +1,12 @@
 package com.ap.gwentgame.model.Leaders;
 
+import com.ap.gwentgame.enums.FactionType;
 import com.ap.gwentgame.model.Game.Board;
 import com.ap.gwentgame.model.Game.Player;
 
 public class EmperorOfNilfgaard extends Leader{
-    public EmperorOfNilfgaard(String name){
-        super(name);
+    public EmperorOfNilfgaard(String name, FactionType factionType) {
+        super(name, factionType);
     }
 
     @Override

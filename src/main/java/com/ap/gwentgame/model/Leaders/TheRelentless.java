@@ -1,5 +1,6 @@
 package com.ap.gwentgame.model.Leaders;
 
+import com.ap.gwentgame.enums.FactionType;
 import com.ap.gwentgame.model.Cards.Card;
 import com.ap.gwentgame.model.Game.Board;
 import com.ap.gwentgame.model.Game.Player;
@@ -7,8 +8,8 @@ import com.ap.gwentgame.model.Game.Player;
 import java.util.ArrayList;
 
 public class TheRelentless extends Leader{
-    public TheRelentless(String name){
-        super(name);
+    public TheRelentless(String name, FactionType factionType) {
+        super(name, factionType);
     }
 
     @Override

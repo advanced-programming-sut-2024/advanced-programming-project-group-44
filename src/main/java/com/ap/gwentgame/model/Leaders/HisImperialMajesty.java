@@ -1,17 +1,16 @@
 package com.ap.gwentgame.model.Leaders;
 
+import com.ap.gwentgame.enums.FactionType;
 import com.ap.gwentgame.model.Cards.Card;
 import com.ap.gwentgame.model.Game.Board;
 import com.ap.gwentgame.model.Game.Player;
 
-import java.lang.foreign.PaddingLayout;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Random;
 
 public class HisImperialMajesty extends Leader{
-    public HisImperialMajesty(String name){
-        super(name);
+    public HisImperialMajesty(String name, FactionType factionType) {
+        super(name, factionType);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.ap.gwentgame.model.Game;
 
 import com.ap.gwentgame.model.Cards.Weather;
+import com.ap.gwentgame.model.ItemContainer;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,7 +13,7 @@ public class Board {
     private Player currentPlayer;
     private Player opponentPlayer;
 
-    private ArrayList<Weather> weatherCard;
+    private final ItemContainer<Weather> weatherCards;
 
     private final Date creationDate;
 
@@ -22,6 +23,7 @@ public class Board {
         this.currentPlayer = player1;
         this.opponentPlayer = player2;
         this.creationDate = new Date();
+        this.weatherCards = new ItemContainer<>();
     }
 
     public Player getPlayer1() {
@@ -56,12 +58,12 @@ public class Board {
         this.opponentPlayer = opponentPlayer;
     }
 
-    public ArrayList<Weather> getWeatherCard() {
-        return weatherCard;
+    public ItemContainer<Weather> getWeatherCards() {
+        return weatherCards;
     }
 
-    public void setWeatherCard(Weather weatherCard) {
-        this.weatherCard.add(weatherCard);
+    public void setWeatherCards(Weather weatherCards) {
+        this.weatherCards.add(weatherCards);
     }
 
     public Date getCreationDate() {
