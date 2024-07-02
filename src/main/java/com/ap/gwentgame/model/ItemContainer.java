@@ -13,7 +13,7 @@ public class ItemContainer<T extends Item> extends FlowPane {
         this.orientationProperty().setValue(Orientation.HORIZONTAL);
     }
 
-    public void setVisuals(Pane pane, int x, int y, int width, int height, int horizontalGap, int verticalGap) {
+    public void setVisuals(Pane pane, double x, double y, double width, double height, double horizontalGap, double verticalGap) {
         this.setLayoutX(x);
         this.setLayoutY(y);
         this.setPrefWidth(width);
@@ -21,6 +21,13 @@ public class ItemContainer<T extends Item> extends FlowPane {
         this.setHgap(horizontalGap);
         this.setVgap(verticalGap);
         pane.getChildren().add(this);
+    }
+
+    public void setVisuals(double width, double height, double horizontalGap, double verticalGap) {
+        this.setPrefWidth(width);
+        this.setPrefHeight(height);
+        this.setHgap(horizontalGap);
+        this.setVgap(verticalGap);
     }
 
     public void add(T item) {
