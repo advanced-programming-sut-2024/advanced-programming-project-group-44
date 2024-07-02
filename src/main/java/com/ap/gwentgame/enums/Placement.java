@@ -9,7 +9,8 @@ public enum Placement {
     AGILE(new int[]{1, 2}),
     WEATHER(new int[]{}),
     SPECIAL_PLACE(new int[]{1, 2, 3}),
-    DECOY(new int[]{1, 2, 3});
+    DECOY(new int[]{1, 2, 3}),
+    SCORCH(new int[]{1, 2, 3});
 
     private final ArrayList<Integer> allowedRows;
     private int row;

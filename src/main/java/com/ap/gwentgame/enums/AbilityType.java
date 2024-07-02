@@ -5,7 +5,7 @@ import com.ap.gwentgame.model.Cards.Card;
 import com.ap.gwentgame.model.Cards.UnitCard;
 
 public enum AbilityType {
-    BERSERKER, COMMANDERSHORN, DECOY, MARDROEME, MEDIC, MORALBOOST, MUSTER, SCORCH, SPY, TIGHTBOND, TRANSFORMERS, NONE;
+    BERSERKER, COMMANDERSHORN, DECOY, MARDROEME, MEDIC, MORALBOOST, MUSTER, SCORCH, SPY, TIGHTBOND, TRANSFORMERS, BITINGFROST, IMPENETRABLEFOG, SKELLIGESTORM, TORRENTIALRAIN, CLEARWEATHER, NONE;
 
     public Ability getAbility(Card card) {
         return switch (this) {
@@ -20,6 +20,11 @@ public enum AbilityType {
             case SPY -> new Spy(card);
             case TIGHTBOND -> new TightBond(card);
             case TRANSFORMERS -> new Transformers(card);
+            case BITINGFROST -> new BitingFrost(card);
+            case IMPENETRABLEFOG -> new ImpenetrableFog(card);
+            case SKELLIGESTORM -> new SkelligeStorm(card);
+            case TORRENTIALRAIN -> new TorrentialRain(card);
+            case CLEARWEATHER -> new ClearWeather(card);
             default -> null;
         };
 
