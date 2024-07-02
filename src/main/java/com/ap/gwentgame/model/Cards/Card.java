@@ -43,12 +43,12 @@ public abstract class Card extends Item {
     }
 
     public Image getPreGameImage() {
-        String path = Utilities.getResourcePath("/images/cards/pregame/" + factionType + "/" + getName() + ".jpg");
+        String path = Utilities.getResourcePath("images/cards/pregame/" + factionType.toString().toLowerCase() + "/" + getName().replaceAll("’", "").replaceAll("'", "") + ".jpg");
         return new Image(path);
     }
 
     public Image getGameImage() {
-        String path = Utilities.getResourcePath("/images/cards/game" + factionType + "/" + getName() + ".jpg");
+        String path = Utilities.getResourcePath("images/cards/game" + factionType.toString().toLowerCase().replaceAll("’", "").replaceAll("'", "") + "/" + getName() + ".jpg");
         return new Image(path);
     }
 }

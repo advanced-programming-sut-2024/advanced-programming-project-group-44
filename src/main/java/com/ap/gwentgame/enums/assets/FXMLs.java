@@ -14,7 +14,7 @@ public enum FXMLs {
     PROFILE_MENU("ProfileMenu.fxml"),
     EDIT_MENU("EditMenu.fxml"),
     GAME_HISTORY("GameHistory.fxml"),
-    PREGAME_MENU("Game.fxml"),
+    PREGAME_MENU("PreGameMenu.fxml"),
     BOARD("Board.fxml");
 
     private final String name;
@@ -27,7 +27,7 @@ public enum FXMLs {
         try {
             return new Scene(FXMLLoader.load(new URL(Utilities.getResourcePath("fxml/" + name))));
         } catch (Exception e) {
-            System.out.println("FXMLs.getScene() failed");
+            e.printStackTrace();
             return null;
         }
 

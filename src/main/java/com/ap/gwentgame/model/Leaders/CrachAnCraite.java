@@ -15,15 +15,5 @@ public class CrachAnCraite extends Leader {
 
     @Override
     public void executeAbility(Board board) {
-        //TODO bor zadan?
-        Player player = board.getCurrentPlayer();
-        ArrayList<Card> discardPileCards = player.getDiscardPile();
-        for (Card card : discardPileCards) {
-            if (card instanceof UnitCard) {
-                if (!((UnitCard) card).isHero()) {
-                    player.addCardToDeckFromDiscardPile(card);
-                }
-            }player.addCardToDeckFromDiscardPile(card);
-        }
     }
 }

@@ -15,17 +15,6 @@ public class InvaderOfTheNorth extends Leader{
 
     @Override
     public void executeAbility(Board board){
-        Player player = board.getCurrentPlayer();
-        Player opponent = board.getOpponentPlayer();
-        ArrayList<Card> discardPileOpponent = opponent.getDiscardPile();
-        Card card = getRandomCard(discardPileOpponent);
-        opponent.addCardToHandFromDiscardPile(card);
-        card = getRandomCard(discardPileOpponent);
-        player.addCardToHandFromDiscardPile(card);//TODO check
-    }
-    public static Card getRandomCard(ArrayList<Card> list) {
-        Random rand = new Random();
-        int randomIndex = rand.nextInt(list.size());
-        return list.get(randomIndex);
+
     }
 }

@@ -15,13 +15,5 @@ public class TheWhiteFlame extends Leader{
 
     @Override
     public void executeAbility(Board board){
-        Player player = board.getCurrentPlayer();
-        ItemContainer deckCards = player.getDeck();
-        for(Card card : deckCards){
-            if(card.getName().contains("rain")){
-                card.executeAction(board);
-                //TODO check the name
-            }
-        }
     }
 }

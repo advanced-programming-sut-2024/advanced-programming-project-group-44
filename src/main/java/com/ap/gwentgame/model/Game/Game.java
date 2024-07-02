@@ -6,7 +6,6 @@ import com.ap.gwentgame.model.Leaders.Leader;
 
 import java.util.Queue;
 
-
 public class Game {
     private static Board currentBoard;
     private Queue<Player> players;
