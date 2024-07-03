@@ -16,14 +16,6 @@ public class CommanderOfTheRedRiders extends Leader{
 
     @Override
     public void executeAbility(Board board){
-        Player player = board.getCurrentPlayer();
-        ItemContainer deckCards = player.getDeck();
-        for(Card card : deckCards){
-            if(card instanceof Weather){
-                /*TODO show the card ?
-                Card choosenCard = ...
-                choosenCard.executeAction(board);*/
-            }
-        }
+
     }
 }

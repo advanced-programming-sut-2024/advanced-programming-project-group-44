@@ -31,7 +31,6 @@ public class ProfileMenuController {
     @FXML
     public ImageView back;
 
-
     public void initialize() {
         username.setText(App.getLoggedinUser().getName());
         nickname.setText(App.getLoggedinUser().getNickName());

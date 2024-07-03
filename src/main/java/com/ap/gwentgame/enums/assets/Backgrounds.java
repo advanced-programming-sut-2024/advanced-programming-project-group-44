@@ -14,6 +14,6 @@ public enum Backgrounds {
     }
 
     public Image getImage() {
-        return new Image(Utilities.getResourcePath("/images/backgrounds/" + name));
+        return new Image(Utilities.getResourcePath("images/backgrounds/" + name));
     }
 }

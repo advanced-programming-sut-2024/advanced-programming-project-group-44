@@ -227,25 +227,6 @@ public class Utilities {
         return new String(characters);
     }
 
-    public static int calculateScoreOfRowNotHero(Player player , int row){
-        int score = 0;
-        for (Card card : player.getRows()[row]) {
-            if (card instanceof UnitCard && !((UnitCard) card).isHero()) {
-                score += ((UnitCard) card).getScore();
-            }
-        }
-        return score;
-    }
-
-    public static int calculateMaxScoreOfRowNotHero(Player player , int row){
-        int maxScore = 0;
-        for (Card card : player.getRows()[row]) {
-            if (card instanceof UnitCard && !((UnitCard) card).isHero()) {
-                if (((UnitCard) card).getScore() > maxScore) maxScore = ((UnitCard) card).getScore();
-            }
-        }
-        return maxScore;
-    }
 
 }
 

@@ -1,6 +1,7 @@
 package com.ap.gwentgame.model;
 
 import com.ap.gwentgame.model.Cards.Item;
+import com.ap.gwentgame.model.Cards.PreGameCard;
 import javafx.geometry.Orientation;
 import javafx.scene.Node;
 import javafx.scene.layout.FlowPane;
@@ -55,5 +56,23 @@ public class ItemContainer<T extends Item> extends FlowPane {
             }
         }
         return cards;
+    }
+
+    public boolean contains(PreGameCard preGameCard) {
+        for (T item : getItems()) {
+            if (item.equals(preGameCard)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Item findByName(String name){
+        for (T item : getItems()) {
+            if (item.getName().equals(name)) {
+                return item;
+            }
+        }
+        return null;
     }
 }

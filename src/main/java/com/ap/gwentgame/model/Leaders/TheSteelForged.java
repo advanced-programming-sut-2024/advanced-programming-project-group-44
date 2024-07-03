@@ -14,13 +14,6 @@ public class TheSteelForged extends Leader{
 
     @Override
     public void executeAbility(Board board){
-        Player player = board.getCurrentPlayer();
-        ArrayList<Weather> weatherCards = board.getWeatherCards();
-        if(weatherCards != null){
-            for(Weather weather : weatherCards){
-                player.addWeatherCardToDiscardPile(weather);
-                weather.stopAction(board);
-            }
-        }
+
     }
 }

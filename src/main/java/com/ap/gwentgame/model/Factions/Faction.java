@@ -4,6 +4,7 @@ import com.ap.gwentgame.model.ItemContainer;
 import com.ap.gwentgame.model.Cards.Item;
 import com.ap.gwentgame.model.Cards.PreGameCard;
 import com.ap.gwentgame.model.Leaders.Leader;
+import javafx.scene.Node;
 
 public class Faction extends Item {
     protected final ItemContainer<Leader> leaders;

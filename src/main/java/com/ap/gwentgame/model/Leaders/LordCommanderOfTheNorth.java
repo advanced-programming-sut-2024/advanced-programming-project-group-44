@@ -14,16 +14,5 @@ public class LordCommanderOfTheNorth extends Leader {
 
     @Override
     public void executeAbility(Board board) {
-        Player opponent = board.getOpponentPlayer();
-        int score = Utilities.calculateScoreOfRowNotHero(opponent, 2);
-        int maxScore = Utilities.calculateMaxScoreOfRowNotHero(opponent, 2);
-        if (score >= 10) {
-            for (Card card : opponent.getRows()[2]) {
-                if (card instanceof UnitCard && !((UnitCard) card).isHero()
-                        && ((UnitCard) card).getScore() == maxScore) {
-                    opponent.addCardToDiscardPile(card, 2);
-                }
-            }
-        }
     }
 }

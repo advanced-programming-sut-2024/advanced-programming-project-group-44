@@ -14,12 +14,6 @@ public class Mardroeme extends Ability {
 
     @Override
     public void run(Board board) {
-        Player player = board.getCurrentPlayer();
-        int row = card.getPlacement().getRow();
-        for(Card targetCard : player.getRows()[row]){
-            if(targetCard.getAbility() instanceof Berserker){
-                //TODO khersesh kon
-            }
-        }
+
     }
 }

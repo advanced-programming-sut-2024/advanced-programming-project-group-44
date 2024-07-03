@@ -15,28 +15,6 @@ public class HisImperialMajesty extends Leader{
 
     @Override
     public void executeAbility(Board board){
-        Player opponent = board.getOpponentPlayer();
-        ArrayList<Card> handCardsOpponent = opponent.getHand();
-        int handCardsOpponentNum = handCardsOpponent.size();
-        ArrayList<Card> randomCards;
-        if(handCardsOpponentNum < 4) randomCards = getRandomCards(handCardsOpponent , handCardsOpponentNum);
-        else randomCards = getRandomCards(handCardsOpponent , 3);
-        //TODO show them to the player
 
-    }
-    public static ArrayList<Card> getRandomCards(ArrayList<Card> list, int numberOfCards) {
-        if (numberOfCards > list.size()) {
-            throw new IllegalArgumentException("Number of cards requested exceeds the size of the list");
-        }
-
-        ArrayList<Card> copy = new ArrayList<>(list);
-        Collections.shuffle(copy);
-
-        ArrayList<Card> result = new ArrayList<>();
-        for (int i = 0; i < numberOfCards; i++) {
-            result.add(copy.get(i));
-        }
-
-        return result;
     }
 }
