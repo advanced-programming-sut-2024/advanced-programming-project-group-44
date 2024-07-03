@@ -21,7 +21,8 @@ public class QueenOfDolBlathanna extends Leader{
             for (Card card : opponent.getRows()[1].getItems()) {
                 if (card instanceof UnitCard && !((UnitCard) card).isHero()
                         && ((UnitCard) card).getScore() == maxScore) {
-                    opponent.addCardToDiscardPile(card, 1);
+                    opponent.changeContainer(opponent.getRows()[1] , opponent.getDiscardPile() , card);
+                    //opponent.addCardToDiscardPile(card, 1);
                 }
             }
         }

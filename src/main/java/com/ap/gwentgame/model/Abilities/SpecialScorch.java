@@ -30,7 +30,8 @@ public class SpecialScorch extends Ability {
                     if (!((UnitCard) targetCard).isHero() &&
                             ((UnitCard) targetCard).getScore() == maxScore) {
                         UnitCard unitcard = ((UnitCard) targetCard);
-                        player.addCardToDiscardPile(unitcard, i);
+                        player.changeContainer(player.getRows()[i] , player.getDiscardPile() , unitcard);
+                        //player.addCardToDiscardPile(unitcard, i);
                     }
                 }
             }

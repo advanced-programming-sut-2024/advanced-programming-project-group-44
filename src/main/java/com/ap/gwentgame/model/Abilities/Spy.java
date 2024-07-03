@@ -18,7 +18,8 @@ public class Spy extends Ability{
         Player player = board.getCurrentPlayer();
         ItemContainer<Card> deck = player.getDeck();
         Card randomCard = getRandomCard(deck.getItems());
-        player.addCardToHandFromDeck(randomCard);
+        player.changeContainer(player.getDeck() , player.getHand() , randomCard);
+        //player.addCardToHandFromDeck(randomCard);
         //TODO run its ability
     }
     public static Card getRandomCard(ArrayList<Card> list) {

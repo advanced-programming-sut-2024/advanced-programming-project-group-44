@@ -22,9 +22,11 @@ public class CrachAnCraite extends Leader {
         for (Card card : discardPileCards.getItems()) {
             if (card instanceof UnitCard) {
                 if (!((UnitCard) card).isHero()) {
-                    player.addCardToDeckFromDiscardPile(card);
+                    player.changeContainer(player.getDiscardPile() , player.getDeck() , card);
+                    //player.addCardToDeckFromDiscardPile(card);
                 }
-            }player.addCardToDeckFromDiscardPile(card);
+            }player.changeContainer(player.getDiscardPile() , player.getDeck() , card);
+            //player.addCardToDeckFromDiscardPile(card);
         }
     }
 }

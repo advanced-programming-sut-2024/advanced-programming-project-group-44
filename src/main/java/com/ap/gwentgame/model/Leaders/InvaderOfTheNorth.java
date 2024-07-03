@@ -20,9 +20,11 @@ public class InvaderOfTheNorth extends Leader{
         Player opponent = board.getOpponentPlayer();
         ItemContainer<Card> discardPileOpponent = opponent.getDiscardPile();
         Card card = getRandomCard(discardPileOpponent.getItems());
-        opponent.addCardToHandFromDiscardPile(card);
+        opponent.changeContainer(opponent.getDiscardPile() , opponent.getHand() , card);
+        //opponent.addCardToHandFromDiscardPile(card);
         card = getRandomCard(discardPileOpponent.getItems());
-        player.addCardToHandFromDiscardPile(card);//TODO check
+        player.changeContainer(player.getDiscardPile() , player.getHand() , card);
+        //player.addCardToHandFromDiscardPile(card);//TODO check
     }
     public static Card getRandomCard(ArrayList<Card> list) {
         Random rand = new Random();

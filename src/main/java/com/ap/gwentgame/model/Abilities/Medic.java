@@ -17,7 +17,8 @@ public class Medic extends Ability{
         Player player = board.getCurrentPlayer();
         ArrayList<Card> discardCards = player.getDiscardPile().getItems();
         Card randomCard = getRandomCard(discardCards);
-        player.addCardToHandFromDeck(randomCard);
+        player.changeContainer(player.getDeck() , player.getHand() , randomCard);
+        //player.addCardToHandFromDeck(randomCard);
 
     }
     public static Card getRandomCard(ArrayList<Card> list) {

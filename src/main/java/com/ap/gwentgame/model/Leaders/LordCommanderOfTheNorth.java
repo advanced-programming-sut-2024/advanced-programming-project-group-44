@@ -21,7 +21,8 @@ public class LordCommanderOfTheNorth extends Leader {
             for (Card card : opponent.getRows()[2].getItems()) {
                 if (card instanceof UnitCard && !((UnitCard) card).isHero()
                         && ((UnitCard) card).getScore() == maxScore) {
-                    opponent.addCardToDiscardPile(card, 2);
+                    opponent.changeContainer(opponent.getRows()[2] , opponent.getDiscardPile() , card);
+                    //opponent.addCardToDiscardPile(card, 2);
                 }
             }
         }

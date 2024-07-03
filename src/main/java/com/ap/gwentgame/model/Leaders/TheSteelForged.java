@@ -1,6 +1,7 @@
 package com.ap.gwentgame.model.Leaders;
 
 import com.ap.gwentgame.enums.FactionType;
+import com.ap.gwentgame.model.Cards.Card;
 import com.ap.gwentgame.model.Cards.Weather;
 import com.ap.gwentgame.model.Game.Board;
 import com.ap.gwentgame.model.Game.Player;
@@ -19,7 +20,8 @@ public class TheSteelForged extends Leader{
         ItemContainer<Weather> weatherCards = board.getWeatherCards();
         if(weatherCards != null){
             for(Weather weather : weatherCards.getItems()){
-                player.addWeatherCardToDiscardPile(weather);
+                player.changeContainer(board.getWeatherCards() , player.getDiscardPile() , weather);
+                //player.addWeatherCardToDiscardPile(weather);
                 weather.stopAction(board);
             }
         }

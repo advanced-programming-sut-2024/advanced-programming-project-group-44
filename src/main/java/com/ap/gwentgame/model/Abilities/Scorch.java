@@ -32,7 +32,8 @@ public class Scorch extends Ability{
                     if(!((UnitCard) targetCard).isHero() &&
                             ((UnitCard) targetCard).getScore() == maxScore){
                         UnitCard unitcard = ((UnitCard) targetCard);
-                        opponent.addCardToDiscardPile(unitcard , row);
+                        opponent.changeContainer(opponent.getRows()[row] , opponent.getDiscardPile() , unitcard);
+                        //opponent.addCardToDiscardPile(unitcard , row);
                     }
                 }
             }
