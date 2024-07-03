@@ -13,6 +13,13 @@ public class BringerOfDeath extends Leader {
 
     @Override
     public void executeAbility(Board board) {
-
+        Player player = board.getCurrentPlayer();
+        //TODO check the row & check if it also happens for the opponent
+        for(Card card : player.getRows()[0].getItems()){
+            if(card instanceof UnitCard && !(card.getName().contains("commander'sHorn")) &&
+                    !((UnitCard) card).isHero()){
+                ((UnitCard) card).setScore(((UnitCard) card).getScore() * 2);
+            }
+        }
     }
 }

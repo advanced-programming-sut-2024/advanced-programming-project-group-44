@@ -14,6 +14,19 @@ public class Medic extends Ability{
 
     @Override
     public void run(Board board) {
+        Player player = board.getCurrentPlayer();
+        ArrayList<Card> discardCards = player.getDiscardPile().getItems();
+        Card randomCard = getRandomCard(discardCards);
+        player.addCardToHandFromDeck(randomCard);
+
+    }
+    public static Card getRandomCard(ArrayList<Card> list) {
+        Random rand = new Random();
+        int randomIndex = rand.nextInt(list.size());
+        return list.get(randomIndex);
+    }
+    @Override
+    public void stop(Board board) {
 
     }
 }

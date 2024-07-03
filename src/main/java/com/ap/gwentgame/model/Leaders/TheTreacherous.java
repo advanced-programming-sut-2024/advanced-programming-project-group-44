@@ -19,9 +19,17 @@ public class TheTreacherous extends Leader{
         doubleSpyPower(player);
         doubleSpyPower(opponent);
     }
-//TODO spy?
+    //TODO spy?
     private void doubleSpyPower(Player player) {
-
+        for(int i = 0 ; i < 2 ; i ++){
+            for(Card card : player.getRows()[i].getItems()){
+                if(card.getAbility() instanceof Spy){
+                    if(card instanceof UnitCard){
+                        ((UnitCard) card).setScore(((UnitCard) card).getScore() * 2);
+                    }
+                }
+            }
+        }
     }
 
 }

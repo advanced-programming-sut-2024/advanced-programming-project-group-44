@@ -12,6 +12,24 @@ public class TightBond extends Ability {
 
     @Override
     public void run(Board board) {
+        Player player = board.getCurrentPlayer();
+        int row = card.getPlacement().getRow();
+        int countOfTightBondCards = 0;
+        for (Card targetCard : player.getRows()[row].getItems()) {
+            if (targetCard.getAbility() instanceof TightBond) {
+                countOfTightBondCards++;
+            }
+        }
+        int newScoreForTightBondCards = countOfTightBondCards * ((UnitCard) card).getScore();
+        for (Card targetCard : player.getRows()[row].getItems()) {
+            if (targetCard.getAbility() instanceof TightBond) {
+                UnitCard unitcard = ((UnitCard) targetCard);
+                unitcard.setScore(newScoreForTightBondCards);
+            }
+        }
+    }
+    @Override
+    public void stop(Board board) {
 
     }
 }

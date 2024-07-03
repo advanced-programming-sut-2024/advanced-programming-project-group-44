@@ -15,5 +15,19 @@ public class Spy extends Ability{
 
     @Override
     public void run(Board board) {
+        Player player = board.getCurrentPlayer();
+        ItemContainer<Card> deck = player.getDeck();
+        Card randomCard = getRandomCard(deck.getItems());
+        player.addCardToHandFromDeck(randomCard);
+        //TODO run its ability
+    }
+    public static Card getRandomCard(ArrayList<Card> list) {
+        Random rand = new Random();
+        int randomIndex = rand.nextInt(list.size());
+        return list.get(randomIndex);
+    }
+    @Override
+    public void stop(Board board) {
+
     }
 }

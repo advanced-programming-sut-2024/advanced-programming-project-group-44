@@ -14,6 +14,16 @@ public class SonOfMedell extends Leader {
 
     @Override
     public void executeAbility(Board board) {
-
+        Player opponent = board.getOpponentPlayer();
+        int score = Utilities.calculateScoreOfRowNotHero(opponent , 1);
+        int maxScore = Utilities.calculateMaxScoreOfRowNotHero(opponent , 1);
+        if (score >= 10) {
+            for (Card card : opponent.getRows()[1].getItems()) {
+                if (card instanceof UnitCard && !((UnitCard) card).isHero()
+                        && ((UnitCard) card).getScore() == maxScore) {
+                    opponent.addCardToDiscardPile(card, 1);
+                }
+            }
+        }
     }
 }

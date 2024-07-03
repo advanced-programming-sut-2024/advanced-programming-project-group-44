@@ -14,4 +14,8 @@ public class Decoy extends Ability{
     public void run(Board board) {
         //TODO
     }
+    @Override
+    public void stop(Board board) {
+
+    }
 }

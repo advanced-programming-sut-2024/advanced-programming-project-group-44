@@ -71,7 +71,7 @@ public class Player{
         this.remainingHealth = remainingHealth;
     }
 
-    public ItemContainer getDeck() {
+    public ItemContainer<Card> getDeck() {
         return deck;
     }
 

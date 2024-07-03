@@ -8,6 +8,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 public class ItemContainer<T extends Item> extends FlowPane {
     public ItemContainer() {
@@ -74,5 +75,16 @@ public class ItemContainer<T extends Item> extends FlowPane {
             }
         }
         return null;
+    }
+
+    public int size() {
+        return  this.getChildren().size();
+    }
+
+    public void addAll(ItemContainer<T> row) {
+        this.getChildren().addAll(row.getChildren());
+    }
+    public void addAll(Collection<T> row) {
+        this.getChildren().addAll(row);
     }
 }

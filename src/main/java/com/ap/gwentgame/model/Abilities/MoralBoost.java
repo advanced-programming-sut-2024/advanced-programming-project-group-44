@@ -13,6 +13,16 @@ public class MoralBoost extends Ability{
 
     @Override
     public void run(Board board) {
+        Player player = board.getCurrentPlayer();
+        int row = card.getPlacement().getRow();
+        for(Card targetCard : player.getRows()[row].getItems()){
+            if (targetCard instanceof UnitCard unitcard && targetCard != card){
+                unitcard.setScore(unitcard.getScore() + 1);
+            }
+        }
+    }
+    @Override
+    public void stop(Board board) {
 
     }
 }

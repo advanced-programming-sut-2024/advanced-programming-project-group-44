@@ -11,6 +11,7 @@ public class EmperorOfNilfgaard extends Leader{
 
     @Override
     public void executeAbility(Board board){
-
+        Player opponent = board.getOpponentPlayer();
+        opponent.setLeader(null);
     }
 }

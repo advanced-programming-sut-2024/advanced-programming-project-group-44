@@ -14,6 +14,13 @@ public class Muster extends Ability{
 
     @Override
     public void run(Board board) {
+        Player player = board.getCurrentPlayer();
+        ItemContainer<Card> deckCards = player.getDeck();
+        ItemContainer<Card> handCards = player.getHand();
+        //TODO
+    }
+    @Override
+    public void stop(Board board) {
 
     }
 }

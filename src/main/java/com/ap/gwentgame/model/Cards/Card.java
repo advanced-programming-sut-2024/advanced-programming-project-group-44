@@ -23,7 +23,7 @@ public abstract class Card extends Item {
     }
 
     public void stopAction(Board board) {
-        //ability.stop(board);
+        ability.stop(board);
     }
 
     public Ability getAbility() {

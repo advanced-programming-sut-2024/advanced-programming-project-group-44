@@ -4,6 +4,7 @@ import com.ap.gwentgame.model.App;
 import com.ap.gwentgame.model.Cards.Card;
 import com.ap.gwentgame.model.Cards.UnitCard;
 import com.ap.gwentgame.model.Game.Player;
+import com.ap.gwentgame.model.ItemContainer;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.PasswordField;
@@ -225,6 +226,39 @@ public class Utilities {
             characters[randomIndex] = temp;
         }
         return new String(characters);
+    }
+    public static int calculateScoreOfRowNotHero(Player player , int row){
+        int score = 0;
+        for (Card card : player.getRows()[row].getItems()) {
+            if (card instanceof UnitCard && !((UnitCard) card).isHero()) {
+                score += ((UnitCard) card).getScore();
+            }
+        }
+        return score;
+    }
+    public static int calculateMaxScoreOfRowNotHero(Player player , int row){
+        int maxScore = 0;
+        for (Card card : player.getRows()[row].getItems()) {
+            if (card instanceof UnitCard && !((UnitCard) card).isHero()) {
+                if (((UnitCard) card).getScore() > maxScore) maxScore = ((UnitCard) card).getScore();
+            }
+        }
+        return maxScore;
+    }
+
+    public static void weatherAbility(Player player , int row) {
+        for (Card card : player.getRows()[row].getItems()) {
+            if (card instanceof UnitCard && !((UnitCard) card).isHero()) {
+                ((UnitCard) card).setScore(1);
+            }
+        }
+    }
+    public static void stopWeatherAbility(Player player , int row) {
+        for (Card card : player.getRows()[row].getItems()) {
+            if (card instanceof UnitCard && !((UnitCard) card).isHero()) {
+                ((UnitCard) card).setScore(((UnitCard) card).getInitialScore());
+            }
+        }
     }
 
 

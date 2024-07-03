@@ -12,4 +12,9 @@ public class Berserker extends Ability{
     public void run(Board board) {
         // TODO implement here
     }
+
+    @Override
+    public void stop(Board board) {
+
+    }
 }

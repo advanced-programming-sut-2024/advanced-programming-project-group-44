@@ -13,6 +13,33 @@ public class Scorch extends Ability{
 
     @Override
     public void run(Board board) {
+        Player opponent = board.getOpponentPlayer();
+        int row = card.getPlacement().getRow();
+        int scoreOfUnHeroCards = 0;
+        int maxScore = 0;
+        for (Card targetCard : opponent.getRows()[row].getItems()) {
+            if (targetCard instanceof UnitCard){
+                if(!((UnitCard) targetCard).isHero()){
+                    UnitCard unitcard = ((UnitCard) targetCard);
+                    scoreOfUnHeroCards += unitcard.getScore();
+                    if(maxScore < unitcard.getScore()) maxScore = unitcard.getScore();
+                }
+            }
+        }
+        if(scoreOfUnHeroCards >= 10){
+            for (Card targetCard : opponent.getRows()[row].getItems()) {
+                if (targetCard instanceof UnitCard){
+                    if(!((UnitCard) targetCard).isHero() &&
+                            ((UnitCard) targetCard).getScore() == maxScore){
+                        UnitCard unitcard = ((UnitCard) targetCard);
+                        opponent.addCardToDiscardPile(unitcard , row);
+                    }
+                }
+            }
+        }
+    }
+    @Override
+    public void stop(Board board) {
 
     }
 }
