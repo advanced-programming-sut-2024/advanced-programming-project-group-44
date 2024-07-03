@@ -115,6 +115,11 @@ public class Player{
         this.discardPile.add(card);
     }
 
+    public void changeContainer(ItemContainer<Card> from, ItemContainer<Card> to, Card card) {
+        from.remove(card);
+        to.add(card);
+    }
+
     public ItemContainer<Card> getDiscardPile() {
         return discardPile;
     }
