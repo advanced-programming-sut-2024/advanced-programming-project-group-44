@@ -44,7 +44,6 @@ public enum LeaderCardData {
             for (String part : nameParts) {
                 leaderName.append(part.substring(0, 1).toUpperCase()).append(part.substring(1).toLowerCase());
             }
-            System.out.println(leaderName);
             Class<?> leaderClass = Class.forName("com.ap.gwentgame.model.Leaders." + leaderName);
             return (Leader) leaderClass.getDeclaredConstructor(String.class, FactionType.class).newInstance(name, factionType);
         } catch (Exception e) {

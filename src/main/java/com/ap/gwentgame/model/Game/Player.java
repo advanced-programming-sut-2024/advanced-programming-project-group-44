@@ -1,14 +1,13 @@
 package com.ap.gwentgame.model.Game;
 
 import com.ap.gwentgame.model.Cards.Card;
+import com.ap.gwentgame.model.Cards.PreGameCard;
 import com.ap.gwentgame.model.Factions.Faction;
 import com.ap.gwentgame.model.ItemContainer;
 import com.ap.gwentgame.model.Leaders.Leader;
 import com.ap.gwentgame.model.User;
 
-import java.util.ArrayList;
-
-public class Player{
+public class Player {
     private final User user;
     private final Faction faction;
     private Leader leader;
@@ -22,7 +21,7 @@ public class Player{
     private final Card[] specialCards;
     private boolean hasPassed;
 
-    public Player(User user, Faction faction, Leader leader){
+    public Player(User user, Faction faction, Leader leader, ItemContainer<PreGameCard> addedCards) {
         this.user = user;
         this.faction = faction;
         this.leader = leader;
@@ -36,6 +35,10 @@ public class Player{
         this.rows[1] = new ItemContainer<Card>();
         this.rows[2] = new ItemContainer<Card>();
         this.specialCards = new Card[3];
+
+        for (PreGameCard preGameCard : addedCards.getItems()) {
+            this.deck.add(preGameCard.getCard());
+        }
     }
 
     public User getUser() {
@@ -49,7 +52,10 @@ public class Player{
     public Leader getLeader() {
         return leader;
     }
-    public void setLeader(Leader leader){this.leader = leader;}
+
+    public void setLeader(Leader leader) {
+        this.leader = leader;
+    }
 
     public int getCurrentScore() {
         return currentScore;
@@ -78,40 +84,40 @@ public class Player{
     public ItemContainer<Card> getHand() {
         return hand;
     }
-    
-    
-    public void addCardToHandFromDeck(Card card){
+
+
+    public void addCardToHandFromDeck(Card card) {
         this.hand.add(card);
         this.deck.remove(card);
     }
 
 
-    public void addCardToHandFromDiscardPile(Card card){
+    public void addCardToHandFromDiscardPile(Card card) {
         this.hand.add(card);
         this.discardPile.remove(card);
     }
 
 
-    public void addCardToDeckFromDiscardPile(Card card){
+    public void addCardToDeckFromDiscardPile(Card card) {
         this.deck.add(card);
         this.discardPile.remove(card);
     }
 
 
-    public void addCardToDiscardPile(Card card , int numOfRow){
+    public void addCardToDiscardPile(Card card, int numOfRow) {
         this.discardPile.add(card);
         ItemContainer<Card> cardsOfTheSpecificRow = this.rows[numOfRow];
         cardsOfTheSpecificRow.remove(card);
     }
 
 
-    public void addCardToDiscardPileFromHand(Card card){
+    public void addCardToDiscardPileFromHand(Card card) {
         this.discardPile.add(card);
         this.hand.remove(card);
     }
 
 
-    public void addWeatherCardToDiscardPile(Card card){
+    public void addWeatherCardToDiscardPile(Card card) {
         this.discardPile.add(card);
     }
 
