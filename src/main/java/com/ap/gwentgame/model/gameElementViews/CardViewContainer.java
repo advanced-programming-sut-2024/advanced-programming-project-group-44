@@ -1,6 +1,6 @@
-package com.ap.gwentgame.model.View;
+package com.ap.gwentgame.model.gameElementViews;
 
-import com.ap.gwentgame.model.Cards.Card;
+import com.ap.gwentgame.model.gameElements.Card;
 import javafx.geometry.Orientation;
 import javafx.scene.Node;
 import javafx.scene.layout.FlowPane;
@@ -8,15 +8,15 @@ import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
 
-public class CardViewContainer<T extends CardView> extends FlowPane {
+public class CardViewContainer<T extends ItemView> extends FlowPane {
     private final ArrayList<? extends Card> cards;
 
     public <K extends Card> CardViewContainer(ArrayList<K> cards) {
         this.cards = cards;
 
         for (Card card : cards) {
-            CardView cardView = CardView.getCardView(card);
-            this.getChildren().add(cardView);
+            ItemView itemView = ItemView.getCardView(card);
+            this.getChildren().add(itemView);
         }
     }
 
@@ -43,8 +43,8 @@ public class CardViewContainer<T extends CardView> extends FlowPane {
         this.getChildren().add(cardView);
     }
 
-    public void remove(CardView cardView) {
-        this.getChildren().remove(cardView);
+    public void remove(ItemView itemView) {
+        this.getChildren().remove(itemView);
     }
 
     public void clear() {
@@ -63,13 +63,13 @@ public class CardViewContainer<T extends CardView> extends FlowPane {
         return cards;
     }
 
-    public boolean contains(CardView cardView) {
-        return this.getChildren().contains(cardView);
+    public boolean contains(ItemView itemView) {
+        return this.getChildren().contains(itemView);
     }
 
     public T findByName(String name){
         for (T cardView : getCardViews()) {
-            if (cardView.getCard().getName().equals(name)) {
+            if (cardView.getItem().getName().equals(name)) {
                 return cardView;
             }
         }

@@ -1,4 +1,4 @@
-package com.ap.gwentgame.model.Cards;
+package com.ap.gwentgame.model.gameElements;
 
 import com.ap.gwentgame.enums.FactionType;
 import com.ap.gwentgame.enums.Placement;

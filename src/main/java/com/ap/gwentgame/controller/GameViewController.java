@@ -3,13 +3,13 @@ package com.ap.gwentgame.controller;
 import com.ap.gwentgame.enums.assets.Backgrounds;
 import com.ap.gwentgame.enums.assets.Icons;
 import com.ap.gwentgame.enums.assets.Items;
-import com.ap.gwentgame.model.Cards.Card;
-import com.ap.gwentgame.model.Cards.UnitCard;
-import com.ap.gwentgame.model.View.CardView;
-import com.ap.gwentgame.model.View.CardViewContainer;
-import com.ap.gwentgame.model.Game.GameData;
-import com.ap.gwentgame.model.Game.GameManager;
-import com.ap.gwentgame.model.Game.Player;
+import com.ap.gwentgame.model.gameElements.Card;
+import com.ap.gwentgame.model.gameElements.UnitCard;
+import com.ap.gwentgame.model.gameElements.Board;
+import com.ap.gwentgame.model.gameElementViews.ItemView;
+import com.ap.gwentgame.model.gameElementViews.CardViewContainer;
+import com.ap.gwentgame.model.GameManager;
+import com.ap.gwentgame.model.gameElements.Player;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -23,24 +23,24 @@ import java.util.ResourceBundle;
 
 
 public class GameViewController implements Initializable {
-    private GameData game;
+    private Board game;
     private AnchorPane pane;
     private Player player1;
     private Player player2;
-    private final HashMap<CardViewContainer<? extends CardView>, Rectangle> player1Containers = new HashMap<>();
-    private final HashMap<CardViewContainer<? extends CardView>, Rectangle> player2Containers = new HashMap<>();
+    private final HashMap<CardViewContainer<? extends ItemView>, Rectangle> player1Containers = new HashMap<>();
+    private final HashMap<CardViewContainer<? extends ItemView>, Rectangle> player2Containers = new HashMap<>();
 
-    private final CardViewContainer<CardView>[] player1Rows = new CardViewContainer[3];
-    private final CardViewContainer<CardView>[] player2Rows = new CardViewContainer[3];
-    private final CardViewContainer<CardView>[] player1Specials = new CardViewContainer[3];
-    private final CardViewContainer<CardView>[] player2Specials = new CardViewContainer[3];
-    private CardViewContainer<CardView> player1Hand;
-    private CardViewContainer<CardView> player2Hand;
-    private CardViewContainer<CardView> player1Deck;
-    private CardViewContainer<CardView> player2Deck;
-    private CardViewContainer<CardView> player1DiscardPile;
-    private CardViewContainer<CardView> player2DiscardPile;
-    private CardViewContainer<CardView> weatherCards;
+    private final CardViewContainer<ItemView>[] player1Rows = new CardViewContainer[3];
+    private final CardViewContainer<ItemView>[] player2Rows = new CardViewContainer[3];
+    private final CardViewContainer<ItemView>[] player1Specials = new CardViewContainer[3];
+    private final CardViewContainer<ItemView>[] player2Specials = new CardViewContainer[3];
+    private CardViewContainer<ItemView> player1Hand;
+    private CardViewContainer<ItemView> player2Hand;
+    private CardViewContainer<ItemView> player1Deck;
+    private CardViewContainer<ItemView> player2Deck;
+    private CardViewContainer<ItemView> player1DiscardPile;
+    private CardViewContainer<ItemView> player2DiscardPile;
+    private CardViewContainer<ItemView> weatherCards;
 
 
     @FXML
@@ -109,32 +109,7 @@ public class GameViewController implements Initializable {
         player2DiscardPile = new CardViewContainer<>(player2.getDiscardPile());
         weatherCards = new CardViewContainer<>(game.getWeatherCards());
 
-        player1Rows[0].setVisuals(pane, 440, 329, 508, 80, 10, 0);
-        player1Rows[1].setVisuals(pane, 440, 410, 508, 80, 10, 0);
-        player1Rows[2].setVisuals(pane, 440, 496, 508, 80, 10, 0);
 
-        player1Specials[0].setVisuals(pane, 358, 329, 80, 80, 10, 0);
-        player1Specials[1].setVisuals(pane, 358, 410, 80, 80, 10, 0);
-        player1Specials[2].setVisuals(pane, 358, 496, 80, 80, 10, 0);
-
-        player1DiscardPile.setVisuals(pane, 968, 580, 67, 89, 10, 0);
-        player1Deck.setVisuals(pane, 1080, 580, 67, 89, 10, 0);
-        player1Hand.setVisuals(pane, 357, 587, 594, 80, 10, 0);
-
-
-        player2Rows[0].setVisuals(pane, 440, 234, 508, 80, 10, 0);
-        player2Rows[1].setVisuals(pane, 440, 148, 508, 80, 10, 0);
-        player2Rows[2].setVisuals(pane, 440, 68, 508, 80, 10, 0);
-
-        player2Specials[0].setVisuals(pane, 358, 234, 80, 80, 10, 0);
-        player2Specials[1].setVisuals(pane, 358, 148, 80, 80, 10, 0);
-        player2Specials[2].setVisuals(pane, 358, 68, 80, 80, 10, 0);
-
-        player2DiscardPile.setVisuals(pane, 968, 107, 67, 89, 10, 0);
-        player2Deck.setVisuals(pane, 1080, 105, 67, 89, 10, 0);
-        player2Hand.setVisuals(pane, 357, 587, 594, 80, 10, 0);
-
-        weatherCards.setVisuals(pane, 86, 341, 177, 91, 10, 0);
     }
 
     public void initializeHighlights() {
@@ -153,7 +128,7 @@ public class GameViewController implements Initializable {
         generateHighlightRectangle(weatherCards, player1Containers);
     }
 
-    private void generateHighlightRectangle(CardViewContainer<? extends CardView> container, HashMap<CardViewContainer<? extends CardView>, Rectangle> highlights) {
+    private void generateHighlightRectangle(CardViewContainer<? extends ItemView> container, HashMap<CardViewContainer<? extends ItemView>, Rectangle> highlights) {
         Rectangle rectangle = new Rectangle();
         rectangle.setVisible(false);
         rectangle.setLayoutX(container.getLayoutX());
@@ -206,15 +181,15 @@ public class GameViewController implements Initializable {
         return player.getHand().size();
     }
 
-    public void findCardPlaceOnClick(CardView cardview) {
+    public void findCardPlaceOnClick(ItemView cardview) {
         cardview.setOnMouseClicked(event -> {
-            switch (cardview.getCard().getPlacement()) {
+            switch (cardview.getItem().getPlacement()) {
 
             }
         });
     }
 
-    public <K extends CardView> void activateContainer(CardViewContainer<K> container, K item) {
+    public <K extends ItemView> void activateContainer(CardViewContainer<K> container, K item) {
         /*highlights.get(container).setVisible(true);
         container.setOnMouseClicked(event -> {
             highlights.get(container).setVisible(false);

@@ -1,5 +1,6 @@
 package com.ap.gwentgame.enums.assets;
 
+import com.ap.gwentgame.controller.ControllerUtilities;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 
@@ -14,7 +15,7 @@ public enum FXMLs {
     EDIT_MENU("EditMenu.fxml"),
     GAME_HISTORY("GameHistory.fxml"),
     PREGAME_MENU("PreGameMenu.fxml"),
-    BOARD("GameData.fxml");
+    BOARD("Board.fxml");
 
     private final String name;
 

@@ -1,9 +1,9 @@
 package com.ap.gwentgame.model.Leaders;
 
 import com.ap.gwentgame.enums.FactionType;
-import com.ap.gwentgame.model.Game.GameData;
-import com.ap.gwentgame.model.Game.Player;
-import com.ap.gwentgame.model.Leader;
+import com.ap.gwentgame.model.gameElements.Board;
+import com.ap.gwentgame.model.gameElements.Player;
+import com.ap.gwentgame.model.gameElements.Leader;
 
 public class TheTreacherous extends Leader {
     public TheTreacherous(String name, FactionType factionType) {
@@ -11,9 +11,9 @@ public class TheTreacherous extends Leader {
     }
 
     @Override
-    public void executeAbility(GameData gameData){
-        Player player = gameData.getCurrentPlayer();
-        Player opponent = gameData.getOpponentPlayer();
+    public void executeAbility(Board board){
+        Player player = board.getCurrentPlayer();
+        Player opponent = board.getOpponentPlayer();
         doubleSpyPower(player);
         doubleSpyPower(opponent);
     }

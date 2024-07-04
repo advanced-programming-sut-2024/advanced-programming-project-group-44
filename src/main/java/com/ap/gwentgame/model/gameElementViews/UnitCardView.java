@@ -1,10 +1,10 @@
-package com.ap.gwentgame.model.View;
+package com.ap.gwentgame.model.gameElementViews;
 
-import com.ap.gwentgame.model.Cards.UnitCard;
+import com.ap.gwentgame.model.gameElements.UnitCard;
 import com.ap.gwentgame.view.ViewUtilities;
 import javafx.scene.control.Label;
 
-public class UnitCardView extends GameCardView {
+public class UnitCardView extends CardView {
     private Label scoreLabel;
 
     public UnitCardView(UnitCard card) {
@@ -15,7 +15,7 @@ public class UnitCardView extends GameCardView {
     @Override
     public void initializeGraphic() {
         super.initializeGraphic();
-        scoreLabel = new Label(Integer.toString(((UnitCard)card).getScore()));
+        scoreLabel = new Label(Integer.toString(((UnitCard) item).getScore()));
         scoreLabel.setLayoutX(0);
         scoreLabel.setLayoutY(0);
         scoreLabel.setStyle("-fx-background-color: #FFFFFF; -fx-text-fill: #000000; -fx-font-size: 20px; -fx-font-weight: bold; -fx-padding: 5px;");
@@ -23,7 +23,7 @@ public class UnitCardView extends GameCardView {
     }
 
     public void setScore(int score){
-        ((UnitCard)card).setScore(score);
+        ((UnitCard) item).setScore(score);
         ViewUtilities.changeNumber(scoreLabel, score);
     }
 }

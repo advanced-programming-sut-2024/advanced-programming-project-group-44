@@ -1,7 +1,7 @@
 package com.ap.gwentgame.model.Abilities;
 
-import com.ap.gwentgame.model.Cards.Card;
-import com.ap.gwentgame.model.Game.GameData;
+import com.ap.gwentgame.model.gameElements.Card;
+import com.ap.gwentgame.model.gameElements.Board;
 
 public abstract class Ability {
     protected Card card;
@@ -10,7 +10,7 @@ public abstract class Ability {
         this.card = card;
     }
 
-    public abstract void run(GameData gameData);
+    public abstract void run(Board board);
 
-    //public abstract void stop(GameData board);
+    //public abstract void stop(Board board);
 }

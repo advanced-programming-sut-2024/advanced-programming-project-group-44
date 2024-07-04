@@ -1,12 +1,12 @@
 package com.ap.gwentgame.enums;
 
-import com.ap.gwentgame.model.Cards.Weather;
+import com.ap.gwentgame.model.gameElements.WeatherCard;
 
 public enum WeatherCardData {
     BITING_FROST("Biting Frost", FactionType.NEUTRAL, AbilityType.BITINGFROST, 1),
     IMPENETRABLE_FOG("Impenetrable Fog", FactionType.NEUTRAL, AbilityType.IMPENETRABLEFOG, 1),
     TORRENTIAL_RAIN("Torrential Rain", FactionType.NEUTRAL, AbilityType.TORRENTIALRAIN, 1),
-    CLEAR_WEATHER("Clear Weather", FactionType.NEUTRAL, AbilityType.CLEARWEATHER, 1),
+    CLEAR_WEATHER("Clear WeatherCard", FactionType.NEUTRAL, AbilityType.CLEARWEATHER, 1),
     SKELLIGE_STORM("Skellige Storm", FactionType.SKELLIGE, AbilityType.SKELLIGESTORM, 1);
 
     private final String name;
@@ -21,10 +21,10 @@ public enum WeatherCardData {
         this.maxCount = maxCount;
     }
 
-    public Weather getWeatherCard() {
-        Weather weather = new Weather(name, Placement.SPECIAL_PLACE, factionType);
-        weather.setAbility(abilityType.getAbility(weather));
-        return weather;
+    public WeatherCard getWeatherCard() {
+        WeatherCard weatherCard = new WeatherCard(name, Placement.SPECIAL_PLACE, factionType);
+        weatherCard.setAbility(abilityType.getAbility(weatherCard));
+        return weatherCard;
     }
 
     public int getMaxCount() {

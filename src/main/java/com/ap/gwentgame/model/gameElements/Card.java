@@ -1,10 +1,8 @@
-package com.ap.gwentgame.model.Cards;
+package com.ap.gwentgame.model.gameElements;
 
 import com.ap.gwentgame.enums.FactionType;
 import com.ap.gwentgame.model.Abilities.Ability;
 import com.ap.gwentgame.enums.Placement;
-import com.ap.gwentgame.model.Game.GameData;
-import com.ap.gwentgame.model.Item;
 
 public abstract class Card extends Item {
     private Ability ability;
@@ -17,12 +15,12 @@ public abstract class Card extends Item {
         this.factionType = factionType;
     }
 
-    public void executeAction(GameData gameData) {
-        ability.run(gameData);
+    public void executeAction(Board board) {
+        ability.run(board);
     }
 
-    public void stopAction(GameData gameData) {
-        //ability.stop(gameData);
+    public void stopAction(Board board) {
+        //ability.stop(board);
     }
 
     public Ability getAbility() {

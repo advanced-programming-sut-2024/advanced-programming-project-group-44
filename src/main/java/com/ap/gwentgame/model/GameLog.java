@@ -1,4 +1,4 @@
-package com.ap.gwentgame.model.Game;
+package com.ap.gwentgame.model;
 
 import java.util.Date;
 

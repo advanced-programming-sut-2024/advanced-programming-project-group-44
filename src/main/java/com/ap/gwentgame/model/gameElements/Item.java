@@ -1,6 +1,4 @@
-package com.ap.gwentgame.model;
-
-import javafx.scene.layout.AnchorPane;
+package com.ap.gwentgame.model.gameElements;
 
 public class Item {
     private final String name;
@@ -12,5 +10,4 @@ public class Item {
     public String getName() {
         return name;
     }
-
 }

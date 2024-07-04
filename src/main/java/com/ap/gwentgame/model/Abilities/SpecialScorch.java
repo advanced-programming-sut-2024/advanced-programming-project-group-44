@@ -1,7 +1,7 @@
 package com.ap.gwentgame.model.Abilities;
 
-import com.ap.gwentgame.model.Cards.Card;
-import com.ap.gwentgame.model.Game.GameData;
+import com.ap.gwentgame.model.gameElements.Card;
+import com.ap.gwentgame.model.gameElements.Board;
 
 public class SpecialScorch extends Ability {
     public SpecialScorch(Card card) {
@@ -9,6 +9,6 @@ public class SpecialScorch extends Ability {
     }
 
     @Override
-    public void run(GameData gameData) {
+    public void run(Board board) {
     }
 }

@@ -1,8 +1,8 @@
 package com.ap.gwentgame.model.Leaders;
 
 import com.ap.gwentgame.enums.FactionType;
-import com.ap.gwentgame.model.Game.GameData;
-import com.ap.gwentgame.model.Leader;
+import com.ap.gwentgame.model.gameElements.Board;
+import com.ap.gwentgame.model.gameElements.Leader;
 
 public class KingOfTheWildHunt extends Leader {
     public KingOfTheWildHunt(String name, FactionType factionType) {
@@ -10,7 +10,7 @@ public class KingOfTheWildHunt extends Leader {
     }
 
     @Override
-    public void executeAbility(GameData gameData){
+    public void executeAbility(Board board){
 
     }
 }

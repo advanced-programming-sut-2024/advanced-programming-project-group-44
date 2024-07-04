@@ -1,10 +1,7 @@
-package com.ap.gwentgame.model.Game;
+package com.ap.gwentgame.model.gameElements;
 
-import com.ap.gwentgame.model.Cards.Card;
-import com.ap.gwentgame.model.View.CardViewContainer;
-import com.ap.gwentgame.model.View.PreGameCardView;
-import com.ap.gwentgame.model.Faction;
-import com.ap.gwentgame.model.Leader;
+import com.ap.gwentgame.model.gameElementViews.CardViewContainer;
+import com.ap.gwentgame.model.gameElementViews.PreGameCardView;
 import com.ap.gwentgame.model.User;
 
 import java.io.Serializable;
@@ -13,7 +10,7 @@ import java.util.ArrayList;
 public class Player implements Serializable {
     private final User user;
     private final Faction faction;
-    private Leader leader;
+    private final Leader leader;
     private int currentScore;
     private final int[] scores = new int[3];
     private int remainingHealth;
@@ -43,7 +40,7 @@ public class Player implements Serializable {
         this.specialCards[2] = new ArrayList<Card>();
 
         for (PreGameCardView preGameCardView : addedCards.getCardViews()) {
-            this.deck.add(preGameCardView.getCard());
+            this.deck.add((Card) preGameCardView.getItem());
         }
     }
 
@@ -57,10 +54,6 @@ public class Player implements Serializable {
 
     public Leader getLeader() {
         return leader;
-    }
-
-    public void setLeader(Leader leader) {
-        this.leader = leader;
     }
 
     public int getCurrentScore() {

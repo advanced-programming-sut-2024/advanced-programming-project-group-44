@@ -1,15 +1,15 @@
-package com.ap.gwentgame.client.controller;
+package com.ap.gwentgame.controller;
 
 import com.ap.gwentgame.enums.*;
 import com.ap.gwentgame.enums.assets.Backgrounds;
 import com.ap.gwentgame.model.Session;
-import com.ap.gwentgame.model.View.CardViewContainer;
-import com.ap.gwentgame.model.View.PreGameCardView;
-import com.ap.gwentgame.model.Faction;
+import com.ap.gwentgame.model.gameElementViews.CardViewContainer;
+import com.ap.gwentgame.model.gameElementViews.PreGameCardView;
+import com.ap.gwentgame.model.gameElements.Faction;
 import com.ap.gwentgame.model.Factions.*;
-import com.ap.gwentgame.model.Game.GameManager;
-import com.ap.gwentgame.model.Game.Player;
-import com.ap.gwentgame.model.Leader;
+import com.ap.gwentgame.model.GameManager;
+import com.ap.gwentgame.model.gameElements.Player;
+import com.ap.gwentgame.model.gameElements.Leader;
 import com.ap.gwentgame.view.GameView;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -26,7 +26,7 @@ public class PreGameMenuController implements Initializable {
     private final NorthernRealms northernRealms = new NorthernRealms();
     private final Scoiatael scoiaTael = new Scoiatael();
     private final Skellige skellige = new Skellige();
-    private final CardViewContainer<PreGameCardView> addedCards = new CardViewContainer<>();
+    private final CardViewContainer<PreGameCardView> addedCards = new CardViewContainer<>(new ArrayList<>());
     private Faction selectedFaction = null;
     private Leader selectedLeader = null;
 
@@ -70,11 +70,11 @@ public class PreGameMenuController implements Initializable {
                 selectedFaction.getCards().remove(preGameCardView);
             }
 
-            PreGameCardView addedCard = (PreGameCardView) addedCards.findByName(preGameCardView.getCard().getName());
+            PreGameCardView addedCard = (PreGameCardView) addedCards.findByName(preGameCardView.getItem().getName());
             if (addedCard != null) {
                 addedCard.setCount(addedCard.getCount() + 1);
             } else {
-                addedCard = new PreGameCardView(preGameCardView.getCard(), 1);
+                addedCard = new PreGameCardView(preGameCardView.getItem(), 1);
                 addedCard.initializeGraphic();
                 setAddedCardOnClick(addedCard);
                 addedCards.add(addedCard);
@@ -89,11 +89,11 @@ public class PreGameMenuController implements Initializable {
                 addedCards.remove(preGameCardView);
             }
 
-            PreGameCardView addedCard = (PreGameCardView) selectedFaction.getCards().findByName(preGameCardView.getCard().getName());
+            PreGameCardView addedCard = (PreGameCardView) selectedFaction.getCards().findByName(preGameCardView.getItem().getName());
             if (addedCard != null) {
                 addedCard.setCount(addedCard.getCount() + 1);
             } else {
-                addedCard = new PreGameCardView(preGameCardView.getCard(), 1);
+                addedCard = new PreGameCardView(preGameCardView.getItem(), 1);
                 addedCard.initializeGraphic();
                 setFactionCardOnclick(addedCard);
                 selectedFaction.getCards().add(addedCard);
@@ -133,7 +133,7 @@ public class PreGameMenuController implements Initializable {
         ArrayList<PreGameCardView> allPreGameCardViews = getPreGameCards();
 
         for (PreGameCardView preGameCardView : allPreGameCardViews) {
-            switch (preGameCardView.getCard().getFactionType()) {
+            switch (preGameCardView.getItem().getFactionType()) {
                 case MONSTERS: {
                     monsters.getCards().add(preGameCardView);
                     break;

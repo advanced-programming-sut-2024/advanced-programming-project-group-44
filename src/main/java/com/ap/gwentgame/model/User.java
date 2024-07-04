@@ -1,8 +1,7 @@
 package com.ap.gwentgame.model;
 
 import com.ap.gwentgame.enums.Question;
-import com.ap.gwentgame.model.Cards.Card;
-import com.ap.gwentgame.model.Game.GameLog;
+import com.ap.gwentgame.model.gameElements.Card;
 
 
 import java.util.ArrayList;

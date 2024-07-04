@@ -1,18 +1,28 @@
 package com.ap.gwentgame.view;
 
-import com.ap.gwentgame.model.View.CardViewContainer;
+import com.ap.gwentgame.model.gameElementViews.CardViewContainer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
 import java.util.Optional;
 
 public class ViewUtilities {
+    public static void setImageViewBackground(Pane pane, Image image) {
+        ImageView imageView = new ImageView(image);
+        imageView.setFitWidth(pane.getWidth());
+        imageView.setFitHeight(pane.getHeight());
+        pane.getChildren().add(imageView);
+    }
+
     public static void showWarningAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle(title);

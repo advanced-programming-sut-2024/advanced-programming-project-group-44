@@ -1,7 +1,7 @@
 package com.ap.gwentgame.enums;
 
 import com.ap.gwentgame.model.Abilities.*;
-import com.ap.gwentgame.model.Cards.Card;
+import com.ap.gwentgame.model.gameElements.Card;
 
 public enum AbilityType {
     BERSERKER, COMMANDERSHORN, DECOY, MARDROEME, MEDIC, MORALBOOST, MUSTER, SCORCH, SPY, TIGHTBOND, TRANSFORMERS, BITINGFROST, IMPENETRABLEFOG, SKELLIGESTORM, TORRENTIALRAIN, CLEARWEATHER, NONE;

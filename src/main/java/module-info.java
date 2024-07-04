@@ -4,15 +4,26 @@ module com.ap.gwentgame {
     requires javafx.graphics;
     requires javafx.base;
     requires javafx.media;
-    requires java.smartcardio;
 
-
-    exports com.ap.gwentgame.model;
-    opens com.ap.gwentgame.model to javafx.fxml;
     exports com.ap.gwentgame.controller;
-    opens com.ap.gwentgame.controller to javafx.fxml;
     exports com.ap.gwentgame.view;
+    exports com.ap.gwentgame.model;
+    exports com.ap.gwentgame.model.gameElements;
+    exports com.ap.gwentgame.model.gameElementViews;
+    exports com.ap.gwentgame.model.Factions;
+    exports com.ap.gwentgame.model.Abilities;
+    exports com.ap.gwentgame.model.Leaders;
+    exports com.ap.gwentgame.enums;
+    exports com.ap.gwentgame.enums.assets;
+
+    opens com.ap.gwentgame.controller to javafx.fxml;
     opens com.ap.gwentgame.view to javafx.fxml;
-    exports com.ap.gwentgame.model.View;
-    opens com.ap.gwentgame.model.View to javafx.fxml;
+    opens com.ap.gwentgame.model to javafx.fxml;
+    opens com.ap.gwentgame.model.gameElements to javafx.fxml;
+    opens com.ap.gwentgame.model.gameElementViews to javafx.fxml;
+    opens com.ap.gwentgame.model.Factions to javafx.fxml;
+    opens com.ap.gwentgame.model.Abilities to javafx.fxml;
+    opens com.ap.gwentgame.model.Leaders to javafx.fxml;
+    opens com.ap.gwentgame.enums to javafx.fxml;
+    opens com.ap.gwentgame.enums.assets to javafx.fxml;
 }

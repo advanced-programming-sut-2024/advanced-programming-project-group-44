@@ -1,6 +1,6 @@
 package com.ap.gwentgame.model.Factions;
 
-import com.ap.gwentgame.model.Faction;
+import com.ap.gwentgame.model.gameElements.Faction;
 
 public class NorthernRealms extends Faction {
     public NorthernRealms() {

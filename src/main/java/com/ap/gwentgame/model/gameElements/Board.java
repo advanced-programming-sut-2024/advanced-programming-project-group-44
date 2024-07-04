@@ -1,29 +1,27 @@
-package com.ap.gwentgame.model.Game;
-
-import com.ap.gwentgame.model.Cards.Weather;
+package com.ap.gwentgame.model.gameElements;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class GameData implements Serializable {
+public class Board implements Serializable {
     private final Player player1;
     private final Player player2;
     private Player Winner;
     private Player currentPlayer;
     private Player opponentPlayer;
 
-    private final ArrayList<Weather> weatherCards;
+    private final ArrayList<WeatherCard> weatherCardCards;
 
     private final Date creationDate;
 
-    public GameData(Player player1, Player player2){
+    public Board(Player player1, Player player2){
         this.player1 = player1;
         this.player2 = player2;
         this.currentPlayer = player1;
         this.opponentPlayer = player2;
         this.creationDate = new Date();
-        this.weatherCards = new ArrayList<>();
+        this.weatherCardCards = new ArrayList<>();
     }
 
     public Player getPlayer1() {
@@ -58,8 +56,8 @@ public class GameData implements Serializable {
         this.opponentPlayer = opponentPlayer;
     }
 
-    public ArrayList<Weather> getWeatherCards() {
-        return weatherCards;
+    public ArrayList<WeatherCard> getWeatherCards() {
+        return weatherCardCards;
     }
 
     public Date getCreationDate() {
