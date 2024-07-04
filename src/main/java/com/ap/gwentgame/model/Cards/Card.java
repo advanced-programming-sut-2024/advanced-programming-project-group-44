@@ -1,11 +1,10 @@
 package com.ap.gwentgame.model.Cards;
 
-import com.ap.gwentgame.controller.Utilities;
 import com.ap.gwentgame.enums.FactionType;
 import com.ap.gwentgame.model.Abilities.Ability;
 import com.ap.gwentgame.enums.Placement;
-import com.ap.gwentgame.model.Game.Board;
-import javafx.scene.image.Image;
+import com.ap.gwentgame.model.Game.GameData;
+import com.ap.gwentgame.model.Item;
 
 public abstract class Card extends Item {
     private Ability ability;
@@ -18,12 +17,12 @@ public abstract class Card extends Item {
         this.factionType = factionType;
     }
 
-    public void executeAction(Board board) {
-        ability.run(board);
+    public void executeAction(GameData gameData) {
+        ability.run(gameData);
     }
 
-    public void stopAction(Board board) {
-        //ability.stop(board);
+    public void stopAction(GameData gameData) {
+        //ability.stop(gameData);
     }
 
     public Ability getAbility() {
@@ -40,15 +39,5 @@ public abstract class Card extends Item {
 
     public FactionType getFactionType() {
         return factionType;
-    }
-
-    public Image getPreGameImage() {
-        String path = Utilities.getResourcePath("images/cards/pregame/" + factionType.toString().toLowerCase() + "/" + getName().replaceAll("’", "").replaceAll("'", "") + ".jpg");
-        return new Image(path);
-    }
-
-    public Image getGameImage() {
-        String path = Utilities.getResourcePath("images/cards/game" + factionType.toString().toLowerCase().replaceAll("’", "").replaceAll("'", "") + "/" + getName() + ".jpg");
-        return new Image(path);
     }
 }

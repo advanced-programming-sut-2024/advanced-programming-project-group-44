@@ -1,6 +1,8 @@
 package com.ap.gwentgame.model.Factions;
 
-public class Monsters extends Faction{
+import com.ap.gwentgame.model.Faction;
+
+public class Monsters extends Faction {
     public Monsters(){
         super("Monsters");
     }

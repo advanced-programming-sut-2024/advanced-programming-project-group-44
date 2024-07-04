@@ -6,7 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
-public class ForgotPasswordController {
+public class ForgotPasswordMenuController {
     @FXML
     private Label securityQuestionLabel;
 

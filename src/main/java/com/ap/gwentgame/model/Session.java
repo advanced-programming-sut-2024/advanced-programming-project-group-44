@@ -4,18 +4,35 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
-public class App {
+public class Session {
     private static ArrayList<User> allusers = new ArrayList<>();
-    private static Stage stage;
 
+    private static Stage stage;
     private static User loggedinUser;
+    private static int gameId;
 
     public static Stage getStage() {
         return stage;
     }
 
     public static void setStage(Stage stage) {
-        App.stage = stage;
+        Session.stage = stage;
+    }
+
+    public static int getGameId() {
+        return gameId;
+    }
+
+    public static void setGameId(int gameId) {
+        Session.gameId = gameId;
+    }
+
+    public static User getLoggedInUser(){
+        return loggedinUser;
+    }
+
+    public static void setLoggedInUser(User user){
+        loggedinUser = user;
     }
 
     public static User getUserByName(String name){
@@ -30,10 +47,8 @@ public class App {
     public static void addUser(User user){
         allusers.add(user);
     }
-    public static User getLoggedinUser(){
-        return loggedinUser;
-    }
-    public static void setLoggedinUser(User user){
-        loggedinUser = user;
-    }
+
+
+
+
 }

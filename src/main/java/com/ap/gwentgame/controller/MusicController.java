@@ -12,7 +12,7 @@ public class MusicController {
     private boolean isMuted = false;
 
     private MusicController() {
-        music = Musics.STARTINGMUSIC.getMusic();
+        music = Musics.STARTING_MUSIC.getMusic();
         mediaPlayer = new MediaPlayer(music);
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
     }

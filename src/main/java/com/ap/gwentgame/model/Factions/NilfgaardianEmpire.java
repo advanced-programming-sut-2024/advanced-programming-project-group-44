@@ -1,6 +1,8 @@
 package com.ap.gwentgame.model.Factions;
 
-public class NilfgaardianEmpire extends Faction{
+import com.ap.gwentgame.model.Faction;
+
+public class NilfgaardianEmpire extends Faction {
     public NilfgaardianEmpire(){
         super("Nilfgaardian Empire");
     }

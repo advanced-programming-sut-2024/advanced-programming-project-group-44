@@ -1,43 +1,49 @@
 package com.ap.gwentgame.model.Game;
 
 import com.ap.gwentgame.model.Cards.Card;
-import com.ap.gwentgame.model.Cards.PreGameCard;
-import com.ap.gwentgame.model.Factions.Faction;
-import com.ap.gwentgame.model.ItemContainer;
-import com.ap.gwentgame.model.Leaders.Leader;
+import com.ap.gwentgame.model.View.CardViewContainer;
+import com.ap.gwentgame.model.View.PreGameCardView;
+import com.ap.gwentgame.model.Faction;
+import com.ap.gwentgame.model.Leader;
 import com.ap.gwentgame.model.User;
 
-public class Player {
+import java.io.Serializable;
+import java.util.ArrayList;
+
+public class Player implements Serializable {
     private final User user;
     private final Faction faction;
     private Leader leader;
     private int currentScore;
     private final int[] scores = new int[3];
     private int remainingHealth;
-    private final ItemContainer<Card> deck;
-    private final ItemContainer<Card> hand;
-    private final ItemContainer<Card> discardPile;
-    private final ItemContainer<Card>[] rows;
-    private final Card[] specialCards;
+    private final ArrayList<Card> deck;
+    private final ArrayList<Card> hand;
+    private final ArrayList<Card> discardPile;
+    private final ArrayList<Card>[] rows;
+    private final ArrayList<Card>[] specialCards;
     private boolean hasPassed;
 
-    public Player(User user, Faction faction, Leader leader, ItemContainer<PreGameCard> addedCards) {
+    public Player(User user, Faction faction, Leader leader, CardViewContainer<PreGameCardView> addedCards) {
         this.user = user;
         this.faction = faction;
         this.leader = leader;
         this.currentScore = 0;
         this.remainingHealth = 2;
-        this.deck = new ItemContainer<Card>();
-        this.hand = new ItemContainer<Card>();
-        this.discardPile = new ItemContainer<Card>();
-        this.rows = new ItemContainer[3];
-        this.rows[0] = new ItemContainer<Card>();
-        this.rows[1] = new ItemContainer<Card>();
-        this.rows[2] = new ItemContainer<Card>();
-        this.specialCards = new Card[3];
+        this.deck = new ArrayList<Card>();
+        this.hand = new ArrayList<Card>();
+        this.discardPile = new ArrayList<Card>();
+        this.rows = new ArrayList[3];
+        this.rows[0] = new ArrayList<Card>();
+        this.rows[1] = new ArrayList<Card>();
+        this.rows[2] = new ArrayList<Card>();
+        this.specialCards = new ArrayList[3];
+        this.specialCards[0] = new ArrayList<Card>();
+        this.specialCards[1] = new ArrayList<Card>();
+        this.specialCards[2] = new ArrayList<Card>();
 
-        for (PreGameCard preGameCard : addedCards.getItems()) {
-            this.deck.add(preGameCard.getCard());
+        for (PreGameCardView preGameCardView : addedCards.getCardViews()) {
+            this.deck.add(preGameCardView.getCard());
         }
     }
 
@@ -65,8 +71,8 @@ public class Player {
         this.currentScore = currentScore;
     }
 
-    public int[] getScores() {
-        return scores;
+    public int getRowScore(int row) {
+        return scores[row];
     }
 
     public int getRemainingHealth() {
@@ -77,64 +83,31 @@ public class Player {
         this.remainingHealth = remainingHealth;
     }
 
-    public ItemContainer getDeck() {
+    public ArrayList<Card> getDeck() {
         return deck;
     }
 
-    public ItemContainer<Card> getHand() {
+    public ArrayList<Card> getHand() {
         return hand;
     }
 
-
-    public void addCardToHandFromDeck(Card card) {
-        this.hand.add(card);
-        this.deck.remove(card);
-    }
-
-
-    public void addCardToHandFromDiscardPile(Card card) {
-        this.hand.add(card);
-        this.discardPile.remove(card);
-    }
-
-
-    public void addCardToDeckFromDiscardPile(Card card) {
-        this.deck.add(card);
-        this.discardPile.remove(card);
-    }
-
-
-    public void addCardToDiscardPile(Card card, int numOfRow) {
-        this.discardPile.add(card);
-        ItemContainer<Card> cardsOfTheSpecificRow = this.rows[numOfRow];
-        cardsOfTheSpecificRow.remove(card);
-    }
-
-
-    public void addCardToDiscardPileFromHand(Card card) {
-        this.discardPile.add(card);
-        this.hand.remove(card);
-    }
-
-
-    public void addWeatherCardToDiscardPile(Card card) {
-        this.discardPile.add(card);
-    }
-
-    public void changeContainer(ItemContainer<Card> from, ItemContainer<Card> to, Card card) {
-        from.remove(card);
-        to.add(card);
-    }
-
-    public ItemContainer<Card> getDiscardPile() {
+    public ArrayList<Card> getDiscardPile() {
         return discardPile;
     }
 
-    public ItemContainer<Card>[] getRows() {
+    public ArrayList<Card> getRow(int row) {
+        return rows[row];
+    }
+
+    public ArrayList<Card>[] getRows() {
         return rows;
     }
 
-    public Card[] getSpecialCards() {
+    public ArrayList<Card> getRowSpecialCards(int row) {
+        return specialCards[row];
+    }
+
+    public ArrayList<Card>[] getSpecialCards() {
         return specialCards;
     }
 
@@ -145,6 +118,4 @@ public class Player {
     public void setPassed(boolean hasPassed) {
         this.hasPassed = hasPassed;
     }
-
-
 }

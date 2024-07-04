@@ -4,6 +4,7 @@ module com.ap.gwentgame {
     requires javafx.graphics;
     requires javafx.base;
     requires javafx.media;
+    requires java.smartcardio;
 
 
     exports com.ap.gwentgame.model;
@@ -12,4 +13,6 @@ module com.ap.gwentgame {
     opens com.ap.gwentgame.controller to javafx.fxml;
     exports com.ap.gwentgame.view;
     opens com.ap.gwentgame.view to javafx.fxml;
+    exports com.ap.gwentgame.model.View;
+    opens com.ap.gwentgame.model.View to javafx.fxml;
 }

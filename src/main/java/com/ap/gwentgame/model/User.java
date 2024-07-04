@@ -2,7 +2,7 @@ package com.ap.gwentgame.model;
 
 import com.ap.gwentgame.enums.Question;
 import com.ap.gwentgame.model.Cards.Card;
-import com.ap.gwentgame.model.Game.GameData;
+import com.ap.gwentgame.model.Game.GameLog;
 
 
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ public class User {
     private final Question question;
     private final String answer;
     private final ArrayList<Card> deck;
-    private final ArrayList<GameData> gameHistory;
+    private final ArrayList<GameLog> gameHistory;
 
     public User(String name, String password, String nickName, String email, Question question, String answer) {
         this.name = name;
@@ -37,7 +37,7 @@ public class User {
         this.draws = 0;
         this.losses = 0;
         this.deck = new ArrayList<Card>();
-        this.gameHistory = new ArrayList<GameData>();
+        this.gameHistory = new ArrayList<GameLog>();
     }
 
     public String getName() {
@@ -132,7 +132,7 @@ public class User {
         return deck;
     }
 
-    public ArrayList<GameData> getGameHistory() {
+    public ArrayList<GameLog> getGameHistory() {
         return gameHistory;
     }
 }

@@ -1,12 +1,11 @@
-package com.ap.gwentgame.model.Leaders;
+package com.ap.gwentgame.model;
 
 import com.ap.gwentgame.enums.FactionType;
-import com.ap.gwentgame.model.Cards.Item;
-import com.ap.gwentgame.model.Game.Board;
+import com.ap.gwentgame.model.Game.GameData;
 
 public abstract class Leader extends Item {
     private final FactionType factionType;
-    public abstract void executeAbility(Board board);
+    public abstract void executeAbility(GameData gameData);
     private boolean canAbilityBeExecuted;
 
     public Leader(String name, FactionType factionType) {

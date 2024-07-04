@@ -1,6 +1,5 @@
 package com.ap.gwentgame.enums.assets;
 
-import com.ap.gwentgame.controller.Utilities;
 import javafx.scene.image.Image;
 
 public enum Icons {
@@ -17,6 +16,6 @@ public enum Icons {
     }
 
     public Image getImage() {
-        return new Image(Utilities.getResourcePath("/images/icons/ + name"));
+        return new Image(ControllerUtilities.getResourcePath("/images/icons/ + name"));
     }
 }

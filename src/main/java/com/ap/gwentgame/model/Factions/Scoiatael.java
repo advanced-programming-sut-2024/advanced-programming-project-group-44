@@ -1,6 +1,8 @@
 package com.ap.gwentgame.model.Factions;
 
-public class Scoiatael extends Faction{
+import com.ap.gwentgame.model.Faction;
+
+public class Scoiatael extends Faction {
     public Scoiatael(){
         super("Scoia'tael");
     }

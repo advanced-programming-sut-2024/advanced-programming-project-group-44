@@ -1,6 +1,6 @@
 package com.ap.gwentgame.enums;
 
-import com.ap.gwentgame.model.Leaders.Leader;
+import com.ap.gwentgame.model.Leader;
 
 import static com.ap.gwentgame.enums.FactionType.*;
 

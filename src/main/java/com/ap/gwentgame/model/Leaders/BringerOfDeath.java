@@ -1,10 +1,8 @@
 package com.ap.gwentgame.model.Leaders;
 
 import com.ap.gwentgame.enums.FactionType;
-import com.ap.gwentgame.model.Cards.Card;
-import com.ap.gwentgame.model.Cards.UnitCard;
-import com.ap.gwentgame.model.Game.Board;
-import com.ap.gwentgame.model.Game.Player;
+import com.ap.gwentgame.model.Game.GameData;
+import com.ap.gwentgame.model.Leader;
 
 public class BringerOfDeath extends Leader {
     public BringerOfDeath(String name, FactionType factionType) {
@@ -12,7 +10,7 @@ public class BringerOfDeath extends Leader {
     }
 
     @Override
-    public void executeAbility(Board board) {
+    public void executeAbility(GameData gameData) {
 
     }
 }

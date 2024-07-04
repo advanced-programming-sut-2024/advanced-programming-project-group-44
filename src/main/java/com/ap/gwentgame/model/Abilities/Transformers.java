@@ -1,7 +1,7 @@
 package com.ap.gwentgame.model.Abilities;
 
 import com.ap.gwentgame.model.Cards.Card;
-import com.ap.gwentgame.model.Game.Board;
+import com.ap.gwentgame.model.Game.GameData;
 
 public class Transformers extends Ability{
     public Transformers(Card card) {
@@ -9,7 +9,7 @@ public class Transformers extends Ability{
     }
 
     @Override
-    public void run(Board board) {
+    public void run(GameData gameData) {
         // TODO implement here
     }
 }

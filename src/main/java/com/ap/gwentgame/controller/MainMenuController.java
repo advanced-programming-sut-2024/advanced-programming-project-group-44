@@ -1,10 +1,11 @@
 package com.ap.gwentgame.controller;
 
 import com.ap.gwentgame.view.LoginMenu;
+import com.ap.gwentgame.view.PreGameMenu;
 import com.ap.gwentgame.view.ProfileMenu;
 import com.ap.gwentgame.enums.assets.Backgrounds;
 import com.ap.gwentgame.enums.assets.Icons;
-import com.ap.gwentgame.model.App;
+import com.ap.gwentgame.model.Session;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
@@ -27,7 +28,7 @@ public class MainMenuController {
     public void goToProfileMenu(MouseEvent mouseEvent) {
         try {
             ProfileMenu profileMenu = new ProfileMenu();
-            profileMenu.start(App.getStage());
+            profileMenu.start(Session.getStage());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -36,7 +37,8 @@ public class MainMenuController {
     @FXML
     public void goToGameMenu(MouseEvent mouseEvent) {
         try {
-            // TODO: go to pregame menu
+            PreGameMenu preGameMenu = new PreGameMenu();
+            preGameMenu.start(Session.getStage());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -45,15 +47,16 @@ public class MainMenuController {
     @FXML
     public void logout(MouseEvent mouseEvent) {
         try {
-            App.setLoggedinUser(null);
+            Session.setLoggedInUser(null);
             LoginMenu loginMenu = new LoginMenu();
-            loginMenu.start(App.getStage());
+            loginMenu.start(Session.getStage());
         } catch (Exception e) {
             e.printStackTrace();
     }
 }
 
-    public void mute(MouseEvent mouseEvent) {
+    @FXML
+    public void toggleMute(MouseEvent mouseEvent) {
         if (MusicController.getInstance().getMediaPlayer().isMute()) {
             MusicController.getInstance().getMediaPlayer().setMute(false);
             mute.setImage(Icons.UNMUTE.getImage());

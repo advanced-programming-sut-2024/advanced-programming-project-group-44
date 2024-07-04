@@ -1,9 +1,9 @@
 package com.ap.gwentgame.controller;
 
+import com.ap.gwentgame.model.Session;
 import com.ap.gwentgame.view.LoginMenu;
 import com.ap.gwentgame.view.RegisterMenu;
 import com.ap.gwentgame.enums.assets.Backgrounds;
-import com.ap.gwentgame.model.App;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import java.io.IOException;
@@ -15,13 +15,13 @@ public class StartMenuController {
         imageview.setImage(Backgrounds.MAINBG.getImage());
     }
 
-    public void goToRegiser(MouseEvent mouseEvent) throws IOException {
+    public void goToRegisterMenu(MouseEvent mouseEvent) throws IOException {
         RegisterMenu registerMenu = new RegisterMenu();
-        registerMenu.start(App.getStage());
+        registerMenu.start(Session.getStage());
     }
 
-    public void goToLogin(MouseEvent mouseEvent) throws IOException {
+    public void goToLoginMenu(MouseEvent mouseEvent) throws IOException {
         LoginMenu loginMenu = new LoginMenu();
-        loginMenu.start(App.getStage());
+        loginMenu.start(Session.getStage());
     }
 }

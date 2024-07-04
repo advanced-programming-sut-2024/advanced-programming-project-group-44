@@ -1,17 +1,16 @@
-package com.ap.gwentgame.controller;
+package com.ap.gwentgame.client.controller;
 
 import com.ap.gwentgame.enums.*;
 import com.ap.gwentgame.enums.assets.Backgrounds;
-import com.ap.gwentgame.model.App;
-import com.ap.gwentgame.model.Cards.Card;
-import com.ap.gwentgame.model.Cards.PreGameCard;
+import com.ap.gwentgame.model.Session;
+import com.ap.gwentgame.model.View.CardViewContainer;
+import com.ap.gwentgame.model.View.PreGameCardView;
+import com.ap.gwentgame.model.Faction;
 import com.ap.gwentgame.model.Factions.*;
-import com.ap.gwentgame.model.Game.Board;
-import com.ap.gwentgame.model.Game.Game;
+import com.ap.gwentgame.model.Game.GameManager;
 import com.ap.gwentgame.model.Game.Player;
-import com.ap.gwentgame.model.ItemContainer;
-import com.ap.gwentgame.model.Leaders.Leader;
-import com.ap.gwentgame.view.BoardView;
+import com.ap.gwentgame.model.Leader;
+import com.ap.gwentgame.view.GameView;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ScrollPane;
@@ -21,13 +20,13 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class PreGameController implements Initializable {
+public class PreGameMenuController implements Initializable {
     private final Monsters monsters = new Monsters();
     private final NilfgaardianEmpire nilfgaardianEmpire = new NilfgaardianEmpire();
     private final NorthernRealms northernRealms = new NorthernRealms();
     private final Scoiatael scoiaTael = new Scoiatael();
     private final Skellige skellige = new Skellige();
-    private final ItemContainer<PreGameCard> addedCards = new ItemContainer<>();
+    private final CardViewContainer<PreGameCardView> addedCards = new CardViewContainer<>();
     private Faction selectedFaction = null;
     private Leader selectedLeader = null;
 
@@ -59,23 +58,23 @@ public class PreGameController implements Initializable {
         selectedFaction = faction;
         selectedFaction.getCards().setVisuals(factionCardsScroll.getWidth(), factionCardsScroll.getHeight(), 25, 25);
         factionCardsScroll.setContent(selectedFaction.getCards());
-        for (PreGameCard preGameCard : selectedFaction.getCards().getItems()) {
-            setFactionCardOnclick(preGameCard);
+        for (PreGameCardView preGameCardView : selectedFaction.getCards().getCardViews()) {
+            setFactionCardOnclick(preGameCardView);
         }
     }
 
-    public void setFactionCardOnclick(PreGameCard preGameCard) {
-        preGameCard.setOnMouseClicked(event -> {
-            preGameCard.setCount(preGameCard.getCount() - 1);
-            if (preGameCard.getCount() == 0) {
-                selectedFaction.getCards().remove(preGameCard);
+    public void setFactionCardOnclick(PreGameCardView preGameCardView) {
+        preGameCardView.setOnMouseClicked(event -> {
+            preGameCardView.setCount(preGameCardView.getCount() - 1);
+            if (preGameCardView.getCount() == 0) {
+                selectedFaction.getCards().remove(preGameCardView);
             }
 
-            PreGameCard addedCard = (PreGameCard) addedCards.findByName(preGameCard.getName());
+            PreGameCardView addedCard = (PreGameCardView) addedCards.findByName(preGameCardView.getCard().getName());
             if (addedCard != null) {
                 addedCard.setCount(addedCard.getCount() + 1);
             } else {
-                addedCard = new PreGameCard(preGameCard.getCard(), 1);
+                addedCard = new PreGameCardView(preGameCardView.getCard(), 1);
                 addedCard.initializeGraphic();
                 setAddedCardOnClick(addedCard);
                 addedCards.add(addedCard);
@@ -83,18 +82,18 @@ public class PreGameController implements Initializable {
         });
     }
 
-    public void setAddedCardOnClick(PreGameCard preGameCard) {
-        preGameCard.setOnMouseClicked(event -> {
-            preGameCard.setCount(preGameCard.getCount() - 1);
-            if (preGameCard.getCount() == 0) {
-                addedCards.remove(preGameCard);
+    public void setAddedCardOnClick(PreGameCardView preGameCardView) {
+        preGameCardView.setOnMouseClicked(event -> {
+            preGameCardView.setCount(preGameCardView.getCount() - 1);
+            if (preGameCardView.getCount() == 0) {
+                addedCards.remove(preGameCardView);
             }
 
-            PreGameCard addedCard = (PreGameCard) selectedFaction.getCards().findByName(preGameCard.getName());
+            PreGameCardView addedCard = (PreGameCardView) selectedFaction.getCards().findByName(preGameCardView.getCard().getName());
             if (addedCard != null) {
                 addedCard.setCount(addedCard.getCount() + 1);
             } else {
-                addedCard = new PreGameCard(preGameCard.getCard(), 1);
+                addedCard = new PreGameCardView(preGameCardView.getCard(), 1);
                 addedCard.initializeGraphic();
                 setFactionCardOnclick(addedCard);
                 selectedFaction.getCards().add(addedCard);
@@ -131,71 +130,71 @@ public class PreGameController implements Initializable {
     }
 
     public void loadCards() {
-        ArrayList<PreGameCard> allPreGameCards = getPreGameCards();
+        ArrayList<PreGameCardView> allPreGameCardViews = getPreGameCards();
 
-        for (PreGameCard preGameCard : allPreGameCards) {
-            switch (preGameCard.getCard().getFactionType()) {
+        for (PreGameCardView preGameCardView : allPreGameCardViews) {
+            switch (preGameCardView.getCard().getFactionType()) {
                 case MONSTERS: {
-                    monsters.getCards().add(preGameCard);
+                    monsters.getCards().add(preGameCardView);
                     break;
                 }
                 case NILFGAARDIAN_EMPIRE: {
-                    nilfgaardianEmpire.getCards().add(preGameCard);
+                    nilfgaardianEmpire.getCards().add(preGameCardView);
                     break;
                 }
                 case NORTHERN_REALMS: {
-                    northernRealms.getCards().add(preGameCard);
+                    northernRealms.getCards().add(preGameCardView);
                     break;
                 }
                 case SCOIATAEL: {
-                    scoiaTael.getCards().add(preGameCard);
+                    scoiaTael.getCards().add(preGameCardView);
                     break;
                 }
                 case SKELLIGE: {
-                    skellige.getCards().add(preGameCard);
+                    skellige.getCards().add(preGameCardView);
                     break;
                 }
                 case NEUTRAL: {
-                    monsters.getCards().add(preGameCard);
-                    nilfgaardianEmpire.getCards().add(preGameCard);
-                    northernRealms.getCards().add(preGameCard);
-                    scoiaTael.getCards().add(preGameCard);
-                    skellige.getCards().add(preGameCard);
+                    monsters.getCards().add(preGameCardView);
+                    nilfgaardianEmpire.getCards().add(preGameCardView);
+                    northernRealms.getCards().add(preGameCardView);
+                    scoiaTael.getCards().add(preGameCardView);
+                    skellige.getCards().add(preGameCardView);
                     break;
                 }
             }
         }
     }
 
-    private ArrayList<PreGameCard> getPreGameCards() {
-        ArrayList<PreGameCard> allPreGameCards = new ArrayList<>();
+    private ArrayList<PreGameCardView> getPreGameCards() {
+        ArrayList<PreGameCardView> allPreGameCardViews = new ArrayList<>();
 
         for (UnitCardData unitCardData : UnitCardData.values()) {
-            PreGameCard preGameCard = new PreGameCard(unitCardData.getUnitCard(), unitCardData.getMaxCount());
-            preGameCard.initializeGraphic();
-            allPreGameCards.add(preGameCard);
+            PreGameCardView preGameCardView = new PreGameCardView(unitCardData.getUnitCard(), unitCardData.getMaxCount());
+            preGameCardView.initializeGraphic();
+            allPreGameCardViews.add(preGameCardView);
         }
 
         for (SpecialCardData specialCardData : SpecialCardData.values()) {
-            PreGameCard preGameCard = new PreGameCard(specialCardData.getSpecialCard(), specialCardData.getMaxCount());
-            preGameCard.initializeGraphic();
-            allPreGameCards.add(preGameCard);
+            PreGameCardView preGameCardView = new PreGameCardView(specialCardData.getSpecialCard(), specialCardData.getMaxCount());
+            preGameCardView.initializeGraphic();
+            allPreGameCardViews.add(preGameCardView);
         }
 
         for (WeatherCardData weatherCardData : WeatherCardData.values()) {
-            PreGameCard preGameCard = new PreGameCard(weatherCardData.getWeatherCard(), weatherCardData.getMaxCount());
-            preGameCard.initializeGraphic();
-            allPreGameCards.add(preGameCard);
+            PreGameCardView preGameCardView = new PreGameCardView(weatherCardData.getWeatherCard(), weatherCardData.getMaxCount());
+            preGameCardView.initializeGraphic();
+            allPreGameCardViews.add(preGameCardView);
         }
 
-        return allPreGameCards;
+        return allPreGameCardViews;
     }
 
     @FXML
     private void prepareGame() {
-        Player player = new Player(App.getLoggedinUser(), selectedFaction, selectedLeader, addedCards);
-        Game.addPlayerToQueue(player);
-        while (Game.getCurrentBoard() == null) {
+        Player player = new Player(Session.getLoggedInUser(), selectedFaction, selectedLeader, addedCards);
+        GameManager.addPlayerToQueue(player);
+        while (GameManager.getGameDataById(0) == null) {
             try {
                 Thread.sleep(10000);
                 System.out.println("Waiting for other player to join");
@@ -205,8 +204,8 @@ public class PreGameController implements Initializable {
         }
 
         try {
-            BoardView boardView = new BoardView();
-            boardView.start(App.getStage());
+            GameView gameView = new GameView();
+            gameView.start(Session.getStage());
         } catch (Exception e) {
             e.printStackTrace();
         }
