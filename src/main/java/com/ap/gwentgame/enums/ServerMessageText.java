@@ -3,11 +3,11 @@ package com.ap.gwentgame.enums;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public enum ClientMassage {
+public enum ServerMessageText {
     ;
     private final String messageRegex;
 
-    ClientMassage(String messageRegex) {
+    ServerMessageText(String messageRegex) {
         this.messageRegex = messageRegex;
     }
 
