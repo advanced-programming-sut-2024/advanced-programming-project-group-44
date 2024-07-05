@@ -4,8 +4,8 @@ import com.ap.gwentgame.controller.ControllerUtilities;
 import javafx.scene.image.Image;
 
 public enum Backgrounds {
-    MAINBG("MainBG.png"),
-    BOARD("B");
+    MAINBG("MainBG.jpg"),
+    BOARD("Board.png");
 
     private final String name;
 
