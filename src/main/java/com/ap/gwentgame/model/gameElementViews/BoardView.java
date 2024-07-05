@@ -40,6 +40,4 @@ public class BoardView {
         player2View.initializePlayerView();
         weatherCards.setVisuals(gamePane, 86, 341, 177, 91, 10, 0);
     }
-
-
 }
