@@ -1,6 +1,7 @@
 package com.ap.gwentgame.model.gameElementViews;
 
 import com.ap.gwentgame.model.gameElements.Card;
+import com.ap.gwentgame.model.gameElements.Item;
 import javafx.geometry.Orientation;
 import javafx.scene.Node;
 import javafx.scene.layout.FlowPane;
@@ -59,7 +60,7 @@ public class CardViewContainer<T extends ItemView> extends FlowPane {
         return cardViews;
     }
 
-    public ArrayList<? extends Card> getCards() {
+    public ArrayList<?> getCards() {
         return cards;
     }
 

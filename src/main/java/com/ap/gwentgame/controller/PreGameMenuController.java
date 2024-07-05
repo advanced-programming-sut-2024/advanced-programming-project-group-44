@@ -3,14 +3,13 @@ package com.ap.gwentgame.controller;
 import com.ap.gwentgame.enums.*;
 import com.ap.gwentgame.enums.assets.Backgrounds;
 import com.ap.gwentgame.model.Session;
+import com.ap.gwentgame.model.User;
 import com.ap.gwentgame.model.gameElementViews.CardViewContainer;
 import com.ap.gwentgame.model.gameElementViews.PreGameCardView;
-import com.ap.gwentgame.model.gameElements.Faction;
+import com.ap.gwentgame.model.gameElements.*;
 import com.ap.gwentgame.model.Factions.*;
 import com.ap.gwentgame.model.GameManager;
-import com.ap.gwentgame.model.gameElements.Player;
-import com.ap.gwentgame.model.gameElements.Leader;
-import com.ap.gwentgame.view.GameView;
+import com.ap.gwentgame.view.GameMenu;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ScrollPane;
@@ -65,17 +64,17 @@ public class PreGameMenuController implements Initializable {
 
     public void setFactionCardOnclick(PreGameCardView preGameCardView) {
         preGameCardView.setOnMouseClicked(event -> {
+            System.out.println(preGameCardView.getCount() - 1);
             preGameCardView.setCount(preGameCardView.getCount() - 1);
             if (preGameCardView.getCount() == 0) {
                 selectedFaction.getCards().remove(preGameCardView);
             }
 
-            PreGameCardView addedCard = (PreGameCardView) addedCards.findByName(preGameCardView.getItem().getName());
+            PreGameCardView addedCard = addedCards.findByName(preGameCardView.getItem().getName());
             if (addedCard != null) {
                 addedCard.setCount(addedCard.getCount() + 1);
             } else {
-                addedCard = new PreGameCardView(preGameCardView.getItem(), 1);
-                addedCard.initializeGraphic();
+                addedCard = new PreGameCardView((Card) preGameCardView.getItem(), 1);
                 setAddedCardOnClick(addedCard);
                 addedCards.add(addedCard);
             }
@@ -89,12 +88,11 @@ public class PreGameMenuController implements Initializable {
                 addedCards.remove(preGameCardView);
             }
 
-            PreGameCardView addedCard = (PreGameCardView) selectedFaction.getCards().findByName(preGameCardView.getItem().getName());
+            PreGameCardView addedCard = selectedFaction.getCards().findByName(preGameCardView.getItem().getName());
             if (addedCard != null) {
                 addedCard.setCount(addedCard.getCount() + 1);
             } else {
-                addedCard = new PreGameCardView(preGameCardView.getItem(), 1);
-                addedCard.initializeGraphic();
+                addedCard = new PreGameCardView((Card) preGameCardView.getItem(), 1);
                 setFactionCardOnclick(addedCard);
                 selectedFaction.getCards().add(addedCard);
             }
@@ -133,7 +131,7 @@ public class PreGameMenuController implements Initializable {
         ArrayList<PreGameCardView> allPreGameCardViews = getPreGameCards();
 
         for (PreGameCardView preGameCardView : allPreGameCardViews) {
-            switch (preGameCardView.getItem().getFactionType()) {
+            switch (((Card)preGameCardView.getItem()).getFactionType()) {
                 case MONSTERS: {
                     monsters.getCards().add(preGameCardView);
                     break;
@@ -171,19 +169,16 @@ public class PreGameMenuController implements Initializable {
 
         for (UnitCardData unitCardData : UnitCardData.values()) {
             PreGameCardView preGameCardView = new PreGameCardView(unitCardData.getUnitCard(), unitCardData.getMaxCount());
-            preGameCardView.initializeGraphic();
             allPreGameCardViews.add(preGameCardView);
         }
 
         for (SpecialCardData specialCardData : SpecialCardData.values()) {
             PreGameCardView preGameCardView = new PreGameCardView(specialCardData.getSpecialCard(), specialCardData.getMaxCount());
-            preGameCardView.initializeGraphic();
-            allPreGameCardViews.add(preGameCardView);
+            //allPreGameCardViews.add(preGameCardView);
         }
 
         for (WeatherCardData weatherCardData : WeatherCardData.values()) {
             PreGameCardView preGameCardView = new PreGameCardView(weatherCardData.getWeatherCard(), weatherCardData.getMaxCount());
-            preGameCardView.initializeGraphic();
             allPreGameCardViews.add(preGameCardView);
         }
 
@@ -192,8 +187,11 @@ public class PreGameMenuController implements Initializable {
 
     @FXML
     private void prepareGame() {
-        Player player = new Player(Session.getLoggedInUser(), selectedFaction, selectedLeader, addedCards);
-        GameManager.addPlayerToQueue(player);
+        User user = Session.getLoggedInUser();
+        Player player1 = new Player(user, selectedFaction, selectedLeader, addedCards);
+        Player player2 = new Player(user, selectedFaction, selectedLeader, addedCards);
+        /*Session.setGameId(GameManager.addPlayerToQueue(player));
+
         while (GameManager.getGameDataById(0) == null) {
             try {
                 Thread.sleep(10000);
@@ -201,13 +199,10 @@ public class PreGameMenuController implements Initializable {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        }
+        }*/
 
-        try {
-            GameView gameView = new GameView();
-            gameView.start(Session.getStage());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Board board = new Board(player1, player2);
+        GameMenu gameMenu = new GameMenu();
+        gameMenu.loadBoard(board);
     }
 }

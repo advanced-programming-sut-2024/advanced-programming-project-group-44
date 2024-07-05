@@ -1,9 +1,6 @@
 package com.ap.gwentgame.model.gameElementViews;
 
-import com.ap.gwentgame.model.gameElements.Card;
-import com.ap.gwentgame.model.gameElements.Item;
-import com.ap.gwentgame.model.gameElements.SpecialCard;
-import com.ap.gwentgame.model.gameElements.UnitCard;
+import com.ap.gwentgame.model.gameElements.*;
 import com.ap.gwentgame.view.ViewUtilities;
 import javafx.scene.Cursor;
 import javafx.scene.image.Image;
@@ -20,17 +17,20 @@ public abstract class ItemView extends AnchorPane {
         return item;
     }
 
-    public void initializeGraphic(){
+    public void initializeGraphic() {
         this.setCursor(Cursor.HAND);
-        ViewUtilities.setImageViewBackground(this, getImage());
     }
 
     public abstract Image getImage();
 
-    public static ItemView getCardView(Card card) {
+    public static CardView getCardView(Card card) {
+        if (card instanceof WeatherCard) {
+            return new WeatherCardView((WeatherCard) card);
+        }
         if (card instanceof SpecialCard) {
             return new SpecialCardView((SpecialCard) card);
-        } else if (card instanceof UnitCard) {
+        }
+        if (card instanceof UnitCard) {
             return new UnitCardView((UnitCard) card);
         }
         return null;

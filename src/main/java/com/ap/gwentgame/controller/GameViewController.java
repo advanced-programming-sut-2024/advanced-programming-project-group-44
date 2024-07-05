@@ -182,11 +182,7 @@ public class GameViewController implements Initializable {
     }
 
     public void findCardPlaceOnClick(ItemView cardview) {
-        cardview.setOnMouseClicked(event -> {
-            switch (cardview.getItem().getPlacement()) {
 
-            }
-        });
     }
 
     public <K extends ItemView> void activateContainer(CardViewContainer<K> container, K item) {

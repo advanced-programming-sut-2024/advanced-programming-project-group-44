@@ -9,6 +9,7 @@ import javafx.scene.image.Image;
 public class CardView extends ItemView {
     public CardView(Card card) {
         super(card);
+        initializeGraphic();
     }
 
     @Override
@@ -22,5 +23,6 @@ public class CardView extends ItemView {
         super.initializeGraphic();
         this.setHeight(80);
         this.setWidth(56);
+        ViewUtilities.setImageViewBackground(this, getImage());
     }
 }
