@@ -75,7 +75,7 @@ public class CardViewContainer<T extends ItemView, K extends Card> extends FlowP
         return this.getChildren().contains(itemView);
     }
 
-    public T findByName(String name){
+    public T findByName(String name) {
         for (T cardView : getCardViews()) {
             if (cardView.getItem().getName().equals(name)) {
                 return cardView;

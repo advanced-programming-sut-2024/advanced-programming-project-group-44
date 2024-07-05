@@ -2,19 +2,23 @@ package com.ap.gwentgame.controller;
 
 import com.ap.gwentgame.enums.*;
 import com.ap.gwentgame.enums.assets.Backgrounds;
+import com.ap.gwentgame.enums.assets.Icons;
 import com.ap.gwentgame.model.Session;
 import com.ap.gwentgame.model.User;
 import com.ap.gwentgame.model.gameElementViews.CardViewContainer;
 import com.ap.gwentgame.model.gameElementViews.PreGameCardView;
 import com.ap.gwentgame.model.gameElements.*;
 import com.ap.gwentgame.model.Factions.*;
-import com.ap.gwentgame.model.GameManager;
 import com.ap.gwentgame.view.GameMenu;
+import com.ap.gwentgame.view.ViewUtilities;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 
+import javax.swing.text.Utilities;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -26,8 +30,13 @@ public class PreGameMenuController implements Initializable {
     private final Scoiatael scoiaTael = new Scoiatael();
     private final Skellige skellige = new Skellige();
     private final CardViewContainer<PreGameCardView, Card> addedCards = new CardViewContainer<>();
+    private final CardViewContainer<PreGameCardView, Card> factionCards = new CardViewContainer<>();
+
     private Faction selectedFaction = null;
-    private Leader selectedLeader = LeaderCardData.THE_STEEL_FORGED.getLeader();
+    private Leader selectedLeader = null;
+
+    private final static int MIN_UNIT_CARDS = 22;
+    private final static int MAX_SPECIAL_CARDS = 10;
 
     @FXML
     private ScrollPane factionCardsScroll;
@@ -35,14 +44,42 @@ public class PreGameMenuController implements Initializable {
     private ScrollPane selectedCardsScroll;
     @FXML
     private ImageView backgroundImage;
+    @FXML
+    private AnchorPane mainPane;
+    @FXML
+    private ImageView totalCardsCount;
+    @FXML
+    private ImageView unitCardsCount;
+    @FXML
+    private ImageView specialCardsCount;
+    @FXML
+    private ImageView totalCardsStrength;
+    @FXML
+    private ImageView heroCards;
+    @FXML
+    private Label totalCardsInDeck;
+    @FXML
+    private Label numberOfUnitCards;
+    @FXML
+    private Label numberOfSpecialCards;
+    @FXML
+    private Label numberOfAllCards;
+    @FXML
+    private Label heroCardsCount;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         backgroundImage.setImage(Backgrounds.MAINBG.getImage());
+
         loadCards();
         loadLeaders();
+
         selectedCardsScroll.setContent(addedCards);
-        setFactionCards(monsters);
+        factionCardsScroll.setContent(factionCards);
+
+        setFaction(monsters);
+        setLeader(monsters.getLeaders().get(0));
 
         selectedCardsScroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         selectedCardsScroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
@@ -50,16 +87,54 @@ public class PreGameMenuController implements Initializable {
         factionCardsScroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         factionCardsScroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
+        totalCardsCount.setImage(Icons.TOTAL_CARDS_COUNT.getImage());
+        unitCardsCount.setImage(Icons.UNIT_CARDS_COUNT.getImage());
+        specialCardsCount.setImage(Icons.SPECIAL_CARDS_COUNT.getImage());
+        totalCardsStrength.setImage(Icons.TOTAL_CARD_STRENGTH.getImage());
+        heroCards.setImage(Icons.HERO_CARDS_COUNT.getImage());
+
         addedCards.setVisuals(selectedCardsScroll.getWidth(), selectedCardsScroll.getHeight(), 25, 25);
+        factionCards.setVisuals(factionCardsScroll.getWidth(), factionCardsScroll.getHeight(), 25, 25);
     }
 
-    public void setFactionCards(Faction faction) {
+    public void updateLabels() {
+        int totalStrength = 0;
+        int heroCardCount = 0;
+        int unitCardCount = 0;
+        int specialCardCount = 0;
+        for (Card card : addedCards.getCards()) {
+            if (card instanceof UnitCard unitCard) {
+                unitCardCount++;
+                if (unitCard.isHero()) {
+                    heroCardCount++;
+                }
+                totalStrength += unitCard.getScore();
+            } else {
+                specialCardCount++;
+            }
+        }
+
+        totalCardsInDeck.setText(String.valueOf(addedCards.getCards().size()));
+        numberOfUnitCards.setText(unitCardCount + "/" + MIN_UNIT_CARDS);
+        numberOfSpecialCards.setText(specialCardCount + "/" + MAX_SPECIAL_CARDS);
+        numberOfAllCards.setText(String.valueOf(totalStrength));
+        heroCardsCount.setText(String.valueOf(heroCardCount));
+    }
+
+    public void setFaction(Faction faction) {
         selectedFaction = faction;
-        selectedFaction.getCards().setVisuals(factionCardsScroll.getWidth(), factionCardsScroll.getHeight(), 25, 25);
-        factionCardsScroll.setContent(selectedFaction.getCards());
+        factionCards.clear();
+
+        for (PreGameCardView cardView : selectedFaction.getCards().getCardViews()) {
+            factionCards.add(cardView.clone());
+        }
         for (PreGameCardView preGameCardView : selectedFaction.getCards().getCardViews()) {
             setFactionCardOnclick(preGameCardView);
         }
+    }
+
+    public void setLeader(Leader leader) {
+        selectedLeader = leader;
     }
 
     public void setFactionCardOnclick(PreGameCardView preGameCardView) {
@@ -131,7 +206,7 @@ public class PreGameMenuController implements Initializable {
         ArrayList<PreGameCardView> allPreGameCardViews = getPreGameCards();
 
         for (PreGameCardView preGameCardView : allPreGameCardViews) {
-            switch (((Card)preGameCardView.getItem()).getFactionType()) {
+            switch (((Card) preGameCardView.getItem()).getFactionType()) {
                 case MONSTERS: {
                     monsters.getCards().add(preGameCardView);
                     break;
@@ -187,6 +262,12 @@ public class PreGameMenuController implements Initializable {
 
     @FXML
     private void prepareGame() {
+        if (Integer.parseInt(String.valueOf(numberOfSpecialCards)) > MAX_SPECIAL_CARDS) {
+            ViewUtilities.showErrorAlert("Too many Special Card", "You can't chose more than 10 Special Card!");
+        }
+        if (Integer.parseInt(String.valueOf(numberOfUnitCards)) < MIN_UNIT_CARDS) {
+            ViewUtilities.showErrorAlert("Not enought Unit Card", "You have to choose at least 22 Unit Card!");
+        }
         User user = Session.getLoggedInUser();
         Player player1 = new Player(user, selectedFaction, selectedLeader, addedCards);
         Player player2 = new Player(user, selectedFaction, selectedLeader, addedCards);
