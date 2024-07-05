@@ -76,80 +76,75 @@ public class PlayerView {
             deckView.setVisuals(boardPane, 1080, 580, 67, 89, 10, 0);
             handView.setVisuals(boardPane, 357, 587, 594, 80, 10, 0);
 
-            leaderView.setLayoutX(91);
+            leaderView.setLayoutX(90);
             leaderView.setLayoutY(585);
 
             AnchorPane playerDataPane = new AnchorPane();
-            playerDataPane.setLayoutX(5);
+            playerDataPane.setLayoutX(45);
             playerDataPane.setLayoutY(470);
-            playerDataPane.setPrefSize(280, 55);
+            playerDataPane.setPrefSize(190, 80);
             playerDataPane.setStyle("-fx-background-color: rgba(0, 0, 0, 0.5); -fx-border-color: black; -fx-border-width: 2; -fx-padding: 10;");
 
             factionView.setLayoutX(80);
-            factionView.setLayoutY(10);
+            factionView.setLayoutY(20);
 
             //Label playerNickName = new Label(player.getUser().getNickName());
             Label playerNickName = new Label("Player 1");
-            playerNickName.setLayoutX(150);
-            playerNickName.setLayoutY(6);
-            playerNickName.setPrefSize(75, 17);
+            playerNickName.setLayoutX(80);
+            playerNickName.setLayoutY(5);
+            playerNickName.setPrefSize(90, 17);
             playerNickName.setStyle("-fx-text-fill: #f8b864; -fx-font-size: 18;");
 
             Label factionName = new Label(player.getFaction().getName());
-            factionName.setLayoutX(150);
-            factionName.setLayoutY(28);
-            factionName.setPrefSize(60, 17);
+            factionName.setLayoutX(80);
+            factionName.setLayoutY(25);
+            factionName.setPrefSize(90, 17);
 
             ImageView cardCountIcon = new ImageView(Icons.CARD_COUNT.getImage());
-            cardCountIcon.setLayoutX(150);
-            cardCountIcon.setLayoutY(55);
+            cardCountIcon.setLayoutX(80);
+            cardCountIcon.setLayoutY(50);
             cardCountIcon.setFitWidth(17);
             cardCountIcon.setFitHeight(23);
 
-            handCardsCountLabel.setLayoutX(170);
-            handCardsCountLabel.setLayoutY(55);
-            handCardsCountLabel.setPrefSize(50, 23);
+            handCardsCountLabel.setLayoutX(100);
+            handCardsCountLabel.setLayoutY(50);
+            handCardsCountLabel.setPrefSize(20, 20);
             handCardsCountLabel.setStyle("-fx-text-fill: #f8b864; -fx-font-size: 18;");
             handCardsCountLabel.setText(Integer.toString(player.getHand().size()));
 
             ImageView healthIcon1 = new ImageView(Items.GEM_ON.getImage());
-            healthIcon1.setLayoutX(210);
-            healthIcon1.setLayoutY(55);
+            healthIcon1.setLayoutX(135);
+            healthIcon1.setLayoutY(50);
             healthIcon1.setFitWidth(20);
             healthIcon1.setFitHeight(20);
 
             ImageView healthIcon2 = new ImageView(Items.GEM_ON.getImage());
-            healthIcon2.setLayoutX(235);
-            healthIcon2.setLayoutY(55);
+            healthIcon2.setLayoutX(160);
+            healthIcon2.setLayoutY(50);
             healthIcon2.setFitWidth(20);
             healthIcon2.setFitHeight(20);
 
-            Circle circle = new Circle(18);
-            circle.setLayoutX(284);
-            circle.setLayoutY(520);
-            circle.setStyle("-fx-fill: #ffc421b6; -fx-stroke: #00000004; -fx-stroke-width: 1;");
-
-            currentScoreLabel.setPrefSize(31 , 38);
+            currentScoreLabel.setPrefSize(31, 38);
             currentScoreLabel.setLayoutX(267);
             currentScoreLabel.setLayoutY(501);
             currentScoreLabel.setStyle("-fx-text-fill: #000000; -fx-font-size: 16; -fx-font-weight: bold; -fx-alignment: center;");
 
-            scoreLabels[0].setPrefSize(31 , 38);
+            scoreLabels[0].setPrefSize(31, 38);
             scoreLabels[0].setLayoutX(319);
             scoreLabels[0].setLayoutY(350);
             scoreLabels[0].setStyle("-fx-text-fill: #000000; -fx-font-size: 16; -fx-font-weight: bold; -fx-alignment: center;");
 
-            scoreLabels[1].setPrefSize(31 , 38);
+            scoreLabels[1].setPrefSize(31, 38);
             scoreLabels[1].setLayoutX(319);
             scoreLabels[1].setLayoutY(434);
             scoreLabels[1].setStyle("-fx-text-fill: #000000; -fx-font-size: 16; -fx-font-weight: bold; -fx-alignment: center;");
 
-            scoreLabels[2].setPrefSize(31 , 38);
+            scoreLabels[2].setPrefSize(31, 38);
             scoreLabels[2].setLayoutX(319);
             scoreLabels[2].setLayoutY(520);
             scoreLabels[2].setStyle("-fx-text-fill: #000000; -fx-font-size: 16; -fx-font-weight: bold; -fx-alignment: center;");
 
-            boardPane.getChildren().addAll(leaderView,playerDataPane, circle, currentScoreLabel, scoreLabels[0], scoreLabels[1], scoreLabels[2]);
+            boardPane.getChildren().addAll(leaderView, playerDataPane, currentScoreLabel, scoreLabels[0], scoreLabels[1], scoreLabels[2]);
             playerDataPane.getChildren().addAll(playerNickName, factionName, cardCountIcon, handCardsCountLabel, healthIcon1, healthIcon2);
 
         } else {
@@ -165,80 +160,75 @@ public class PlayerView {
             deckView.setVisuals(boardPane, 1080, 105, 67, 89, 10, 0);
             handView.setVisuals(boardPane, 357, 587, 594, 80, 10, 0);
 
-            leaderView.setLayoutX(91);
+            leaderView.setLayoutX(90);
             leaderView.setLayoutY(110);
 
             AnchorPane playerDataPane = new AnchorPane();
-            playerDataPane.setLayoutX(5);
-            playerDataPane.setLayoutY(220);
-            playerDataPane.setPrefSize(280, 60);
+            playerDataPane.setLayoutX(45);
+            playerDataPane.setLayoutY(215);
+            playerDataPane.setPrefSize(190, 80);
             playerDataPane.setStyle("-fx-background-color: rgba(0, 0, 0, 0.5); -fx-border-color: black; -fx-border-width: 2; -fx-padding: 10;");
 
-            factionView.setLayoutX(80);
+            factionView.setLayoutX(20);
             factionView.setLayoutY(10);
 
             //Label playerNickName = new Label(player.getUser().getNickName());
             Label playerNickName = new Label("Player 2");
-            playerNickName.setLayoutX(150);
-            playerNickName.setLayoutY(6);
-            playerNickName.setPrefSize(75, 17);
+            playerNickName.setLayoutX(80);
+            playerNickName.setLayoutY(5);
+            playerNickName.setPrefSize(90, 17);
             playerNickName.setStyle("-fx-text-fill: #f8b864; -fx-font-size: 18;");
 
             Label factionName = new Label(player.getFaction().getName());
-            factionName.setLayoutX(150);
-            factionName.setLayoutY(28);
-            factionName.setPrefSize(60, 17);
+            factionName.setLayoutX(80);
+            factionName.setLayoutY(25);
+            factionName.setPrefSize(90, 17);
 
             ImageView cardCountIcon = new ImageView(Icons.CARD_COUNT.getImage());
-            cardCountIcon.setLayoutX(150);
-            cardCountIcon.setLayoutY(55);
+            cardCountIcon.setLayoutX(80);
+            cardCountIcon.setLayoutY(50);
             cardCountIcon.setFitWidth(17);
             cardCountIcon.setFitHeight(23);
 
-            handCardsCountLabel.setLayoutX(170);
-            handCardsCountLabel.setLayoutY(55);
-            handCardsCountLabel.setPrefSize(50, 23);
+            handCardsCountLabel.setLayoutX(100);
+            handCardsCountLabel.setLayoutY(50);
+            handCardsCountLabel.setPrefSize(20, 20);
             handCardsCountLabel.setStyle("-fx-text-fill: #f8b864; -fx-font-size: 18;");
             handCardsCountLabel.setText(Integer.toString(player.getHand().size()));
 
             ImageView healthIcon1 = new ImageView(Items.GEM_ON.getImage());
-            healthIcon1.setLayoutX(210);
-            healthIcon1.setLayoutY(55);
+            healthIcon1.setLayoutX(135);
+            healthIcon1.setLayoutY(50);
             healthIcon1.setFitWidth(20);
             healthIcon1.setFitHeight(20);
 
             ImageView healthIcon2 = new ImageView(Items.GEM_ON.getImage());
-            healthIcon2.setLayoutX(235);
-            healthIcon2.setLayoutY(55);
+            healthIcon2.setLayoutX(160);
+            healthIcon2.setLayoutY(50);
             healthIcon2.setFitWidth(20);
             healthIcon2.setFitHeight(20);
 
-            Circle circle = new Circle(18);
-            circle.setLayoutX(284);
-            circle.setLayoutY(270);
-            circle.setStyle("-fx-fill: #9bd3e8b5; -fx-stroke: #00000004; -fx-stroke-width: 1;");
-
-            currentScoreLabel.setPrefSize(31 , 38);
+            currentScoreLabel.setPrefSize(31, 38);
             currentScoreLabel.setLayoutX(267);
             currentScoreLabel.setLayoutY(250);
             currentScoreLabel.setStyle("-fx-text-fill: #000000; -fx-font-size: 16; -fx-font-weight: bold; -fx-alignment: center;");
 
-            scoreLabels[0].setPrefSize(31 , 38);
+            scoreLabels[0].setPrefSize(31, 38);
             scoreLabels[0].setLayoutX(319);
             scoreLabels[0].setLayoutY(350);
             scoreLabels[0].setStyle("-fx-text-fill: #000000; -fx-font-size: 16; -fx-font-weight: bold; -fx-alignment: center;");
 
-            scoreLabels[1].setPrefSize(31 , 38);
+            scoreLabels[1].setPrefSize(31, 38);
             scoreLabels[1].setLayoutX(319);
             scoreLabels[1].setLayoutY(171);
             scoreLabels[1].setStyle("-fx-text-fill: #000000; -fx-font-size: 16; -fx-font-weight: bold; -fx-alignment: center;");
 
-            scoreLabels[2].setPrefSize(31 , 38);
+            scoreLabels[2].setPrefSize(31, 38);
             scoreLabels[2].setLayoutX(319);
             scoreLabels[2].setLayoutY(90);
             scoreLabels[2].setStyle("-fx-text-fill: #000000; -fx-font-size: 16; -fx-font-weight: bold; -fx-alignment: center;");
 
-            boardPane.getChildren().addAll(leaderView,playerDataPane, circle, currentScoreLabel, scoreLabels[0], scoreLabels[1], scoreLabels[2]);
+            boardPane.getChildren().addAll(leaderView, playerDataPane, currentScoreLabel, scoreLabels[0], scoreLabels[1], scoreLabels[2]);
             playerDataPane.getChildren().addAll(playerNickName, factionName, cardCountIcon, handCardsCountLabel, healthIcon1, healthIcon2);
         }
     }

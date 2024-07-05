@@ -15,8 +15,8 @@ public class LeaderView extends ItemView{
     @Override
     public void initializeGraphic() {
         super.initializeGraphic();
-        this.setHeight(80);
-        this.setWidth(56);
+        this.setHeight(90);
+        this.setWidth(60);
         ViewUtilities.setImageViewBackground(this, getImage());
     }
 
