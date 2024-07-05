@@ -18,11 +18,11 @@ public class PlayerView {
     private final Label handCardsCountLabel;
 
     private final Label[] scoreLabels = new Label[3];
-    private final CardViewContainer<CardView> deckView;
-    private final CardViewContainer<CardView> handView;
-    private final CardViewContainer<CardView> discardPileView;
-    private final CardViewContainer<CardView>[] rowViews;
-    private final CardViewContainer<CardView>[] specialCardViews;
+    private final CardViewContainer<CardView, Card> deckView;
+    private final CardViewContainer<CardView, Card> handView;
+    private final CardViewContainer<CardView, Card> discardPileView;
+    private final CardViewContainer<CardView, Card>[] rowViews;
+    private final CardViewContainer<CardView, Card>[] specialCardViews;
 
     public PlayerView(Player player, int playerNumber, AnchorPane boardPane) {
         this.player = player;
@@ -86,7 +86,8 @@ public class PlayerView {
             factionView.setLayoutX(80);
             factionView.setLayoutY(10);
 
-            Label playerNickName = new Label(player.getUser().getNickName());
+            //Label playerNickName = new Label(player.getUser().getNickName());
+            Label playerNickName = new Label("Player 1");
             playerNickName.setLayoutX(150);
             playerNickName.setLayoutY(6);
             playerNickName.setPrefSize(67, 17);
@@ -170,7 +171,8 @@ public class PlayerView {
             factionView.setLayoutX(80);
             factionView.setLayoutY(10);
 
-            Label playerNickName = new Label(player.getUser().getNickName());
+            //Label playerNickName = new Label(player.getUser().getNickName());
+            Label playerNickName = new Label("Player 2");
             playerNickName.setLayoutX(150);
             playerNickName.setLayoutY(6);
             playerNickName.setPrefSize(67, 17);

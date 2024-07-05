@@ -22,13 +22,13 @@ import java.util.HashMap;
 import java.util.ResourceBundle;
 
 
-public class GameViewController implements Initializable {
-    private Board game;
+public class GameViewController{
+    /*private Board game;
     private AnchorPane pane;
     private Player player1;
     private Player player2;
-    private final HashMap<CardViewContainer<? extends ItemView>, Rectangle> player1Containers = new HashMap<>();
-    private final HashMap<CardViewContainer<? extends ItemView>, Rectangle> player2Containers = new HashMap<>();
+    private final HashMap<CardViewContainer<? extends ItemView, ? extends Card>, Rectangle> player1Containers = new HashMap<>();
+    private final HashMap<CardViewContainer<? extends ItemView, ? extends Card>, Rectangle> player2Containers = new HashMap<>();
 
     private final CardViewContainer<ItemView>[] player1Rows = new CardViewContainer[3];
     private final CardViewContainer<ItemView>[] player2Rows = new CardViewContainer[3];
@@ -192,7 +192,6 @@ public class GameViewController implements Initializable {
             updateLabels();
 
         });*/
-    }
 
 }
 

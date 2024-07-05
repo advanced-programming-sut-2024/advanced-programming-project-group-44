@@ -3,6 +3,7 @@ package com.ap.gwentgame.model.gameElementViews;
 import com.ap.gwentgame.enums.assets.Backgrounds;
 import com.ap.gwentgame.model.gameElements.Board;
 import com.ap.gwentgame.model.gameElements.Player;
+import com.ap.gwentgame.model.gameElements.WeatherCard;
 import com.ap.gwentgame.view.ViewUtilities;
 import javafx.scene.layout.AnchorPane;
 
@@ -15,7 +16,7 @@ public class BoardView {
     private PlayerView currentPlayer;
     private PlayerView opponentPlayer;
 
-    private final CardViewContainer<WeatherCardView> weatherCards;
+    private final CardViewContainer<WeatherCardView, WeatherCard> weatherCards;
 
     public BoardView(Board board, AnchorPane gamePane) {
         this.board = board;

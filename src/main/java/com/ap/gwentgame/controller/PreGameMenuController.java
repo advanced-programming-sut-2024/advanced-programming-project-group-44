@@ -25,9 +25,9 @@ public class PreGameMenuController implements Initializable {
     private final NorthernRealms northernRealms = new NorthernRealms();
     private final Scoiatael scoiaTael = new Scoiatael();
     private final Skellige skellige = new Skellige();
-    private final CardViewContainer<PreGameCardView> addedCards = new CardViewContainer<>(new ArrayList<>());
+    private final CardViewContainer<PreGameCardView, Card> addedCards = new CardViewContainer<>(new ArrayList<>());
     private Faction selectedFaction = null;
-    private Leader selectedLeader = null;
+    private Leader selectedLeader = LeaderCardData.THE_STEEL_FORGED.getLeader();
 
     @FXML
     private ScrollPane factionCardsScroll;
@@ -190,6 +190,8 @@ public class PreGameMenuController implements Initializable {
         User user = Session.getLoggedInUser();
         Player player1 = new Player(user, selectedFaction, selectedLeader, addedCards);
         Player player2 = new Player(user, selectedFaction, selectedLeader, addedCards);
+
+
         /*Session.setGameId(GameManager.addPlayerToQueue(player));
 
         while (GameManager.getGameDataById(0) == null) {

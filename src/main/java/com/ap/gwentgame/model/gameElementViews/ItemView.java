@@ -9,8 +9,8 @@ import javafx.scene.layout.AnchorPane;
 public abstract class ItemView extends AnchorPane {
     protected final Item item;
 
-    public ItemView(Item card) {
-        this.item = card;
+    public ItemView(Item item) {
+        this.item = item;
     }
 
     public Item getItem() {

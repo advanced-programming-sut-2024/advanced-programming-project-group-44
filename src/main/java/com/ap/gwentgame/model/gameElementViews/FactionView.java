@@ -23,8 +23,7 @@ public class FactionView extends ItemView{
 
     @Override
     public Image getImage() {
-        String path = ControllerUtilities.getResourcePath("images/factions/" + item.getName() + ".jpg");
-        System.out.println(path);
+        String path = ControllerUtilities.getResourcePath("images/factions/" + item.getName().toLowerCase() + ".png");
         return new Image(path);
     }
 

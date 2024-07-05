@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class Faction extends Item {
     protected final ArrayList<Leader> leaders;
-    protected final CardViewContainer<PreGameCardView> cards;
+    protected final CardViewContainer<PreGameCardView, Card> cards;
 
     public Faction(String name) {
         super(name);
@@ -19,7 +19,7 @@ public class Faction extends Item {
         return leaders;
     }
 
-    public CardViewContainer<PreGameCardView> getCards() {
+    public CardViewContainer<PreGameCardView, Card> getCards() {
         return cards;
     }
 }
