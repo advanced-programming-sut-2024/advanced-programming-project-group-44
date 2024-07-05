@@ -25,8 +25,8 @@
                                 <Font size="13.0" />
                             </font>
                         </Label>
-                        <Button mnemonicParsing="false" onMouseClicked="#goToRegiser" prefHeight="26.0" prefWidth="57.0" text="register" />
-                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#goToLogin" prefHeight="26.0" prefWidth="57.0" text="login" />
+                        <Button mnemonicParsing="false" onMouseClicked="#goToRegisterMenu" prefHeight="26.0" prefWidth="57.0" text="register" />
+                        <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onMouseClicked="#goToLoginMenu" prefHeight="26.0" prefWidth="57.0" text="login" />
                     </children>
                 </VBox>
             </children>

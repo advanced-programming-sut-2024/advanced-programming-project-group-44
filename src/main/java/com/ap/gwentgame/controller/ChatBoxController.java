@@ -36,9 +36,6 @@ public class ChatBoxController implements Initializable {
     private ImageView send;
 
 
-    private Board board;
-    private MainMenuController mainMenuController;
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         chatBoxStackPane.setVisible(false);
@@ -48,13 +45,13 @@ public class ChatBoxController implements Initializable {
     @FXML
     private void sendMessage() {
         String message = messageField.getText();
-        String loggedinUser = Session.
+        String loggedinUser = Session.getLoggedInUser().getNickName();
         createMessage(loggedinUser, message);
     }
 
     private void createMessage(String loggedinUser, String message) {
         if (!message.isEmpty()) {
-            MessageBox messageBox = new MessageBox(loggedinUser, message,);
+            MessageBox messageBox = new MessageBox(loggedinUser, message);
             boxPane.getChildren().add(messageBox);
             messageField.clear();
         }
@@ -67,11 +64,6 @@ public class ChatBoxController implements Initializable {
 
     public void closeChatBox() {
         chatBoxStackPane.setVisible(false);
-    }
-
-    public void setMainMenuController(MainMenuController mainMenuController) {
-        this.mainMenuController = mainMenuController;
-        mainMenuController.
     }
 
     @FXML

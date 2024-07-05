@@ -1,4 +1,4 @@
-package com.ap.gwentgame.client.controller;
+package com.ap.gwentgame.controller;
 
 import com.ap.gwentgame.model.Session;
 import com.ap.gwentgame.view.EditMenu;

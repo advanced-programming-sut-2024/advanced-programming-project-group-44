@@ -16,13 +16,13 @@ public class MessageBox extends AnchorPane {
     private int messageBoxId = 0;
     private HashMap<Integer, String> savedMessages = new HashMap<>();
 
-    public MessageBox(String user, String message, boolean replyCheck, String replyUser, String replyMessage) {
+    public MessageBox(String user, String message) {
         Label userLabel = new Label(user);
         userLabel.setPrefSize(200, 20);
 
         Button replyButton = new Button("Reply");
         replyButton.setId("reply-" + messageBoxId);
-        replyButton.setOnAction(event -> handleReplyButtonClick(messageBoxId));
+        //replyButton.setOnAction(event -> handleReplyButtonClick(messageBoxId));
 
         HBox userHBox = new HBox(userLabel, replyButton);
         userHBox.setSpacing(10);
@@ -31,7 +31,7 @@ public class MessageBox extends AnchorPane {
         VBox replyVBox = new VBox();
         replyVBox.setVisible(false);
 
-        if (replyCheck) {
+        /*if (replyCheck) {
             Label replyLabel = new Label("Reply:\n");
             Label replyUserLabel = new Label(replyUser);
             Label replyMessageLabel = new Label(replyMessage);
@@ -39,7 +39,7 @@ public class MessageBox extends AnchorPane {
             replyVBox.setStyle("-fx-border-color: black; -fx-border-width: 2; -fx-padding: 10;");
             this.getChildren().add(replyVBox);
             replyVBox.setVisible(true);
-        }
+        }*/
         Label messageLabel = new Label(message);
         messageLabel.setPrefWidth(200);
         messageLabel.setWrapText(true);
@@ -67,10 +67,10 @@ public class MessageBox extends AnchorPane {
         label.setText(currentTime);
     }
 
-    private void handleReplyButtonClick(int id) {
-        String replyMessage = savedMessages.get(id);
-        MessageBox messageBox = new MessageBox("Reply", replyMessage, true, "User", "Message");
-    }
+//    private void handleReplyButtonClick(int id) {
+//        String replyMessage = savedMessages.get(id);
+//        MessageBox messageBox = new MessageBox("Reply", replyMessage, "Message");
+//    }
 
 
 }
