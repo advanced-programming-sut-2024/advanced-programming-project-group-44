@@ -22,7 +22,6 @@ public class LeaderView extends ItemView{
 
     @Override
     public Image getImage() {
-        System.out.println(((Leader)item).getFactionType().toString().toLowerCase().replaceAll("’", "").replaceAll("'", "") + "/" + item.getName() + ".jpg");
         String path = ControllerUtilities.getResourcePath("images/cards/leaders/" + ((Leader)item).getFactionType().toString().toLowerCase().replaceAll("’", "").replaceAll("'", "") + "/" + item.getName() + ".jpg");
         return new Image(path);
     }

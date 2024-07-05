@@ -8,7 +8,7 @@ import javafx.scene.Cursor;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 
-public class PreGameCardView extends ItemView {
+public class PreGameCardView extends ItemView implements Cloneable {
     private final transient Label countLabel;
     private int count;
 
@@ -45,5 +45,10 @@ public class PreGameCardView extends ItemView {
         this.getChildren().add(countLabel);
         countLabel.setLayoutX(120);
         countLabel.setLayoutY(10);
+    }
+
+    @Override
+    public PreGameCardView clone() {
+        return new PreGameCardView((Card) item, count);
     }
 }

@@ -12,7 +12,7 @@ public class Faction extends Item {
     public Faction(String name) {
         super(name);
         leaders = new ArrayList<>();
-        cards = new CardViewContainer<>(new ArrayList<>());
+        cards = new CardViewContainer<>();
     }
 
     public ArrayList<Leader> getLeaders() {

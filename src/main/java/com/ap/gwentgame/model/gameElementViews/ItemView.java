@@ -6,7 +6,7 @@ import javafx.scene.Cursor;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 
-public abstract class ItemView extends AnchorPane {
+public abstract class ItemView extends AnchorPane{
     protected final Item item;
 
     public ItemView(Item item) {

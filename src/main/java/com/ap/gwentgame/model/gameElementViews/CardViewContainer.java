@@ -21,6 +21,10 @@ public class CardViewContainer<T extends ItemView, K extends Card> extends FlowP
         }
     }
 
+    public CardViewContainer() {
+        this.cards = new ArrayList<>();
+    }
+
     public void setVisuals(Pane pane, double x, double y, double width, double height, double horizontalGap, double verticalGap) {
         this.orientationProperty().setValue(Orientation.HORIZONTAL);
         this.setLayoutX(x);

@@ -25,7 +25,7 @@ public class PreGameMenuController implements Initializable {
     private final NorthernRealms northernRealms = new NorthernRealms();
     private final Scoiatael scoiaTael = new Scoiatael();
     private final Skellige skellige = new Skellige();
-    private final CardViewContainer<PreGameCardView, Card> addedCards = new CardViewContainer<>(new ArrayList<>());
+    private final CardViewContainer<PreGameCardView, Card> addedCards = new CardViewContainer<>();
     private Faction selectedFaction = null;
     private Leader selectedLeader = LeaderCardData.THE_STEEL_FORGED.getLeader();
 
@@ -154,10 +154,10 @@ public class PreGameMenuController implements Initializable {
                 }
                 case NEUTRAL: {
                     monsters.getCards().add(preGameCardView);
-                    nilfgaardianEmpire.getCards().add(preGameCardView);
-                    northernRealms.getCards().add(preGameCardView);
-                    scoiaTael.getCards().add(preGameCardView);
-                    skellige.getCards().add(preGameCardView);
+                    nilfgaardianEmpire.getCards().add(preGameCardView.clone());
+                    northernRealms.getCards().add(preGameCardView.clone());
+                    scoiaTael.getCards().add(preGameCardView.clone());
+                    skellige.getCards().add(preGameCardView.clone());
                     break;
                 }
             }
@@ -174,7 +174,7 @@ public class PreGameMenuController implements Initializable {
 
         for (SpecialCardData specialCardData : SpecialCardData.values()) {
             PreGameCardView preGameCardView = new PreGameCardView(specialCardData.getSpecialCard(), specialCardData.getMaxCount());
-            //allPreGameCardViews.add(preGameCardView);
+            allPreGameCardViews.add(preGameCardView);
         }
 
         for (WeatherCardData weatherCardData : WeatherCardData.values()) {
