@@ -20,7 +20,7 @@ public class TheSteelForged extends Leader{
         ItemContainer<Weather> weatherCards = board.getWeatherCards();
         if(weatherCards != null){
             for(Weather weather : weatherCards.getItems()){
-                player.changeContainer(board.getWeatherCards() , player.getDiscardPile() , weather);
+                //player.changeContainer(board.getWeatherCards() , player.getDiscardPile() , weather);
                 //player.addWeatherCardToDiscardPile(weather);
                 weather.stopAction(board);
             }

@@ -1,28 +1,37 @@
 package com.ap.gwentgame.model.Game;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class GameData {
-    private final String OponnentName;
+public class GameData implements Serializable {
+    //private static final long serialVersionUID = 1L;
+
+    private final String playerName;
+    private final String opponentName;
     private final Date date;
     private final int playerScore;
-    private final int oponnentScore;
+    private final int opponentScore;
     private final int[] playerScores;
-    private final int[] oponnentScores;
+    private final int[] opponentScores;
     private final String winner;
 
-    public GameData(String oponnentName, Date date, int playerScore, int oponnentScore, int[] playerScores, int[] oponnentScores, String winner) {
-        OponnentName = oponnentName;
+    public GameData(String playerName, String opponentName, Date date, int playerScore, int opponentScore, int[] playerScores, int[] opponentScores, String winner) {
+        this.playerName = playerName;
+        this.opponentName = opponentName;
         this.date = date;
         this.playerScore = playerScore;
-        this.oponnentScore = oponnentScore;
+        this.opponentScore = opponentScore;
         this.playerScores = playerScores;
-        this.oponnentScores = oponnentScores;
+        this.opponentScores = opponentScores;
         this.winner = winner;
     }
 
-    public String getOponnentName() {
-        return OponnentName;
+    public String getPlayerName() {
+        return playerName;
+    }
+
+    public String getOpponentName() {
+        return opponentName;
     }
 
     public Date getDate() {
@@ -33,16 +42,16 @@ public class GameData {
         return playerScore;
     }
 
-    public int getOponnentScore() {
-        return oponnentScore;
+    public int getOpponentScore() {
+        return opponentScore;
     }
 
     public int[] getPlayerScores() {
         return playerScores;
     }
 
-    public int[] getOponnentScores() {
-        return oponnentScores;
+    public int[] getOpponentScores() {
+        return opponentScores;
     }
 
     public String getWinner() {
