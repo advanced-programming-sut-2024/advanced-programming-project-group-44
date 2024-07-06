@@ -15,6 +15,9 @@ public enum FXMLs {
     EDIT_MENU("EditMenu.fxml"),
     GAME_HISTORY("GameHistory.fxml"),
     PREGAME_MENU("PreGameMenu.fxml"),
+    TELEVISION_MENU("TelevisionMenu.fxml"),
+    FRIEND_REQUEST("FriendRequest.fxml"),
+    SCORE_BOARD("ScoreBoard.fxml"),
     BOARD("Board.fxml");
 
     private final String name;
