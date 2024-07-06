@@ -14,6 +14,7 @@ public enum ServerCommands {
     REGISTRATION_FAILED_NICKNAME_TAKEN("Registration failed - nickname already taken"),
     REGISTRATION_FAILED_USERNAME_TAKEN("Registration failed - username already taken");
 
+
     private final String messageRegex;
 
     ServerCommands(String messageRegex) {

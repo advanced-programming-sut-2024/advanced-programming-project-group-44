@@ -14,8 +14,12 @@ public enum ClientCommands {
     //broadcast previous game <GameID>
     //register user
     //login user <username> <password>
+    //edit user <username> <nickname> <email>
     REGISTER_USER("register user"),
-    LOGIN_USER("login user (\\w+) (\\w+)");
+    LOGIN_USER("login user (\\w+) (\\w+)"),
+    EDIT_USER("edit user (\\w+) (\\w+) (\\w+)"),
+    ;
+
 
 
     private final String messageRegex;
