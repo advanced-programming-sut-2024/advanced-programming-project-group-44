@@ -3,6 +3,7 @@ package com.ap.gwentgame.model.gameElementViews;
 import com.ap.gwentgame.enums.assets.Icons;
 import com.ap.gwentgame.enums.assets.Items;
 import com.ap.gwentgame.model.gameElements.*;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -69,6 +70,11 @@ public class PlayerView {
     }
 
     public void initializeContainers() {
+        Button passButton = new Button("PASS");
+        passButton.setPrefSize(50 , 25);
+        passButton.setLayoutX(210);
+        passButton.setLayoutY(615);
+
         if (playerNumber == 1) {
             rowViews[0].setVisuals(boardPane, 440, 329, 508, 80, 10, 0);
             rowViews[1].setVisuals(boardPane, 440, 410, 508, 80, 10, 0);
@@ -81,7 +87,6 @@ public class PlayerView {
             discardPileView.setVisuals(boardPane, 968, 580, 67, 89, 10, 0);
             deckView.setVisuals(boardPane, 1080, 580, 67, 89, 10, 0);
             handView.setVisuals(boardPane, 357, 587, 594, 80, 10, 0);
-
         } else {
             rowViews[0].setVisuals(boardPane, 440, 234, 508, 80, 10, 0);
             rowViews[1].setVisuals(boardPane, 440, 148, 508, 80, 10, 0);
@@ -94,6 +99,9 @@ public class PlayerView {
             discardPileView.setVisuals(boardPane, 968, 107, 67, 89, 10, 0);
             deckView.setVisuals(boardPane, 1080, 105, 67, 89, 10, 0);
             handView.setVisuals(boardPane, 357, 587, 594, 80, 10, 0);
+            handView.setVisible(false);
+
+            passButton.setVisible(false);
         }
     }
 
@@ -188,7 +196,7 @@ public class PlayerView {
 
         }
         boardPane.getChildren().add(playerDataPane);
-        playerDataPane.getChildren().addAll(playerNickName, factionName, cardCountIcon, handCardsCountLabel, healthIcon1, healthIcon2);
+        playerDataPane.getChildren().addAll(factionView, playerNickName, factionName, cardCountIcon, handCardsCountLabel, healthIcon1, healthIcon2);
 
     }
 

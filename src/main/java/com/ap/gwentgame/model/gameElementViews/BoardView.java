@@ -31,6 +31,7 @@ public class BoardView {
         this.opponentPlayer = player2View;
 
         this.weatherCards = new CardViewContainer<>(board.getWeatherCards());
+
         initializeGameBoard();
     }
 
