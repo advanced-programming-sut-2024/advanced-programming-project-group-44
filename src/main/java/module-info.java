@@ -27,4 +27,6 @@ module com.ap.gwentgame {
     opens com.ap.gwentgame.client.model.Leaders to javafx.fxml;
     opens com.ap.gwentgame.client.enums to javafx.fxml;
     opens com.ap.gwentgame.client.enums.assets to javafx.fxml;
+    exports com.ap.gwentgame;
+    opens com.ap.gwentgame to javafx.fxml;
 }

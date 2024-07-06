@@ -32,14 +32,6 @@ public class ControllerUtilities {
             showWarningAlert("Invalid Username", "Write a valid username (contains only uppercase, lowercase, numbers, and/or _)");
             return false;
         }
-        if (Session.getUserByName(username) != null && username.equals(Session.getUserByName(username).getName())) {
-            String suggestedUsername = generateSuggestedUsername(username);
-            if (showConfirmationAlert("Already Existing Username", "Suggesting Username",
-                    "You should pick another username, or you can choose the suggested username.\nDo you want to change your username to " + suggestedUsername + "?")) {
-                usernameField.setText(suggestedUsername);
-            }
-            return false;
-        }
         return true;
     }
 
@@ -114,7 +106,7 @@ public class ControllerUtilities {
         return true;
     }
 
-    private static String generateSuggestedUsername(String username) {
+    public static String generateSuggestedUsername(String username) {
         String suggestedUsername;
         do {
             StringBuilder newUsername = new StringBuilder(username);
