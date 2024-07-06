@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane fx:id="chatBoxStackPane" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: rgba(0, 0, 0, 0.5);" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ap.gwentgame.controller.ChatBoxController">
+<AnchorPane fx:id="chatBoxStackPane" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: rgba(0, 0, 0, 0.5);" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ap.gwentgame.controller.ChatBoxController">
    <children>
       <AnchorPane prefHeight="800.0" prefWidth="1200.0" StackPane.alignment="CENTER_LEFT">
          <children>
@@ -48,4 +48,4 @@
          </children>
       </AnchorPane>
    </children>
-</StackPane>
+</AnchorPane>

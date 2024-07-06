@@ -25,7 +25,7 @@ public class ChatBoxController implements Initializable {
     @FXML
     private TextField messageField;
     @FXML
-    private StackPane chatBoxStackPane;
+    private AnchorPane chatBoxStackPane;
     @FXML
     private VBox boxPane;
     @FXML

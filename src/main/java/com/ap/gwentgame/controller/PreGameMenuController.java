@@ -266,7 +266,7 @@ public class PreGameMenuController implements Initializable {
             ViewUtilities.showErrorAlert("Too many Special Card", "You can't chose more than 10 Special Card!");
         }
         if (Integer.parseInt(String.valueOf(numberOfUnitCards)) < MIN_UNIT_CARDS) {
-            ViewUtilities.showErrorAlert("Not enought Unit Card", "You have to choose at least 22 Unit Card!");
+            ViewUtilities.showErrorAlert("Not enough Unit Card", "You have to choose at least 22 Unit Card!");
         }
         User user = Session.getLoggedInUser();
         Player player1 = new Player(user, selectedFaction, selectedLeader, addedCards);
