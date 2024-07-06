@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ap.gwentgame.controller.FriendRequestController">
+   <children>
+       <VBox layoutX="100.0" layoutY="50.0" prefHeight="700.0" prefWidth="1000.0">
+         <Pane prefHeight="100.0" prefWidth="1000.0">
+            <children>
+               <Label alignment="CENTER" contentDisplay="CENTER" layoutX="339.0" layoutY="16.0" prefHeight="68.0" prefWidth="322.0" text="Friends request">
+                  <font>
+                     <Font size="26.0" />
+                  </font>
+               </Label>
+            </children>
+         </Pane>
+      <ScrollPane layoutX="100.0" layoutY="100.0" prefHeight="600.0" prefWidth="1000.0">
+         <content>
+          <VBox fx:id="friendRequestVbox" minHeight="0.0" minWidth="0.0" prefHeight="587.0" prefWidth="986.0" />
+      </content>
+      </ScrollPane>
+       </VBox>
+   </children>
+</AnchorPane>
