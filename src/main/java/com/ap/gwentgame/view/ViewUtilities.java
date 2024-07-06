@@ -13,7 +13,9 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
+import java.util.ArrayList;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class ViewUtilities {
     public static void setImageViewBackground(Pane pane, Image image) {
@@ -90,5 +92,42 @@ public class ViewUtilities {
         });
 
         transition.play();
+    }
+
+    public static ItemView ItemSelector(AnchorPane pane, ArrayList<? extends ItemView> itemViews){
+        AtomicReference<ItemView> selectedItem = new AtomicReference<>(itemViews.get(0));
+        AnchorPane itemSelector = new AnchorPane();
+        itemSelector.setPrefWidth(pane.getWidth());
+        itemSelector.setPrefHeight(pane.getHeight());
+        itemSelector.setStyle("-fx-background-color: rgba(0, 0, 0, 0.5);");
+
+        //set item views horizontally and make the selected item bigger than the others
+        for (int i = 0; i < itemViews.size(); i++) {
+            ItemView itemView = itemViews.get(i);
+            itemView.setLayoutX(i * (pane.getWidth() / itemViews.size()));
+            itemView.setLayoutY(0);
+            itemSelector.getChildren().add(itemView);
+        }
+
+        itemSelector.setOnMouseMoved(event -> {
+            for (ItemView itemView : itemViews) {
+                if (itemView.getBoundsInParent().contains(event.getX(), event.getY())) {
+                    selectedItem.set(itemView);
+                    itemView.setScaleX(1.2);
+                    itemView.setScaleY(1.2);
+                } else {
+                    itemView.setScaleX(1);
+                    itemView.setScaleY(1);
+                }
+            }
+        });
+
+        itemSelector.setOnMouseClicked(event -> {
+            pane.getChildren().remove(itemSelector);
+        });
+
+        pane.getChildren().add(itemSelector);
+
+        return selectedItem.get();
     }
 }
