@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<?import javafx.scene.image.ImageView?>
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ap.gwentgame.controller.GameHistoryController">
+   <children>
+      <Button  layoutX="10.0" layoutY="10.0" onMouseClicked="#backToProfileMenu">
+         <graphic>
+            <ImageView fx:id="back" fitHeight="50.0" fitWidth="50.0" layoutX="-20.0" pickOnBounds="true" preserveRatio="true" />
+         </graphic>
+      </Button>
+      <VBox alignment="CENTER" layoutX="150.0" layoutY="151.0" prefHeight="600.0" prefWidth="900.0">
+         <children>
+            <Pane prefHeight="50.0" prefWidth="900.0">
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="325.0" layoutY="5.0" prefHeight="40.0" prefWidth="250.0" text="Score Board" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Bold" size="25.0" />
+                     </font></Label>
+               </children>
+               <padding>
+                  <Insets bottom="50.0" />
+               </padding>
+            </Pane>
+            <ScrollPane hbarPolicy="NEVER" prefHeight="500.0" prefWidth="900.0">
+               <VBox.margin>
+                  <Insets top="50.0" />
+               </VBox.margin>
+               <content>
+                  <VBox prefHeight="500.0" prefWidth="900.0">
+                     <TableView fx:id="gameHistoryTable" VBox.vgrow="ALWAYS">
+                        <columns>
+                           <TableColumn fx:id="gameIdColumn" text="Game ID" />
+                           <TableColumn fx:id="opponentColumn" text="opponent" />
+                           <TableColumn fx:id="playerScoreColumn" text="player Score" />
+                           <TableColumn fx:id="opponentScoreColumn" prefWidth="100.0" text="opponent Score" />
+                           <TableColumn fx:id="playerScoreRound1Column" prefWidth="130.0" text="player Score Round1" />
+                           <TableColumn fx:id="playerScoreRound2Column" prefWidth="130.0" text="player Score Round2" />
+                           <TableColumn fx:id="playerScoreRound3Column" prefWidth="130.0" text="player Score Round3" />
+                           <TableColumn fx:id="opponentScoreRound1Column" prefWidth="160.0" text="opponent Score Round1" />
+                           <TableColumn fx:id="opponentScoreRound2Column" prefWidth="160.0" text="opponent Score Round2" />
+                           <TableColumn fx:id="opponentScoreRound3Column" prefWidth="160.0" text="opponent Score Round3" />
+                           <TableColumn fx:id="winnerColumn" text="winner" />
+                           <TableColumn fx:id="dateColumn" text="date" />
+                        </columns>
+                     </TableView>
+                  </VBox>
+               </content></ScrollPane>
+         </children></VBox>
+   </children>
+</AnchorPane>
