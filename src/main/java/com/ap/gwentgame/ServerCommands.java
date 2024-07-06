@@ -12,7 +12,8 @@ public enum ServerCommands {
     //Login failed
     REGISTRATION_SUCCESSFUL("Registration successful"),
     REGISTRATION_FAILED_NICKNAME_TAKEN("Registration failed - nickname already taken"),
-    REGISTRATION_FAILED_USERNAME_TAKEN("Registration failed - username already taken");
+    REGISTRATION_FAILED_USERNAME_TAKEN("Registration failed - username already taken"),
+    REGISTRATION_FAILED_EMAIL_TAKEN("Registration failed - email already taken");
 
 
     private final String messageRegex;

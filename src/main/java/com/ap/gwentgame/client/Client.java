@@ -1,7 +1,7 @@
 package com.ap.gwentgame.client;
 
-import com.ap.gwentgame.client.enums.ClientMessage;
-import com.ap.gwentgame.client.enums.ServerMessage;
+import com.ap.gwentgame.ClientMessage;
+import com.ap.gwentgame.ServerMessage;
 import com.ap.gwentgame.client.view.StartMenu;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -9,7 +9,6 @@ import javafx.stage.Stage;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.Scanner;
 
 public class Client {
     private static DataInputStream dataInputStream;
@@ -21,8 +20,6 @@ public class Client {
 
     public static void start() {
         establishConnection();
-
-        closeConnection();
     }
 
     private static void establishConnection() {

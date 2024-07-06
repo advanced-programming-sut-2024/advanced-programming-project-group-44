@@ -1,4 +1,4 @@
-package com.ap.gwentgame.client.enums;
+package com.ap.gwentgame;
 
 import java.io.Serializable;
 

@@ -1,7 +1,7 @@
 package com.ap.gwentgame.client.controller;
 
+import com.ap.gwentgame.ServerMessage;
 import com.ap.gwentgame.client.Client;
-import com.ap.gwentgame.client.enums.ServerMessage;
 import com.ap.gwentgame.client.model.User;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

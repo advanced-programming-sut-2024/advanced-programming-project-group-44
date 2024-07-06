@@ -1,5 +1,6 @@
 package com.ap.gwentgame.client.controller;
 
+import com.ap.gwentgame.ServerMessage;
 import com.ap.gwentgame.client.model.Session;
 import com.ap.gwentgame.client.view.MainMenu;
 import com.ap.gwentgame.client.view.StartMenu;
@@ -13,8 +14,8 @@ import javafx.scene.input.MouseEvent;
 
 import java.util.Optional;
 
-import static com.ap.gwentgame.ServerCommands.REGISTRATION_FAILED_USERNAME_TAKEN;
-import static com.ap.gwentgame.client.view.ViewUtilities.showConfirmationAlert;
+import static com.ap.gwentgame.ServerCommands.*;
+import static com.ap.gwentgame.client.view.ViewUtilities.*;
 
 
 public class RegisterMenuController {
@@ -52,6 +53,7 @@ public class RegisterMenuController {
         User user = new User(usernameField.getText(), password.getText(), nickName.getText(),
                 email.getText(), securityQuestion.getValue(), answer.getText());
 
+
         String responseText = RequestSender.registerUser(user).getMessageText();
 
         if (REGISTRATION_FAILED_USERNAME_TAKEN.getMatcher(responseText).matches()){
@@ -63,7 +65,21 @@ public class RegisterMenuController {
             return;
         }
 
+        if (REGISTRATION_FAILED_EMAIL_TAKEN.getMatcher(responseText).matches()){
+            showInformationAlert("Email Already Taken",
+                    "The email you entered is already taken. Please enter another email.");
+            return;
+        }
 
+        if(REGISTRATION_FAILED_NICKNAME_TAKEN.getMatcher(responseText).matches()){
+            showInformationAlert("Nickname Already Taken",
+                    "The nickname you entered is already taken. Please enter another nickname.");
+            return;
+        }
+
+        if (!REGISTRATION_SUCCESSFUL.getMatcher(responseText).matches()){
+            throw new RuntimeException("Unexpected response: " + responseText);
+        }
 
         Session.setLoggedInUser(user);
 
