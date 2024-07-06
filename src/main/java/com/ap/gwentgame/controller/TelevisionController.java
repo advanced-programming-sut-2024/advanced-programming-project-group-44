@@ -1,0 +1,55 @@
+package com.ap.gwentgame.controller;
+
+import com.ap.gwentgame.model.Game.GameData;
+import com.ap.gwentgame.model.GameBox;
+import javafx.fxml.FXML;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.VBox;
+
+import java.util.Date;
+import java.util.List;
+
+public class TelevisionController {
+    @FXML
+    private ScrollPane rightScrollPane;
+    @FXML
+    private ScrollPane leftScrollPane;
+
+    @FXML
+    private VBox rightVBox;
+
+    @FXML
+    private VBox leftVBox;
+
+    public void initialize() {
+        // Assume getAllGameData() retrieves a list of GameData objects
+        List<GameData> allGameData = getAllGameData();
+
+        // Split the game data into two lists for demonstration purposes
+        List<GameData> rightGames = allGameData.subList(0, allGameData.size() / 2);
+        List<GameData> leftGames = allGameData.subList(allGameData.size() / 2, allGameData.size());
+
+        // Add GameBoxes to rightVBox
+        for (GameData gameData : rightGames) {
+            GameBox gameBox = new GameBox(gameData);
+            rightVBox.getChildren().add(gameBox);
+        }
+
+        // Add GameBoxes to leftVBox
+        for (GameData gameData : leftGames) {
+            GameBox gameBox = new GameBox(gameData);
+            leftVBox.getChildren().add(gameBox);
+        }
+    }
+
+    // Dummy method to simulate retrieval of GameData objects
+    private List<GameData> getAllGameData() {
+        // Replace with actual data retrieval logic
+        return List.of(new GameData("acfsghadghWV", "Player B", new Date(), 100, 90, new int[]{30, 40, 30}, new int[]{25, 30, 35}, "Player B"),
+                new GameData("Player A", "Player C", new Date(), 120, 80, new int[]{35, 40, 45}, new int[]{30, 25, 25}, "Player C"),
+                new GameData("Player t", "Player B", new Date(), 49, 90, new int[]{30, 40, 30}, new int[]{25, 30, 35}, "Player B"),
+                new GameData("Player f", "Player C", new Date(), 20, 80, new int[]{35, 40, 45}, new int[]{30, 25, 25}, "Player f")
+        );
+
+    }
+}
