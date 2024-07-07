@@ -1,9 +1,11 @@
 package com.ap.gwentgame.view;
 
 import com.ap.gwentgame.model.gameElementViews.CardViewContainer;
+import com.ap.gwentgame.model.gameElementViews.ItemView;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
@@ -94,14 +96,12 @@ public class ViewUtilities {
         transition.play();
     }
 
-    public static ItemView ItemSelector(AnchorPane pane, ArrayList<? extends ItemView> itemViews){
-        AtomicReference<ItemView> selectedItem = new AtomicReference<>(itemViews.get(0));
+    public static void ItemSelector(AnchorPane pane, ArrayList<? extends ItemView> itemViews, AtomicReference<ItemView> selectedItemView) {
         AnchorPane itemSelector = new AnchorPane();
         itemSelector.setPrefWidth(pane.getWidth());
         itemSelector.setPrefHeight(pane.getHeight());
         itemSelector.setStyle("-fx-background-color: rgba(0, 0, 0, 0.5);");
 
-        //set item views horizontally and make the selected item bigger than the others
         for (int i = 0; i < itemViews.size(); i++) {
             ItemView itemView = itemViews.get(i);
             itemView.setLayoutX(i * (pane.getWidth() / itemViews.size()));
@@ -109,10 +109,13 @@ public class ViewUtilities {
             itemSelector.getChildren().add(itemView);
         }
 
+        pane.getChildren().add(itemSelector);
+
         itemSelector.setOnMouseMoved(event -> {
             for (ItemView itemView : itemViews) {
                 if (itemView.getBoundsInParent().contains(event.getX(), event.getY())) {
-                    selectedItem.set(itemView);
+                    selectedItemView.set(itemView);
+
                     itemView.setScaleX(1.2);
                     itemView.setScaleY(1.2);
                 } else {
@@ -125,9 +128,5 @@ public class ViewUtilities {
         itemSelector.setOnMouseClicked(event -> {
             pane.getChildren().remove(itemSelector);
         });
-
-        pane.getChildren().add(itemSelector);
-
-        return selectedItem.get();
     }
 }

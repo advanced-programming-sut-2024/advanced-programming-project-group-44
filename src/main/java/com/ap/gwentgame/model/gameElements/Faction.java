@@ -7,19 +7,19 @@ import java.util.ArrayList;
 
 public class Faction extends Item {
     protected final ArrayList<Leader> leaders;
-    protected final CardViewContainer<PreGameCardView, Card> cards;
+    protected final CardViewContainer<PreGameCardView, Card> cardViews;
 
     public Faction(String name) {
         super(name);
         leaders = new ArrayList<>();
-        cards = new CardViewContainer<>();
+        cardViews = new CardViewContainer<>();
     }
 
     public ArrayList<Leader> getLeaders() {
         return leaders;
     }
 
-    public CardViewContainer<PreGameCardView, Card> getCards() {
-        return cards;
+    public CardViewContainer<PreGameCardView, Card> getCardViews() {
+        return cardViews;
     }
 }

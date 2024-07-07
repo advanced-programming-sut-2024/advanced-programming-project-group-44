@@ -3,25 +3,28 @@ package com.ap.gwentgame.controller;
 import com.ap.gwentgame.enums.*;
 import com.ap.gwentgame.enums.assets.Backgrounds;
 import com.ap.gwentgame.enums.assets.Icons;
+import com.ap.gwentgame.enums.assets.Items;
 import com.ap.gwentgame.model.Session;
 import com.ap.gwentgame.model.User;
-import com.ap.gwentgame.model.gameElementViews.CardViewContainer;
-import com.ap.gwentgame.model.gameElementViews.PreGameCardView;
+import com.ap.gwentgame.model.gameElementViews.*;
 import com.ap.gwentgame.model.gameElements.*;
 import com.ap.gwentgame.model.Factions.*;
 import com.ap.gwentgame.view.GameMenu;
+import com.ap.gwentgame.view.MainMenu;
 import com.ap.gwentgame.view.ViewUtilities;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 
-import javax.swing.text.Utilities;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class PreGameMenuController implements Initializable {
     private final Monsters monsters = new Monsters();
@@ -66,11 +69,25 @@ public class PreGameMenuController implements Initializable {
     private Label numberOfAllCards;
     @FXML
     private Label heroCardsCount;
+    @FXML
+    private ImageView muteButtonIcon;
+    @FXML
+    private ImageView backButtonIcon;
+    @FXML
+    private Label factionNameLabel;
+    @FXML
+    private Label leaderNameLabel;
+    @FXML
+    public Pane leaderPane;
+    @FXML
+    public Pane factionPane;
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         backgroundImage.setImage(Backgrounds.MAINBG.getImage());
+        backButtonIcon.setImage(Icons.BACK.getImage());
+        muteButtonIcon.setImage(Icons.UNMUTE.getImage());
 
         loadCards();
         loadLeaders();
@@ -80,6 +97,7 @@ public class PreGameMenuController implements Initializable {
 
         setFaction(monsters);
         setLeader(monsters.getLeaders().get(0));
+
 
         selectedCardsScroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         selectedCardsScroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
@@ -95,6 +113,8 @@ public class PreGameMenuController implements Initializable {
 
         addedCards.setVisuals(selectedCardsScroll.getWidth(), selectedCardsScroll.getHeight(), 25, 25);
         factionCards.setVisuals(factionCardsScroll.getWidth(), factionCardsScroll.getHeight(), 25, 25);
+
+        updateLabels();
     }
 
     public void updateLabels() {
@@ -102,15 +122,17 @@ public class PreGameMenuController implements Initializable {
         int heroCardCount = 0;
         int unitCardCount = 0;
         int specialCardCount = 0;
-        for (Card card : addedCards.getCards()) {
+        for (PreGameCardView preGameCardView : addedCards.getCardViews()) {
+            Card card = (Card) preGameCardView.getItem();
+            int cardCount = preGameCardView.getCount();
             if (card instanceof UnitCard unitCard) {
-                unitCardCount++;
+                unitCardCount += cardCount;
                 if (unitCard.isHero()) {
-                    heroCardCount++;
+                    heroCardCount += cardCount;
                 }
-                totalStrength += unitCard.getScore();
+                totalStrength += unitCard.getScore() * cardCount;
             } else {
-                specialCardCount++;
+                specialCardCount += cardCount;
             }
         }
 
@@ -125,24 +147,33 @@ public class PreGameMenuController implements Initializable {
         selectedFaction = faction;
         factionCards.clear();
 
-        for (PreGameCardView cardView : selectedFaction.getCards().getCardViews()) {
-            factionCards.add(cardView.clone());
+        for (PreGameCardView preGameCardView : selectedFaction.getCardViews().getCardViews()) {
+            PreGameCardView newPreGameCardView = preGameCardView.clone();
+            factionCards.add(newPreGameCardView);
+            setFactionCardOnclick(newPreGameCardView);
         }
-        for (PreGameCardView preGameCardView : selectedFaction.getCards().getCardViews()) {
-            setFactionCardOnclick(preGameCardView);
-        }
+        factionNameLabel.setText(selectedFaction.getName());
+        FactionView factionView = new FactionView(selectedFaction);
+        factionView.setLayoutX(22);
+
+        factionPane.getChildren().add(factionView);
     }
 
     public void setLeader(Leader leader) {
         selectedLeader = leader;
+        leaderNameLabel.setText(selectedLeader.getName());
+        LeaderView leaderView = new LeaderView(selectedLeader);
+        leaderView.setLayoutX(22);
+
+        System.out.println("inja");
+        leaderPane.getChildren().add(leaderView);
     }
 
     public void setFactionCardOnclick(PreGameCardView preGameCardView) {
         preGameCardView.setOnMouseClicked(event -> {
-            System.out.println(preGameCardView.getCount() - 1);
             preGameCardView.setCount(preGameCardView.getCount() - 1);
             if (preGameCardView.getCount() == 0) {
-                selectedFaction.getCards().remove(preGameCardView);
+                factionCards.remove(preGameCardView);
             }
 
             PreGameCardView addedCard = addedCards.findByName(preGameCardView.getItem().getName());
@@ -153,6 +184,8 @@ public class PreGameMenuController implements Initializable {
                 setAddedCardOnClick(addedCard);
                 addedCards.add(addedCard);
             }
+
+            updateLabels();
         });
     }
 
@@ -163,14 +196,16 @@ public class PreGameMenuController implements Initializable {
                 addedCards.remove(preGameCardView);
             }
 
-            PreGameCardView addedCard = selectedFaction.getCards().findByName(preGameCardView.getItem().getName());
+            PreGameCardView addedCard = factionCards.findByName(preGameCardView.getItem().getName());
             if (addedCard != null) {
                 addedCard.setCount(addedCard.getCount() + 1);
             } else {
                 addedCard = new PreGameCardView((Card) preGameCardView.getItem(), 1);
                 setFactionCardOnclick(addedCard);
-                selectedFaction.getCards().add(addedCard);
+                factionCards.add(addedCard);
             }
+
+            updateLabels();
         });
     }
 
@@ -208,31 +243,31 @@ public class PreGameMenuController implements Initializable {
         for (PreGameCardView preGameCardView : allPreGameCardViews) {
             switch (((Card) preGameCardView.getItem()).getFactionType()) {
                 case MONSTERS: {
-                    monsters.getCards().add(preGameCardView);
+                    monsters.getCardViews().add(preGameCardView);
                     break;
                 }
                 case NILFGAARDIAN_EMPIRE: {
-                    nilfgaardianEmpire.getCards().add(preGameCardView);
+                    nilfgaardianEmpire.getCardViews().add(preGameCardView);
                     break;
                 }
                 case NORTHERN_REALMS: {
-                    northernRealms.getCards().add(preGameCardView);
+                    northernRealms.getCardViews().add(preGameCardView);
                     break;
                 }
                 case SCOIATAEL: {
-                    scoiaTael.getCards().add(preGameCardView);
+                    scoiaTael.getCardViews().add(preGameCardView);
                     break;
                 }
                 case SKELLIGE: {
-                    skellige.getCards().add(preGameCardView);
+                    skellige.getCardViews().add(preGameCardView);
                     break;
                 }
                 case NEUTRAL: {
-                    monsters.getCards().add(preGameCardView);
-                    nilfgaardianEmpire.getCards().add(preGameCardView.clone());
-                    northernRealms.getCards().add(preGameCardView.clone());
-                    scoiaTael.getCards().add(preGameCardView.clone());
-                    skellige.getCards().add(preGameCardView.clone());
+                    monsters.getCardViews().add(preGameCardView);
+                    nilfgaardianEmpire.getCardViews().add(preGameCardView.clone());
+                    northernRealms.getCardViews().add(preGameCardView.clone());
+                    scoiaTael.getCardViews().add(preGameCardView.clone());
+                    skellige.getCardViews().add(preGameCardView.clone());
                     break;
                 }
             }
@@ -262,10 +297,13 @@ public class PreGameMenuController implements Initializable {
 
     @FXML
     private void prepareGame() {
-        if (Integer.parseInt(String.valueOf(numberOfSpecialCards)) > MAX_SPECIAL_CARDS) {
+        int countOfSpecialCards = Integer.parseInt(String.valueOf(numberOfSpecialCards.getText()).split("/")[0]);
+        int countOfUnitCards = Integer.parseInt(String.valueOf(numberOfUnitCards.getText()).split("/")[0]);
+
+        if (countOfSpecialCards > MAX_SPECIAL_CARDS) {
             ViewUtilities.showErrorAlert("Too many Special Card", "You can't chose more than 10 Special Card!");
         }
-        if (Integer.parseInt(String.valueOf(numberOfUnitCards)) < MIN_UNIT_CARDS) {
+        if (countOfUnitCards < MIN_UNIT_CARDS) {
             ViewUtilities.showErrorAlert("Not enough Unit Card", "You have to choose at least 22 Unit Card!");
         }
         User user = Session.getLoggedInUser();
@@ -287,5 +325,59 @@ public class PreGameMenuController implements Initializable {
         Board board = new Board(player1, player2);
         GameMenu gameMenu = new GameMenu();
         gameMenu.loadBoard(board);
+    }
+
+    public void backToMainMenu(MouseEvent mouseEvent) {
+        try {
+            MainMenu mainMenu = new MainMenu();
+            mainMenu.start(Session.getStage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void toggleMute(MouseEvent mouseEvent) {
+        if (MusicController.getInstance().getMediaPlayer().isMute()) {
+            MusicController.getInstance().getMediaPlayer().setMute(false);
+            muteButtonIcon.setImage(Icons.UNMUTE.getImage());
+        } else {
+            MusicController.getInstance().getMediaPlayer().setMute(true);
+            muteButtonIcon.setImage(Icons.MUTE.getImage());
+        }
+    }
+
+    public void uploadDeck(MouseEvent mouseEvent) {
+        //TODO: Implement this method
+    }
+
+    public void downloadDeck(MouseEvent mouseEvent) {
+        //TODO: Implement this method
+    }
+
+    public void LeaderSelector(MouseEvent mouseEvent) {
+        ArrayList<LeaderView> leadersView = new ArrayList<>();
+        for(Leader leader : selectedFaction.getLeaders()) {
+            LeaderView leaderView = new LeaderView(leader);
+            leadersView.add(leaderView);
+        }
+
+        AtomicReference<ItemView> selectedLeaderReference = new AtomicReference<>();
+        ViewUtilities.ItemSelector(mainPane, leadersView, selectedLeaderReference);
+        setLeader((Leader) selectedLeaderReference.get().getItem());
+    }
+
+
+    public void FactionSelector(MouseEvent mouseEvent) {
+        ArrayList<FactionView> factionsView = new ArrayList<>();
+        factionsView.add(new FactionView(monsters));
+        factionsView.add(new FactionView(nilfgaardianEmpire));
+        factionsView.add(new FactionView(northernRealms));
+        factionsView.add(new FactionView(scoiaTael));
+        factionsView.add(new FactionView(skellige));
+
+        AtomicReference<ItemView> selectedFactionReference = new AtomicReference<>();
+        ViewUtilities.ItemSelector(mainPane, factionsView, selectedFactionReference);
+        setFaction((Faction) selectedFactionReference.get().getItem());
     }
 }

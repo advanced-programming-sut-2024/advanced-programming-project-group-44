@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
 <AnchorPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ap.gwentgame.controller.PreGameMenuController">
@@ -25,9 +26,9 @@
                         <Insets left="20.0" right="20.0" />
                      </padding>
                      <children>
-                        <Button mnemonicParsing="false">
+                        <Button onMouseClicked="#backToMainMenu">
                            <graphic>
-                              <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fx:id="backButtonIcon" fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" />
                            </graphic>
                         </Button>
                         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
@@ -38,15 +39,15 @@
                         <Insets left="20.0" right="20.0" />
                      </padding>
                      <children>
-                        <Button mnemonicParsing="false">
+                        <Button  onMouseClicked="#toggleMute">
                            <graphic>
-                              <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fx:id="muteButtonIcon" fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true" />
                            </graphic>
                         </Button>
                         <HBox alignment="CENTER_RIGHT" spacing="10.0">
                            <children>
-                              <Button mnemonicParsing="false" text="Upload Deck" />
-                              <Button mnemonicParsing="false" text="Download Deck" />
+                              <Button onMouseClicked="#uploadDeck" text="Upload Deck" />
+                              <Button onMouseClicked="#downloadDeck" text="Download Deck" />
                            </children>
                         </HBox>
                      </children>
@@ -61,35 +62,35 @@
                      <children>
                         <VBox alignment="CENTER" prefHeight="90.0" prefWidth="120.0" spacing="10.0">
                            <children>
-                              <ImageView fx:id="totalCardsCount" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fx:id="totalCardsCount" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
                               <Label alignment="CENTER" prefHeight="20.0" prefWidth="120.0" text="Total crads in deck" />
                               <Label fx:id="totalCardsInDeck" alignment="CENTER" prefHeight="20.0" prefWidth="120.0" />
                            </children>
                         </VBox>
                         <VBox alignment="CENTER" prefHeight="90.0" prefWidth="120.0" spacing="10.0">
                            <children>
-                              <ImageView fx:id="unitCardsCount" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fx:id="unitCardsCount" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
                               <Label alignment="CENTER" prefHeight="20.0" prefWidth="120.0" text="Number of Unit Cards" />
                               <Label fx:id="numberOfUnitCards" alignment="CENTER" prefHeight="20.0" prefWidth="120.0" />
                            </children>
                         </VBox>
                         <VBox alignment="CENTER" prefHeight="90.0" prefWidth="120.0" spacing="10.0">
                            <children>
-                              <ImageView fx:id="specialCardsCount" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fx:id="specialCardsCount" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
                               <Label alignment="CENTER" prefHeight="20.0" prefWidth="120.0" text="Special Cards" />
                               <Label fx:id="numberOfSpecialCards" alignment="CENTER" prefHeight="20.0" prefWidth="120.0" />
                            </children>
                         </VBox>
                         <VBox alignment="CENTER" prefHeight="90.0" prefWidth="120.0" spacing="10.0">
                            <children>
-                              <ImageView fx:id="totalCardsStrength" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fx:id="totalCardsStrength" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
                               <Label alignment="CENTER" prefHeight="20.0" prefWidth="120.0" text="Total Strength" />
                               <Label fx:id="numberOfAllCards" alignment="CENTER" prefHeight="20.0" prefWidth="120.0" />
                            </children>
                         </VBox>
                         <VBox alignment="CENTER" prefHeight="90.0" prefWidth="120.0" spacing="10.0">
                            <children>
-                              <ImageView fx:id="heroCards" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fx:id="heroCards" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true" />
                               <Label alignment="CENTER" prefHeight="20.0" prefWidth="120.0" text="Hero Crads" />
                               <Label fx:id="heroCardsCount" alignment="CENTER" prefHeight="20.0" prefWidth="120.0" />
                            </children>
@@ -109,8 +110,18 @@
                <children>
                   <FlowPane alignment="CENTER_LEFT" hgap="20.0" prefHeight="100.0" prefWidth="600.0">
                      <children>
-                        <ImageView fitHeight="80.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                        <ImageView fitHeight="80.0" fitWidth="200.0" layoutX="30.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true" />
+                        <Pane onMouseClicked="#LeaderSelector" fx:id="leaderPane" prefHeight="80.0" prefWidth="250.0">
+                           <children>
+                              <Label layoutX="120.0" layoutY="15.0" text="Leader" />
+                              <Label fx:id="leaderNameLabel" layoutX="120.0" layoutY="40.0" prefWidth="56565.0" />
+                           </children>
+                        </Pane>
+                        <Pane onMouseClicked="#FactionSelector" fx:id="factionPane" prefHeight="80.0" prefWidth="250.0">
+                           <children>
+                              <Label layoutX="120.0" layoutY="15.0" prefWidth="60.0" text="Faction" />
+                              <Label fx:id="factionNameLabel" layoutX="120.0" layoutY="40.0" />
+                           </children>
+                        </Pane>
                      </children>
                      <padding>
                         <Insets left="20.0" right="20.0" />

@@ -139,8 +139,8 @@ public class PlayerView {
             leaderView.setLayoutY(585);
             boardPane.getChildren().add(leaderView);
 
-            factionView.setLayoutX(80);
-            factionView.setLayoutY(20);
+            factionView.setLayoutX(18);
+            factionView.setLayoutY(10);
             boardPane.getChildren().add(factionView);
 
             playerDataPane.setLayoutX(45);
@@ -169,7 +169,7 @@ public class PlayerView {
             leaderView.setLayoutY(110);
             boardPane.getChildren().add(leaderView);
 
-            factionView.setLayoutX(20);
+            factionView.setLayoutX(18);
             factionView.setLayoutY(10);
             boardPane.getChildren().add(factionView);
 

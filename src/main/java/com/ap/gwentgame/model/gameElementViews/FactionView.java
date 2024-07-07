@@ -16,7 +16,7 @@ public class FactionView extends ItemView{
     @Override
     public void initializeGraphic() {
         super.initializeGraphic();
-        this.setHeight(56);
+        this.setHeight(60);
         this.setWidth(56);
         ViewUtilities.setImageViewBackground(this, getImage());
     }
