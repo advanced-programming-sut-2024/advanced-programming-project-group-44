@@ -362,8 +362,7 @@ public class PreGameMenuController implements Initializable {
             leadersView.add(leaderView);
         }
 
-
-        AtomicReference<ItemView> selectedLeaderReference = new AtomicReference<>(leadersView.get(0));
+        AtomicReference<ItemView> selectedLeaderReference = new AtomicReference<>(new LeaderView(selectedLeader));
         Button submitButton = new Button();
         ViewUtilities.ItemSelector(mainPane, leadersView, selectedLeaderReference, submitButton);
         submitButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
@@ -382,7 +381,7 @@ public class PreGameMenuController implements Initializable {
 
 
         Button submitButton = new Button();
-        AtomicReference<ItemView> selectedFactionReference = new AtomicReference<>();
+        AtomicReference<ItemView> selectedFactionReference = new AtomicReference<>(new FactionView(selectedFaction));
         ViewUtilities.ItemSelector(mainPane, factionsView, selectedFactionReference, submitButton);
         submitButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
             setFaction((Faction) selectedFactionReference.get().getItem());
