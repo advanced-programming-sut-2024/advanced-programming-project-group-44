@@ -24,7 +24,7 @@ public class Client {
 
     private static void establishConnection() {
         try {
-            Socket socket = new Socket("localhost", 6000);
+            Socket socket = new Socket("localhost", 8000);
             dataInputStream = new DataInputStream(socket.getInputStream());
             dataOutputStream = new DataOutputStream(socket.getOutputStream());
         } catch (IOException e) {
@@ -73,11 +73,5 @@ public class Client {
 
     public static void main(String[] args) {
         Client.start();
-        StartMenu startMenu = new StartMenu();
-        try {
-            startMenu.start(new Stage());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }

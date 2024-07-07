@@ -44,13 +44,13 @@ public class LoginMenuController {
             return;
         }
 
-        if(!Session.getUserByName(name.getText()).getPassword().equals(password.getText())){
+        /*if(!Session.getUserByName(name.getText()).getPassword().equals(password.getText())){
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setHeaderText("Wrong Password");
             alert.setContentText("The Password is not correct");
             alert.show();
             return;
-        }
+        }*/
 
         MainMenu main = new MainMenu();
         try {
@@ -70,7 +70,7 @@ public class LoginMenuController {
     }
 
     public void goToQuestionMenu(MouseEvent mouseEvent) {
-        try {
+        /*try {
             if(!ControllerUtilities.validateLoginUsername(name)) return;
             User user = Session.getUserByName(name.getText());
             FXMLLoader fxmlLoader = new FXMLLoader(new URL(ControllerUtilities.getResourcePath("fxml/ForgotPasswordMenu.fxml")));
@@ -93,6 +93,6 @@ public class LoginMenuController {
             }
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 }

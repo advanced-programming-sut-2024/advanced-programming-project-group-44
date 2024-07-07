@@ -16,17 +16,18 @@ module com.ap.gwentgame {
     exports com.ap.gwentgame.client.model.Leaders;
     exports com.ap.gwentgame.client.enums;
     exports com.ap.gwentgame.client.enums.assets;
-
-    opens com.ap.gwentgame.client.controller to javafx.fxml;
-    opens com.ap.gwentgame.client.view to javafx.fxml;
-    opens com.ap.gwentgame.client.model to javafx.fxml;
-    opens com.ap.gwentgame.client.model.gameElements to javafx.fxml;
-    opens com.ap.gwentgame.client.model.gameElementViews to javafx.fxml;
-    opens com.ap.gwentgame.client.model.Factions to javafx.fxml;
-    opens com.ap.gwentgame.client.model.Abilities to javafx.fxml;
-    opens com.ap.gwentgame.client.model.Leaders to javafx.fxml;
-    opens com.ap.gwentgame.client.enums to javafx.fxml;
-    opens com.ap.gwentgame.client.enums.assets to javafx.fxml;
     exports com.ap.gwentgame;
-    opens com.ap.gwentgame to javafx.fxml;
+
+    opens com.ap.gwentgame.client.controller to javafx.fxml, com.google.gson;
+    opens com.ap.gwentgame.client.view to javafx.fxml, com.google.gson;
+    opens com.ap.gwentgame.client.model to javafx.fxml, com.google.gson;
+    opens com.ap.gwentgame.client.model.gameElements to javafx.fxml, com.google.gson;
+    opens com.ap.gwentgame.client.model.gameElementViews to javafx.fxml, com.google.gson;
+    opens com.ap.gwentgame.client.model.Factions to javafx.fxml, com.google.gson;
+    opens com.ap.gwentgame.client.model.Abilities to javafx.fxml, com.google.gson;
+    opens com.ap.gwentgame.client.model.Leaders to javafx.fxml, com.google.gson;
+    opens com.ap.gwentgame.client.enums to javafx.fxml, com.google.gson;
+    opens com.ap.gwentgame.client.enums.assets to javafx.fxml, com.google.gson;
+    opens com.ap.gwentgame to javafx.fxml, com.google.gson;
+
 }

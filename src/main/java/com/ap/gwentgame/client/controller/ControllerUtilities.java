@@ -99,16 +99,16 @@ public class ControllerUtilities {
             showWarningAlert("Invalid Username", "Enter a username first");
             return false;
         }
-        if (Session.getUserByName(username) == null) {
+        /*if (Session.getUserByName(username) == null) {
             showWarningAlert("No User", "Username was not found!");
             return false;
-        }
+        }*/
         return true;
     }
 
     public static String generateSuggestedUsername(String username) {
-        String suggestedUsername;
-        do {
+        String suggestedUsername = null;
+        /*do {
             StringBuilder newUsername = new StringBuilder(username);
             int randomInt = getRandomNumberInRange(2, 30);
             newUsername.append(LOWERCASE.charAt(random.nextInt(LOWERCASE.length())));
@@ -119,7 +119,7 @@ public class ControllerUtilities {
                 newUsername.append(UPPERCASE.charAt(random.nextInt(UPPERCASE.length())));
             }
             suggestedUsername = newUsername.toString();
-        } while (Session.getUserByName(username) != null);
+        } while (Session.getUserByName(username) != null);*/
         return suggestedUsername;
     }
 

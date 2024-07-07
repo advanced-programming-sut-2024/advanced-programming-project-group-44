@@ -58,6 +58,7 @@ public class UserHandler extends Thread {
         Matcher matcher;
         if ((matcher = ClientCommands.REGISTER_USER.getMatcher(messageText)).matches()) {
             User user = gson.fromJson(matcher.group(1), User.class);
+            System.out.println("kir");
             if (Database.findUserByUsername(user.getName()) != null) {
                 sendResponse("Registration failed - username already taken");
                 return;
@@ -73,7 +74,7 @@ public class UserHandler extends Thread {
 
             Database.addUser(user);
             currentUser = user;
-            sendResponse("Registration successful", user);
+            sendResponse("Registration successful");
         }
     }
 
