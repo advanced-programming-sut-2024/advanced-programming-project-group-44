@@ -146,6 +146,7 @@ public class PreGameMenuController implements Initializable {
     public void setFaction(Faction faction) {
         selectedFaction = faction;
         factionCards.clear();
+        addedCards.clear();
 
         for (PreGameCardView preGameCardView : selectedFaction.getCardViews().getCardViews()) {
             PreGameCardView newPreGameCardView = preGameCardView.clone();
