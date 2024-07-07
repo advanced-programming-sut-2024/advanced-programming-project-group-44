@@ -23,6 +23,8 @@ public class UserHandler extends Thread {
     private DataOutputStream dataOutputStream;
     private Socket socket;
 
+    private User currentUser;
+
     private static GsonBuilder builder = new GsonBuilder();
     private static Gson gson = builder.create();
 
@@ -87,7 +89,30 @@ public class UserHandler extends Thread {
 
             Database.addUser(user);
             sendResponse("Registration successful");
+            return;
+        } else if ((matcher = ClientCommands.LOGIN_USER.getMatcher(messageText)).matches()) {
+            String username = matcher.group(1);
+            String password = matcher.group(2);
+
+            User user = Database.findUserByUsername(username);
+
+            if (user == null) {
+                sendResponse("Login failed - user not found");
+                return;
+            }
+
+            if (!user.getPassword().equals(password)) {
+                sendResponse("Login failed - incorrect password");
+                return;
+            }
+
+            System.out.println("salam");
+            currentUser = user;
+            sendResponse("Login successful", user);
+            return;
         }
+
+
     }
 
     private void sendResponse(String messageText) {
