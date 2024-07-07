@@ -108,18 +108,16 @@ public class ControllerUtilities {
 
     public static String generateSuggestedUsername(String username) {
         String suggestedUsername = null;
-        /*do {
-            StringBuilder newUsername = new StringBuilder(username);
-            int randomInt = getRandomNumberInRange(2, 30);
-            newUsername.append(LOWERCASE.charAt(random.nextInt(LOWERCASE.length())));
-            if (randomInt % 4 == 0) {
-                newUsername.append("_".charAt(random.nextInt(1)));
-            }
-            if (randomInt % 3 == 0) {
-                newUsername.append(UPPERCASE.charAt(random.nextInt(UPPERCASE.length())));
-            }
-            suggestedUsername = newUsername.toString();
-        } while (Session.getUserByName(username) != null);*/
+        StringBuilder newUsername = new StringBuilder(username);
+        int randomInt = getRandomNumberInRange(2, 30);
+        newUsername.append(LOWERCASE.charAt(random.nextInt(LOWERCASE.length())));
+        if (randomInt % 4 == 0) {
+            newUsername.append("_".charAt(random.nextInt(1)));
+        }
+        if (randomInt % 3 == 0) {
+            newUsername.append(UPPERCASE.charAt(random.nextInt(UPPERCASE.length())));
+        }
+        suggestedUsername = newUsername.toString();
         return suggestedUsername;
     }
 

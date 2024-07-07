@@ -1,5 +1,6 @@
 package com.ap.gwentgame.client.model.Abilities;
 
+import com.ap.gwentgame.client.model.gameElementViews.BoardView;
 import com.ap.gwentgame.client.model.gameElements.Card;
 import com.ap.gwentgame.client.model.gameElements.Board;
 
@@ -10,7 +11,11 @@ public abstract class Ability {
         this.card = card;
     }
 
-    public abstract void run(Board board);
+    public abstract void run(BoardView boardview, String abilityInput);
+
+    public String getAbilityInput(){
+        return null;
+    }
 
     //public abstract void stop(Board board);
 }

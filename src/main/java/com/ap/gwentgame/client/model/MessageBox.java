@@ -40,6 +40,7 @@ public class MessageBox extends AnchorPane {
             this.getChildren().add(replyVBox);
             replyVBox.setVisible(true);
         }*/
+
         Label messageLabel = new Label(message);
         messageLabel.setPrefWidth(200);
         messageLabel.setWrapText(true);

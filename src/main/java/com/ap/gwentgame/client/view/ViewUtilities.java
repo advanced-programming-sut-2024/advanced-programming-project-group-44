@@ -34,10 +34,10 @@ public class ViewUtilities {
         alert.show();
     }
 
-    public static boolean showConfirmationAlert(String title, String header, String message) {
+    public static boolean showConfirmationAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle(title);
-        alert.setHeaderText(header);
+        alert.setHeaderText(title);
         alert.setContentText(message);
         Optional<ButtonType> result = alert.showAndWait();
         return result.isPresent() && result.get() == ButtonType.OK;

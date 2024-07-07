@@ -58,7 +58,7 @@ public class RegisterMenuController {
 
         if (REGISTRATION_FAILED_USERNAME_TAKEN.getMatcher(responseText).matches()){
             String suggestedUsername = ControllerUtilities.generateSuggestedUsername(usernameField.getText());
-            if (showConfirmationAlert("Already Existing Username", "Suggesting Username",
+            if (showConfirmationAlert("Already Existing Username",
                     "You should pick another username, or you can choose the suggested username.\nDo you want to change your username to " + suggestedUsername + "?")) {
                 usernameField.setText(suggestedUsername);
             }
