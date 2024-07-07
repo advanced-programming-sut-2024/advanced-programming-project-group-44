@@ -3,7 +3,6 @@ package com.ap.gwentgame.controller;
 import com.ap.gwentgame.enums.*;
 import com.ap.gwentgame.enums.assets.Backgrounds;
 import com.ap.gwentgame.enums.assets.Icons;
-import com.ap.gwentgame.enums.assets.Items;
 import com.ap.gwentgame.model.Session;
 import com.ap.gwentgame.model.User;
 import com.ap.gwentgame.model.gameElementViews.*;
@@ -14,6 +13,7 @@ import com.ap.gwentgame.view.MainMenu;
 import com.ap.gwentgame.view.ViewUtilities;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
@@ -152,10 +152,10 @@ public class PreGameMenuController implements Initializable {
             factionCards.add(newPreGameCardView);
             setFactionCardOnclick(newPreGameCardView);
         }
+
         factionNameLabel.setText(selectedFaction.getName());
         FactionView factionView = new FactionView(selectedFaction);
         factionView.setLayoutX(22);
-
         factionPane.getChildren().add(factionView);
     }
 
@@ -164,8 +164,6 @@ public class PreGameMenuController implements Initializable {
         leaderNameLabel.setText(selectedLeader.getName());
         LeaderView leaderView = new LeaderView(selectedLeader);
         leaderView.setLayoutX(22);
-
-        System.out.println("inja");
         leaderPane.getChildren().add(leaderView);
     }
 
@@ -357,14 +355,19 @@ public class PreGameMenuController implements Initializable {
 
     public void LeaderSelector(MouseEvent mouseEvent) {
         ArrayList<LeaderView> leadersView = new ArrayList<>();
+
         for(Leader leader : selectedFaction.getLeaders()) {
             LeaderView leaderView = new LeaderView(leader);
             leadersView.add(leaderView);
         }
 
-        AtomicReference<ItemView> selectedLeaderReference = new AtomicReference<>();
-        ViewUtilities.ItemSelector(mainPane, leadersView, selectedLeaderReference);
-        setLeader((Leader) selectedLeaderReference.get().getItem());
+
+        AtomicReference<ItemView> selectedLeaderReference = new AtomicReference<>(leadersView.get(0));
+        Button submitButton = new Button();
+        ViewUtilities.ItemSelector(mainPane, leadersView, selectedLeaderReference, submitButton);
+        submitButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+            setLeader((Leader) selectedLeaderReference.get().getItem());
+        });
     }
 
 
@@ -376,8 +379,14 @@ public class PreGameMenuController implements Initializable {
         factionsView.add(new FactionView(scoiaTael));
         factionsView.add(new FactionView(skellige));
 
+
+        Button submitButton = new Button();
         AtomicReference<ItemView> selectedFactionReference = new AtomicReference<>();
-        ViewUtilities.ItemSelector(mainPane, factionsView, selectedFactionReference);
-        setFaction((Faction) selectedFactionReference.get().getItem());
+        ViewUtilities.ItemSelector(mainPane, factionsView, selectedFactionReference, submitButton);
+        submitButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+            setFaction((Faction) selectedFactionReference.get().getItem());
+            setLeader(selectedFaction.getLeaders().get(0));
+        });
+
     }
 }

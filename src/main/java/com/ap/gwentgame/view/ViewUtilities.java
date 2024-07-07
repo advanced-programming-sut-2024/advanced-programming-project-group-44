@@ -5,12 +5,13 @@ import com.ap.gwentgame.model.gameElementViews.ItemView;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
-import javafx.application.Platform;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
@@ -96,7 +97,7 @@ public class ViewUtilities {
         transition.play();
     }
 
-    public static void ItemSelector(AnchorPane pane, ArrayList<? extends ItemView> itemViews, AtomicReference<ItemView> selectedItemView) {
+    public static void ItemSelector(AnchorPane pane, ArrayList<? extends ItemView> itemViews, AtomicReference<ItemView> selectedItemReference, Button submitButton) {
         AnchorPane itemSelector = new AnchorPane();
         itemSelector.setPrefWidth(pane.getWidth());
         itemSelector.setPrefHeight(pane.getHeight());
@@ -114,8 +115,6 @@ public class ViewUtilities {
         itemSelector.setOnMouseMoved(event -> {
             for (ItemView itemView : itemViews) {
                 if (itemView.getBoundsInParent().contains(event.getX(), event.getY())) {
-                    selectedItemView.set(itemView);
-
                     itemView.setScaleX(1.2);
                     itemView.setScaleY(1.2);
                 } else {
@@ -126,7 +125,23 @@ public class ViewUtilities {
         });
 
         itemSelector.setOnMouseClicked(event -> {
+            for (ItemView itemView : itemViews) {
+                if (itemView.getBoundsInParent().contains(event.getX(), event.getY())) {
+                    selectedItemReference.set(itemView);
+                }
+            }
+        });
+
+        //add a mouse click event to the submit button
+        submitButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
             pane.getChildren().remove(itemSelector);
         });
+
+
+        itemSelector.getChildren().add(submitButton);
+        submitButton.setLayoutX(300);
+        submitButton.setLayoutY(300);
+        submitButton.setText("Submit");
+
     }
 }
