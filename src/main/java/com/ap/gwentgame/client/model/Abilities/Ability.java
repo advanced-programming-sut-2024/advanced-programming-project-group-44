@@ -11,7 +11,7 @@ public abstract class Ability {
         this.card = card;
     }
 
-    public abstract void run(BoardView boardview, String abilityInput);
+    public abstract void run(Board board);
 
     public String getAbilityInput(){
         return null;
