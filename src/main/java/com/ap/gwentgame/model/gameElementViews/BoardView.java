@@ -1,10 +1,14 @@
 package com.ap.gwentgame.model.gameElementViews;
 
+import com.ap.gwentgame.controller.MusicController;
 import com.ap.gwentgame.enums.assets.Backgrounds;
+import com.ap.gwentgame.enums.assets.Icons;
 import com.ap.gwentgame.model.gameElements.Board;
 import com.ap.gwentgame.model.gameElements.Player;
 import com.ap.gwentgame.model.gameElements.WeatherCard;
 import com.ap.gwentgame.view.ViewUtilities;
+import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
 public class BoardView {
@@ -40,5 +44,40 @@ public class BoardView {
         player1View.initializePlayerView();
         player2View.initializePlayerView();
         weatherCards.setVisuals(gamePane, 86, 341, 177, 91, 10, 0);
+    }
+
+    public void initializeMuteButtons() {
+        Button muteButton = new Button();
+        muteButton.setLayoutX(1100);
+        muteButton.setLayoutY(20);
+        muteButton.setPrefSize(30, 30);
+        muteButton.setStyle("-fx-background-color: transparent;");
+        ImageView muteButtonIcon = new ImageView();
+        muteButton.setOnMouseClicked(event -> {
+            if (MusicController.getInstance().getMediaPlayer().isMute()) {
+                MusicController.getInstance().getMediaPlayer().setMute(false);
+                muteButtonIcon.setImage(Icons.UNMUTE.getImage());
+            } else {
+                MusicController.getInstance().getMediaPlayer().setMute(true);
+                muteButtonIcon.setImage(Icons.MUTE.getImage());
+            }
+        });
+        gamePane.getChildren().add(muteButton);
+    }
+
+    public void initializeChatButton() {
+        Button chatButton = new Button();
+        chatButton.setLayoutX(1060);
+        chatButton.setLayoutY(20);
+        chatButton.setPrefSize(30, 30);
+        chatButton.setStyle("-fx-background-color: transparent;");
+        ImageView chatButtonIcon = new ImageView();
+        //chatButtonIcon.setImage(Icons.CHAT.getImage());
+        //set on mouse clicked event to open chat window
+
+        chatButtonIcon.setFitWidth(30);
+        chatButtonIcon.setFitHeight(30);
+        chatButton.setGraphic(chatButtonIcon);
+        gamePane.getChildren().add(chatButton);
     }
 }
