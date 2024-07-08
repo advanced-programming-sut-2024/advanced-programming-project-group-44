@@ -122,7 +122,7 @@ public class PlayerView {
         cardCountIcon.setFitWidth(17);
         cardCountIcon.setFitHeight(23);
 
-        handCardsCountLabel.setPrefSize(20, 20);
+        handCardsCountLabel.setPrefSize(30, 20);
         handCardsCountLabel.setStyle("-fx-text-fill: #f8b864; -fx-font-size: 18;");
         handCardsCountLabel.setText(Integer.toString(player.getHand().size()));
 

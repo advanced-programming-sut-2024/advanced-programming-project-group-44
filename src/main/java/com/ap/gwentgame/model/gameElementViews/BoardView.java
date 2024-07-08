@@ -1,5 +1,6 @@
 package com.ap.gwentgame.model.gameElementViews;
 
+import com.ap.gwentgame.controller.ChatBoxController;
 import com.ap.gwentgame.controller.MusicController;
 import com.ap.gwentgame.enums.assets.Backgrounds;
 import com.ap.gwentgame.enums.assets.Icons;
@@ -35,6 +36,10 @@ public class BoardView {
         this.opponentPlayer = player2View;
 
         this.weatherCards = new CardViewContainer<>(board.getWeatherCards());
+        initializeMuteButtons();
+        initializeChatButton();
+
+        System.out.println("inja");
 
         initializeGameBoard();
     }
@@ -47,37 +52,50 @@ public class BoardView {
     }
 
     public void initializeMuteButtons() {
-        Button muteButton = new Button();
+        Button muteButton = new Button("mute");
         muteButton.setLayoutX(1100);
         muteButton.setLayoutY(20);
         muteButton.setPrefSize(30, 30);
-        muteButton.setStyle("-fx-background-color: transparent;");
+        //muteButton.setStyle("-fx-background-color: transparent;");
         ImageView muteButtonIcon = new ImageView();
         muteButton.setOnMouseClicked(event -> {
-            if (MusicController.getInstance().getMediaPlayer().isMute()) {
-                MusicController.getInstance().getMediaPlayer().setMute(false);
-                muteButtonIcon.setImage(Icons.UNMUTE.getImage());
-            } else {
-                MusicController.getInstance().getMediaPlayer().setMute(true);
-                muteButtonIcon.setImage(Icons.MUTE.getImage());
-            }
+            ViewUtilities.toggleMute(muteButton ,muteButtonIcon);
         });
+        System.out.println("inja2");
         gamePane.getChildren().add(muteButton);
     }
 
     public void initializeChatButton() {
-        Button chatButton = new Button();
-        chatButton.setLayoutX(1060);
-        chatButton.setLayoutY(20);
+        Button chatButton = new Button("Chat");
+        chatButton.setLayoutX(300);
+        chatButton.setLayoutY(300);
         chatButton.setPrefSize(30, 30);
-        chatButton.setStyle("-fx-background-color: transparent;");
+        //chatButton.setStyle("-fx-background-color: transparent;");
         ImageView chatButtonIcon = new ImageView();
         //chatButtonIcon.setImage(Icons.CHAT.getImage());
-        //set on mouse clicked event to open chat window
-
+        chatButton.setOnMouseClicked(event -> {
+            ChatBoxController chatBoxController = new ChatBoxController();
+            chatBoxController.openChatBox();
+        });
         chatButtonIcon.setFitWidth(30);
         chatButtonIcon.setFitHeight(30);
-        chatButton.setGraphic(chatButtonIcon);
         gamePane.getChildren().add(chatButton);
     }
+
+    public void initializeReactButton() {
+        Button reactButton = new Button();
+        reactButton.setLayoutX(1020);
+        reactButton.setLayoutY(20);
+        reactButton.setPrefSize(30, 30);
+        reactButton.setStyle("-fx-background-color: transparent;");
+        ImageView reactButtonIcon = new ImageView();
+        //reactButtonIcon.setImage(Icons.REACT.getImage());
+        reactButton.setOnMouseClicked(event -> {
+
+        });
+        reactButtonIcon.setFitWidth(30);
+        reactButtonIcon.setFitHeight(30);
+        gamePane.getChildren().add(reactButton);
+    }
+
 }
