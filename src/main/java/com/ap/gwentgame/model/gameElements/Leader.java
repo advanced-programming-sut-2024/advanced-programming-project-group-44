@@ -6,6 +6,7 @@ import com.ap.gwentgame.model.gameElementViews.BoardView;
 public abstract class Leader extends Item {
     private final FactionType factionType;
     private boolean canAbilityBeExecuted;
+    private boolean hasAbilityInput = false;
 
     public Leader(String name, FactionType factionType) {
         super(name);
@@ -25,5 +26,13 @@ public abstract class Leader extends Item {
 
     public boolean getCanAbilityBeExecuted(){
         return this.canAbilityBeExecuted;
+    }
+
+    public void setAbilityInput() {
+        this.hasAbilityInput = true;
+    }
+
+    public boolean hasAbilityInput() {
+        return this.hasAbilityInput;
     }
 }
