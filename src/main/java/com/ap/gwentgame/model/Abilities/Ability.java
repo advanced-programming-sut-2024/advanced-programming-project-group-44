@@ -2,7 +2,7 @@ package com.ap.gwentgame.model.Abilities;
 
 import com.ap.gwentgame.model.gameElementViews.BoardView;
 import com.ap.gwentgame.model.gameElements.Card;
-import com.ap.gwentgame.model.gameElements.Board;
+import javafx.scene.control.Button;
 
 public abstract class Ability {
     protected Card card;
@@ -11,9 +11,5 @@ public abstract class Ability {
         this.card = card;
     }
 
-    public abstract void run(BoardView boardView, String AbilityInput);
-
-    public String getAbilityInput(){
-        return null;
-    }
+    public abstract void run(BoardView boardView, int index);
 }

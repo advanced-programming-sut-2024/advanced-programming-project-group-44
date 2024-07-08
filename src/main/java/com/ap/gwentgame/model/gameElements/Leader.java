@@ -1,10 +1,10 @@
 package com.ap.gwentgame.model.gameElements;
 
 import com.ap.gwentgame.enums.FactionType;
+import com.ap.gwentgame.model.gameElementViews.BoardView;
 
 public abstract class Leader extends Item {
     private final FactionType factionType;
-    public abstract void executeAbility(Board board);
     private boolean canAbilityBeExecuted;
 
     public Leader(String name, FactionType factionType) {
@@ -12,6 +12,8 @@ public abstract class Leader extends Item {
         this.factionType = factionType;
         canAbilityBeExecuted = true;
     }
+
+    public abstract void executeAbility(BoardView boardView, int index);
 
     public FactionType getFactionType() {
         return factionType;

@@ -4,6 +4,7 @@ import com.ap.gwentgame.controller.MusicController;
 import com.ap.gwentgame.enums.assets.Backgrounds;
 import com.ap.gwentgame.enums.assets.Icons;
 import com.ap.gwentgame.model.gameElements.Board;
+import com.ap.gwentgame.model.gameElements.Card;
 import com.ap.gwentgame.model.gameElements.Player;
 import com.ap.gwentgame.model.gameElements.WeatherCard;
 import com.ap.gwentgame.view.ViewUtilities;
@@ -19,6 +20,8 @@ public class BoardView {
     private final PlayerView player2View;
     private PlayerView currentPlayerView;
     private PlayerView opponentPlayerView;
+
+    private String abilityInput;
 
     private final CardViewContainer<WeatherCardView, WeatherCard> weatherCards;
 
@@ -99,5 +102,19 @@ public class BoardView {
 
     public CardViewContainer<WeatherCardView, WeatherCard> getWeatherCards() {
         return weatherCards;
+    }
+
+    public String getAbilityInput() {
+        return abilityInput;
+    }
+
+    public void setAbilityInput(String abilityInput) {
+        this.abilityInput = abilityInput;
+    }
+
+    public void generateCommand(CardView cardView){
+        Button submitButton = new Button();
+        String abilityInput = ((Card)cardView.getItem()).getAbility().generateAbilityInput(submitButton);
+
     }
 }

@@ -163,6 +163,8 @@ public class ViewUtilities {
         itemSelector.getChildren().add(submitButton);
     }
 
+
+
     private static void updateSelectedItemView(ArrayList<? extends ItemView> itemViews, ItemView selectedItemView) {
         for (ItemView itemView : itemViews) {
             if (itemView == selectedItemView) {
