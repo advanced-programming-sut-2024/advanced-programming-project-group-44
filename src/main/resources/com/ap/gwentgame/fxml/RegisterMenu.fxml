@@ -18,7 +18,7 @@
       <TextField fx:id="email" alignment="CENTER" maxWidth="200" promptText="enter your email" />
       <ChoiceBox fx:id="securityQuestion" prefWidth="150.0" />
       <TextField fx:id="answer" alignment="CENTER" maxWidth="200" promptText="enter your answer" />
-      <Button mnemonicParsing="false" text="Generate password" onMouseClicked="#generatePassword" />
+      <Button mnemonicParsing="false" onMouseClicked="#generatePassword" text="Generate password" />
       <HBox alignment="CENTER" maxWidth="300" spacing="10">
          <Button onMouseClicked="#signup" text="sign up" />
       </HBox>

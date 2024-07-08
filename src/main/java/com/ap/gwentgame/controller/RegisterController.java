@@ -7,12 +7,18 @@ import com.ap.gwentgame.enums.assets.Backgrounds;
 import com.ap.gwentgame.model.App;
 import com.ap.gwentgame.model.User;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.security.SecureRandom;
 import java.util.Optional;
 
@@ -43,128 +49,84 @@ public class RegisterController {
     private static final String ALL_CHARS = LOWERCASE + UPPERCASE + DIGITS + SPECIALS;
     private static final SecureRandom random = new SecureRandom();
 
+    private boolean isCodeCorrect;
+    private boolean isEmailSent;
+
+    private EmailSender emailSender = new EmailSender();
+    private int verifyInt;
+
 
     public void initialize() {
-        imageview.setImage(Backgrounds.MAINBG.getImage());
+        //imageview.setImage(Backgrounds.MAINBG.getImage());
         securityQuestion.getItems().setAll(Question.values());
         securityQuestion.setValue(Question.QUESTION_1);
+        isCodeCorrect = false;
+        isEmailSent = false;
+        verifyInt = randomSixDigitNum();
     }
 
-    public void signup(MouseEvent mouseEvent) {
-//        if (name.getText() == null) {
-//            Alert alert = new Alert(Alert.AlertType.WARNING);
-//            alert.setHeaderText("invalid username");
-//            alert.setContentText("enter a username");
-//            alert.show();
-//            return;
-//        }
-//
-//        if (password.getText() == null) {
-//            Alert alert = new Alert(Alert.AlertType.WARNING);
-//            alert.setHeaderText("invalid password");
-//            alert.setContentText("enter a password");
-//            alert.show();
-//            return;
-//        }
-//
-//        if (nickName.getText() == null) {
-//            Alert alert = new Alert(Alert.AlertType.WARNING);
-//            alert.setHeaderText("invalid nickname");
-//            alert.setContentText("enter a nickname");
-//            alert.show();
-//            return;
-//        }
-//        if (email.getText() == null) {
-//            Alert alert = new Alert(Alert.AlertType.WARNING);
-//            alert.setHeaderText("invalid email");
-//            alert.setContentText("enter your email");
-//            alert.show();
-//            return;
-//        }
-//        if (nickName.getText().equals(name.getText())) {
-//            Alert alert = new Alert(Alert.AlertType.WARNING);
-//            alert.setHeaderText("nickname and username are same");
-//            alert.setContentText("change either username or your nickname");
-//            alert.show();
-//            return;
-//        }
-//        if (answer.getText() == null) {
-//            Alert alert = new Alert(Alert.AlertType.WARNING);
-//            alert.setHeaderText("set an answer");
-//            alert.setContentText("you should set an answer for the security question");
-//            alert.show();
-//            return;
-//        }
-//        if (!isValidUsername(name.getText())) {
-//            Alert alert = new Alert(Alert.AlertType.WARNING);
-//            alert.setHeaderText("invalid name");
-//            alert.setContentText("write a valid username(contains only uppercase,lowercase,numbers and/or _");
-//            alert.show();
-//            return;
-//        }
-//        if (!isValidPassword(password.getText())) {
-//            Alert alert = new Alert(Alert.AlertType.WARNING);
-//            alert.setHeaderText("invalid password");
-//            alert.setContentText("write a valid password(contains only uppercase,lowercase,numbers and/or special characters)");
-//            alert.show();
-//            return;
-//        }
-//        if (!isStrongPassword(password.getText())) {
-//            Alert alert = new Alert(Alert.AlertType.WARNING);
-//            alert.setHeaderText("weak password");
-//            alert.setContentText("write a strong password(at least 8 characters , containing uppercase,lowercase,numbers and special characters");
-//            alert.show();
-//            return;
-//        }
-//        if (!isValidEmail(email.getText())) {
-//            Alert alert = new Alert(Alert.AlertType.WARNING);
-//            alert.setHeaderText("invalid email");
-//            alert.setContentText("write a valid email");
-//            alert.show();
-//            return;
-//        }
-//        if (App.getUserByName(name.getText()) != null) {
-//            String suggestedUsername = "";
-//            do {
-//                suggestedUsername = suggestUsername(name.getText());
-//            } while (App.getUserByName(name.getText()) != null);
-//            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-//            alert.setTitle("already existing username");
-//            alert.setHeaderText("suggesting username");
-//            alert.setContentText("you should pick another username, or you can choose the suggested username." +
-//                    "do you want to change you username to " + suggestedUsername + "?");
-//
-//            Optional<ButtonType> result = alert.showAndWait();
-//            if (result.isPresent() && result.get() == ButtonType.OK) {
-//               name.setText(suggestedUsername);
-//            }
-//            return;
-//        }
-//        if (!password.getText().equals(repeatedPassword.getText())) {
-//            Alert alert = new Alert(Alert.AlertType.WARNING);
-//            alert.setHeaderText("passwords dont match");
-//            alert.setContentText("repeat your password again");
-//            alert.show();
-//            return;
-//        }
-        if(!Utilities.validatingUsername(name)) return;
-        if(!Utilities.validatingNickname(name , nickName)) return;
-        if(!Utilities.validatingPassword(password , repeatedPassword)) return;
-        if(!Utilities.validatingEmail(email)) return;
-        if(!Utilities.validatingAnswer(answer));
+    public void signup(MouseEvent mouseEvent) throws IOException {
+        if (!isCodeCorrect) {
+            if (!Utilities.validatingUsername(name)) return;
+            if (!Utilities.validatingNickname(name, nickName)) return;
+            if (!Utilities.validatingPassword(password, repeatedPassword)) return;
+            if (!Utilities.validatingEmail(email)) return;
+            if (!Utilities.validatingAnswer(answer)) ;
 
-        //new user
-        User user = new User(name.getText(), password.getText(), nickName.getText(),
-                email.getText(), securityQuestion.getValue(), answer.getText());
-        App.addUser(user);
-        App.setLoggedinUser(user);
-        MainMenu main = new MainMenu();
-        try {
-            main.start(App.getStage());
-        } catch (Exception e) {
-            e.printStackTrace();
+            //new user
+            User user = new User(name.getText(), password.getText(), nickName.getText(),
+                    email.getText(), securityQuestion.getValue(), answer.getText());
+
+            // Send welcome email
+            String subject = "Welcome to GwentGame!";
+            String body = "Dear " + user.getName() + ",\n\n" +
+                    "Thank you for signing up for GwentGame! We hope you enjoy our game.\n\n" +
+                    "This is your verification code: " + verifyInt + "\n" +
+                    "Best regards,\n" +
+                    "The GwentGame Team";
+            emailSender.sendEmail(user.getEmail(), subject, body);
+
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/ap/gwentgame/fxml/Verification.fxml"));
+            Parent root = fxmlLoader.load();
+
+            VerificationController verificationController = fxmlLoader.getController();
+            verificationController.setRandomInt(verifyInt);
+
+            // Create a new stage for the popup
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("verification");
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+
+            if (verificationController.getIsCodeCorrect()) {
+                this.isCodeCorrect = true;
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setHeaderText("verified");
+                alert.setContentText("now you can signup");
+                alert.show();
+                return;
+            }
+        } else {
+            if (!Utilities.validatingUsername(name)) return;
+            if (!Utilities.validatingNickname(name, nickName)) return;
+            if (!Utilities.validatingPassword(password, repeatedPassword)) return;
+            if (!Utilities.validatingEmail(email)) return;
+            if (!Utilities.validatingAnswer(answer)) ;
+
+            //new user
+            User user = new User(name.getText(), password.getText(), nickName.getText(),
+                    email.getText(), securityQuestion.getValue(), answer.getText());
+            //App.addUser(user);
+            //App.setLoggedinUser(user);
+            System.out.println("signed up correctly");
+            //        MainMenu main = new MainMenu();
+//        try {
+//            main.start(App.getStage());
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
         }
-
     }
 
     private boolean isValidEmail(String email) {
@@ -282,4 +244,37 @@ public class RegisterController {
         SecureRandom random = new SecureRandom();
         return random.nextInt((max - min) + 1) + min;
     }
+
+    private int randomSixDigitNum() {
+        SecureRandom random = new SecureRandom();
+        return 100000 + random.nextInt(900000);
+    }
+
+//    public void signup(MouseEvent mouseEvent) throws IOException {
+//        if (isCodeCorrect) {
+//            if (!Utilities.validatingUsername(name)) return;
+//            if (!Utilities.validatingNickname(name, nickName)) return;
+//            if (!Utilities.validatingPassword(password, repeatedPassword)) return;
+//            if (!Utilities.validatingEmail(email)) return;
+//            if (!Utilities.validatingAnswer(answer)) ;
+//
+//            //new user
+//            User user = new User(name.getText(), password.getText(), nickName.getText(),
+//                    email.getText(), securityQuestion.getValue(), answer.getText());
+//            App.addUser(user);
+//            App.setLoggedinUser(user);
+//            System.out.println("signed up correctly");
+//            //        MainMenu main = new MainMenu();
+////        try {
+////            main.start(App.getStage());
+////        } catch (Exception e) {
+////            e.printStackTrace();
+////        }
+//        } else {
+//            Alert alert = new Alert(Alert.AlertType.WARNING);
+//            alert.setHeaderText("not verified");
+//            alert.setContentText("please verify first");
+//            alert.show();
+//        }
+//    }
 }

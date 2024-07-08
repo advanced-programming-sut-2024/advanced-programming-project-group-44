@@ -20,7 +20,6 @@ public class User {
     private int losses;
     private final Question question;
     private final String answer;
-    private final ArrayList<Card> deck;
     private final ArrayList<GameData> gameHistory;
 
     public User(String name, String password, String nickName, String email, Question question, String answer) {
@@ -36,7 +35,6 @@ public class User {
         this.wins = 0;
         this.draws = 0;
         this.losses = 0;
-        this.deck = new ArrayList<Card>();
         this.gameHistory = new ArrayList<GameData>();
     }
 
@@ -128,9 +126,6 @@ public class User {
         this.losses = losses;
     }
 
-    public ArrayList<Card> getDeck() {
-        return deck;
-    }
 
     public ArrayList<GameData> getGameHistory() {
         return gameHistory;
