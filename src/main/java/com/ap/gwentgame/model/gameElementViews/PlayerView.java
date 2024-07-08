@@ -3,6 +3,7 @@ package com.ap.gwentgame.model.gameElementViews;
 import com.ap.gwentgame.enums.assets.Icons;
 import com.ap.gwentgame.enums.assets.Items;
 import com.ap.gwentgame.model.gameElements.*;
+import com.ap.gwentgame.view.ViewUtilities;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -241,16 +242,13 @@ public class PlayerView {
     }
 
     public void updateScoreLabels() {
-        currentScoreLabel.setText(Integer.toString(player.getCurrentScore()));
-
-        for (int i = 0; i < 3; i++){
-            int totalRowScore = 0;
-            for (Card card : player.getRows()[i]){
-                totalRowScore += ((UnitCard) card).getScore();
-            }
-            scoreLabels[i].setText(Integer.toString(totalRowScore));
+        ViewUtilities.changeNumber(currentScoreLabel, player.getCurrentScore());
+        for(int i = 0; i < 3; i++) {
+            scoreLabels[i].setText(Integer.toString(getRowScore(i)));
         }
     }
+
+
 
     public CardViewContainer<CardView, Card> getDeckView() {
         return deckView;

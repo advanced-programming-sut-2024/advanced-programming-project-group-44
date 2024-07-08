@@ -11,8 +11,6 @@ public class Player implements Serializable {
     private final User user;
     private final Faction faction;
     private final Leader leader;
-    private int currentScore;
-    private final int[] scores = new int[3];
     private int remainingHealth;
     private final ArrayList<Card> deck;
     private final ArrayList<Card> hand;
@@ -25,7 +23,6 @@ public class Player implements Serializable {
         this.user = user;
         this.faction = faction;
         this.leader = leader;
-        this.currentScore = 0;
         this.remainingHealth = 2;
         this.deck = new ArrayList<Card>();
         this.hand = new ArrayList<Card>();
@@ -57,15 +54,17 @@ public class Player implements Serializable {
     }
 
     public int getCurrentScore() {
-        return currentScore;
-    }
-
-    public void setCurrentScore(int currentScore) {
-        this.currentScore = currentScore;
+        return getRowScore(0) + getRowScore(1) + getRowScore(2);
     }
 
     public int getRowScore(int row) {
-        return scores[row];
+        int score = 0;
+        for (Card card : rows[row]) {
+            if (card instanceof UnitCard unitCard){
+                score += unitCard.getScore();
+            }
+        }
+        return score;
     }
 
     public int getRemainingHealth() {
@@ -88,16 +87,8 @@ public class Player implements Serializable {
         return discardPile;
     }
 
-    public ArrayList<Card> getRow(int row) {
-        return rows[row];
-    }
-
     public ArrayList<Card>[] getRows() {
         return rows;
-    }
-
-    public ArrayList<Card> getRowSpecialCards(int row) {
-        return specialCards[row];
     }
 
     public ArrayList<Card>[] getSpecialCards() {
