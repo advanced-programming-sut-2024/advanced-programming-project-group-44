@@ -8,19 +8,19 @@ import com.ap.gwentgame.model.Game.Player;
 import com.ap.gwentgame.model.ItemContainer;
 
 public class BitingFrost extends Ability {
-    public BitingFrost(Card card) {
+    public BitingFrost(Cardview card) {
         super(card);
     }
 
     @Override
-    public void run(Board board) {
+    public void run(Boardview board) {
         Player player = board.getCurrentPlayer();
         Player opponent = board.getOpponentPlayer();
         Utilities.weatherAbility(player , 0);
         Utilities.weatherAbility(opponent , 0);
     }
     @Override
-    public void stop(Board board) {
+    public void stop(Boardview board) {
         Player player = board.getCurrentPlayer();
         Player opponent = board.getOpponentPlayer();
         Utilities.stopWeatherAbility(player , 0);

@@ -4,17 +4,17 @@ import com.ap.gwentgame.model.Cards.Card;
 import com.ap.gwentgame.model.Game.Board;
 
 public class Berserker extends Ability{
-    public Berserker(Card card) {
-        super(card);
-    }
-
-    @Override
-    public void run(Board board) {
-        // TODO implement here
-    }
-
-    @Override
-    public void stop(Board board) {
-
-    }
+//    public Berserker(Cardview card) {
+//        super(card);
+//    }
+//
+//    @Override
+//    public void run(Boardview board) {
+//        // TODO implement here
+//    }
+//
+//    @Override
+//    public void stop(Boardview board) {
+//
+//    }
 }
