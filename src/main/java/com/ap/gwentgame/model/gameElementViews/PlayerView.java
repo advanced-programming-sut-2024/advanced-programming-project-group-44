@@ -238,6 +238,45 @@ public class PlayerView {
             scoreLabels[2].setLayoutY(90);
         }
         boardPane.getChildren().addAll(currentScoreLabel, scoreLabels[0], scoreLabels[1], scoreLabels[2]);
+    }
 
+    public void updateScoreLabels() {
+        currentScoreLabel.setText(Integer.toString(player.getCurrentScore()));
+
+        for (int i = 0; i < 3; i++){
+            int totalRowScore = 0;
+            for (Card card : player.getRows()[i]){
+                totalRowScore += ((UnitCard) card).getScore();
+            }
+            scoreLabels[i].setText(Integer.toString(totalRowScore));
+        }
+    }
+
+    public CardViewContainer<CardView, Card> getDeckView() {
+        return deckView;
+    }
+
+    public CardViewContainer<CardView, Card> getHandView() {
+        return handView;
+    }
+
+    public CardViewContainer<CardView, Card> getDiscardPileView() {
+        return discardPileView;
+    }
+
+    public CardViewContainer<CardView, Card>[] getRowViews() {
+        return rowViews;
+    }
+
+    public CardViewContainer<CardView, Card>[] getSpecialCardViews() {
+        return specialCardViews;
+    }
+
+    public LeaderView getLeaderView() {
+        return leaderView;
+    }
+
+    public FactionView getFactionView() {
+        return factionView;
     }
 }

@@ -17,8 +17,8 @@ public class BoardView {
 
     private final PlayerView player1View;
     private final PlayerView player2View;
-    private PlayerView currentPlayer;
-    private PlayerView opponentPlayer;
+    private PlayerView currentPlayerView;
+    private PlayerView opponentPlayerView;
 
     private final CardViewContainer<WeatherCardView, WeatherCard> weatherCards;
 
@@ -31,8 +31,8 @@ public class BoardView {
 
         this.player1View = new PlayerView(player1, 1, gamePane);
         this.player2View = new PlayerView(player2, 2, gamePane);
-        this.currentPlayer = player1View;
-        this.opponentPlayer = player2View;
+        this.currentPlayerView = player1View;
+        this.opponentPlayerView = player2View;
 
         this.weatherCards = new CardViewContainer<>(board.getWeatherCards());
 
@@ -79,5 +79,25 @@ public class BoardView {
         chatButtonIcon.setFitHeight(30);
         chatButton.setGraphic(chatButtonIcon);
         gamePane.getChildren().add(chatButton);
+    }
+
+    public PlayerView getCurrentPlayer() {
+        return currentPlayerView;
+    }
+
+    public PlayerView getOpponentPlayer() {
+        return opponentPlayerView;
+    }
+
+    public PlayerView getPlayer1() {
+        return player1View;
+    }
+
+    public PlayerView getPlayer2() {
+        return player2View;
+    }
+
+    public CardViewContainer<WeatherCardView, WeatherCard> getWeatherCards() {
+        return weatherCards;
     }
 }
