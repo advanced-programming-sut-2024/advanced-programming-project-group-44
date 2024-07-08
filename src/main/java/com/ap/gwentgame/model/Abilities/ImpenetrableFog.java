@@ -13,10 +13,10 @@ public class ImpenetrableFog extends Ability{
 
     @Override
     public void run(BoardView boardView, int index) {
-        PlayerView player = boardView.getCurrentPlayer();
-        PlayerView opponent = boardView.getOpponentPlayer();
-        ControllerUtilities.weatherAbility(player , 1);
-        ControllerUtilities.weatherAbility(opponent , 1);
+        PlayerView playerView = boardView.getCurrentPlayer();
+        PlayerView opponentView = boardView.getOpponentPlayer();
+        ControllerUtilities.weatherAbility(playerView , 1);
+        ControllerUtilities.weatherAbility(opponentView , 1);
     }
 
 }

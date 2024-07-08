@@ -11,6 +11,6 @@ public class Berserker extends Ability{
 
     @Override
     public void run(BoardView boardView, int index) {
-            //TODO
+           //
     }
 }

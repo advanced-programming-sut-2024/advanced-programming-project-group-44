@@ -1,6 +1,10 @@
 package com.ap.gwentgame.controller;
 
 import com.ap.gwentgame.model.Session;
+import com.ap.gwentgame.model.gameElementViews.CardView;
+import com.ap.gwentgame.model.gameElementViews.PlayerView;
+import com.ap.gwentgame.model.gameElementViews.UnitCardView;
+import com.ap.gwentgame.model.gameElements.UnitCard;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
@@ -171,6 +175,14 @@ public class ControllerUtilities {
             characters[randomIndex] = temp;
         }
         return new String(characters);
+    }
+
+    public static void weatherAbility(PlayerView playerView , int row) {
+        for (CardView cardView : playerView.getRowViews()[row].getCardViews()) {
+            if (cardView instanceof UnitCardView unitCardView && !((UnitCard) cardView.getItem()).isHero()) {
+                unitCardView.setScore(1);
+            }
+        }
     }
 
     private static int getRandomNumberInRange(int min, int max) {

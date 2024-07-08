@@ -111,4 +111,7 @@ public class BoardView {
     public void setAbilityInput(String abilityInput) {
         this.abilityInput = abilityInput;
     }
+    public AnchorPane getGamePane(){
+        return this.gamePane;
+    }
 }

@@ -16,7 +16,7 @@ public class CommandersHorn extends Ability{
 
         PlayerView player = boardView.getCurrentPlayer();
         int row = card.getPlacement().getRow();
-        for(Card targetCard : player.getRows()[row].getItems()){
+        for(Card targetCard : player.getRowViews()[row].getCards()){
             if (targetCard instanceof UnitCard){
                 if(!((UnitCard) targetCard).isHero() && targetCard != card){
                     UnitCard unitcard = ((UnitCard) targetCard);
