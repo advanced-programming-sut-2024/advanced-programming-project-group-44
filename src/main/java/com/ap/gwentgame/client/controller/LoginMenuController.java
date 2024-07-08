@@ -10,29 +10,23 @@ import com.ap.gwentgame.client.view.ViewUtilities;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-
-import java.io.IOException;
-import java.net.URL;
 
 import static com.ap.gwentgame.ServerCommands.*;
+import static com.ap.gwentgame.client.view.ViewUtilities.showWarningAlert;
 
 public class LoginMenuController {
     @FXML
-    private TextField name;
+    private TextField userNameField;
 
     @FXML
-    private PasswordField password;
+    private PasswordField passwordField;
 
     @FXML
     private ImageView imageview;
+
     @FXML
 
 
@@ -41,28 +35,34 @@ public class LoginMenuController {
     }
 
     public void login(MouseEvent mouseEvent) {
-        if(!ControllerUtilities.validateLoginUsername(name)) return;
+        if (userNameField.getText().isEmpty()) {
+            showWarningAlert("Invalid Username", "Enter a username first");
+            return;
+        }
 
-        ServerMessage responseMessage = RequestSender.loginUser(name.getText(), password.getText());
+        System.out.println("salamsalam");
+        ServerMessage responseMessage = RequestSender.loginUser(userNameField.getText(), passwordField.getText());
+        System.out.println("salam");
         String responseText = responseMessage.getMessageText();
 
-        if(LOGIN_FAILED_INCORRECT_PASSWORD.getMatcher(responseText).matches()){
+        if (LOGIN_FAILED_INCORRECT_PASSWORD.getMatcher(responseText).matches()) {
             ViewUtilities.showErrorAlert("Incorrect Password", "The password you entered is incorrect.");
             return;
         }
 
-        if(LOGIN_FAILED_USER_NOT_FOUND.getMatcher(responseText).matches()){
+        if (LOGIN_FAILED_USER_NOT_FOUND.getMatcher(responseText).matches()) {
             ViewUtilities.showErrorAlert("User Not Found", "The user you entered does not exist.");
             return;
         }
 
         GsonBuilder gsonBuilder = new GsonBuilder();
         Gson gson = gsonBuilder.create();
-        System.out.println("salam");
-        System.out.println(responseMessage.getAdditionalText());
-        User user = gson.fromJson(responseMessage.getAdditionalText(), User.class);
-        System.out.println("salamsalam");
-        Session.setLoggedInUser(user);
+        try {
+            User user = gson.fromJson(responseMessage.getAdditionalText(), User.class);
+            Session.setLoggedInUser(user);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 
         MainMenu main = new MainMenu();
@@ -84,7 +84,7 @@ public class LoginMenuController {
 
     public void goToQuestionMenu(MouseEvent mouseEvent) {
         try {
-            if(!ControllerUtilities.validateLoginUsername(name)) return;
+            if (!ControllerUtilities.validateLoginUsername(userNameField)) return;
             /*User user = Session.getUserByName(name.getText());
             FXMLLoader fxmlLoader = new FXMLLoader(new URL(ControllerUtilities.getResourcePath("fxml/ForgotPasswordMenu.fxml")));
             Parent root = fxmlLoader.load();

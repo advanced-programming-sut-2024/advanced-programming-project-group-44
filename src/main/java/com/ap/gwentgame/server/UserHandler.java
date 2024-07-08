@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.regex.Matcher;
@@ -24,6 +25,7 @@ public class UserHandler extends Thread {
     private Socket socket;
 
     private User currentUser;
+    private static ArrayList<User> loggedInUsers = new ArrayList<>();
 
     private static GsonBuilder builder = new GsonBuilder();
     private static Gson gson = builder.create();
@@ -88,9 +90,13 @@ public class UserHandler extends Thread {
 
 
             Database.addUser(user);
+            currentUser = user;
+            loggedInUsers.add(user);
             sendResponse("Registration successful");
             return;
-        } else if ((matcher = ClientCommands.LOGIN_USER.getMatcher(messageText)).matches()) {
+        }
+
+        if ((matcher = ClientCommands.LOGIN_USER.getMatcher(messageText)).matches()) {
             String username = matcher.group(1);
             String password = matcher.group(2);
 
@@ -106,11 +112,13 @@ public class UserHandler extends Thread {
                 return;
             }
 
-            System.out.println("salam");
             currentUser = user;
+            loggedInUsers.add(user);
             sendResponse("Login successful", user);
             return;
         }
+
+        sendResponse("Invalid message");
 
 
     }

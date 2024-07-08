@@ -99,10 +99,6 @@ public class ControllerUtilities {
             showWarningAlert("Invalid Username", "Enter a username first");
             return false;
         }
-        /*if (Session.getUserByName(username) == null) {
-            showWarningAlert("No User", "Username was not found!");
-            return false;
-        }*/
         return true;
     }
 

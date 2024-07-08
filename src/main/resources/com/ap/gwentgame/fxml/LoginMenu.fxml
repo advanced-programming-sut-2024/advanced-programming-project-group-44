@@ -11,8 +11,8 @@
     </ImageView>
     <BorderPane layoutX="373.0" layoutY="141.0" />
     <VBox alignment="CENTER" layoutX="525.0" layoutY="201.0" maxWidth="300" prefWidth="150.0" spacing="10">
-        <TextField fx:id="name" alignment="CENTER" maxWidth="200" promptText="User name" />
-        <PasswordField fx:id="password" alignment="center" maxHeight="16" maxWidth="200" promptText="enter your password" />
+        <TextField fx:id="userNameField" alignment="CENTER" maxWidth="200" promptText="User name" />
+        <PasswordField fx:id="passwordField" alignment="center" maxHeight="16" maxWidth="200" promptText="enter your password" />
 
         <HBox alignment="CENTER" maxWidth="300" spacing="10">
             <Button onMouseClicked="#login" text="Log in" />

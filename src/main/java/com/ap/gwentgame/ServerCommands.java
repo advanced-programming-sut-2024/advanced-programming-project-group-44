@@ -10,6 +10,7 @@ public enum ServerCommands {
     //Registration failed - username already taken
     //Login successful
     //Login failed
+    INVALID_MESSAGE("Invalid message"),
     REGISTRATION_SUCCESSFUL("Registration successful"),
     REGISTRATION_FAILED_NICKNAME_TAKEN("Registration failed - nickname already taken"),
     REGISTRATION_FAILED_USERNAME_TAKEN("Registration failed - username already taken"),

@@ -16,8 +16,8 @@ public enum ClientCommands {
     //login user <username> <password>
     //edit user <username> <nickname> <email>
     REGISTER_USER("register user"),
-    LOGIN_USER("login user (\\w+) (\\w+)"),
-    EDIT_USER("edit user (\\w+) (\\w+) (\\w+)"),
+    LOGIN_USER("login user (\\S+) (\\S+)"),
+    EDIT_USER("edit user (\\S+) (\\S+) (\\S+)"),
     ;
 
 
