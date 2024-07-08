@@ -111,10 +111,4 @@ public class BoardView {
     public void setAbilityInput(String abilityInput) {
         this.abilityInput = abilityInput;
     }
-
-    public void generateCommand(CardView cardView){
-        Button submitButton = new Button();
-        String abilityInput = ((Card)cardView.getItem()).getAbility().generateAbilityInput(submitButton);
-
-    }
 }

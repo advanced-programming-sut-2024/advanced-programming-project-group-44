@@ -68,6 +68,7 @@ public class PlayerView {
         initializeContainers();
         initializeInfo();
         initializeScoreLabels();
+        updateScoreLabels();
     }
 
     public void initializeContainers() {
@@ -244,11 +245,9 @@ public class PlayerView {
     public void updateScoreLabels() {
         ViewUtilities.changeNumber(currentScoreLabel, player.getCurrentScore());
         for(int i = 0; i < 3; i++) {
-            scoreLabels[i].setText(Integer.toString(getRowScore(i)));
+            ViewUtilities.changeNumber(scoreLabels[i], player.getRowScore(i));
         }
     }
-
-
 
     public CardViewContainer<CardView, Card> getDeckView() {
         return deckView;
