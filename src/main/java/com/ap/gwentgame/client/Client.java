@@ -24,7 +24,7 @@ public class Client {
 
     private static void establishConnection() {
         try {
-            Socket socket = new Socket("localhost", 8000);
+            Socket socket = new Socket("localhost", 1000);
             dataInputStream = new DataInputStream(socket.getInputStream());
             dataOutputStream = new DataOutputStream(socket.getOutputStream());
         } catch (IOException e) {

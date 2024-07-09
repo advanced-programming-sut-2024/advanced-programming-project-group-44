@@ -268,7 +268,7 @@ public class PreGameMenuController implements Initializable {
         Deck.download(deck);
     }
 
-    public void LeaderViewSelector(MouseEvent mouseEvent) {
+    public void selectLeader(MouseEvent mouseEvent) {
         for (LeaderView leaderView : selectedFaction.getLeaderViews()) {
             leaderView.toPreGameMode();
         }

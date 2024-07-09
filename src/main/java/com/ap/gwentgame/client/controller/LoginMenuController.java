@@ -100,31 +100,31 @@ public class LoginMenuController {
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setTitle("Forgot Password");
             stage.setScene(new Scene(fxmlLoader.load()));
-            stage.showAndWait();
 
             ForgotPasswordMenuController forgotPasswordMenuController = fxmlLoader.getController();
-            ServerMessage responseMessage = RequestSender.getQuestion(userNameField.getText());
-            String responseText = responseMessage.getMessageText();
-            Question question = gson.fromJson(responseMessage.getAdditionalText(), Question.class);
 
-            if (GET_QUESTION_FAILED_USER_NOT_FOUND.getMatcher(responseText).matches()) {
+            ServerMessage getQuestionResponseMessage = RequestSender.getQuestion(userNameField.getText());
+            Question question = gson.fromJson(getQuestionResponseMessage.getAdditionalText(), Question.class);
+
+            if (GET_QUESTION_FAILED_USER_NOT_FOUND.getMatcher(getQuestionResponseMessage.getMessageText()).matches()) {
                 showWarningAlert("User Not Found", "The user you entered does not exist.");
                 return;
             }
 
-            Matcher matcher = GET_QUESTION_SUCCESSFUL.getMatcher(responseText);
-            matcher.matches();
-            String wantedAnswer = matcher.group(1);
+            forgotPasswordMenuController.setSecurityQuestion(question.toString());
+            Button sendAnswerButton = forgotPasswordMenuController.getSendAnswerButton();
+            sendAnswerButton.setOnMouseClicked(event -> {
+                forgotPasswordMenuController.checkAnswerAndClose(userNameField.getText());
+            });
+            stage.showAndWait();
 
-            forgotPasswordMenuController.setSecurityQuestion(question.toString(), answer);
-            String enteredAnswer = forgotPasswordMenuController.getEnteredAnswer();
-
-
-            if (enteredAnswer.equals(wantedAnswer)) {
+            if (VALIDATE_ANSWER_SUCCESSFUL.getMatcher(forgotPasswordMenuController.getValidateAnswerResponse().getMessageText()).matches())
+            {
+                User user = gson.fromJson(forgotPasswordMenuController.getValidateAnswerResponse().getAdditionalText(), User.class);
                 userNameField.setText(user.getName());
                 passwordField.setText(user.getPassword());
             }
-
+            
         } catch (IOException e) {
             e.printStackTrace();
         }

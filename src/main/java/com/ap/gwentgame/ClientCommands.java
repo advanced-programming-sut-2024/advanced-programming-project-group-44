@@ -19,7 +19,7 @@ public enum ClientCommands {
     REGISTER_USER("register user"),
     LOGIN_USER("login user (\\S+) (\\S+)"),
     GET_QUESTION("get question (\\S+)"),
-    VALIDATE_ANSWER("validate answer (\\S+)"),
+    VALIDATE_ANSWER("validate answer (\\S+) (\\S+)"),
     EDIT_USER("edit user (\\S+) (\\S+) (\\S+)"),
     EDIT_PASSWORD("edit password (\\S+) (\\S+)"),;
 

@@ -9,6 +9,7 @@ import com.ap.gwentgame.client.model.User;
 import com.ap.gwentgame.client.view.ViewUtilities;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import javafx.scene.shape.StrokeLineCap;
 import org.w3c.dom.ls.LSOutput;
 
 import java.io.DataInputStream;
@@ -28,13 +29,10 @@ public class UserHandler extends Thread {
     private Socket socket;
 
     private User currentUser;
-    private static final ArrayList<User> loggedInUsers = new ArrayList<>();
+    private static ArrayList<User> loggedInUsers = new ArrayList<>();
 
     private static GsonBuilder builder = new GsonBuilder();
     private static Gson gson = builder.create();
-
-    private static final HashMap<Integer, UserHandler> allPlayers = new HashMap<>();
-    private static final HashMap<Integer, UserHandler> allSpectators = new HashMap<>();
 
     public UserHandler(Socket socket) {
         this.socket = socket;
@@ -75,6 +73,7 @@ public class UserHandler extends Thread {
     private void processRequest(ClientMessage clientMessage) {
         String messageText = clientMessage.getMessageText();
 
+        System.out.println(messageText);
         Matcher matcher;
         if ((matcher = ClientCommands.REGISTER_USER.getMatcher(messageText)).matches()) {
             User user = gson.fromJson(clientMessage.getAdditionalText(), User.class);
@@ -137,17 +136,18 @@ public class UserHandler extends Thread {
         }
 
         if((matcher = ClientCommands.VALIDATE_ANSWER.getMatcher(messageText)).matches()){
-            String answer = matcher.group(1);
+            String username = matcher.group(1);
+            String answer = matcher.group(2);
 
-            User user = Database.findUserByUsername(currentUser.getName());
+            User user = Database.findUserByUsername(username);
+            System.out.println(username + " " + answer);
+            System.out.println(user.getAnswer());
 
             if(!user.getAnswer().equals(answer)){
                 sendResponse("validate answer failed - incorrect answer");
                 return;
             }
 
-            currentUser = user;
-            loggedInUsers.add(user);
             sendResponse("validate answer successful", user);
             return;
         }
@@ -205,12 +205,13 @@ public class UserHandler extends Thread {
         }
 
         sendResponse("Invalid message");
+
+
     }
 
     private void sendResponse(String messageText) {
         try {
             ServerMessage serverMessage = new ServerMessage(messageText, null);
-            String felan = gson.toJson(serverMessage);
             builder.setPrettyPrinting();
             dataOutputStream.writeUTF(gson.toJson(serverMessage));
             dataOutputStream.flush();
