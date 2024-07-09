@@ -7,6 +7,7 @@ import java.lang.reflect.Type;
 public class PropertyMarshallerAbstractTask implements JsonSerializer<Object>, JsonDeserializer<Object> {
     private static final String CLASS_META_KEY = "CLASS_META_KEY";
 
+
     @Override
     public Object deserialize(JsonElement jsonElement, Type type,
                               JsonDeserializationContext jsonDeserializationContext)
