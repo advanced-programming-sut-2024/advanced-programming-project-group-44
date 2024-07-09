@@ -1,18 +1,15 @@
 package com.ap.gwentgame.model.Abilities;
 
-import com.ap.gwentgame.model.gameElementViews.BoardView;
+import com.ap.gwentgame.model.gameElements.Board;
 import com.ap.gwentgame.model.gameElements.Card;
-import javafx.scene.control.Button;
 
 public abstract class Ability {
-    protected Card card;
     private boolean hasAbilityInput = false;
 
-    public Ability(Card card){
-        this.card = card;
+    public Ability(){
     }
 
-    public abstract void run(BoardView boardView, int index);
+    public abstract void run(Board board, Card card);
 
     public void setAbilityInput() {
         this.hasAbilityInput = true;

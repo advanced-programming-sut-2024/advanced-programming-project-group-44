@@ -4,12 +4,8 @@ import com.ap.gwentgame.model.gameElements.Card;
 import com.ap.gwentgame.model.gameElements.Board;
 
 public class SkelligeStorm extends Ability{
-    public SkelligeStorm(Card card) {
-        super(card);
-    }
-
     @Override
-    public void run(Board board) {
+    public void run(Board board, Card card) {
         // TODO implement here
     }
 }

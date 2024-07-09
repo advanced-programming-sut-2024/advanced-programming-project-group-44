@@ -52,6 +52,4 @@ public abstract class ItemView extends AnchorPane{
         imageView.setFitWidth(width);
         imageView.setFitHeight(height);
     }
-
-
 }

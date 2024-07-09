@@ -16,7 +16,7 @@ public abstract class Card extends Item {
     }
 
     public void executeAction(Board board) {
-        ability.run(board);
+        //ability.run(board);
     }
 
     public void stopAction(Board board) {

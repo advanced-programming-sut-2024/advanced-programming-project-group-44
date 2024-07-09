@@ -8,22 +8,22 @@ public enum AbilityType {
 
     public Ability getAbility(Card card) {
         return switch (this) {
-            case BERSERKER -> new Berserker(card);
-            case COMMANDERSHORN -> new CommandersHorn(card);
-            case DECOY -> new Decoy(card);
-            case MARDROEME -> new Mardroeme(card);
-            case MEDIC -> new Medic(card);
-            case MORALBOOST -> new MoralBoost(card);
-            case MUSTER -> new Muster(card);
-            case SCORCH -> new Scorch(card);
-            case SPY -> new Spy(card);
-            case TIGHTBOND -> new TightBond(card);
-            case TRANSFORMERS -> new Transformers(card);
-            case BITINGFROST -> new BitingFrost(card);
-            case IMPENETRABLEFOG -> new ImpenetrableFog(card);
-            case SKELLIGESTORM -> new SkelligeStorm(card);
-            case TORRENTIALRAIN -> new TorrentialRain(card);
-            case CLEARWEATHER -> new ClearWeather(card);
+            case BERSERKER -> new Berserker();
+            case COMMANDERSHORN -> new CommandersHorn();
+            case DECOY -> new Decoy();
+            case MARDROEME -> new Mardroeme();
+            case MEDIC -> new Medic();
+            case MORALBOOST -> new MoralBoost();
+            case MUSTER -> new Muster();
+            case SCORCH -> new Scorch();
+            case SPY -> new Spy();
+            case TIGHTBOND -> new TightBond();
+            case TRANSFORMERS -> new Transformers();
+            case BITINGFROST -> new BitingFrost();
+            case IMPENETRABLEFOG -> new ImpenetrableFog();
+            case SKELLIGESTORM -> new SkelligeStorm();
+            case TORRENTIALRAIN -> new TorrentialRain();
+            case CLEARWEATHER -> new ClearWeather();
             default -> null;
         };
 

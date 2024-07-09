@@ -14,7 +14,7 @@ public abstract class Leader extends Item {
         canAbilityBeExecuted = true;
     }
 
-    public abstract void executeAbility(BoardView boardView, int index);
+    public abstract void executeAbility(Board board);
 
     public FactionType getFactionType() {
         return factionType;

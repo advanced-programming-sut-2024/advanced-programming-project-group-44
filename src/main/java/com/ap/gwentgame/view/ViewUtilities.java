@@ -139,8 +139,9 @@ public class ViewUtilities {
         rightButton.setLayoutY(pane.getHeight() / 2 - 20);
         rightButton.setOnAction(event -> {
             int selectedIndex = itemViews.indexOf(selectedItemReference.get());
-            if (selectedIndex > 0) {
-                selectedIndex--;
+            System.out.println(selectedIndex);
+            if (selectedIndex < itemViews.size() - 1) {
+                selectedIndex++;
                 selectedItemReference.set(itemViews.get(selectedIndex));
                 updateSelectedItemView(itemViews, selectedItemReference.get());
             }
@@ -167,7 +168,7 @@ public class ViewUtilities {
 
     private static void updateSelectedItemView(ArrayList<? extends ItemView> itemViews, ItemView selectedItemView) {
         for (ItemView itemView : itemViews) {
-            if (itemView == selectedItemView) {
+            if (itemView.equals(selectedItemView)) {
                 itemView.setScaleX(1.3);
                 itemView.setScaleY(1.3);
                 itemView.setLayoutY(-30); // Move the enlarged card up

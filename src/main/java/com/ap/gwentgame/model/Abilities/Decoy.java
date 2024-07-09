@@ -4,13 +4,8 @@ import com.ap.gwentgame.model.gameElements.Card;
 import com.ap.gwentgame.model.gameElements.Board;
 
 public class Decoy extends Ability{
-
-    public Decoy(Card card) {
-        super(card);
-    }
-
     @Override
-    public void run(Board board) {
+    public void run(Board board, Card card) {
         //TODO
     }
 }

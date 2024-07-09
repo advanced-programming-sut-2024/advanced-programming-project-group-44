@@ -110,7 +110,7 @@
                <children>
                   <FlowPane alignment="CENTER_LEFT" hgap="20.0" prefHeight="100.0" prefWidth="600.0">
                      <children>
-                        <Pane onMouseClicked="#LeaderSelector" fx:id="leaderPane" prefHeight="80.0" prefWidth="250.0">
+                        <Pane onMouseClicked="#LeaderViewSelector" fx:id="leaderPane" prefHeight="80.0" prefWidth="250.0">
                            <children>
                               <Label layoutX="120.0" layoutY="15.0" text="Leader" />
                               <Label fx:id="leaderNameLabel" layoutX="120.0" layoutY="40.0" prefWidth="56565.0" />

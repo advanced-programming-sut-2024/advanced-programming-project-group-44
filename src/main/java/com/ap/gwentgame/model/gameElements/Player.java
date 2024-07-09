@@ -19,7 +19,7 @@ public class Player implements Serializable {
     private final ArrayList<Card>[] specialCards;
     private boolean hasPassed;
 
-    public Player(User user, Faction faction, Leader leader, CardViewContainer<PreGameCardView, Card> addedCards) {
+    public Player(User user, Faction faction, Leader leader, CardViewContainer<PreGameCardView, PreGameCard> addedCards) {
         this.user = user;
         this.faction = faction;
         this.leader = leader;

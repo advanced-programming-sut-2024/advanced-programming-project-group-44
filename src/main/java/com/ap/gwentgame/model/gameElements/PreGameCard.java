@@ -4,8 +4,8 @@ public class PreGameCard extends Item{
     private final Card card;
     private int count;
 
-    public PreGameCard(String name, Card card, int count) {
-        super(name);
+    public PreGameCard(Card card, int count) {
+        super(card.getName());
         this.card = card;
         this.count = count;
     }

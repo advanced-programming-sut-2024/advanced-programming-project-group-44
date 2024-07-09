@@ -11,8 +11,11 @@ import com.ap.gwentgame.model.Factions.*;
 import com.ap.gwentgame.view.GameMenu;
 import com.ap.gwentgame.view.MainMenu;
 import com.ap.gwentgame.view.ViewUtilities;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -20,7 +23,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.FileChooser;
 
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -30,13 +38,14 @@ public class PreGameMenuController implements Initializable {
     private final Monsters monsters = new Monsters();
     private final NilfgaardianEmpire nilfgaardianEmpire = new NilfgaardianEmpire();
     private final NorthernRealms northernRealms = new NorthernRealms();
-    private final Scoiatael scoiaTael = new Scoiatael();
+    private final Scoiatael scoiatael = new Scoiatael();
     private final Skellige skellige = new Skellige();
-    private final CardViewContainer<PreGameCardView, Card> addedCards = new CardViewContainer<>();
-    private final CardViewContainer<PreGameCardView, Card> factionCards = new CardViewContainer<>();
+
+    private final CardViewContainer<PreGameCardView, PreGameCard> addedCards = new CardViewContainer<>();
+    private final CardViewContainer<PreGameCardView, PreGameCard> factionCards = new CardViewContainer<>();
 
     private Faction selectedFaction = null;
-    private Leader selectedLeader = null;
+    private LeaderView selectedLeaderView = null;
 
     private final static int MIN_UNIT_CARDS = 22;
     private final static int MAX_SPECIAL_CARDS = 10;
@@ -89,15 +98,14 @@ public class PreGameMenuController implements Initializable {
         backButtonIcon.setImage(Icons.BACK.getImage());
         muteButtonIcon.setImage(Icons.UNMUTE.getImage());
 
-        loadCards();
-        loadLeaders();
+        Faction.loadCards(monsters, nilfgaardianEmpire, northernRealms, scoiatael, skellige);
+        Faction.loadLeaders(monsters, nilfgaardianEmpire, northernRealms, scoiatael, skellige);
 
         selectedCardsScroll.setContent(addedCards);
         factionCardsScroll.setContent(factionCards);
 
         setFaction(monsters);
-        setLeader(monsters.getLeaders().get(0));
-
+        setLeaderView(monsters.getLeaderViews().get(0));
 
         selectedCardsScroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         selectedCardsScroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
@@ -123,7 +131,7 @@ public class PreGameMenuController implements Initializable {
         int unitCardCount = 0;
         int specialCardCount = 0;
         for (PreGameCardView preGameCardView : addedCards.getCardViews()) {
-            Card card = (Card) preGameCardView.getItem();
+            Card card = ((PreGameCard) preGameCardView.getItem()).getCard();
             int cardCount = preGameCardView.getCount();
             if (card instanceof UnitCard unitCard) {
                 unitCardCount += cardCount;
@@ -147,6 +155,7 @@ public class PreGameMenuController implements Initializable {
         selectedFaction = faction;
         factionCards.clear();
         addedCards.clear();
+        Faction.loadCards(monsters, nilfgaardianEmpire, northernRealms, scoiatael, skellige);
 
         for (PreGameCardView preGameCardView : selectedFaction.getCardViews().getCardViews()) {
             PreGameCardView newPreGameCardView = preGameCardView.clone();
@@ -160,138 +169,64 @@ public class PreGameMenuController implements Initializable {
         factionPane.getChildren().add(factionView);
     }
 
-    public void setLeader(Leader leader) {
-        selectedLeader = leader;
-        leaderNameLabel.setText(selectedLeader.getName());
-        LeaderView leaderView = new LeaderView(selectedLeader);
+    public void setLeaderView(LeaderView leaderView) {
+        if (selectedLeaderView != null) {
+            selectedLeaderView.toPreGameMode();
+            leaderPane.getChildren().remove(selectedLeaderView);
+        }
+        leaderView.toGameMode();
+        selectedLeaderView = leaderView;
+        leaderNameLabel.setText(selectedLeaderView.getItem().getName());
         leaderView.setLayoutX(22);
         leaderPane.getChildren().add(leaderView);
     }
 
     public void setFactionCardOnclick(PreGameCardView preGameCardView) {
         preGameCardView.setOnMouseClicked(event -> {
-            preGameCardView.setCount(preGameCardView.getCount() - 1);
-            if (preGameCardView.getCount() == 0) {
-                factionCards.remove(preGameCardView);
-            }
-
-            PreGameCardView addedCard = addedCards.findByName(preGameCardView.getItem().getName());
-            if (addedCard != null) {
-                addedCard.setCount(addedCard.getCount() + 1);
-            } else {
-                addedCard = new PreGameCardView((Card) preGameCardView.getItem(), 1);
-                setAddedCardOnClick(addedCard);
-                addedCards.add(addedCard);
-            }
-
-            updateLabels();
+            selectCard(preGameCardView);
         });
     }
 
     public void setAddedCardOnClick(PreGameCardView preGameCardView) {
         preGameCardView.setOnMouseClicked(event -> {
-            preGameCardView.setCount(preGameCardView.getCount() - 1);
-            if (preGameCardView.getCount() == 0) {
-                addedCards.remove(preGameCardView);
-            }
-
-            PreGameCardView addedCard = factionCards.findByName(preGameCardView.getItem().getName());
-            if (addedCard != null) {
-                addedCard.setCount(addedCard.getCount() + 1);
-            } else {
-                addedCard = new PreGameCardView((Card) preGameCardView.getItem(), 1);
-                setFactionCardOnclick(addedCard);
-                factionCards.add(addedCard);
-            }
-
-            updateLabels();
+            deselectCard(preGameCardView);
         });
     }
 
-    private void loadLeaders() {
-        for (LeaderCardData leaderCardData : LeaderCardData.values()) {
-            Leader leader = leaderCardData.getLeader();
-            switch (leader.getFactionType()) {
-                case MONSTERS: {
-                    monsters.getLeaders().add(leader);
-                    break;
-                }
-                case NILFGAARDIAN_EMPIRE: {
-                    nilfgaardianEmpire.getLeaders().add(leader);
-                    break;
-                }
-                case NORTHERN_REALMS: {
-                    northernRealms.getLeaders().add(leader);
-                    break;
-                }
-                case SCOIATAEL: {
-                    scoiaTael.getLeaders().add(leader);
-                    break;
-                }
-                case SKELLIGE: {
-                    skellige.getLeaders().add(leader);
-                    break;
-                }
-            }
+    private void deselectCard(PreGameCardView preGameCardView) {
+        preGameCardView.setCount(preGameCardView.getCount() - 1);
+        if (preGameCardView.getCount() == 0) {
+            addedCards.remove(preGameCardView);
         }
+
+        PreGameCardView addedCard = factionCards.findByName(preGameCardView.getItem().getName());
+        if (addedCard != null) {
+            addedCard.setCount(addedCard.getCount() + 1);
+        } else {
+            addedCard = new PreGameCardView(new PreGameCard(((PreGameCard) preGameCardView.getItem()).getCard(), 1));
+            setFactionCardOnclick(addedCard);
+            factionCards.add(addedCard);
+        }
+
+        updateLabels();
     }
 
-    public void loadCards() {
-        ArrayList<PreGameCardView> allPreGameCardViews = getPreGameCards();
-
-        for (PreGameCardView preGameCardView : allPreGameCardViews) {
-            switch (((Card) preGameCardView.getItem()).getFactionType()) {
-                case MONSTERS: {
-                    monsters.getCardViews().add(preGameCardView);
-                    break;
-                }
-                case NILFGAARDIAN_EMPIRE: {
-                    nilfgaardianEmpire.getCardViews().add(preGameCardView);
-                    break;
-                }
-                case NORTHERN_REALMS: {
-                    northernRealms.getCardViews().add(preGameCardView);
-                    break;
-                }
-                case SCOIATAEL: {
-                    scoiaTael.getCardViews().add(preGameCardView);
-                    break;
-                }
-                case SKELLIGE: {
-                    skellige.getCardViews().add(preGameCardView);
-                    break;
-                }
-                case NEUTRAL: {
-                    monsters.getCardViews().add(preGameCardView);
-                    nilfgaardianEmpire.getCardViews().add(preGameCardView.clone());
-                    northernRealms.getCardViews().add(preGameCardView.clone());
-                    scoiaTael.getCardViews().add(preGameCardView.clone());
-                    skellige.getCardViews().add(preGameCardView.clone());
-                    break;
-                }
-            }
-        }
-    }
-
-    private ArrayList<PreGameCardView> getPreGameCards() {
-        ArrayList<PreGameCardView> allPreGameCardViews = new ArrayList<>();
-
-        for (UnitCardData unitCardData : UnitCardData.values()) {
-            PreGameCardView preGameCardView = new PreGameCardView(unitCardData.getUnitCard(), unitCardData.getMaxCount());
-            allPreGameCardViews.add(preGameCardView);
+    private void selectCard(PreGameCardView preGameCardView) {
+        preGameCardView.setCount(preGameCardView.getCount() - 1);
+        if (preGameCardView.getCount() == 0) {
+            factionCards.remove(preGameCardView);
         }
 
-        for (SpecialCardData specialCardData : SpecialCardData.values()) {
-            PreGameCardView preGameCardView = new PreGameCardView(specialCardData.getSpecialCard(), specialCardData.getMaxCount());
-            allPreGameCardViews.add(preGameCardView);
+        PreGameCardView addedCard = addedCards.findByName(preGameCardView.getItem().getName());
+        if (addedCard != null) {
+            addedCard.setCount(addedCard.getCount() + 1);
+        } else {
+            addedCard = new PreGameCardView(new PreGameCard(((PreGameCard) preGameCardView.getItem()).getCard(), 1));
+            setAddedCardOnClick(addedCard);
+            addedCards.add(addedCard);
         }
 
-        for (WeatherCardData weatherCardData : WeatherCardData.values()) {
-            PreGameCardView preGameCardView = new PreGameCardView(weatherCardData.getWeatherCard(), weatherCardData.getMaxCount());
-            allPreGameCardViews.add(preGameCardView);
-        }
-
-        return allPreGameCardViews;
+        updateLabels();
     }
 
     @FXML
@@ -306,8 +241,8 @@ public class PreGameMenuController implements Initializable {
             ViewUtilities.showErrorAlert("Not enough Unit Card", "You have to choose at least 22 Unit Card!");
         }
         User user = Session.getLoggedInUser();
-        Player player1 = new Player(user, selectedFaction, selectedLeader, addedCards);
-        Player player2 = new Player(user, selectedFaction, selectedLeader, addedCards);
+        Player player1 = new Player(user, selectedFaction, (Leader) selectedLeaderView.getItem(), addedCards);
+        Player player2 = new Player(user, selectedFaction, (Leader) selectedLeaderView.getItem(), addedCards);
 
 
         /*Session.setGameId(GameManager.addPlayerToQueue(player));
@@ -347,45 +282,69 @@ public class PreGameMenuController implements Initializable {
     }
 
     public void uploadDeck(MouseEvent mouseEvent) {
-        //TODO: Implement this method
-    }
+        Deck deck = Deck.upload();
+        FactionType factionType = deck.getFactionType();
 
-    public void downloadDeck(MouseEvent mouseEvent) {
-        //TODO: Implement this method
-    }
-
-    public void LeaderSelector(MouseEvent mouseEvent) {
-        ArrayList<LeaderView> leadersView = new ArrayList<>();
-
-        for(Leader leader : selectedFaction.getLeaders()) {
-            LeaderView leaderView = new LeaderView(leader);
-            leadersView.add(leaderView);
+        switch (factionType) {
+            case MONSTERS -> setFaction(monsters);
+            case NILFGAARDIAN_EMPIRE -> setFaction(nilfgaardianEmpire);
+            case NORTHERN_REALMS -> setFaction(northernRealms);
+            case SCOIATAEL -> setFaction(scoiatael);
+            case SKELLIGE -> setFaction(skellige);
         }
 
-        AtomicReference<ItemView> selectedLeaderReference = new AtomicReference<>(new LeaderView(selectedLeader));
-        Button submitButton = new Button();
-        ViewUtilities.ItemSelector(mainPane, leadersView, selectedLeaderReference, submitButton);
-        submitButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
-            setLeader((Leader) selectedLeaderReference.get().getItem());
-        });
+        setLeaderView(new LeaderView(deck.getLeader()));
+        addedCards.clear();
+
+
+        for (PreGameCard preGameCard : deck.getPreGameCards()) {
+            PreGameCardView preGameCardView = factionCards.findByName(preGameCard.getName());
+            System.out.println(preGameCardView.getCount() + " " + preGameCardView.getItem().getName());
+            for (int i = 0; i < preGameCard.getCount(); i++) {
+                selectCard(preGameCardView);
+            }
+        }
+
+        updateLabels();
+
+        ViewUtilities.showInformationAlert("Deck uploaded", "Deck uploaded successfully!");
     }
 
+
+    public void downloadDeck(MouseEvent mouseEvent) {
+        FactionType factionType;
+        factionType = Faction.getFactionType(selectedFaction);
+        Deck deck = new Deck(addedCards.getCards(), (Leader) selectedLeaderView.getItem(), factionType);
+        Deck.download(deck);
+    }
+
+    public void LeaderViewSelector(MouseEvent mouseEvent) {
+        for (LeaderView leaderView : selectedFaction.getLeaderViews()) {
+            leaderView.toPreGameMode();
+        }
+
+        AtomicReference<ItemView> selectedLeaderReference = new AtomicReference<>(selectedLeaderView);
+        Button submitButton = new Button();
+        ViewUtilities.ItemSelector(mainPane, selectedFaction.getLeaderViews(), selectedLeaderReference, submitButton);
+        submitButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+            setLeaderView((LeaderView) selectedLeaderReference.get());
+        });
+    }
 
     public void FactionSelector(MouseEvent mouseEvent) {
         ArrayList<FactionView> factionsView = new ArrayList<>();
         factionsView.add(new FactionView(monsters));
         factionsView.add(new FactionView(nilfgaardianEmpire));
         factionsView.add(new FactionView(northernRealms));
-        factionsView.add(new FactionView(scoiaTael));
+        factionsView.add(new FactionView(scoiatael));
         factionsView.add(new FactionView(skellige));
-
 
         Button submitButton = new Button();
         AtomicReference<ItemView> selectedFactionReference = new AtomicReference<>(new FactionView(selectedFaction));
         ViewUtilities.ItemSelector(mainPane, factionsView, selectedFactionReference, submitButton);
         submitButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
             setFaction((Faction) selectedFactionReference.get().getItem());
-            setLeader(selectedFaction.getLeaders().get(0));
+            setLeaderView(selectedFaction.getLeaderViews().get(0));
         });
 
     }
