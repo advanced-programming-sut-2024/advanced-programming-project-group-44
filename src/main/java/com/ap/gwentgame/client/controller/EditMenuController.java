@@ -1,5 +1,7 @@
 package com.ap.gwentgame.client.controller;
 
+import com.ap.gwentgame.ClientCommands;
+import com.ap.gwentgame.ServerMessage;
 import com.ap.gwentgame.client.enums.assets.Icons;
 import com.ap.gwentgame.client.model.Session;
 import com.ap.gwentgame.client.view.ProfileMenu;
@@ -10,6 +12,8 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+
+import static com.ap.gwentgame.ServerCommands.*;
 
 public class EditMenuController {
     @FXML
@@ -36,15 +40,32 @@ public class EditMenuController {
     }
 
     public void save(MouseEvent mouseEvent) {
-        if(nameField.getText().equals(Session.getLoggedInUser().getName()) && nicknameField.getText().equals(Session.getLoggedInUser().getNickName()) && emailField.equals(Session.getLoggedInUser().getEmail())){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("No changes were made");
-            alert.show();
+        ServerMessage responseMessage = RequestSender.editProfile(nameField.getText(), nicknameField.getText(), emailField.getText());
+        String responseText = responseMessage.getMessageText();
+
+        if(EDIT_PROFILE_FAILED_NO_CHANGES.getMatcher(responseText).matches()){
+            ViewUtilities.showErrorAlert("Error", "No changes were made");
+            return;
         }
 
-        ControllerUtilities.validateUsername(nameField);
-        ControllerUtilities.validateUsername(nicknameField);
-        ControllerUtilities.validateEmail(emailField);
+        if(!ControllerUtilities.validateUsername(nameField))return;
+        if(!ControllerUtilities.validateNickname(nameField,nicknameField))return;
+        if(!ControllerUtilities.validateEmail(emailField))return;
+
+        if(EDIT_PROFILE_FAILED_USERNAME_TAKEN.getMatcher(responseText).matches()){
+            ViewUtilities.showErrorAlert("Error", "Username is already taken");
+            return;
+        }
+
+        if(EDIT_PROFILE_FAILED_NICKNAME_TAKEN.getMatcher(responseText).matches()){
+            ViewUtilities.showErrorAlert("Error", "Nickname is already taken");
+            return;
+        }
+
+        if(EDIT_PROFILE_FAILED_EMAIL_TAKEN.getMatcher(responseText).matches()){
+            ViewUtilities.showErrorAlert("Error", "Email is already taken");
+            return;
+        }
 
         Session.getLoggedInUser().setName(nameField.getText());
         Session.getLoggedInUser().setNickName(nicknameField.getText());
@@ -58,15 +79,18 @@ public class EditMenuController {
             ViewUtilities.showErrorAlert("Error", "Please fill all the fields");
         }
 
-        if(!currentPasswordField.getText().equals(Session.getLoggedInUser().getPassword())){
+        ServerMessage responseMessage = RequestSender.editPassword(currentPasswordField.getText(), newPasswordField.getText());
+        String responseText = responseMessage.getMessageText();
+
+        if(EDIT_PASSWORD_FAILED_INCORRECT_PASSWORD.getMatcher(responseText).matches()){
             ViewUtilities.showErrorAlert("Error", "Current password is incorrect");
         }
 
-        if (currentPasswordField.equals(newPasswordField)) {
+        if(EDIT_PASSWORD_FAILED_NO_CHANGES.getMatcher(responseText).matches()) {
             ViewUtilities.showErrorAlert("Error", "New password cannot be the same as the current password");
         }
 
-        ControllerUtilities.validatePassword(currentPasswordField, newPasswordField);
+        if(!ControllerUtilities.validatePassword(currentPasswordField, newPasswordField))return;
 
         Session.getLoggedInUser().setPassword(newPasswordField.getText());
         ViewUtilities.showInformationAlert("Success", "Password changed successfully");

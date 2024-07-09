@@ -21,4 +21,22 @@ public class RequestSender {
         Client.sendRequest(messageText);
         return Client.getResponse();
     }
+
+    public static ServerMessage getQuestion(String username){
+        String messageText = "get questions"+ " " + username;
+        Client.sendRequest(messageText);
+        return Client.getResponse();
+    }
+
+    public static ServerMessage editProfile(String username, String nickname, String email){
+        String messageText = "edit profile" + " " + username + " " + nickname + " " + email;
+        Client.sendRequest(messageText);
+        return Client.getResponse();
+    }
+
+    public static ServerMessage editPassword(String currentPassword, String newPassword){
+        String messageText = "edit password" + " " + currentPassword + " " + newPassword;
+        Client.sendRequest(messageText);
+        return Client.getResponse();
+    }
 }

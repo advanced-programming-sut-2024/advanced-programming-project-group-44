@@ -9,26 +9,27 @@ import javafx.scene.input.MouseEvent;
 public class ForgotPasswordMenuController {
     @FXML
     private Label securityQuestionLabel;
-
     @FXML
     private TextField answerTextField;
-    private String answer;
 
-    private String securityQuestion;
 
-    public void setSecurityQuestion(String question , String answer) {
-        this.securityQuestion = question;
-        this.answer = answer;
+    private String wantedAnswer;
+
+
+    public void setSecurityQuestion(String question, String answer) {
+        wantedAnswer = answer;
         securityQuestionLabel.setText(question);
     }
 
     public String getEnteredAnswer() {
         return answerTextField.getText().trim();
     }
+
     @FXML
     private void checkAnswerAndClose() {
-        if(answerTextField.getText().equals(answer))
+        if(answerTextField.getText().equals(wantedAnswer))
         answerTextField.getScene().getWindow().hide();
+
         else
         {
             Alert alert = new Alert(Alert.AlertType.WARNING);

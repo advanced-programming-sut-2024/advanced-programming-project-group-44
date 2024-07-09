@@ -1,6 +1,8 @@
 package com.ap.gwentgame.client.controller;
 
 import com.ap.gwentgame.ServerMessage;
+import com.ap.gwentgame.client.enums.Question;
+import com.ap.gwentgame.client.enums.assets.FXMLs;
 import com.ap.gwentgame.client.model.Session;
 import com.ap.gwentgame.client.view.MainMenu;
 import com.ap.gwentgame.client.view.StartMenu;
@@ -10,9 +12,20 @@ import com.ap.gwentgame.client.view.ViewUtilities;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+
+
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.regex.Matcher;
 
 import static com.ap.gwentgame.ServerCommands.*;
 import static com.ap.gwentgame.client.view.ViewUtilities.showWarningAlert;
@@ -27,7 +40,8 @@ public class LoginMenuController {
     @FXML
     private ImageView imageview;
 
-    @FXML
+    private static GsonBuilder gsonBuilder = new GsonBuilder();
+    private static Gson gson = gsonBuilder.create();
 
 
     public void initialize() {
@@ -40,9 +54,7 @@ public class LoginMenuController {
             return;
         }
 
-        System.out.println("salamsalam");
         ServerMessage responseMessage = RequestSender.loginUser(userNameField.getText(), passwordField.getText());
-        System.out.println("salam");
         String responseText = responseMessage.getMessageText();
 
         if (LOGIN_FAILED_INCORRECT_PASSWORD.getMatcher(responseText).matches()) {
@@ -55,8 +67,6 @@ public class LoginMenuController {
             return;
         }
 
-        GsonBuilder gsonBuilder = new GsonBuilder();
-        Gson gson = gsonBuilder.create();
         try {
             User user = gson.fromJson(responseMessage.getAdditionalText(), User.class);
             Session.setLoggedInUser(user);
@@ -83,28 +93,39 @@ public class LoginMenuController {
     }
 
     public void goToQuestionMenu(MouseEvent mouseEvent) {
+        if (!ControllerUtilities.validateLoginUsername(userNameField)) return;
         try {
-            if (!ControllerUtilities.validateLoginUsername(userNameField)) return;
-            /*User user = Session.getUserByName(name.getText());
             FXMLLoader fxmlLoader = new FXMLLoader(new URL(ControllerUtilities.getResourcePath("fxml/ForgotPasswordMenu.fxml")));
-            Parent root = fxmlLoader.load();
-
-            ForgotPasswordMenuController forgotPasswordMenuController = fxmlLoader.getController();
-            String securityQuestion = user.getQuestion().toString();
-            forgotPasswordMenuController.setSecurityQuestion(securityQuestion , user.getAnswer());
-
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setTitle("Forgot Password");
-            stage.setScene(new Scene(root));
+            stage.setScene(new Scene(fxmlLoader.load()));
             stage.showAndWait();
 
+            ForgotPasswordMenuController forgotPasswordMenuController = fxmlLoader.getController();
+            ServerMessage responseMessage = RequestSender.getQuestion(userNameField.getText());
+            String responseText = responseMessage.getMessageText();
+            Question question = gson.fromJson(responseMessage.getAdditionalText(), Question.class);
+
+            if (GET_QUESTION_FAILED_USER_NOT_FOUND.getMatcher(responseText).matches()) {
+                showWarningAlert("User Not Found", "The user you entered does not exist.");
+                return;
+            }
+
+            Matcher matcher = GET_QUESTION_SUCCESSFUL.getMatcher(responseText);
+            matcher.matches();
+            String wantedAnswer = matcher.group(1);
+
+            forgotPasswordMenuController.setSecurityQuestion(question.toString(), answer);
             String enteredAnswer = forgotPasswordMenuController.getEnteredAnswer();
-            if (enteredAnswer.equals(user.getAnswer())) {
-                name.setText(user.getName());
-                password.setText(user.getPassword());
-            }*/
-        } catch (Exception e) {
+
+
+            if (enteredAnswer.equals(wantedAnswer)) {
+                userNameField.setText(user.getName());
+                passwordField.setText(user.getPassword());
+            }
+
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

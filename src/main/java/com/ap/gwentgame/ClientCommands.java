@@ -15,10 +15,13 @@ public enum ClientCommands {
     //register user
     //login user <username> <password>
     //edit user <username> <nickname> <email>
+    //forgot password <username> <answer>
     REGISTER_USER("register user"),
     LOGIN_USER("login user (\\S+) (\\S+)"),
+    GET_QUESTION("get question (\\S+)"),
+    VALIDATE_ANSWER("validate answer (\\S+)"),
     EDIT_USER("edit user (\\S+) (\\S+) (\\S+)"),
-    ;
+    EDIT_PASSWORD("edit password (\\S+) (\\S+)"),;
 
 
 
