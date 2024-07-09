@@ -1,5 +1,7 @@
 package com.ap.gwentgame.view;
 
+import com.ap.gwentgame.controller.MusicController;
+import com.ap.gwentgame.enums.assets.Icons;
 import com.ap.gwentgame.model.gameElementViews.CardViewContainer;
 import com.ap.gwentgame.model.gameElementViews.ItemView;
 import javafx.animation.KeyFrame;
@@ -97,6 +99,16 @@ public class ViewUtilities {
         });
 
         transition.play();
+    }
+
+    public static void toggleMute(Button muteButton, ImageView muteButtonIcon) {
+        if (MusicController.getInstance().getMediaPlayer().isMute()) {
+            MusicController.getInstance().getMediaPlayer().setMute(false);
+            muteButtonIcon.setImage(Icons.UNMUTE.getImage());
+        } else {
+            MusicController.getInstance().getMediaPlayer().setMute(true);
+            muteButtonIcon.setImage(Icons.MUTE.getImage());
+        }
     }
 
     public static void ItemSelector(AnchorPane pane, ArrayList<? extends ItemView> itemViews, AtomicReference<ItemView> selectedItemReference, Button submitButton) {

@@ -6,6 +6,7 @@ import com.ap.gwentgame.view.ProfileMenu;
 import com.ap.gwentgame.enums.assets.Backgrounds;
 import com.ap.gwentgame.enums.assets.Icons;
 import com.ap.gwentgame.model.Session;
+import com.ap.gwentgame.view.ViewUtilities;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
@@ -57,12 +58,6 @@ public class MainMenuController {
 
     @FXML
     public void toggleMute(MouseEvent mouseEvent) {
-        if (MusicController.getInstance().getMediaPlayer().isMute()) {
-            MusicController.getInstance().getMediaPlayer().setMute(false);
-            mute.setImage(Icons.UNMUTE.getImage());
-        } else {
-            MusicController.getInstance().getMediaPlayer().setMute(true);
-            mute.setImage(Icons.MUTE.getImage());
-        }
+       ViewUtilities.toggleMute(muteButton, mute);
     }
 }
