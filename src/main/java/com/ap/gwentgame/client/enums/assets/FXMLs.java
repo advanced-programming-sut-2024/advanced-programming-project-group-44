@@ -15,7 +15,8 @@ public enum FXMLs {
     EDIT_MENU("EditMenu.fxml"),
     GAME_HISTORY("GameHistory.fxml"),
     PREGAME_MENU("PreGameMenu.fxml"),
-    BOARD("Board.fxml");
+    BOARD("Board.fxml"),
+    WAITING_SCREEN("WaitingScreen.fxml"),;
 
     private final String name;
 
