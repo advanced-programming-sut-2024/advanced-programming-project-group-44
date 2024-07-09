@@ -11,7 +11,7 @@
    </ImageView>
    <BorderPane layoutX="373.0" layoutY="141.0" />
    <VBox alignment="CENTER" layoutX="525.0" layoutY="201.0" maxWidth="300" spacing="10">
-      <TextField fx:id="usernameField" alignment="CENTER" maxWidth="200" promptText="User name" />
+      <TextField fx:id="name" alignment="CENTER" maxWidth="200" promptText="User name" />
       <PasswordField fx:id="password" alignment="center" maxHeight="16" maxWidth="200" promptText="enter your password" />
       <PasswordField fx:id="repeatedPassword" alignment="center" maxHeight="16" maxWidth="200" promptText="repeat your password" />
       <TextField fx:id="nickName" alignment="CENTER" maxWidth="200" promptText="enter your nickname" />

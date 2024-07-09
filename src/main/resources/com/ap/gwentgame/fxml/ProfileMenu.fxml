@@ -136,7 +136,7 @@
          <top>
             <VBox prefHeight="166.0" prefWidth="1200.0" spacing="5.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button onMouseClicked="#back" prefHeight="50.0" prefWidth="50.0">
+                  <Button onMouseClicked="#backToStartMenu" prefHeight="50.0" prefWidth="50.0">
                      <graphic>
                         <ImageView fx:id="back" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" />
                      </graphic>
