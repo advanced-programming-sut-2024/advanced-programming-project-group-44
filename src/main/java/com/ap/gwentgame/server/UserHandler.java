@@ -28,10 +28,13 @@ public class UserHandler extends Thread {
     private Socket socket;
 
     private User currentUser;
-    private static ArrayList<User> loggedInUsers = new ArrayList<>();
+    private static final ArrayList<User> loggedInUsers = new ArrayList<>();
 
     private static GsonBuilder builder = new GsonBuilder();
     private static Gson gson = builder.create();
+
+    private static final HashMap<Integer, UserHandler> allPlayers = new HashMap<>();
+    private static final HashMap<Integer, UserHandler> allSpectators = new HashMap<>();
 
     public UserHandler(Socket socket) {
         this.socket = socket;
@@ -202,8 +205,6 @@ public class UserHandler extends Thread {
         }
 
         sendResponse("Invalid message");
-
-
     }
 
     private void sendResponse(String messageText) {
@@ -225,21 +226,6 @@ public class UserHandler extends Thread {
             dataOutputStream.flush();
         } catch (IOException e) {
             e.printStackTrace();
-        }
-    }
-
-    public static void main(String[] args) {
-        ExecutorService executorService = Executors.newFixedThreadPool(10);
-
-        try (ServerSocket serverSocket = new ServerSocket(8000)) {
-            while (true) {
-                Socket socket = serverSocket.accept();
-                executorService.submit(new UserHandler(socket));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            executorService.shutdown();
         }
     }
 }

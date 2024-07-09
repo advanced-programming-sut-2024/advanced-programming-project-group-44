@@ -26,8 +26,4 @@ public class GameManager {
         }
         return -1;
     }
-
-    public static Board getGameDataById(int id){
-        return allGames.get(id);
-    }
 }
