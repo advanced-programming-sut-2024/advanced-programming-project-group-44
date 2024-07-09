@@ -27,6 +27,11 @@ public class Faction extends Item {
     }
 
     public static void loadLeaders(Monsters monsters, NilfgaardianEmpire nilfgaardianEmpire, NorthernRealms northernRealms, Scoiatael scoiatael, Skellige skellige) {
+        monsters.getLeaderViews().clear();
+        nilfgaardianEmpire.getLeaderViews().clear();
+        northernRealms.getLeaderViews().clear();
+        scoiatael.getLeaderViews().clear();
+        skellige.getLeaderViews().clear();
         for (LeaderCardData leaderCardData : LeaderCardData.values()) {
             Leader leader = leaderCardData.getLeader();
             switch (leader.getFactionType()) {
@@ -56,6 +61,11 @@ public class Faction extends Item {
 
     public static void loadCards(Monsters monsters, NilfgaardianEmpire nilfgaardianEmpire, NorthernRealms northernRealms, Scoiatael scoiatael, Skellige skellige){
         ArrayList<PreGameCardView> allPreGameCardViews = getPreGameCards();
+        monsters.getCardViews().clear();
+        nilfgaardianEmpire.getCardViews().clear();
+        northernRealms.getCardViews().clear();
+        scoiatael.getCardViews().clear();
+        skellige.getCardViews().clear();
 
         for (PreGameCardView preGameCardView : allPreGameCardViews) {
             switch (((PreGameCard) preGameCardView.getItem()).getCard().getFactionType()) {

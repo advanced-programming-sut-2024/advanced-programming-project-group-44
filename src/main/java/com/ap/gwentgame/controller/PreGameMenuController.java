@@ -230,47 +230,6 @@ public class PreGameMenuController implements Initializable {
     }
 
     @FXML
-    private void prepareGame() {
-        int countOfSpecialCards = Integer.parseInt(String.valueOf(numberOfSpecialCards.getText()).split("/")[0]);
-        int countOfUnitCards = Integer.parseInt(String.valueOf(numberOfUnitCards.getText()).split("/")[0]);
-
-        if (countOfSpecialCards > MAX_SPECIAL_CARDS) {
-            ViewUtilities.showErrorAlert("Too many Special Card", "You can't chose more than 10 Special Card!");
-        }
-        if (countOfUnitCards < MIN_UNIT_CARDS) {
-            ViewUtilities.showErrorAlert("Not enough Unit Card", "You have to choose at least 22 Unit Card!");
-        }
-        User user = Session.getLoggedInUser();
-        Player player1 = new Player(user, selectedFaction, (Leader) selectedLeaderView.getItem(), addedCards);
-        Player player2 = new Player(user, selectedFaction, (Leader) selectedLeaderView.getItem(), addedCards);
-
-
-        /*Session.setGameId(GameManager.addPlayerToQueue(player));
-
-        while (GameManager.getGameDataById(0) == null) {
-            try {
-                Thread.sleep(10000);
-                System.out.println("Waiting for other player to join");
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }*/
-
-        Board board = new Board(player1, player2);
-        GameMenu gameMenu = new GameMenu();
-        gameMenu.loadBoard(board);
-    }
-
-    public void backToMainMenu(MouseEvent mouseEvent) {
-        try {
-            MainMenu mainMenu = new MainMenu();
-            mainMenu.start(Session.getStage());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
     public void toggleMute(MouseEvent mouseEvent) {
         if (MusicController.getInstance().getMediaPlayer().isMute()) {
             MusicController.getInstance().getMediaPlayer().setMute(false);
@@ -283,31 +242,30 @@ public class PreGameMenuController implements Initializable {
 
     public void uploadDeck(MouseEvent mouseEvent) {
         Deck deck = Deck.upload();
-        FactionType factionType = deck.getFactionType();
+        if (deck != null) {
+            FactionType factionType = deck.getFactionType();
 
-        switch (factionType) {
-            case MONSTERS -> setFaction(monsters);
-            case NILFGAARDIAN_EMPIRE -> setFaction(nilfgaardianEmpire);
-            case NORTHERN_REALMS -> setFaction(northernRealms);
-            case SCOIATAEL -> setFaction(scoiatael);
-            case SKELLIGE -> setFaction(skellige);
-        }
-
-        setLeaderView(new LeaderView(deck.getLeader()));
-        addedCards.clear();
-
-
-        for (PreGameCard preGameCard : deck.getPreGameCards()) {
-            PreGameCardView preGameCardView = factionCards.findByName(preGameCard.getName());
-            System.out.println(preGameCardView.getCount() + " " + preGameCardView.getItem().getName());
-            for (int i = 0; i < preGameCard.getCount(); i++) {
-                selectCard(preGameCardView);
+            switch (factionType) {
+                case MONSTERS -> setFaction(monsters);
+                case NILFGAARDIAN_EMPIRE -> setFaction(nilfgaardianEmpire);
+                case NORTHERN_REALMS -> setFaction(northernRealms);
+                case SCOIATAEL -> setFaction(scoiatael);
+                case SKELLIGE -> setFaction(skellige);
             }
+
+            setLeaderView(new LeaderView(deck.getLeader()));
+
+
+            for (PreGameCard preGameCard : deck.getPreGameCards()) {
+                PreGameCardView preGameCardView = factionCards.findByName(preGameCard.getName());
+                System.out.println(preGameCardView.getCount() + " " + preGameCardView.getItem().getName());
+                for (int i = 0; i < preGameCard.getCount(); i++) {
+                    selectCard(preGameCardView);
+                }
+            }
+
+            ViewUtilities.showInformationAlert("Deck uploaded", "Deck uploaded successfully!");
         }
-
-        updateLabels();
-
-        ViewUtilities.showInformationAlert("Deck uploaded", "Deck uploaded successfully!");
     }
 
 
@@ -346,6 +304,46 @@ public class PreGameMenuController implements Initializable {
             setFaction((Faction) selectedFactionReference.get().getItem());
             setLeaderView(selectedFaction.getLeaderViews().get(0));
         });
+    }
 
+    @FXML
+    private void prepareGame() {
+        int countOfSpecialCards = Integer.parseInt(String.valueOf(numberOfSpecialCards.getText()).split("/")[0]);
+        int countOfUnitCards = Integer.parseInt(String.valueOf(numberOfUnitCards.getText()).split("/")[0]);
+
+        if (countOfSpecialCards > MAX_SPECIAL_CARDS) {
+            ViewUtilities.showErrorAlert("Too many Special Card", "You can't chose more than 10 Special Card!");
+        }
+        if (countOfUnitCards < MIN_UNIT_CARDS) {
+            ViewUtilities.showErrorAlert("Not enough Unit Card", "You have to choose at least 22 Unit Card!");
+        }
+        User user = Session.getLoggedInUser();
+        Player player1 = new Player(user, selectedFaction, (Leader) selectedLeaderView.getItem(), addedCards);
+        Player player2 = new Player(user, selectedFaction, (Leader) selectedLeaderView.getItem(), addedCards);
+
+
+        /*Session.setGameId(GameManager.addPlayerToQueue(player));
+
+        while (GameManager.getGameDataById(0) == null) {
+            try {
+                Thread.sleep(10000);
+                System.out.println("Waiting for other player to join");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }*/
+
+        Board board = new Board(player1, player2);
+        GameMenu gameMenu = new GameMenu();
+        gameMenu.loadBoard(board);
+    }
+
+    public void backToMainMenu(MouseEvent mouseEvent) {
+        try {
+            MainMenu mainMenu = new MainMenu();
+            mainMenu.start(Session.getStage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
