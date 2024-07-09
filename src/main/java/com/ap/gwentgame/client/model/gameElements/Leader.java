@@ -4,14 +4,16 @@ import com.ap.gwentgame.client.enums.FactionType;
 
 public abstract class Leader extends Item {
     private final FactionType factionType;
-    public abstract void executeAbility(Board board);
     private boolean canAbilityBeExecuted;
+    private boolean hasAbilityInput = false;
 
     public Leader(String name, FactionType factionType) {
         super(name);
         this.factionType = factionType;
         canAbilityBeExecuted = true;
     }
+
+    public abstract void executeAbility(Board board);
 
     public FactionType getFactionType() {
         return factionType;
@@ -23,5 +25,13 @@ public abstract class Leader extends Item {
 
     public boolean getCanAbilityBeExecuted(){
         return this.canAbilityBeExecuted;
+    }
+
+    public void setAbilityInput() {
+        this.hasAbilityInput = true;
+    }
+
+    public boolean hasAbilityInput() {
+        return this.hasAbilityInput;
     }
 }

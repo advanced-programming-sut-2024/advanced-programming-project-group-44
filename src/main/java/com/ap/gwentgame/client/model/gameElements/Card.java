@@ -4,7 +4,7 @@ import com.ap.gwentgame.client.enums.FactionType;
 import com.ap.gwentgame.client.model.Abilities.Ability;
 import com.ap.gwentgame.client.enums.Placement;
 
-public abstract class Card extends Item{
+public abstract class Card extends Item {
     private Ability ability;
     private final Placement placement;
     private final FactionType factionType;
@@ -16,7 +16,7 @@ public abstract class Card extends Item{
     }
 
     public void executeAction(Board board) {
-        ability.run(board);
+        //ability.run(board);
     }
 
     public void stopAction(Board board) {

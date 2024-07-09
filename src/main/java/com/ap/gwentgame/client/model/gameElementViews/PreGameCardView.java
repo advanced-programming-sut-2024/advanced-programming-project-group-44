@@ -1,34 +1,28 @@
 package com.ap.gwentgame.client.model.gameElementViews;
 
 import com.ap.gwentgame.client.controller.ControllerUtilities;
-import com.ap.gwentgame.client.model.gameElements.Card;
+import com.ap.gwentgame.client.model.gameElements.PreGameCard;
 import com.ap.gwentgame.client.view.ViewUtilities;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 
 public class PreGameCardView extends ItemView implements Cloneable {
     private final transient Label countLabel;
-    private int count;
 
-    public PreGameCardView(Card card, int count) {
-        super(card);
-        this.count = count;
-        this.countLabel = new Label(String.valueOf(count));
+    public PreGameCardView(PreGameCard preGameCard) {
+        super(preGameCard);
+        this.countLabel = new Label(String.valueOf(((PreGameCard)item).getCount()));
         initializeGraphic();
     }
 
-    public int getCount() {
-        return count;
-    }
-
     public void setCount(int count) {
-        this.count = count;
+        ((PreGameCard)item).setCount(count);
         this.countLabel.setText(String.valueOf(count));
     }
 
     @Override
     public Image getImage() {
-        String path = ControllerUtilities.getResourcePath("images/cards/pregame/" + (((Card)item).getFactionType().toString().toLowerCase() + "/" + item.getName() + ".jpg").replaceAll("’", "").replaceAll("'", ""));
+        String path = ControllerUtilities.getResourcePath("images/cards/pregame/" + (((PreGameCard)item).getCard().getFactionType().toString().toLowerCase() + "/" + item.getName() + ".jpg").replaceAll("’", "").replaceAll("'", ""));
         return new Image(path);
     }
 
@@ -47,6 +41,10 @@ public class PreGameCardView extends ItemView implements Cloneable {
 
     @Override
     public PreGameCardView clone() {
-        return new PreGameCardView((Card) item, count);
+        return new PreGameCardView((PreGameCard) item);
+    }
+
+    public int getCount() {
+        return ((PreGameCard)item).getCount();
     }
 }

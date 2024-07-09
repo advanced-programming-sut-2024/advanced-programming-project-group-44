@@ -3,6 +3,7 @@ package com.ap.gwentgame.client.model.gameElementViews;
 import com.ap.gwentgame.client.model.gameElements.*;
 import javafx.scene.Cursor;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
 public abstract class ItemView extends AnchorPane{
@@ -41,5 +42,13 @@ public abstract class ItemView extends AnchorPane{
             return itemView.getItem().getName().equals(item.getName());
         }
         return false;
+    }
+
+    public void setSize(double width, double height) {
+        this.setPrefWidth(width);
+        this.setPrefHeight(height);
+        ImageView imageView = (ImageView) this.getChildren().get(0);
+        imageView.setFitWidth(width);
+        imageView.setFitHeight(height);
     }
 }

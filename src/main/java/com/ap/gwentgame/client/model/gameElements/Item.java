@@ -1,8 +1,6 @@
 package com.ap.gwentgame.client.model.gameElements;
 
-import java.io.Serializable;
-
-public class Item implements Serializable {
+public class Item {
     private final String name;
 
     public Item(String name) {

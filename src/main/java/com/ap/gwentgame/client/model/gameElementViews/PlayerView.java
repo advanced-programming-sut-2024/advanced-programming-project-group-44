@@ -3,6 +3,8 @@ package com.ap.gwentgame.client.model.gameElementViews;
 import com.ap.gwentgame.client.enums.assets.Icons;
 import com.ap.gwentgame.client.enums.assets.Items;
 import com.ap.gwentgame.client.model.gameElements.*;
+import com.ap.gwentgame.client.view.ViewUtilities;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -64,9 +66,15 @@ public class PlayerView {
         initializeContainers();
         initializeInfo();
         initializeScoreLabels();
+        updateScoreLabels();
     }
 
     public void initializeContainers() {
+        Button passButton = new Button("PASS");
+        passButton.setPrefSize(50 , 25);
+        passButton.setLayoutX(210);
+        passButton.setLayoutY(615);
+
         if (playerNumber == 1) {
             rowViews[0].setVisuals(boardPane, 440, 329, 508, 80, 10, 0);
             rowViews[1].setVisuals(boardPane, 440, 410, 508, 80, 10, 0);
@@ -79,7 +87,6 @@ public class PlayerView {
             discardPileView.setVisuals(boardPane, 968, 580, 67, 89, 10, 0);
             deckView.setVisuals(boardPane, 1080, 580, 67, 89, 10, 0);
             handView.setVisuals(boardPane, 357, 587, 594, 80, 10, 0);
-
         } else {
             rowViews[0].setVisuals(boardPane, 440, 234, 508, 80, 10, 0);
             rowViews[1].setVisuals(boardPane, 440, 148, 508, 80, 10, 0);
@@ -92,6 +99,9 @@ public class PlayerView {
             discardPileView.setVisuals(boardPane, 968, 107, 67, 89, 10, 0);
             deckView.setVisuals(boardPane, 1080, 105, 67, 89, 10, 0);
             handView.setVisuals(boardPane, 357, 587, 594, 80, 10, 0);
+            handView.setVisible(false);
+
+            passButton.setVisible(false);
         }
     }
 
@@ -112,7 +122,7 @@ public class PlayerView {
         cardCountIcon.setFitWidth(17);
         cardCountIcon.setFitHeight(23);
 
-        handCardsCountLabel.setPrefSize(20, 20);
+        handCardsCountLabel.setPrefSize(30, 20);
         handCardsCountLabel.setStyle("-fx-text-fill: #f8b864; -fx-font-size: 18;");
         handCardsCountLabel.setText(Integer.toString(player.getHand().size()));
 
@@ -129,8 +139,8 @@ public class PlayerView {
             leaderView.setLayoutY(585);
             boardPane.getChildren().add(leaderView);
 
-            factionView.setLayoutX(80);
-            factionView.setLayoutY(20);
+            factionView.setLayoutX(18);
+            factionView.setLayoutY(10);
             boardPane.getChildren().add(factionView);
 
             playerDataPane.setLayoutX(45);
@@ -159,7 +169,7 @@ public class PlayerView {
             leaderView.setLayoutY(110);
             boardPane.getChildren().add(leaderView);
 
-            factionView.setLayoutX(20);
+            factionView.setLayoutX(18);
             factionView.setLayoutY(10);
             boardPane.getChildren().add(factionView);
 
@@ -186,7 +196,7 @@ public class PlayerView {
 
         }
         boardPane.getChildren().add(playerDataPane);
-        playerDataPane.getChildren().addAll(playerNickName, factionName, cardCountIcon, handCardsCountLabel, healthIcon1, healthIcon2);
+        playerDataPane.getChildren().addAll(factionView, playerNickName, factionName, cardCountIcon, handCardsCountLabel, healthIcon1, healthIcon2);
 
     }
 
@@ -228,6 +238,40 @@ public class PlayerView {
             scoreLabels[2].setLayoutY(90);
         }
         boardPane.getChildren().addAll(currentScoreLabel, scoreLabels[0], scoreLabels[1], scoreLabels[2]);
+    }
 
+    public void updateScoreLabels() {
+        ViewUtilities.changeNumber(currentScoreLabel, player.getCurrentScore());
+        for(int i = 0; i < 3; i++) {
+            ViewUtilities.changeNumber(scoreLabels[i], player.getRowScore(i));
+        }
+    }
+
+    public CardViewContainer<CardView, Card> getDeckView() {
+        return deckView;
+    }
+
+    public CardViewContainer<CardView, Card> getHandView() {
+        return handView;
+    }
+
+    public CardViewContainer<CardView, Card> getDiscardPileView() {
+        return discardPileView;
+    }
+
+    public CardViewContainer<CardView, Card>[] getRowViews() {
+        return rowViews;
+    }
+
+    public CardViewContainer<CardView, Card>[] getSpecialCardViews() {
+        return specialCardViews;
+    }
+
+    public LeaderView getLeaderView() {
+        return leaderView;
+    }
+
+    public FactionView getFactionView() {
+        return factionView;
     }
 }
