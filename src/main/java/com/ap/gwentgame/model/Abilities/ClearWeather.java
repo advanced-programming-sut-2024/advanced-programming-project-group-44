@@ -6,19 +6,19 @@ import com.ap.gwentgame.model.Game.Board;
 import com.ap.gwentgame.model.ItemContainer;
 
 public class ClearWeather extends Ability{
-    public ClearWeather(Cardview card) {
+    public ClearWeather(Card card) {
         super(card);
     }
 
     @Override
-    public void run(Boardview board) {
-        ItemContainer<Weather> weatherCards = board.getWeatherCards();
-        for(Weatherview card : weatherCards.getItems()){
-            card.stopAction(board);
-            weatherCards.remove(card);
-        }
+    public void run(Board board) {
+//        ItemContainer<Weather> weatherCards = board.getWeatherCards();
+//        for(Weatherview card : weatherCards.getItems()){
+//            card.stopAction(board);
+//            weatherCards.remove(card);
+//        }
     }
     @Override
-    public void stop(Boardview board) {
+    public void stop(Board board) {
     }
 }
