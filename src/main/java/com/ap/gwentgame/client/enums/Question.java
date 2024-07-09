@@ -10,7 +10,6 @@ public enum Question {
     Question(String text) {
         this.text = text;
     }
-
     @Override
     public String toString(){
         return text;

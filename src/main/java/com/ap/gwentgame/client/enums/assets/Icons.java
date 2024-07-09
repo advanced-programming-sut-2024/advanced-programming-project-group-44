@@ -8,7 +8,12 @@ public enum Icons {
     MUTE("Mute.png"),
     UNMUTE("Unmute.png"),
     CARD_COUNT("CardCount.png"),
-    LEADERS_ACTIVE("LeadersActive.png");
+    LEADERS_ACTIVE("LeadersActive.png"),
+    TOTAL_CARDS_COUNT("TotalCardsCount.png"),
+    UNIT_CARDS_COUNT("UnitCardsCount.png"),
+    SPECIAL_CARDS_COUNT("SpecialCardsCount.png"),
+    TOTAL_CARD_STRENGTH("TotalCardStrength.png"),
+    HERO_CARDS_COUNT("HeroCardsCount.png");
 
     private final String name;
 

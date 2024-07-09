@@ -11,7 +11,6 @@ public enum FXMLs {
     MAIN_MENU("MainMenu.fxml"),
     REGISTER_MENU("RegisterMenu.fxml"),
     LOGIN_MENU("LoginMenu.fxml"),
-    FORGOT_PASSWORD("ForgotPassword.fxml"),
     PROFILE_MENU("ProfileMenu.fxml"),
     EDIT_MENU("EditMenu.fxml"),
     GAME_HISTORY("GameHistory.fxml"),

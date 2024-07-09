@@ -1,21 +1,22 @@
 package com.ap.gwentgame.client.model.Abilities;
 
-import com.ap.gwentgame.client.model.gameElementViews.BoardView;
-import com.ap.gwentgame.client.model.gameElements.Card;
 import com.ap.gwentgame.client.model.gameElements.Board;
+import com.ap.gwentgame.client.model.gameElements.Card;
 
 public abstract class Ability {
-    protected Card card;
+    private boolean hasAbilityInput = false;
 
-    public Ability(Card card){
-        this.card = card;
+    public Ability(){
     }
 
-    public abstract void run(Board board);
+    public abstract void run(Board board, Card card);
 
-    public String getAbilityInput(){
-        return null;
+    public void setAbilityInput() {
+        this.hasAbilityInput = true;
     }
 
-    //public abstract void stop(Board board);
+    public boolean hasAbilityInput() {
+        return this.hasAbilityInput;
+    }
+
 }

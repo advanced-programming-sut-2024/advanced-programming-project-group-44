@@ -4,10 +4,9 @@ import com.ap.gwentgame.client.enums.Question;
 import com.ap.gwentgame.client.model.gameElements.Card;
 
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
-public class User implements Serializable {
+public class User {
     private  String name;
     private  String password;
     private  String nickName;

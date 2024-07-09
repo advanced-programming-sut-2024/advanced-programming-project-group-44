@@ -1,9 +1,8 @@
 package com.ap.gwentgame.client.model;
 
-import java.io.Serializable;
 import java.util.Date;
 
-public class GameLog implements Serializable {
+public class GameLog {
     private final String OponnentName;
     private final Date date;
     private final int playerScore;
