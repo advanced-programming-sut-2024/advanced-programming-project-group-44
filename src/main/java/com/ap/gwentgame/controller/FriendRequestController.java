@@ -1,48 +1,119 @@
 package com.ap.gwentgame.controller;
 
 import com.ap.gwentgame.enums.Question;
-import com.ap.gwentgame.model.FriendRequestBox;
 import com.ap.gwentgame.model.User;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 public class FriendRequestController {
 
     @FXML
-    private VBox friendRequestVbox;
+    private VBox friendRequestReceievedVbox;
 
-    // Your HashMap that stores the friend requests
+    @FXML
+    private VBox friendsSentVbox;
+    private ArrayList<User> friends;
     private HashMap<User, User> friendRequestsMap = new HashMap<>();
+    private User currentUser; // This should be the logged-in user
 
-    // Initialize the friend requests (for testing purposes)
+    @FXML
     public void initialize() {
-        // Simulated data for illustration
-        User sender1 = new User("Sender1" , "oododo" , "nicNameeee" , "gdg@jfej.fjhbe" , Question.QUESTION_2 , "dd");
-        User receiver1 = new User("Receiver1" , "swjhd" , "djdj" , "sdvhjsv" , Question.QUESTION_1 , "d");
-        friendRequestsMap.put(sender1, receiver1);
+        currentUser = new User("aryana", "dkfjhuhfrw", "ariaiaia", "dfkjrwb@gmail.cnjfsh", Question.QUESTION_1, ";fvhk");
+        User sender1 = new User("Sender1", "oododo", "nicNameeee", "gdg@jfej.fjhbe", Question.QUESTION_2, "dd");
+        User receiver1 = new User("Receiver1", "swjhd", "djdj", "sdvhjsv", Question.QUESTION_1, "d");
+        friendRequestsMap.put(sender1, currentUser);
 
-        User sender2 = new User("Sender2" , "dmkf" , "sender2" , "df@dnlej.fw" , Question.QUESTION_3 , "de") ;
-        User receiver2 = new User("Receiver2" , "dekij" , "dm" , "efcrwl" , Question.QUESTION_1 ,"fdw");
-        friendRequestsMap.put(sender2, receiver2);
-
-        // Populate the friendRequestVbox with FriendRequestBox instances
-        populateFriendRequestVbox();
+        User sender2 = new User("Sender2", "dmkf", "sender2", "df@dnlej.fw", Question.QUESTION_3, "de");
+        User receiver2 = new User("Receiver2", "dekij", "dm", "efcrwl", Question.QUESTION_1, "fdw");
+//        currentUser.addFriends(receiver2);
+//        currentUser.addFriends(sender1);
+        friendRequestsMap.put(sender2, currentUser);
+        friendRequestsMap.put(currentUser, receiver1);
+        friendRequestsMap.put(currentUser, receiver2);
+        populateFriendRequests();
+        //populateAllFriends();
     }
 
-    private void populateFriendRequestVbox() {
-        friendRequestVbox.getChildren().clear(); // Clear existing content
-
-        // Iterate over the HashMap entries
-        for (Map.Entry<User, User> entry : friendRequestsMap.entrySet()) {
+    private void populateFriendRequests() {
+        for (HashMap.Entry<User, User> entry : friendRequestsMap.entrySet()) {
             User sender = entry.getKey();
             User receiver = entry.getValue();
 
-            // Create a new FriendRequestBox instance for each entry
-            FriendRequestBox friendRequestBox = new FriendRequestBox(sender.getNickName());
-            friendRequestVbox.getChildren().add(friendRequestBox);
+            if (receiver.equals(currentUser)) {
+                // Populate friend request received
+                HBox requestBox = new HBox(10);
+                requestBox.setPadding(new Insets(0, 0, 7, 0));
+                Label senderNickname = new Label(sender.getNickName());
+                Button acceptButton = new Button("Accept");
+                Button declineButton = new Button("Decline");
+                acceptButton.setOnAction(e -> acceptRequest(sender));
+                declineButton.setOnAction(e -> declineRequest(sender));
+                //senderNickname.setPadding(new Insets(0, 50, 0, 0));
+                Region spacer = new Region();
+                HBox.setHgrow(spacer, Priority.ALWAYS);
+                spacer.setMinWidth(50);
+                requestBox.getChildren().addAll(senderNickname, spacer, acceptButton, declineButton);
+                friendRequestReceievedVbox.getChildren().add(requestBox);
+            }
+
+            if (sender.equals(currentUser)) {
+                // Populate friend request sent
+                HBox sentBox = new HBox(10);
+                Label receiverNickname = new Label(receiver.getNickName());
+                //ImageView pendingIcon = new ImageView(new Image(getClass().getResourceAsStream("images/clock.png"))); // Replace with actual image path
+                Label pendingLabel = new Label("Pending...");
+                Region spacer = new Region();
+                HBox.setHgrow(spacer, Priority.ALWAYS);
+                spacer.setMinWidth(50);
+                pendingLabel.setPadding(new Insets(0, 0, 0, 50));
+                sentBox.setPadding(new Insets(0, 0, 7, 0));
+
+                sentBox.getChildren().addAll(receiverNickname, spacer, pendingLabel);
+                friendsSentVbox.getChildren().add(sentBox);
+            }
+
         }
+    }
+    private void populateAllFriends(){
+        friends = currentUser.getFriends();
+        for(User user :friends) {
+            HBox friendsHbox = new HBox(10);
+            Label friendNickname = new Label(user.getNickName());
+            Region spacer = new Region();
+            HBox.setHgrow(spacer, Priority.ALWAYS);
+            spacer.setMinWidth(50);
+            friendsHbox.setPadding(new Insets(0, 0, 7, 0));
+
+            friendsHbox.getChildren().addAll(friendNickname, spacer);
+            friendsSentVbox.getChildren().add(friendsHbox);
+        }
+    }
+
+    private void acceptRequest(User sender) {
+        // Handle accepting the friend request
+        System.out.println("Accepted friend request from " + sender.getNickName());
+        // Update the UI and data accordingly
+    }
+
+    private void declineRequest(User sender) {
+        // Handle declining the friend request
+        System.out.println("Declined friend request from " + sender.getNickName());
+        // Update the UI and data accordingly
+    }
+
+    public void search(MouseEvent mouseEvent) {
     }
 }

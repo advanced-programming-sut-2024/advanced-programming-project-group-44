@@ -8,6 +8,8 @@ import com.ap.gwentgame.model.Game.GameData;
 import java.util.ArrayList;
 
 public class User {
+
+
     private  String name;
     private  String password;
     private  String nickName;
@@ -21,6 +23,7 @@ public class User {
     private final Question question;
     private final String answer;
     private final ArrayList<GameData> gameHistory;
+    ArrayList<User> friends;
 
     public User(String name, String password, String nickName, String email, Question question, String answer) {
         this.name = name;
@@ -124,6 +127,12 @@ public class User {
 
     public void setLosses(int losses) {
         this.losses = losses;
+    }
+    public ArrayList<User> getFriends(){
+        return this.friends;
+    }
+    public void addFriends(User user){
+        friends.add(user);
     }
 
 
