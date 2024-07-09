@@ -12,7 +12,7 @@ public class KingBran extends Leader {
 
     @Override
     public void executeAbility(BoardView boardView, int index) {
-
+        //TODO :>
     }
 
 

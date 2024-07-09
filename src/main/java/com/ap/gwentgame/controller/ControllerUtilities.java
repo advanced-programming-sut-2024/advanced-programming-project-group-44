@@ -4,6 +4,7 @@ import com.ap.gwentgame.model.Session;
 import com.ap.gwentgame.model.gameElementViews.CardView;
 import com.ap.gwentgame.model.gameElementViews.PlayerView;
 import com.ap.gwentgame.model.gameElementViews.UnitCardView;
+import com.ap.gwentgame.model.gameElements.Card;
 import com.ap.gwentgame.model.gameElements.UnitCard;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -183,6 +184,25 @@ public class ControllerUtilities {
                 unitCardView.setScore(1);
             }
         }
+    }
+
+    public static int calculateScoreOfRowNotHero(PlayerView playerView , int row){
+        int score = 0;
+        for (Card card : playerView.getRowViews()[row].getCards()) {
+            if (card instanceof UnitCard && !((UnitCard) card).isHero()) {
+                score += ((UnitCard) card).getScore();
+            }
+        }
+        return score;
+    }
+    public static int calculateMaxScoreOfRowNotHero(PlayerView player , int row){
+        int maxScore = 0;
+        for (Card card : player.getRowViews()[row].getCards()) {
+            if (card instanceof UnitCard && !((UnitCard) card).isHero()) {
+                if (((UnitCard) card).getScore() > maxScore) maxScore = ((UnitCard) card).getScore();
+            }
+        }
+        return maxScore;
     }
 
     private static int getRandomNumberInRange(int min, int max) {

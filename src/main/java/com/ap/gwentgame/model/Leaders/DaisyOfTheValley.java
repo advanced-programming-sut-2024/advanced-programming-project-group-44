@@ -12,7 +12,8 @@ public class DaisyOfTheValley extends Leader {
 
     @Override
     public void executeAbility(BoardView boardView, int index) {
-
+        //TODO at the beginning of the game
+        //TODO implement here
     }
 
 }
