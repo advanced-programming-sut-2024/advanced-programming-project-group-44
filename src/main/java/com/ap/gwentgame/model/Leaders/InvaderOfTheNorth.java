@@ -24,7 +24,6 @@ public class InvaderOfTheNorth extends Leader {
         CardView card = getRandomCard(discardPileOpponent);
         ViewUtilities.changeCardContainer(boardView.getGamePane(), opponent.getDiscardPileView(), opponent.getHandView(), card);
         card = getRandomCard(discardPileOpponent);
-        //player.addCardToHandFromDiscardPile(card);//TODO check
         ViewUtilities.changeCardContainer(boardView.getGamePane(), player.getDiscardPileView(), player.getHandView(), card);
     }
 

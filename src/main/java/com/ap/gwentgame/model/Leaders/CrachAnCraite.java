@@ -11,6 +11,8 @@ import com.ap.gwentgame.model.gameElements.UnitCard;
 import com.ap.gwentgame.view.ViewUtilities;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 public class CrachAnCraite extends Leader {
     public CrachAnCraite(String name, FactionType factionType) {
@@ -19,9 +21,9 @@ public class CrachAnCraite extends Leader {
 
     @Override
     public void executeAbility(BoardView boardView, int index) {
-        //TODO bor zadan?
         PlayerView playerView = boardView.getCurrentPlayer();
         ArrayList<CardView> discardPileCards = playerView.getDiscardPileView().getCardViews();
+        Collections.shuffle(discardPileCards);
         for (CardView cardView : discardPileCards) {
             Card card = (Card) cardView.getItem();
             if (card instanceof UnitCard) {

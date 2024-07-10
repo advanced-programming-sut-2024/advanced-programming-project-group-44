@@ -7,6 +7,7 @@ import com.ap.gwentgame.model.gameElementViews.PlayerView;
 import com.ap.gwentgame.model.gameElements.Board;
 import com.ap.gwentgame.model.gameElements.Card;
 import com.ap.gwentgame.model.gameElements.Leader;
+import com.ap.gwentgame.view.ViewUtilities;
 
 import java.util.ArrayList;
 
@@ -22,8 +23,8 @@ public class PurebloodElf extends Leader {
         for(CardView cardView : deckCardViews){
             Card card = (Card) cardView.getItem();
             if(card.getName().contains("frost")){
-                card.executeAction(Board);
-                //TODO choose card
+                ViewUtilities.changeCardContainer(boardView.getGamePane() ,
+                        playerView.getDeckView() , boardView.getWeatherCards() , cardView);
             }
         }
     }

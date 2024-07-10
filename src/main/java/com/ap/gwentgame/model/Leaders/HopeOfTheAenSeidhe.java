@@ -20,10 +20,6 @@ public class HopeOfTheAenSeidhe extends Leader {
         PlayerView player = boardView.getCurrentPlayer();
         ArrayList<CardView> agileCardViews = player.getRowViews()[0].getCardViews();
         agileCardViews.addAll(player.getRowViews()[1].getCardViews());
-        /*TODO hmmm?
-        Card card = choosenCard...
-        player.getRows()[i].remove(card);
-        player.getRows()[j].add(card);*/
     }
 
 }

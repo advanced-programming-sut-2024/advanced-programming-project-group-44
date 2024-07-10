@@ -7,6 +7,7 @@ import com.ap.gwentgame.model.gameElementViews.PlayerView;
 import com.ap.gwentgame.model.gameElements.Board;
 import com.ap.gwentgame.model.gameElements.Card;
 import com.ap.gwentgame.model.gameElements.Leader;
+import com.ap.gwentgame.model.gameElements.WeatherCard;
 
 import java.util.ArrayList;
 
@@ -19,13 +20,10 @@ public class CommanderOfTheRedRiders extends Leader {
     public void executeAbility(BoardView boardView, int index) {
         PlayerView playerView = boardView.getCurrentPlayer();
         ArrayList<CardView> deckCards = playerView.getDeckView().getCardViews();
-        for(CardView cardInDeckView : deckCards){
-            Card cardInDeck = (Card) cardInDeckView.getItem();
-            if(cardInDeck instanceof Weather){//????/
-                /*TODO show the card ?
-                Card choosenCard = ...
-                choosenCard.executeAction(board);*/
-            }
+        //TODO nadashte bashe?
+        if(index != null){
+            CardView chosenWeatherCard = deckCards.get(index);
+            //?chosenWeatherCard
         }
     }
 }

@@ -185,6 +185,13 @@ public class ControllerUtilities {
             }
         }
     }
+    public static void stopWeatherAbility(PlayerView playerView , int row) {
+        for (CardView cardView : playerView.getRowViews()[row].getCardViews()) {
+            if (cardView instanceof UnitCardView unitCardView && !((UnitCard) cardView.getItem()).isHero()) {
+                unitCardView.setScore(((UnitCard)(cardView.getItem())).getInitialScore());
+            }
+        }
+    }
 
     public static int calculateScoreOfRowNotHero(PlayerView playerView , int row){
         int score = 0;

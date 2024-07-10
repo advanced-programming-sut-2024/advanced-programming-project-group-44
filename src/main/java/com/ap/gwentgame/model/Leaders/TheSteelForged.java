@@ -20,9 +20,7 @@ public class TheSteelForged extends Leader {
         ArrayList<WeatherCardView> weatherCardViews = boardView.getWeatherCards().getCardViews();
         if(weatherCardViews != null){
             for(WeatherCardView weatherCardView : weatherCardViews){
-                //player.changeContainer(board.getWeatherCards() , player.getDiscardPile() , weather);
-                //player.addWeatherCardToDiscardPile(weather);
-                WeatherCardView.stopAction(board);
+                weatherCardView.stopAction(boardView);
             }
         }
     }

@@ -30,7 +30,6 @@ public class QueenOfDolBlathanna extends Leader {
                             , opponentView.getDiscardPileView() , cardView);
                 }
             }
-        } //TODO check if the num of row is correct
+        }
     }
-
 }
