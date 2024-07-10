@@ -13,6 +13,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -116,56 +117,72 @@ public class ViewUtilities {
         itemSelector.setPrefHeight(pane.getHeight());
         itemSelector.setStyle("-fx-background-color: rgba(0, 0, 0, 0.5);");
 
+        double cardBoxWidth = 100;
+
         HBox cardBox = new HBox();
-        cardBox.setSpacing(-60);
+        cardBox.setSpacing(60);
+        cardBox.setLayoutX(pane.getWidth() / 2 - cardBoxWidth / 2);
         cardBox.setAlignment(javafx.geometry.Pos.CENTER);
 
-        double cardWidth = 150;
-        double cardHeight = 200;
-        double enlargedCardWidth = 200;
-        double enlargedCardHeight = 270;
-
         for (ItemView itemView : itemViews) {
-            itemView.setPrefWidth(cardWidth);
-            itemView.setPrefHeight(cardHeight);
             cardBox.getChildren().add(itemView);
+            itemView.setSize(cardBoxWidth, itemView.getPrefHeight() * cardBoxWidth / itemView.getPrefWidth());
         }
 
-        updateSelectedItemView(itemViews, selectedItemReference.get());
+        updateSizes(itemViews, selectedItemReference.get());
+        cardBox.setLayoutY(pane.getHeight() / 2 - selectedItemReference.get().getPrefHeight() / 2);
+        updatePositions(pane.getWidth() / 2 - (selectedItemReference.get().getLayoutX() + cardBox.getLayoutX() + cardBoxWidth / 2), cardBox);
 
         Button leftButton = new Button("<");
         leftButton.setLayoutX(20);
         leftButton.setLayoutY(pane.getHeight() / 2 - 20);
-        leftButton.setOnAction(event -> {
+        leftButton.setOnMouseClicked(event -> {
             int selectedIndex = itemViews.indexOf(selectedItemReference.get());
             if (selectedIndex > 0) {
                 selectedIndex--;
                 selectedItemReference.set(itemViews.get(selectedIndex));
-                updateSelectedItemView(itemViews, selectedItemReference.get());
+                updateSizes(itemViews, selectedItemReference.get());
+                updatePositions(pane.getWidth() / 2 - (selectedItemReference.get().getLayoutX() + cardBox.getLayoutX() + cardBoxWidth / 2), cardBox);
             }
         });
 
         Button rightButton = new Button(">");
         rightButton.setLayoutX(pane.getWidth() - 50);
         rightButton.setLayoutY(pane.getHeight() / 2 - 20);
-        rightButton.setOnAction(event -> {
+        rightButton.setOnMouseClicked(event -> {
             int selectedIndex = itemViews.indexOf(selectedItemReference.get());
             System.out.println(selectedIndex);
             if (selectedIndex < itemViews.size() - 1) {
                 selectedIndex++;
                 selectedItemReference.set(itemViews.get(selectedIndex));
-                updateSelectedItemView(itemViews, selectedItemReference.get());
+                updateSizes(itemViews, selectedItemReference.get());
+                updatePositions(pane.getWidth() / 2 - (selectedItemReference.get().getLayoutX() + cardBox.getLayoutX() + cardBoxWidth / 2), cardBox);
             }
         });
 
-        cardBox.setLayoutX((pane.getWidth() - (enlargedCardWidth + (cardWidth + cardBox.getSpacing()) * (itemViews.size() - 1))) / 2);
-        cardBox.setLayoutY((pane.getHeight() - cardHeight) / 2);
+        itemSelector.requestFocus();
+        itemSelector.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.LEFT) {
+                leftButton.fire();
+            }
+            if (event.getCode() == KeyCode.RIGHT) {
+                rightButton.fire();
+            }
+        });
+
+        for (ItemView itemView : itemViews) {
+            itemView.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+                selectedItemReference.set(itemView);
+                updateSizes(itemViews, selectedItemReference.get());
+                updatePositions(pane.getWidth() / 2 - (selectedItemReference.get().getLayoutX() + cardBox.getLayoutX() + cardBoxWidth / 2), cardBox);
+            });
+        }
 
         itemSelector.getChildren().addAll(leftButton, rightButton, cardBox);
         pane.getChildren().add(itemSelector);
 
-        submitButton.setLayoutX(250);
-        submitButton.setLayoutY(500);
+        submitButton.setLayoutX(pane.getWidth() / 2 - 50);
+        submitButton.setLayoutY(cardBox.getLayoutY() + selectedItemReference.get().getHeight() + 50);
         submitButton.setText("Submit");
 
         submitButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
@@ -176,20 +193,21 @@ public class ViewUtilities {
     }
 
 
-
-    private static void updateSelectedItemView(ArrayList<? extends ItemView> itemViews, ItemView selectedItemView) {
+    private static void updateSizes(ArrayList<? extends ItemView> itemViews, ItemView selectedItemView) {
         for (ItemView itemView : itemViews) {
             if (itemView.equals(selectedItemView)) {
-                itemView.setScaleX(1.3);
-                itemView.setScaleY(1.3);
-                itemView.setLayoutY(-30); // Move the enlarged card up
+                itemView.setScaleX(2);
+                itemView.setScaleY(2);
                 itemView.setStyle("-fx-font-weight: bold;");
             } else {
                 itemView.setScaleX(1);
                 itemView.setScaleY(1);
-                itemView.setLayoutY(0); // Reset the position of other cards
                 itemView.setStyle("-fx-font-weight: normal;");
             }
         }
+    }
+
+    private static void updatePositions(double movement, HBox cardBox){
+        cardBox.setLayoutX(cardBox.getLayoutX() + movement);
     }
 }
