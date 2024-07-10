@@ -1,6 +1,8 @@
 package com.ap.gwentgame.model;
 
 import com.ap.gwentgame.model.Game.GameData;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -10,18 +12,20 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 public class LiveBox extends HBox {
     private GameData gameData;
-    private Button playButton;
     private Label playerOneLabel;
     private Label playerTwoLabel;
     private ImageView imageView;
+    private Timeline imageUpdateTimeline;
 
     public LiveBox(GameData gameData) {
         this.gameData = gameData;
         initialize();
         setLayout();
+        startImageUpdate();
     }
 
     private void setLayout() {
@@ -30,40 +34,42 @@ public class LiveBox extends HBox {
         this.setPadding(new Insets(5, 10, 5, 10));
         this.setAlignment(Pos.CENTER);
 
-        // Create regions to ensure button is centered
+
         Region leftSpacer = new Region();
         Region rightSpacer = new Region();
 
         VBox playerVbox = new VBox(10);
 
-        // Set label properties
         playerOneLabel.setPrefHeight(20);
-        playerOneLabel.setMaxWidth(120); // Set maximum width for label
-        playerOneLabel.setWrapText(false); // Disable text wrapping
+        playerOneLabel.setMaxWidth(120);
+        playerOneLabel.setWrapText(false);
         playerOneLabel.setAlignment(Pos.CENTER);
         playerOneLabel.setText(getShortenedName(gameData.getOpponentName()));
 
         playerTwoLabel.setPrefHeight(20);
-        playerTwoLabel.setMaxWidth(120); // Set maximum width for label
-        playerTwoLabel.setWrapText(false); // Disable text wrapping
+        playerTwoLabel.setMaxWidth(120);
+        playerTwoLabel.setWrapText(false);
         playerTwoLabel.setAlignment(Pos.CENTER);
         playerTwoLabel.setText(getShortenedName(gameData.getPlayerName()));
 
         playerVbox.getChildren().addAll(playerOneLabel, playerTwoLabel);
 
-        // Ensure labels expand to fill available space
+
         HBox.setHgrow(leftSpacer, Priority.ALWAYS);
         HBox.setHgrow(rightSpacer, Priority.ALWAYS);
         HBox.setMargin(playerTwoLabel, new Insets(10, 0, 0, 0));
-        //HBox.setMargin(playerOneLabel, new Insets(0, 0, 0, 20));
 
-        // Add children in the correct order
+
         this.getChildren().addAll(imageView, playerVbox);
     }
 
     private void initialize() {
         playerOneLabel = new Label(gameData.getOpponentName());
         playerTwoLabel = new Label(gameData.getPlayerName());
+        imageView = new ImageView();
+        imageView.setFitWidth(50); // Adjust width
+        imageView.setFitHeight(50); // Adjust height
+        updateImage();
     }
 
     private String getShortenedName(String name) {
@@ -73,5 +79,17 @@ public class LiveBox extends HBox {
         } else {
             return name;
         }
+    }
+
+    private void updateImage() {
+//        // Replace this with your image fetching logic
+//        String imageUrl = fetchImageUrl();
+//        Image image = new Image(imageUrl);
+//        imageView.setImage(image);
+    }
+    private void startImageUpdate() {
+        imageUpdateTimeline = new Timeline(new KeyFrame(Duration.seconds(30), event -> updateImage()));
+        imageUpdateTimeline.setCycleCount(Timeline.INDEFINITE);
+        imageUpdateTimeline.play();
     }
 }
