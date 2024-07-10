@@ -131,9 +131,13 @@
                      <padding>
                         <Insets left="20.0" right="20.0" />
                      </padding>
-                     <children>
-                        <Button onMouseClicked="#prepareGame" text="Start Game" />
-                     </children>
+                     <HBox spacing="5">
+                        <children>
+                           <Button onMouseClicked="#prepareGame" text="Random Game"/>
+                           <Button onMouseClicked="#chooseFriendMenu" text="Play with Friend"/>
+                           <Button onMouseClicked="#goToTournamentMenu" text="Tournament"/>
+                        </children>
+                     </HBox>
                   </FlowPane>
                </children>
             </HBox>

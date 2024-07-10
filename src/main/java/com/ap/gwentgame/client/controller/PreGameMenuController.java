@@ -21,9 +21,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.scene.shape.Rectangle;
+import javafx.stage.Popup;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -330,8 +334,8 @@ public class PreGameMenuController implements Initializable {
         GameMenu gameMenu = new GameMenu();
         gameMenu.loadBoard(board);*/
         try {
-        WaitingScreenMenu waitingScreenMenu = new WaitingScreenMenu();
-        waitingScreenMenu.start(Session.getStage());
+            WaitingScreenMenu waitingScreenMenu = new WaitingScreenMenu();
+            waitingScreenMenu.start(Session.getStage());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -345,5 +349,14 @@ public class PreGameMenuController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+
+    public void chooseFriendMenu(MouseEvent mouseEvent) {
+
+}
+
+
+    public void goToTournamentMenu(MouseEvent mouseEvent) {
     }
 }
