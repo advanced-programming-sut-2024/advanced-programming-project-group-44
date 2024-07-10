@@ -7,6 +7,7 @@ import com.ap.gwentgame.client.model.gameElementViews.ItemView;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
+import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -31,12 +32,15 @@ public class ViewUtilities {
         pane.getChildren().add(imageView);
     }
 
-    public static void showWarningAlert(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle(title);
-        alert.setHeaderText(title);
-        alert.setContentText(message);
-        alert.show();
+    public static String showWarningAlert(String title, String message) {
+        Platform.runLater(() -> {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle(title);
+            alert.setHeaderText(title);
+            alert.setContentText(message);
+            alert.show();
+        });
+        return "warning";
     }
 
     public static boolean showConfirmationAlert(String title, String header, String message) {

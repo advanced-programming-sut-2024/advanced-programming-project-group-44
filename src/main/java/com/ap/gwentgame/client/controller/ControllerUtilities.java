@@ -1,6 +1,7 @@
 package com.ap.gwentgame.client.controller;
 
 import com.ap.gwentgame.client.model.Session;
+import javafx.application.Platform;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
@@ -25,29 +26,32 @@ public class ControllerUtilities {
     public static boolean validateUsername(TextField usernameField) {
         String username = usernameField.getText();
         if (username.isEmpty()) {
-            showWarningAlert("Invalid Username", "Enter a username");
+            Platform.runLater(() -> showWarningAlert("Invalid Username", "Enter a username"));
             return false;
         }
         if (!username.matches("^[A-Za-z0-9_]+$")) {
-            showWarningAlert("Invalid Username", "Write a valid username (contains only uppercase, lowercase, numbers, and/or _)");
+            Platform.runLater(() -> showWarningAlert("Invalid Username", "Write a valid username (contains only uppercase, lowercase, numbers, and/or _)"));
             return false;
         }
         if (Session.getUserByName(username) != null && username.equals(Session.getUserByName(username).getName())) {
             String suggestedUsername = generateSuggestedUsername(username);
-            if (showConfirmationAlert("Already Existing Username", "Suggesting Username",
-                    "You should pick another username, or you can choose the suggested username.\nDo you want to change your username to " + suggestedUsername + "?")) {
-                usernameField.setText(suggestedUsername);
-            }
+            Platform.runLater(() -> {
+                if (showConfirmationAlert("Already Existing Username", "Suggesting Username",
+                        "You should pick another username, or you can choose the suggested username.\nDo you want to change your username to " + suggestedUsername + "?")) {
+                    usernameField.setText(suggestedUsername);
+                }
+            });
             return false;
         }
         return true;
     }
 
+
     public static boolean validatePassword(PasswordField passwordField, PasswordField repeatedPasswordField) {
         String password = passwordField.getText();
         String repeatedPassword = repeatedPasswordField.getText();
         if (password.isEmpty()) {
-            showWarningAlert("Invalid Password", "Enter a password");
+            Platform.runLater(() -> showWarningAlert("Invalid Password", "Enter a password"));
             return false;
         }
         if (!isValidPassword(password)) {
@@ -114,7 +118,7 @@ public class ControllerUtilities {
         return true;
     }
 
-    private static String generateSuggestedUsername(String username) {
+    public static String generateSuggestedUsername(String username) {
         String suggestedUsername;
         do {
             StringBuilder newUsername = new StringBuilder(username);
@@ -131,7 +135,7 @@ public class ControllerUtilities {
         return suggestedUsername;
     }
 
-    private static boolean isStrongPassword(String password) {
+    public static boolean isStrongPassword(String password) {
         String passwordRegex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[&$@_*])[A-Za-z\\d&@$_*]{8,}$";
         return password.matches(passwordRegex);
     }
