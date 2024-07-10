@@ -20,10 +20,9 @@ import static com.ap.gwentgame.client.view.ViewUtilities.*;
 
 public class RegisterMenuController {
     @FXML
-    private TextField usernameField;
+    private TextField name;
     @FXML
     private PasswordField password;
-
     @FXML
     private PasswordField repeatedPassword;
     @FXML
@@ -44,23 +43,22 @@ public class RegisterMenuController {
     }
 
     public void signup(MouseEvent mouseEvent) {
-        if (!ControllerUtilities.validateUsername(usernameField)) return;
-        if (!ControllerUtilities.validateNickname(usernameField, nickName)) return;
+        if (!ControllerUtilities.validateUsername(name)) return;
+        if (!ControllerUtilities.validateNickname(name, nickName)) return;
         if (!ControllerUtilities.validatePassword(password, repeatedPassword)) return;
         if (!ControllerUtilities.validateEmail(email)) return;
         if (!ControllerUtilities.validateAnswer(answer)) return;
 
-        User user = new User(usernameField.getText(), password.getText(), nickName.getText(),
+        User user = new User(name.getText(), password.getText(), nickName.getText(),
                 email.getText(), securityQuestion.getValue(), answer.getText());
-
 
         String responseText = RequestSender.registerUser(user).getMessageText();
 
         if (REGISTRATION_FAILED_USERNAME_TAKEN.getMatcher(responseText).matches()){
-            String suggestedUsername = ControllerUtilities.generateSuggestedUsername(usernameField.getText());
+            String suggestedUsername = ControllerUtilities.generateSuggestedUsername(name.getText());
             if (showConfirmationAlert("Already Existing Username",
                     "You should pick another username, or you can choose the suggested username.\nDo you want to change your username to " + suggestedUsername + "?")) {
-                usernameField.setText(suggestedUsername);
+                name.setText(suggestedUsername);
             }
             return;
         }
