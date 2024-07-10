@@ -11,6 +11,7 @@ import com.ap.gwentgame.client.model.Factions.*;
 import com.ap.gwentgame.client.view.GameMenu;
 import com.ap.gwentgame.client.view.MainMenu;
 import com.ap.gwentgame.client.view.ViewUtilities;
+import com.ap.gwentgame.client.view.WaitingScreenMenu;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -268,7 +269,7 @@ public class PreGameMenuController implements Initializable {
         Deck.download(deck);
     }
 
-    public void selectLeader(MouseEvent mouseEvent) {
+    public void LeaderViewSelector(MouseEvent mouseEvent) {
         for (LeaderView leaderView : selectedFaction.getLeaderViews()) {
             leaderView.toPreGameMode();
         }
@@ -309,12 +310,12 @@ public class PreGameMenuController implements Initializable {
         if (countOfUnitCards < MIN_UNIT_CARDS) {
             ViewUtilities.showErrorAlert("Not enough Unit Card", "You have to choose at least 22 Unit Card!");
         }
-        User user = Session.getLoggedInUser();
+        /*User user = Session.getLoggedInUser();
         Player player1 = new Player(user, selectedFaction, (Leader) selectedLeaderView.getItem(), addedCards);
         Player player2 = new Player(user, selectedFaction, (Leader) selectedLeaderView.getItem(), addedCards);
 
 
-        /*Session.setGameId(GameManager.addPlayerToQueue(player));
+        Session.setGameId(GameManager.addPlayerToQueue(player));
 
         while (GameManager.getGameDataById(0) == null) {
             try {
@@ -323,11 +324,18 @@ public class PreGameMenuController implements Initializable {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        }*/
+        }
 
         Board board = new Board(player1, player2);
         GameMenu gameMenu = new GameMenu();
-        gameMenu.loadBoard(board);
+        gameMenu.loadBoard(board);*/
+        try {
+        WaitingScreenMenu waitingScreenMenu = new WaitingScreenMenu();
+        waitingScreenMenu.start(Session.getStage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void backToMainMenu(MouseEvent mouseEvent) {
