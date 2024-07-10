@@ -3,13 +3,9 @@ package com.ap.gwentgame.client.controller;
 import com.ap.gwentgame.ServerMessage;
 import com.ap.gwentgame.client.Client;
 import com.ap.gwentgame.client.model.User;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.ap.gwentgame.client.model.gameElements.Player;
 
 public class RequestSender {
-    private static GsonBuilder builder = new GsonBuilder();
-    private static Gson gson = builder.create();
-
     public static ServerMessage registerUser(User user) {
         String messageText = "register user";
         Client.sendRequest(messageText, user);
@@ -44,5 +40,10 @@ public class RequestSender {
         String messageText = "edit password" + " " + currentPassword + " " + newPassword;
         Client.sendRequest(messageText);
         return Client.getResponse();
+    }
+
+    public static void requestRandomGame(Player player) {
+        String messageText = "GAME start random";
+        Client.sendRequest(messageText, player);
     }
 }

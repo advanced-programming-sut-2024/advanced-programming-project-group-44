@@ -3,7 +3,9 @@ package com.ap.gwentgame.client.model.gameElements;
 import com.ap.gwentgame.client.enums.FactionType;
 import com.ap.gwentgame.client.enums.Placement;
 
-public class UnitCard extends Card{
+import java.io.Serializable;
+
+public class UnitCard extends Card implements Serializable {
     private final boolean isHero;
     private final int initialScore;
     private int score;

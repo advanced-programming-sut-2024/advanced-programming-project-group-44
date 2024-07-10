@@ -1,15 +1,14 @@
 package com.ap.gwentgame.client.model;
 
+import com.ap.gwentgame.client.model.gameElements.Board;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
 
 public class Session {
-    private static ArrayList<User> allusers = new ArrayList<>();
-
     private static Stage stage;
     private static User loggedinUser;
     private static int gameId;
+    private static Board currentBoard;
 
     public static Stage getStage() {
         return stage;
@@ -35,20 +34,11 @@ public class Session {
         loggedinUser = user;
     }
 
-    public static User getUserByName(String name){
-        for(User user : allusers){
-            if(user.getName().equals(name)){
-                return user;
-            }
-        }
-        return null;
+    public static Board getCurrentBoard() {
+        return currentBoard;
     }
 
-    public static void addUser(User user){
-        allusers.add(user);
+    public static void setCurrentBoard(Board currentBoard) {
+        Session.currentBoard = currentBoard;
     }
-
-
-
-
 }

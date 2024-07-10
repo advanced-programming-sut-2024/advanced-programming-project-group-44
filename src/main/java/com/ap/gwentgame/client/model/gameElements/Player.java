@@ -3,6 +3,7 @@ package com.ap.gwentgame.client.model.gameElements;
 import com.ap.gwentgame.client.model.gameElementViews.CardViewContainer;
 import com.ap.gwentgame.client.model.gameElementViews.PreGameCardView;
 import com.ap.gwentgame.client.model.User;
+import com.ap.gwentgame.client.view.PreGameMenu;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -37,7 +38,10 @@ public class Player implements Serializable {
         this.specialCards[2] = new ArrayList<Card>();
 
         for (PreGameCardView preGameCardView : addedCards.getCardViews()) {
-            this.hand.add((Card) preGameCardView.getItem());
+            PreGameCard preGameCard = (PreGameCard) preGameCardView.getItem();
+            for (int i = 0; i < preGameCard.getCount(); i++) {
+                this.hand.add(preGameCard.getCard());
+            }
         }
     }
 

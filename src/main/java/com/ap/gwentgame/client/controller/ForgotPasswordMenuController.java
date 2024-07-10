@@ -22,7 +22,6 @@ public class ForgotPasswordMenuController {
 
     private ServerMessage validateAnswerResponse;
 
-
     public void setSecurityQuestion(String question) {
         securityQuestionLabel.setText(question);
     }

@@ -6,11 +6,12 @@ import com.ap.gwentgame.client.model.gameElementViews.CardViewContainer;
 import com.ap.gwentgame.client.model.gameElementViews.LeaderView;
 import com.ap.gwentgame.client.model.gameElementViews.PreGameCardView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Faction extends Item {
-    protected final ArrayList<LeaderView> leaderViews;
-    protected final CardViewContainer<PreGameCardView, Card> cardViews;
+public class Faction extends Item implements Serializable {
+    protected transient final ArrayList<LeaderView> leaderViews;
+    protected transient final CardViewContainer<PreGameCardView, Card> cardViews;
 
     public Faction(String name) {
         super(name);

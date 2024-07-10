@@ -310,29 +310,19 @@ public class PreGameMenuController implements Initializable {
 
         if (countOfSpecialCards > MAX_SPECIAL_CARDS) {
             ViewUtilities.showErrorAlert("Too many Special Card", "You can't chose more than 10 Special Card!");
+            return;
         }
         if (countOfUnitCards < MIN_UNIT_CARDS) {
             ViewUtilities.showErrorAlert("Not enough Unit Card", "You have to choose at least 22 Unit Card!");
-        }
-        /*User user = Session.getLoggedInUser();
-        Player player1 = new Player(user, selectedFaction, (Leader) selectedLeaderView.getItem(), addedCards);
-        Player player2 = new Player(user, selectedFaction, (Leader) selectedLeaderView.getItem(), addedCards);
-
-
-        Session.setGameId(GameManager.addPlayerToQueue(player));
-
-        while (GameManager.getGameDataById(0) == null) {
-            try {
-                Thread.sleep(10000);
-                System.out.println("Waiting for other player to join");
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            return;
         }
 
-        Board board = new Board(player1, player2);
-        GameMenu gameMenu = new GameMenu();
-        gameMenu.loadBoard(board);*/
+        //User user = Session.getLoggedInUser();
+        User user = new User("test4", "test", "test", "test", Question.QUESTION_1, "test");
+        Session.setLoggedInUser(user);
+        Player player = new Player(user, selectedFaction, (Leader) selectedLeaderView.getItem(), addedCards);
+        RequestSender.requestRandomGame(player);
+
         try {
             WaitingScreenMenu waitingScreenMenu = new WaitingScreenMenu();
             waitingScreenMenu.start(Session.getStage());

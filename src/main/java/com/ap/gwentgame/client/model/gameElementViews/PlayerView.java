@@ -2,17 +2,23 @@ package com.ap.gwentgame.client.model.gameElementViews;
 
 import com.ap.gwentgame.client.enums.assets.Icons;
 import com.ap.gwentgame.client.enums.assets.Items;
+import com.ap.gwentgame.client.model.Session;
 import com.ap.gwentgame.client.model.gameElements.*;
 import com.ap.gwentgame.client.view.ViewUtilities;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Rectangle;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class PlayerView {
     private final Player player;
     private final int playerNumber;
-    private final AnchorPane boardPane;
+    private final BoardView boardView;
+    private final AnchorPane gamePane;
 
     private final FactionView factionView;
     private final LeaderView leaderView;
@@ -26,10 +32,11 @@ public class PlayerView {
     private final CardViewContainer<CardView, Card>[] rowViews;
     private final CardViewContainer<CardView, Card>[] specialCardViews;
 
-    public PlayerView(Player player, int playerNumber, AnchorPane boardPane) {
+    public PlayerView(Player player, int playerNumber, BoardView boardView) {
         this.player = player;
         this.playerNumber = playerNumber;
-        this.boardPane = boardPane;
+        this.boardView = boardView;
+        this.gamePane = boardView.getGamePane();
 
         this.factionView = new FactionView(player.getFaction());
         this.leaderView = new LeaderView(player.getLeader());
@@ -66,42 +73,53 @@ public class PlayerView {
         initializeContainers();
         initializeInfo();
         initializeScoreLabels();
-        updateScoreLabels();
+        initializeControls();
     }
 
     public void initializeContainers() {
-        Button passButton = new Button("PASS");
-        passButton.setPrefSize(50 , 25);
-        passButton.setLayoutX(210);
-        passButton.setLayoutY(615);
+        if (isLocalPlayer()) {
+            rowViews[0].setVisuals(gamePane, 440, 329, 508, 80, 10, 0);
+            rowViews[1].setVisuals(gamePane, 440, 410, 508, 80, 10, 0);
+            rowViews[2].setVisuals(gamePane, 440, 496, 508, 80, 10, 0);
 
-        if (playerNumber == 1) {
-            rowViews[0].setVisuals(boardPane, 440, 329, 508, 80, 10, 0);
-            rowViews[1].setVisuals(boardPane, 440, 410, 508, 80, 10, 0);
-            rowViews[2].setVisuals(boardPane, 440, 496, 508, 80, 10, 0);
-
-            specialCardViews[0].setVisuals(boardPane, 358, 329, 80, 80, 10, 0);
-            specialCardViews[1].setVisuals(boardPane, 358, 410, 80, 80, 10, 0);
-            specialCardViews[2].setVisuals(boardPane, 358, 496, 80, 80, 10, 0);
-
-            discardPileView.setVisuals(boardPane, 968, 580, 67, 89, 10, 0);
-            deckView.setVisuals(boardPane, 1080, 580, 67, 89, 10, 0);
-            handView.setVisuals(boardPane, 357, 587, 594, 80, 10, 0);
+            specialCardViews[0].setVisuals(gamePane, 358, 329, 80, 80, 10, 0);
+            specialCardViews[1].setVisuals(gamePane, 358, 410, 80, 80, 10, 0);
+            specialCardViews[2].setVisuals(gamePane, 358, 496, 80, 80, 10, 0);
         } else {
-            rowViews[0].setVisuals(boardPane, 440, 234, 508, 80, 10, 0);
-            rowViews[1].setVisuals(boardPane, 440, 148, 508, 80, 10, 0);
-            rowViews[2].setVisuals(boardPane, 440, 68, 508, 80, 10, 0);
+            rowViews[0].setVisuals(gamePane, 440, 234, 508, 80, 10, 0);
+            rowViews[1].setVisuals(gamePane, 440, 148, 508, 80, 10, 0);
+            rowViews[2].setVisuals(gamePane, 440, 68, 508, 80, 10, 0);
 
-            specialCardViews[0].setVisuals(boardPane, 358, 234, 80, 80, 10, 0);
-            specialCardViews[1].setVisuals(boardPane, 358, 148, 80, 80, 10, 0);
-            specialCardViews[2].setVisuals(boardPane, 358, 68, 80, 80, 10, 0);
+            specialCardViews[0].setVisuals(gamePane, 358, 234, 80, 80, 10, 0);
+            specialCardViews[1].setVisuals(gamePane, 358, 148, 80, 80, 10, 0);
+            specialCardViews[2].setVisuals(gamePane, 358, 68, 80, 80, 10, 0);
+        }
+    }
 
-            discardPileView.setVisuals(boardPane, 968, 107, 67, 89, 10, 0);
-            deckView.setVisuals(boardPane, 1080, 105, 67, 89, 10, 0);
-            handView.setVisuals(boardPane, 357, 587, 594, 80, 10, 0);
-            handView.setVisible(false);
+    public void initializeControls() {
+        if (isLocalPlayer()) {
+            discardPileView.setVisuals(gamePane, 968, 580, 67, 89, 10, 0);
+            deckView.setVisuals(gamePane, 1080, 580, 67, 89, 10, 0);
+            handView.setVisuals(gamePane, 357, 587, 594, 80, 10, 0);
+            Button passButton = new Button("PASS");
+            passButton.setPrefSize(50, 25);
+            passButton.setLayoutX(210);
+            passButton.setLayoutY(615);
+        }
+    }
 
-            passButton.setVisible(false);
+    public void initializeHighlights(){
+        if (isLocalPlayer()){
+            ArrayList <CardViewContainer<? extends CardView, ? extends Card>> containers = new ArrayList<>();
+            containers.add(
+        }
+    }
+
+    public void initializeClickables(){
+        if (isLocalPlayer()){
+            for (CardView cardView : handView.getCardViews()){
+
+            }
         }
     }
 
@@ -110,7 +128,6 @@ public class PlayerView {
         playerDataPane.setPrefSize(190, 80);
         playerDataPane.setStyle("-fx-background-color: rgba(0, 0, 0, 0.5); -fx-border-color: black; -fx-border-width: 2; -fx-padding: 10;");
 
-        //Label playerNickName = new Label(player.getUser().getNickName());
         Label playerNickName = new Label("Player 1");
         playerNickName.setPrefSize(90, 17);
         playerNickName.setStyle("-fx-text-fill: #f8b864; -fx-font-size: 18;");
@@ -134,14 +151,14 @@ public class PlayerView {
         healthIcon2.setFitWidth(20);
         healthIcon2.setFitHeight(20);
 
-        if (playerNumber == 1) {
+        if (isLocalPlayer()) {
             leaderView.setLayoutX(90);
             leaderView.setLayoutY(585);
-            boardPane.getChildren().add(leaderView);
+            gamePane.getChildren().add(leaderView);
 
             factionView.setLayoutX(18);
             factionView.setLayoutY(10);
-            boardPane.getChildren().add(factionView);
+            gamePane.getChildren().add(factionView);
 
             playerDataPane.setLayoutX(45);
             playerDataPane.setLayoutY(470);
@@ -167,11 +184,11 @@ public class PlayerView {
         } else {
             leaderView.setLayoutX(90);
             leaderView.setLayoutY(110);
-            boardPane.getChildren().add(leaderView);
+            gamePane.getChildren().add(leaderView);
 
             factionView.setLayoutX(18);
             factionView.setLayoutY(10);
-            boardPane.getChildren().add(factionView);
+            gamePane.getChildren().add(factionView);
 
             playerDataPane.setLayoutX(45);
             playerDataPane.setLayoutY(215);
@@ -195,7 +212,7 @@ public class PlayerView {
             healthIcon2.setLayoutY(50);
 
         }
-        boardPane.getChildren().add(playerDataPane);
+        gamePane.getChildren().add(playerDataPane);
         playerDataPane.getChildren().addAll(factionView, playerNickName, factionName, cardCountIcon, handCardsCountLabel, healthIcon1, healthIcon2);
 
     }
@@ -204,14 +221,13 @@ public class PlayerView {
         currentScoreLabel.setPrefSize(31, 38);
         currentScoreLabel.setStyle("-fx-text-fill: #000000; -fx-font-size: 16; -fx-font-weight: bold; -fx-alignment: center;");
 
-        scoreLabels[0].setPrefSize(31, 38);
-        scoreLabels[0].setStyle("-fx-text-fill: #000000; -fx-font-size: 16; -fx-font-weight: bold; -fx-alignment: center;");
-        scoreLabels[1].setPrefSize(31, 38);
-        scoreLabels[1].setStyle("-fx-text-fill: #000000; -fx-font-size: 16; -fx-font-weight: bold; -fx-alignment: center;");
-        scoreLabels[2].setPrefSize(31, 38);
-        scoreLabels[2].setStyle("-fx-text-fill: #000000; -fx-font-size: 16; -fx-font-weight: bold; -fx-alignment: center;");
+        for (int i = 0; i < 3; i++) {
+            scoreLabels[i].setPrefSize(31, 38);
+            scoreLabels[i].setStyle("-fx-text-fill: #000000; -fx-font-size: 16; -fx-font-weight: bold; -fx-alignment: center;");
+            scoreLabels[i].setText("0");
+        }
 
-        if (playerNumber == 1) {
+        if (isLocalPlayer()) {
             currentScoreLabel.setLayoutX(267);
             currentScoreLabel.setLayoutY(501);
 
@@ -237,12 +253,12 @@ public class PlayerView {
             scoreLabels[2].setLayoutX(319);
             scoreLabels[2].setLayoutY(90);
         }
-        boardPane.getChildren().addAll(currentScoreLabel, scoreLabels[0], scoreLabels[1], scoreLabels[2]);
+        gamePane.getChildren().addAll(currentScoreLabel, scoreLabels[0], scoreLabels[1], scoreLabels[2]);
     }
 
     public void updateScoreLabels() {
         ViewUtilities.changeNumber(currentScoreLabel, player.getCurrentScore());
-        for(int i = 0; i < 3; i++) {
+        for (int i = 0; i < 3; i++) {
             ViewUtilities.changeNumber(scoreLabels[i], player.getRowScore(i));
         }
     }
@@ -273,5 +289,9 @@ public class PlayerView {
 
     public FactionView getFactionView() {
         return factionView;
+    }
+
+    private boolean isLocalPlayer() {
+        return player.getUser().getName().equals(Session.getLoggedInUser().getName());
     }
 }

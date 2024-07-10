@@ -25,8 +25,7 @@ public enum ServerCommands {
     EDIT_PASSWORD_SUCCESSFUL("edit password successful"),
     EDIT_PASSWORD_FAILED_INCORRECT_PASSWORD("edit password failed - incorrect password"),
     EDIT_PASSWORD_FAILED_NO_CHANGES("edit password failed - no changes"),
-    ;
-
+    GAME_STARTED("GAME started");
 
     private final String messageRegex;
 

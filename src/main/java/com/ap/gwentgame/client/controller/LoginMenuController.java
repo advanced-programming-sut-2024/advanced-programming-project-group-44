@@ -1,6 +1,7 @@
 package com.ap.gwentgame.client.controller;
 
 import com.ap.gwentgame.ServerMessage;
+import com.ap.gwentgame.client.Client;
 import com.ap.gwentgame.client.enums.Question;
 import com.ap.gwentgame.client.enums.assets.FXMLs;
 import com.ap.gwentgame.client.model.Session;
@@ -9,8 +10,6 @@ import com.ap.gwentgame.client.view.StartMenu;
 import com.ap.gwentgame.client.enums.assets.Backgrounds;
 import com.ap.gwentgame.client.model.User;
 import com.ap.gwentgame.client.view.ViewUtilities;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -40,9 +39,6 @@ public class LoginMenuController {
     @FXML
     private ImageView imageview;
 
-    private static GsonBuilder gsonBuilder = new GsonBuilder();
-    private static Gson gson = gsonBuilder.create();
-
 
     public void initialize() {
         imageview.setImage(Backgrounds.MAINBG.getImage());
@@ -68,7 +64,7 @@ public class LoginMenuController {
         }
 
         try {
-            User user = gson.fromJson(responseMessage.getAdditionalText(), User.class);
+            User user = Client.getGson().fromJson(responseMessage.getAdditionalText(), User.class);
             Session.setLoggedInUser(user);
         } catch (Exception e) {
             e.printStackTrace();
@@ -104,7 +100,7 @@ public class LoginMenuController {
             ForgotPasswordMenuController forgotPasswordMenuController = fxmlLoader.getController();
 
             ServerMessage getQuestionResponseMessage = RequestSender.getQuestion(userNameField.getText());
-            Question question = gson.fromJson(getQuestionResponseMessage.getAdditionalText(), Question.class);
+            Question question = Client.getGson().fromJson(getQuestionResponseMessage.getAdditionalText(), Question.class);
 
             if (GET_QUESTION_FAILED_USER_NOT_FOUND.getMatcher(getQuestionResponseMessage.getMessageText()).matches()) {
                 showWarningAlert("User Not Found", "The user you entered does not exist.");
@@ -120,7 +116,7 @@ public class LoginMenuController {
 
             if (VALIDATE_ANSWER_SUCCESSFUL.getMatcher(forgotPasswordMenuController.getValidateAnswerResponse().getMessageText()).matches())
             {
-                User user = gson.fromJson(forgotPasswordMenuController.getValidateAnswerResponse().getAdditionalText(), User.class);
+                User user = Client.getGson().fromJson(forgotPasswordMenuController.getValidateAnswerResponse().getAdditionalText(), User.class);
                 userNameField.setText(user.getName());
                 passwordField.setText(user.getPassword());
             }

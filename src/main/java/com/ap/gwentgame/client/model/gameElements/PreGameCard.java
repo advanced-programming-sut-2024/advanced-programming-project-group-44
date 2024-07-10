@@ -1,6 +1,8 @@
 package com.ap.gwentgame.client.model.gameElements;
 
-public class PreGameCard extends Item{
+import java.io.Serializable;
+
+public class PreGameCard extends Item implements Serializable {
     private final Card card;
     private int count;
 

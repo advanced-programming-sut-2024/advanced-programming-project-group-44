@@ -4,12 +4,16 @@ import com.ap.gwentgame.client.controller.MusicController;
 import com.ap.gwentgame.client.enums.assets.Backgrounds;
 import com.ap.gwentgame.client.enums.assets.Icons;
 import com.ap.gwentgame.client.model.gameElements.Board;
+import com.ap.gwentgame.client.model.gameElements.Card;
 import com.ap.gwentgame.client.model.gameElements.Player;
 import com.ap.gwentgame.client.model.gameElements.WeatherCard;
 import com.ap.gwentgame.client.view.ViewUtilities;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Rectangle;
+
+import java.util.HashMap;
 
 public class BoardView {
     private final Board board;
@@ -24,6 +28,8 @@ public class BoardView {
 
     private final CardViewContainer<WeatherCardView, WeatherCard> weatherCards;
 
+    private final HashMap<CardViewContainer<? extends CardView, ? extends Card>, Rectangle> highlights = new HashMap<>();
+
     public BoardView(Board board, AnchorPane gamePane) {
         this.board = board;
         this.gamePane = gamePane;
@@ -31,8 +37,8 @@ public class BoardView {
         Player player1 = board.getPlayer1();
         Player player2 = board.getPlayer2();
 
-        this.player1View = new PlayerView(player1, 1, gamePane);
-        this.player2View = new PlayerView(player2, 2, gamePane);
+        this.player1View = new PlayerView(player1, 1, this);
+        this.player2View = new PlayerView(player2, 2, this);
         this.currentPlayerView = player1View;
         this.opponentPlayerView = player2View;
 
@@ -81,6 +87,14 @@ public class BoardView {
         chatButtonIcon.setFitHeight(30);
         chatButton.setGraphic(chatButtonIcon);
         gamePane.getChildren().add(chatButton);
+    }
+
+    public HashMap<CardViewContainer<? extends CardView, ? extends Card>, Rectangle> getHighlights() {
+        return highlights;
+    }
+
+    public AnchorPane getGamePane() {
+        return gamePane;
     }
 
     public PlayerView getCurrentPlayer() {

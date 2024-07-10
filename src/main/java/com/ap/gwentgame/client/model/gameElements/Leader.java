@@ -2,7 +2,9 @@ package com.ap.gwentgame.client.model.gameElements;
 
 import com.ap.gwentgame.client.enums.FactionType;
 
-public abstract class Leader extends Item {
+import java.io.Serializable;
+
+public abstract class Leader extends Item implements Serializable {
     private final FactionType factionType;
     private boolean canAbilityBeExecuted;
     private boolean hasAbilityInput = false;

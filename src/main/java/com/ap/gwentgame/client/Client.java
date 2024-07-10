@@ -2,10 +2,12 @@ package com.ap.gwentgame.client;
 
 import com.ap.gwentgame.ClientMessage;
 import com.ap.gwentgame.ServerMessage;
-import com.ap.gwentgame.client.view.StartMenu;
+import com.ap.gwentgame.client.model.Abilities.Ability;
+import com.ap.gwentgame.client.model.PropertyMarshallerAbstractTask;
+import com.ap.gwentgame.client.model.gameElements.Card;
+import com.ap.gwentgame.client.model.gameElements.Leader;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import javafx.stage.Stage;
 
 import java.io.*;
 import java.net.Socket;
@@ -15,8 +17,11 @@ public class Client {
     private static DataOutputStream dataOutputStream;
     private static Socket socket;
 
-    private static GsonBuilder gsonBuilder = new GsonBuilder();
-    private static Gson gson = gsonBuilder.create();
+    private static final GsonBuilder builder = new GsonBuilder().registerTypeAdapter(Card.class,
+            new PropertyMarshallerAbstractTask()).registerTypeAdapter(Ability.class,
+            new PropertyMarshallerAbstractTask()).registerTypeAdapter(Leader.class,
+            new PropertyMarshallerAbstractTask());
+    private static final Gson gson = builder.create();
 
     public static void start() {
         establishConnection();
@@ -43,8 +48,8 @@ public class Client {
     }
 
     public static void sendRequest(String messageText, Object additionalObject) {
-        ClientMessage request = new ClientMessage(messageText, gson.toJson(additionalObject));
         try {
+            ClientMessage request = new ClientMessage(messageText, gson.toJson(additionalObject));
             dataOutputStream.writeUTF(gson.toJson(request));
             dataOutputStream.flush();
         } catch (IOException e) {
@@ -53,8 +58,8 @@ public class Client {
     }
 
     public static void sendRequest(String messageText) {
-        ClientMessage request = new ClientMessage(messageText, null);
         try {
+            ClientMessage request = new ClientMessage(messageText, null);
             dataOutputStream.writeUTF(gson.toJson(request));
             dataOutputStream.flush();
         } catch (IOException e) {
@@ -73,5 +78,9 @@ public class Client {
 
     public static void main(String[] args) {
         Client.start();
+    }
+
+    public static Gson getGson(){
+        return gson;
     }
 }

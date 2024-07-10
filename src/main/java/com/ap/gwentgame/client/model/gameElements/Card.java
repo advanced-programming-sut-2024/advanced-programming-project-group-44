@@ -4,7 +4,9 @@ import com.ap.gwentgame.client.enums.FactionType;
 import com.ap.gwentgame.client.model.Abilities.Ability;
 import com.ap.gwentgame.client.enums.Placement;
 
-public abstract class Card extends Item {
+import java.io.Serializable;
+
+public abstract class Card extends Item implements Serializable {
     private Ability ability;
     private final Placement placement;
     private final FactionType factionType;

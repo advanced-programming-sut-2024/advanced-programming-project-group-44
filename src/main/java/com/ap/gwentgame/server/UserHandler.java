@@ -4,8 +4,13 @@ import com.ap.gwentgame.ClientCommands;
 import com.ap.gwentgame.ClientMessage;
 import com.ap.gwentgame.ServerMessage;
 import com.ap.gwentgame.client.controller.ForgotPasswordMenuController;
+import com.ap.gwentgame.client.model.Abilities.Ability;
+import com.ap.gwentgame.client.model.PropertyMarshallerAbstractTask;
 import com.ap.gwentgame.client.model.Session;
 import com.ap.gwentgame.client.model.User;
+import com.ap.gwentgame.client.model.gameElements.Board;
+import com.ap.gwentgame.client.model.gameElements.Card;
+import com.ap.gwentgame.client.model.gameElements.Leader;
 import com.ap.gwentgame.client.model.gameElements.Player;
 import com.ap.gwentgame.client.view.ViewUtilities;
 import com.google.gson.Gson;
@@ -22,6 +27,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.regex.Matcher;
@@ -33,16 +39,19 @@ public class UserHandler extends Thread {
 
     private User currentUser;
     private Player currentPlayer;
-    private int currentGameID;
+    private BoardHandler currentBoardHandler;
     private static ArrayList<User> loggedInUsers = new ArrayList<>();
 
-    private static GsonBuilder builder = new GsonBuilder();
-    private static Gson gson = builder.create();
-
-    private static final Queue<UserHandler> waitingPlayers = new LinkedList<>();
-    private static final HashMap<Integer, UserHandler> gamePlayers = new HashMap<>();
-    private static final HashMap<Integer, UserHandler> gameSpectators = new HashMap<>();
+    private static final Queue<UserHandler> randomWaitingPlayers = new LinkedList<>();
+    private static final HashMap<Integer, BoardHandler> games = new HashMap<>();
     private static int gameID = 0;
+
+
+    private static final GsonBuilder builder = new GsonBuilder().registerTypeAdapter(Card.class,
+            new PropertyMarshallerAbstractTask()).registerTypeAdapter(Ability.class,
+            new PropertyMarshallerAbstractTask()).registerTypeAdapter(Leader.class,
+            new PropertyMarshallerAbstractTask());
+    private static Gson gson = builder.create();
 
 
     public UserHandler(Socket socket) {
@@ -53,6 +62,10 @@ public class UserHandler extends Thread {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public Player getPlayer() {
+        return currentPlayer;
     }
 
     @Override
@@ -84,7 +97,6 @@ public class UserHandler extends Thread {
     private void processRequest(ClientMessage clientMessage) {
         String messageText = clientMessage.getMessageText();
 
-        System.out.println(messageText);
         Matcher matcher;
         if ((matcher = ClientCommands.REGISTER_USER.getMatcher(messageText)).matches()) {
             User user = gson.fromJson(clientMessage.getAdditionalText(), User.class);
@@ -137,7 +149,7 @@ public class UserHandler extends Thread {
         if ((matcher = ClientCommands.GET_QUESTION.getMatcher(messageText)).matches()) {
             String username = matcher.group(1);
             User user = Database.findUserByUsername(username);
-            if(user == null){
+            if (user == null) {
                 sendResponse("user not found");
                 return;
             }
@@ -146,7 +158,7 @@ public class UserHandler extends Thread {
             return;
         }
 
-        if((matcher = ClientCommands.VALIDATE_ANSWER.getMatcher(messageText)).matches()){
+        if ((matcher = ClientCommands.VALIDATE_ANSWER.getMatcher(messageText)).matches()) {
             String username = matcher.group(1);
             String answer = matcher.group(2);
 
@@ -154,7 +166,7 @@ public class UserHandler extends Thread {
             System.out.println(username + " " + answer);
             System.out.println(user.getAnswer());
 
-            if(!user.getAnswer().equals(answer)){
+            if (!user.getAnswer().equals(answer)) {
                 sendResponse("validate answer failed - incorrect answer");
                 return;
             }
@@ -215,12 +227,33 @@ public class UserHandler extends Thread {
             return;
         }
 
+        if ((matcher = ClientCommands.REQUEST_RANDOM_GAME.getMatcher(messageText)).matches()) {
+            currentPlayer = gson.fromJson(clientMessage.getAdditionalText(), Player.class);
+
+            if (!randomWaitingPlayers.isEmpty()) {
+                UserHandler player = randomWaitingPlayers.poll();
+                BoardHandler boardHandler = new BoardHandler(this, player);
+                games.put(gameID++, boardHandler);
+                this.currentBoardHandler = boardHandler;
+                player.currentBoardHandler = boardHandler;
+                try {
+                    this.sendResponse("GAME started", boardHandler.getCurrentBoard());
+                    player.sendResponse("GAME started", boardHandler.getCurrentBoard());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else {
+                randomWaitingPlayers.add(this);
+                sendResponse("Waiting for opponent");
+            }
+        }
+
         sendResponse("Invalid message");
 
 
     }
 
-    private void sendResponse(String messageText) {
+    protected void sendResponse(String messageText) {
         try {
             ServerMessage serverMessage = new ServerMessage(messageText, null);
             builder.setPrettyPrinting();
@@ -231,7 +264,7 @@ public class UserHandler extends Thread {
         }
     }
 
-    private void sendResponse(String messageText, Object additionalObject) {
+    protected void sendResponse(String messageText, Object additionalObject) {
         try {
             ServerMessage serverMessage = new ServerMessage(messageText, gson.toJson(additionalObject));
             dataOutputStream.writeUTF(gson.toJson(serverMessage));

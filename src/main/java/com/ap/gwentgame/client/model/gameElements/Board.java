@@ -11,6 +11,9 @@ public class Board implements Serializable {
     private Player currentPlayer;
     private Player opponentPlayer;
 
+    private Board InitialBoard;
+    private ArrayList<String> commands;
+
     private final ArrayList<WeatherCard> weatherCardCards;
 
     private final Date creationDate;
