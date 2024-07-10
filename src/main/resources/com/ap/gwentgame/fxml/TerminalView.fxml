@@ -12,6 +12,7 @@
             prefHeight="400.0" prefWidth="600.0">
     <children>
         <Label text="Terminal" style="-fx-font-size: 16px; -fx-font-weight: bold;" />
-        <TextArea fx:id="terminalArea" prefHeight="400.0" prefWidth="600.0" />
+        <TextArea fx:id="terminalArea" prefHeight="400.0" prefWidth="600.0"
+                  style="-fx-control-inner-background: black; -fx-text-fill: white;"/>
     </children>
 </VBox>

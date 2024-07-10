@@ -2,13 +2,13 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<?import javafx.scene.image.ImageView?>
 <AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ap.gwentgame.controller.ScoreBoardController">
    <children>
-      <Button  layoutX="10.0" layoutY="10.0" onMouseClicked="#backToProfileMenu">
+      <Button layoutX="10.0" layoutY="10.0" onMouseClicked="#backToProfileMenu">
          <graphic>
             <ImageView fx:id="back" fitHeight="50.0" fitWidth="50.0" layoutX="-20.0" pickOnBounds="true" preserveRatio="true" />
          </graphic>
@@ -34,9 +34,10 @@
                   <VBox prefHeight="500.0" prefWidth="900.0">
                      <TableView fx:id="scoreBoardTable" VBox.vgrow="ALWAYS">
                         <columns>
-                           <TableColumn fx:id="playerNameColumn" prefWidth="300.0" text="Player" />
-                           <TableColumn fx:id="winCountColumn" prefWidth="300.0" text="Win Count" />
-                           <TableColumn fx:id="gamesPlayedColumn" prefWidth="300.0" text="Games Played" />
+                           <TableColumn fx:id="playerNameColumn" prefWidth="275.0" text="Player" />
+                           <TableColumn fx:id="winCountColumn" prefWidth="275.0" text="Win Count" />
+                           <TableColumn fx:id="gamesPlayedColumn" prefWidth="275.0" text="Games Played" />
+                           <TableColumn fx:id="status" prefWidth="60.0" text="status" />
                         </columns>
                      </TableView>
                   </VBox>

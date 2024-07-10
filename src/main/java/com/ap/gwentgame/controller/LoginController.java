@@ -44,13 +44,6 @@ public class LoginController {
             alert.show();
             return;
         }
-//        if (email.getText() == null) {
-//            Alert alert = new Alert(Alert.AlertType.WARNING);
-//            alert.setHeaderText("invalid email");
-//            alert.setContentText("enter your email");
-//            alert.show();
-//            return;
-//        }
         if(!App.getUserByName(name.getText()).getPassword().equals(password.getText())){
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setHeaderText("Wrong Password");
@@ -58,14 +51,6 @@ public class LoginController {
             alert.show();
             return;
         }
-
-//        if(!App.getUserByName(name.getText()).getEmail().equals(email.getText())){
-//            Alert alert = new Alert(Alert.AlertType.WARNING);
-//            alert.setHeaderText("Wrong email");
-//            alert.setContentText("The email is not correct");
-//            alert.show();
-//            return;
-//        }
         MainMenu main = new MainMenu();
         try {
             main.start(App.getStage());

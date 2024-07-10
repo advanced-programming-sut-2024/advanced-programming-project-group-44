@@ -33,6 +33,9 @@ public class ScoreBoardController implements Initializable {
     @FXML
     private TableColumn<User, Integer> gamesPlayedColumn;
 
+    @FXML
+    private TableColumn<User, String> status;
+
     private ObservableList<User> userList;
 
     @Override
