@@ -23,10 +23,8 @@ public class TelevisionController {
     private VBox leftVBox;
 
     public void initialize() {
-        // Assume getAllGameData() retrieves a list of GameData objects
         List<GameData> allGameData = getAllGameData();
 
-        // Split the game data into two lists for demonstration purposes
         List<GameData> rightGames = allGameData.subList(0, allGameData.size() / 2);
         List<GameData> leftGames = allGameData.subList(allGameData.size() / 2, allGameData.size());
 

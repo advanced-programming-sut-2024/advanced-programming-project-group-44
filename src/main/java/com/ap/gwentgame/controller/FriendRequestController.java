@@ -103,15 +103,11 @@ public class FriendRequestController {
     }
 
     private void acceptRequest(User sender) {
-        // Handle accepting the friend request
         System.out.println("Accepted friend request from " + sender.getNickName());
-        // Update the UI and data accordingly
     }
 
     private void declineRequest(User sender) {
-        // Handle declining the friend request
         System.out.println("Declined friend request from " + sender.getNickName());
-        // Update the UI and data accordingly
     }
 
     public void search(MouseEvent mouseEvent) {

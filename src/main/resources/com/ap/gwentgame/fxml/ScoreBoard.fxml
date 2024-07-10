@@ -34,10 +34,11 @@
                   <VBox prefHeight="500.0" prefWidth="900.0">
                      <TableView fx:id="scoreBoardTable" VBox.vgrow="ALWAYS">
                         <columns>
-                           <TableColumn fx:id="playerNameColumn" prefWidth="275.0" text="Player" />
-                           <TableColumn fx:id="winCountColumn" prefWidth="275.0" text="Win Count" />
-                           <TableColumn fx:id="gamesPlayedColumn" prefWidth="275.0" text="Games Played" />
-                           <TableColumn fx:id="status" prefWidth="60.0" text="status" />
+                           <TableColumn fx:id="playerNameColumn" prefWidth="227.0" text="Player" />
+                           <TableColumn fx:id="winCountColumn" prefWidth="227.0" text="Win Count" />
+                           <TableColumn fx:id="gamesPlayedColumn" prefWidth="227.0" text="Games Played" />
+                           <TableColumn fx:id="status" prefWidth="88.0" text="Status" />
+                           <TableColumn fx:id="lastGameColumn" prefWidth="120.0" text="Last Game" />
                         </columns>
                      </TableView>
                   </VBox>
