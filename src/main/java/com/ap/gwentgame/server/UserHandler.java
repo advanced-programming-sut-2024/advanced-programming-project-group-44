@@ -248,6 +248,15 @@ public class UserHandler extends Thread {
             }
         }
 
+        if((matcher = ClientCommands.LOGOUT_USER.getMatcher(messageText)).matches()){
+            loggedInUsers.remove(currentUser);
+            currentUser = null;
+            currentPlayer = null;
+            currentBoardHandler = null;
+            sendResponse("logout successful");
+            return;
+        }
+
         sendResponse("Invalid message");
 
 

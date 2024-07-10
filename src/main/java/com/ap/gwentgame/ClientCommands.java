@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 public enum ClientCommands {
     REGISTER_USER("register user"),
     LOGIN_USER("login user (\\S+) (\\S+)"),
+    LOGOUT_USER("logout user"),
     GET_QUESTION("get question (\\S+)"),
     VALIDATE_ANSWER("validate answer (\\S+) (\\S+)"),
     EDIT_USER("edit user (\\S+) (\\S+) (\\S+)"),

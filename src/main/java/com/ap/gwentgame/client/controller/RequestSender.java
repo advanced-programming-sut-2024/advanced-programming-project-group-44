@@ -18,6 +18,12 @@ public class RequestSender {
         return Client.getResponse();
     }
 
+    public static ServerMessage logoutUser() {
+        String messageText = "logout user";
+        Client.sendRequest(messageText);
+        return Client.getResponse();
+    }
+
     public static ServerMessage getQuestion(String username) {
         String messageText = "get question" + " " + username;
         Client.sendRequest(messageText);

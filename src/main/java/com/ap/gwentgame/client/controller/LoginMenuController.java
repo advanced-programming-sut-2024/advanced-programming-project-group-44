@@ -114,11 +114,12 @@ public class LoginMenuController {
             });
             stage.showAndWait();
 
-            if (VALIDATE_ANSWER_SUCCESSFUL.getMatcher(forgotPasswordMenuController.getValidateAnswerResponse().getMessageText()).matches())
-            {
-                User user = Client.getGson().fromJson(forgotPasswordMenuController.getValidateAnswerResponse().getAdditionalText(), User.class);
-                userNameField.setText(user.getName());
-                passwordField.setText(user.getPassword());
+            if (forgotPasswordMenuController.getValidateAnswerResponse() != null) {
+                if (VALIDATE_ANSWER_SUCCESSFUL.getMatcher(forgotPasswordMenuController.getValidateAnswerResponse().getMessageText()).matches()) {
+                    User user = Client.getGson().fromJson(forgotPasswordMenuController.getValidateAnswerResponse().getAdditionalText(), User.class);
+                    userNameField.setText(user.getName());
+                    passwordField.setText(user.getPassword());
+                }
             }
             
         } catch (IOException e) {

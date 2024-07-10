@@ -1,5 +1,6 @@
 package com.ap.gwentgame.client.controller;
 
+import com.ap.gwentgame.ServerMessage;
 import com.ap.gwentgame.client.view.LoginMenu;
 import com.ap.gwentgame.client.view.PreGameMenu;
 import com.ap.gwentgame.client.view.ProfileMenu;
@@ -10,6 +11,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+
+import static com.ap.gwentgame.ServerCommands.LOGOUT_SUCCESSFUL;
 
 public class MainMenuController {
     @FXML
@@ -47,9 +50,13 @@ public class MainMenuController {
     @FXML
     public void logout(MouseEvent mouseEvent) {
         try {
-            Session.setLoggedInUser(null);
-            LoginMenu loginMenu = new LoginMenu();
-            loginMenu.start(Session.getStage());
+            ServerMessage responseMessage = RequestSender.logoutUser();
+            String responseText = responseMessage.getMessageText();
+            if(LOGOUT_SUCCESSFUL.getMatcher(responseText).matches()) {
+                Session.setLoggedInUser(null);
+                LoginMenu loginMenu = new LoginMenu();
+                loginMenu.start(Session.getStage());
+            }
         } catch (Exception e) {
             e.printStackTrace();
     }

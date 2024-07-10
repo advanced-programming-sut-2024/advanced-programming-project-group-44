@@ -13,6 +13,7 @@ public enum ServerCommands {
     LOGIN_SUCCESSFUL("login successful"),
     LOGIN_FAILED_INCORRECT_PASSWORD("login failed - incorrect password"),
     LOGIN_FAILED_USER_NOT_FOUND("login failed - user not found"),
+    LOGOUT_SUCCESSFUL("logout successful"),
     GET_QUESTION_FAILED_USER_NOT_FOUND("get question failed - user not found"),
     GET_QUESTION_SUCCESSFUL("get question successful"),
     VALIDATE_ANSWER_FAILED_INCORRECT_ANSWER("validate answer failed - incorrect answer"),

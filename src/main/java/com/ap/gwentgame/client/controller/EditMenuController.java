@@ -1,6 +1,8 @@
 package com.ap.gwentgame.client.controller;
 
+import com.ap.gwentgame.ClientCommands;
 import com.ap.gwentgame.ServerMessage;
+import com.ap.gwentgame.client.Client;
 import com.ap.gwentgame.client.enums.assets.Icons;
 import com.ap.gwentgame.client.model.Session;
 import com.ap.gwentgame.client.model.User;
@@ -31,10 +33,6 @@ public class EditMenuController {
     private PasswordField confirmPasswordField;
     @FXML
     private ImageView back;
-
-    private static GsonBuilder gsonBuilder = new GsonBuilder();
-    private static Gson gson = gsonBuilder.create();
-
 
     public void initialize() {
         nameField.setText(Session.getLoggedInUser().getName());
@@ -74,7 +72,7 @@ public class EditMenuController {
             return;
         }
 
-        User updateUser = gson.fromJson(responseMessage.getAdditionalText(), User.class);
+        User updateUser = Client.getGson().fromJson(responseMessage.getAdditionalText(), User.class);
         Session.setLoggedInUser(updateUser);
         ViewUtilities.showInformationAlert("Success", "Changes saved successfully");
     }
@@ -97,7 +95,7 @@ public class EditMenuController {
 
         if (!ControllerUtilities.validatePassword(currentPasswordField, newPasswordField)) return;
 
-        User user = gson.fromJson(responseMessage.getAdditionalText(), User.class);
+        User user = Client.getGson().fromJson(responseMessage.getAdditionalText(), User.class);
         user.setPassword(newPasswordField.getText());
 
         ViewUtilities.showInformationAlert("Success", "Password changed successfully");

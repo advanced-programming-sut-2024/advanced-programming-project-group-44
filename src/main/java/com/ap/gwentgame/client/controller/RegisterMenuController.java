@@ -110,7 +110,6 @@ public class RegisterMenuController {
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
-            // Set the password fields to the generated random password
             password.setText(randomPassword);
             repeatedPassword.setText(randomPassword);
         }
