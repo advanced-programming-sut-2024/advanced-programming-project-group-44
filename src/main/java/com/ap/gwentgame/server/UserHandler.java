@@ -180,31 +180,30 @@ public class UserHandler extends Thread {
             String nickname = matcher.group(2);
             String email = matcher.group(3);
 
-            if (!currentUser.getName().equals(username) && !currentUser.getNickName().equals(nickname) && !currentUser.getEmail().equals(email)) {
-                sendResponse("Edit failed - no changes");
+            User user;
+
+            user = Database.findUserByUsername(username);
+            if (user != null && user != currentUser) {
+                sendResponse("edit user failed - username already taken");
                 return;
             }
 
-            for (User user : loggedInUsers) {
-                if (user.getName().equals(username) && !user.equals(currentUser)) {
-                    sendResponse("Edit failed - username already taken");
-                    return;
-                }
-            }
-
-            if (Database.findUserByEmail(email) != null) {
-                sendResponse("Edit failed - email already taken");
+            user = Database.findUserByNickname(nickname);
+            if (user != null && user != currentUser){
+                sendResponse("edit user failed - nickname already taken");
                 return;
             }
 
-            if (Database.findUserByNickname(nickname) != null) {
-                sendResponse("Edit failed - nickname already taken");
+            user = Database.findUserByEmail(email);
+            if (user != null && user != currentUser){
+                sendResponse("edit user failed - email already taken");
                 return;
             }
 
+            currentUser.setName(username);
             currentUser.setNickName(nickname);
             currentUser.setEmail(email);
-            sendResponse("Edit successful");
+            sendResponse("edit user successful", currentUser);
             return;
         }
 
@@ -213,19 +212,20 @@ public class UserHandler extends Thread {
             String newPassword = matcher.group(2);
 
             if (!currentUser.getPassword().equals(password)) {
-                sendResponse("Edit failed - incorrect password");
+                sendResponse("edit password failed - incorrect password");
                 return;
             }
 
             if (currentUser.getPassword().equals(newPassword)) {
-                sendResponse("Edit failed - no changes");
+                sendResponse("edit password failed - no changes");
                 return;
             }
 
             currentUser.setPassword(newPassword);
-            sendResponse("Password changed successfully");
+            sendResponse("edit password successful", currentUser);
             return;
         }
+
 
         if ((matcher = ClientCommands.REQUEST_RANDOM_GAME.getMatcher(messageText)).matches()) {
             currentPlayer = gson.fromJson(clientMessage.getAdditionalText(), Player.class);
