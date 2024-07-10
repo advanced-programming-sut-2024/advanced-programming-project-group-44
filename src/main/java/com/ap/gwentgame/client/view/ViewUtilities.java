@@ -178,13 +178,12 @@ public class ViewUtilities {
             });
         }
 
-        itemSelector.getChildren().addAll(leftButton, rightButton, cardBox);
+        itemSelector.getChildren().addAll(cardBox, leftButton, rightButton);
         pane.getChildren().add(itemSelector);
 
         submitButton.setLayoutX(pane.getWidth() / 2 - 50);
-        submitButton.setLayoutY(cardBox.getLayoutY() + selectedItemReference.get().getHeight() + 50);
+        submitButton.setLayoutY(cardBox.getLayoutY() + selectedItemReference.get().getPrefHeight() + 150);
         submitButton.setText("Submit");
-
         submitButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
             pane.getChildren().remove(itemSelector);
         });
