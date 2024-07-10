@@ -2,6 +2,7 @@ package com.ap.gwentgame.controller;
 
 import com.ap.gwentgame.model.Game.GameData;
 import com.ap.gwentgame.model.GameBox;
+import com.ap.gwentgame.model.LiveBox;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
@@ -31,7 +32,7 @@ public class TelevisionController {
 
         // Add GameBoxes to rightVBox
         for (GameData gameData : rightGames) {
-            GameBox gameBox = new GameBox(gameData);
+            LiveBox gameBox = new LiveBox(gameData);
             rightVBox.getChildren().add(gameBox);
         }
 
