@@ -6,6 +6,7 @@ import com.ap.gwentgame.ServerMessage;
 import com.ap.gwentgame.client.controller.ForgotPasswordMenuController;
 import com.ap.gwentgame.client.model.Session;
 import com.ap.gwentgame.client.model.User;
+import com.ap.gwentgame.client.model.gameElements.Player;
 import com.ap.gwentgame.client.view.ViewUtilities;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -19,6 +20,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.regex.Matcher;
@@ -29,10 +32,18 @@ public class UserHandler extends Thread {
     private Socket socket;
 
     private User currentUser;
+    private Player currentPlayer;
+    private int currentGameID;
     private static ArrayList<User> loggedInUsers = new ArrayList<>();
 
     private static GsonBuilder builder = new GsonBuilder();
     private static Gson gson = builder.create();
+
+    private static final Queue<UserHandler> waitingPlayers = new LinkedList<>();
+    private static final HashMap<Integer, UserHandler> gamePlayers = new HashMap<>();
+    private static final HashMap<Integer, UserHandler> gameSpectators = new HashMap<>();
+    private static int gameID = 0;
+
 
     public UserHandler(Socket socket) {
         this.socket = socket;
