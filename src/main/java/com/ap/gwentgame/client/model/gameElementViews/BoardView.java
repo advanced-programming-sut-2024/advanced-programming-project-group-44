@@ -28,8 +28,6 @@ public class BoardView {
 
     private final CardViewContainer<WeatherCardView, WeatherCard> weatherCards;
 
-    private final HashMap<CardViewContainer<? extends CardView, ? extends Card>, Rectangle> highlights = new HashMap<>();
-
     public BoardView(Board board, AnchorPane gamePane) {
         this.board = board;
         this.gamePane = gamePane;
@@ -49,9 +47,9 @@ public class BoardView {
 
     public void initializeGameBoard() {
         ViewUtilities.setImageViewBackground(gamePane, Backgrounds.BOARD.getImage());
+        weatherCards.setVisuals(gamePane, 86, 341, 177, 91, 10, 0);
         player1View.initializePlayerView();
         player2View.initializePlayerView();
-        weatherCards.setVisuals(gamePane, 86, 341, 177, 91, 10, 0);
     }
 
     public void initializeMuteButtons() {
@@ -89,10 +87,6 @@ public class BoardView {
         gamePane.getChildren().add(chatButton);
     }
 
-    public HashMap<CardViewContainer<? extends CardView, ? extends Card>, Rectangle> getHighlights() {
-        return highlights;
-    }
-
     public AnchorPane getGamePane() {
         return gamePane;
     }
@@ -123,5 +117,13 @@ public class BoardView {
 
     public void setAbilityInput(String abilityInput) {
         this.abilityInput = abilityInput;
+    }
+
+    public PlayerView getCurrentPlayerView() {
+        return currentPlayerView;
+    }
+
+    public PlayerView getOpponentPlayerView() {
+        return opponentPlayerView;
     }
 }

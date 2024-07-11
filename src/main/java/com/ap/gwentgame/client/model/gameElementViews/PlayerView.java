@@ -1,14 +1,19 @@
 package com.ap.gwentgame.client.model.gameElementViews;
 
+import com.ap.gwentgame.client.enums.Placement;
 import com.ap.gwentgame.client.enums.assets.Icons;
 import com.ap.gwentgame.client.enums.assets.Items;
+import com.ap.gwentgame.client.model.Abilities.Spy;
 import com.ap.gwentgame.client.model.Session;
 import com.ap.gwentgame.client.model.gameElements.*;
 import com.ap.gwentgame.client.view.ViewUtilities;
+import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
@@ -31,6 +36,8 @@ public class PlayerView {
     private final CardViewContainer<CardView, Card> discardPileView;
     private final CardViewContainer<CardView, Card>[] rowViews;
     private final CardViewContainer<CardView, Card>[] specialCardViews;
+
+    private final ArrayList<CardViewContainer<? extends CardView, ? extends Card>> selectableContainers;
 
     public PlayerView(Player player, int playerNumber, BoardView boardView) {
         this.player = player;
@@ -59,6 +66,8 @@ public class PlayerView {
         this.specialCardViews[0] = new CardViewContainer<>(player.getSpecialCards()[0]);
         this.specialCardViews[1] = new CardViewContainer<>(player.getSpecialCards()[1]);
         this.specialCardViews[2] = new CardViewContainer<>(player.getSpecialCards()[2]);
+
+        this.selectableContainers = new ArrayList<>();
     }
 
     public Player getPlayer() {
@@ -70,10 +79,19 @@ public class PlayerView {
     }
 
     public void initializePlayerView() {
+        selectableContainers.add(boardView.getWeatherCards());
+        selectableContainers.add(rowViews[0]);
+        selectableContainers.add(rowViews[1]);
+        selectableContainers.add(rowViews[2]);
+        selectableContainers.add(specialCardViews[0]);
+        selectableContainers.add(specialCardViews[1]);
+        selectableContainers.add(specialCardViews[2]);
+
         initializeContainers();
         initializeInfo();
         initializeScoreLabels();
         initializeControls();
+        initializeClickables();
     }
 
     public void initializeContainers() {
@@ -108,19 +126,103 @@ public class PlayerView {
         }
     }
 
-    public void initializeHighlights(){
-        if (isLocalPlayer()){
-            ArrayList <CardViewContainer<? extends CardView, ? extends Card>> containers = new ArrayList<>();
-            containers.add(
+    public void initializeClickables() {
+        if (isLocalPlayer() && this == boardView.getCurrentPlayerView()) {
+            for (CardView cardView : handView.getCardViews()) {
+                cardView.setCursor(Cursor.HAND);
+                cardView.setOnMouseClicked(event -> {
+                    setCardHighlights(cardView);
+                });
+            }
+
+            gamePane.setOnMouseClicked(event -> {
+                if (event.getTarget() instanceof CardViewContainer<?,?>) {
+                    deActivateAllContainers();
+                }
+            });
+        } else if (isLocalPlayer()) {
+            for (CardView cardView : handView.getCardViews()) {
+                cardView.setCursor(Cursor.NONE);
+                cardView.setOnMouseClicked(null);
+            }
         }
     }
 
-    public void initializeClickables(){
-        if (isLocalPlayer()){
-            for (CardView cardView : handView.getCardViews()){
+    private void setCardHighlights(CardView cardView) {
+        PlayerView opponentPlayerView = boardView.getOpponentPlayerView();
+        deActivateAllContainers();
 
+        Card card = (Card) cardView.getItem();
+        Placement placement = card.getPlacement();
+        switch (placement) {
+            case Placement.WEATHER -> {
+                activateContainer(boardView.getWeatherCards());
+            }
+
+            case Placement.CLOSE_COMBAT -> {
+                if (card.getAbility() instanceof Spy) {
+                    activateContainer(opponentPlayerView.getRowViews()[0]);
+                } else {
+                    activateContainer(rowViews[0]);
+                }
+            }
+
+            case Placement.RANGED_COMBAT -> {
+                if (card.getAbility() instanceof Spy) {
+                    activateContainer(opponentPlayerView.getRowViews()[1]);
+                } else {
+                    activateContainer(rowViews[1]);
+                }
+            }
+
+            case Placement.SIEGE -> {
+                if (card.getAbility() instanceof Spy) {
+                    activateContainer(opponentPlayerView.getRowViews()[2]);
+                } else {
+                    activateContainer(rowViews[2]);
+                }
+            }
+
+            case Placement.AGILE -> {
+                activateContainer(rowViews[0]);
+                activateContainer(rowViews[1]);
+            }
+
+            case Placement.SPECIAL_PLACE -> {
+                activateContainer(specialCardViews[0]);
+                activateContainer(specialCardViews[1]);
+                activateContainer(specialCardViews[2]);
+            }
+
+            case Placement.DECOY -> {
+                for (CardViewContainer<? extends CardView, ? extends Card> container : selectableContainers) {
+                    activateContainer(container);
+                }
             }
         }
+    }
+
+    private void deActivateAllContainers() {
+        PlayerView opponentPlayerView = boardView.getOpponentPlayerView();
+        ArrayList<CardViewContainer<? extends CardView, ? extends Card>> opponentSelectableContainers = opponentPlayerView.getSelectableContainers();
+
+        for (CardViewContainer<? extends CardView, ? extends Card> container : selectableContainers) {
+            deactivateContainer(container);
+        }
+
+        for (CardViewContainer<? extends CardView, ? extends Card> container : opponentSelectableContainers) {
+            deactivateContainer(container);
+        }
+    }
+
+    private void activateContainer(CardViewContainer<? extends CardView, ? extends Card> container) {
+        container.setCursor(Cursor.HAND);
+        container.setStyle("-fx-background-color: rgba(200, 150, 50, 0.5);");
+    }
+
+    private void deactivateContainer(CardViewContainer<? extends CardView, ? extends Card> container) {
+        container.setCursor(Cursor.DEFAULT);
+        container.setStyle("-fx-background-color: transparent;");
     }
 
     public void initializeInfo() {
@@ -289,6 +391,10 @@ public class PlayerView {
 
     public FactionView getFactionView() {
         return factionView;
+    }
+
+    public ArrayList<CardViewContainer<? extends CardView, ? extends Card>> getSelectableContainers() {
+        return selectableContainers;
     }
 
     private boolean isLocalPlayer() {

@@ -255,7 +255,6 @@ public class PreGameMenuController implements Initializable {
 
             for (PreGameCard preGameCard : deck.getPreGameCards()) {
                 PreGameCardView preGameCardView = factionCards.findByName(preGameCard.getName());
-                System.out.println(preGameCardView.getCount() + " " + preGameCardView.getItem().getName());
                 for (int i = 0; i < preGameCard.getCount(); i++) {
                     selectCard(preGameCardView);
                 }
@@ -318,7 +317,9 @@ public class PreGameMenuController implements Initializable {
         }
 
         //User user = Session.getLoggedInUser();
-        User user = new User("test4", "test", "test", "test", Question.QUESTION_1, "test");
+        //generate a random user for testing
+        String username = "test" + (int) (Math.random() * 100);
+        User user = new User(username, "test", "test", "test", Question.QUESTION_1, "test");
         Session.setLoggedInUser(user);
         Player player = new Player(user, selectedFaction, (Leader) selectedLeaderView.getItem(), addedCards);
         RequestSender.requestRandomGame(player);

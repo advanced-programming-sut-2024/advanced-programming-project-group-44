@@ -3,11 +3,12 @@ package com.ap.gwentgame.client.enums;
 import com.ap.gwentgame.client.model.gameElements.SpecialCard;
 
 import static com.ap.gwentgame.client.enums.FactionType.*;
+import static com.ap.gwentgame.client.enums.Placement.WEATHER;
 
 public enum SpecialCardData {
     DECOY("Decoy", Placement.DECOY, AbilityType.DECOY, NEUTRAL, 3),
     MARDROEM("Mardroeme", Placement.SPECIAL_PLACE, AbilityType.MARDROEME, SKELLIGE, 3),
-    SCORCH("Scorch", Placement.SCORCH, AbilityType.SCORCH, NEUTRAL, 3),
+    SCORCH("Scorch", WEATHER, AbilityType.SCORCH, NEUTRAL, 3),
     COMMANDERS_HORN("Commander's Horn", Placement.SPECIAL_PLACE, AbilityType.COMMANDERSHORN, NEUTRAL, 3);
 
     private final String name;
