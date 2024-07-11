@@ -10,7 +10,8 @@ import java.util.ArrayList;
 
 public class Muster extends Ability {
     @Override
-    public void run(BoardView boardView, int index, Card card) {
+    public void run(BoardView boardView, int index, CardView cardView) {
+        Card card = ((Card)cardView.getItem());
         PlayerView playerView = boardView.getCurrentPlayer();
         ArrayList<CardView> deckCards = playerView.getDeckView().getCardViews();
         ArrayList<CardView> handCards = playerView.getHandView().getCardViews();

@@ -8,9 +8,9 @@ import com.ap.gwentgame.client.model.gameElements.UnitCard;
 
 public class TightBond extends Ability {
     @Override
-    public void run(BoardView boardView, int index, Card card) {
+    public void run(BoardView boardView, int index, CardView cardView) {
         PlayerView player = boardView.getCurrentPlayer();
-        int row = card.getPlacement().getRow();
+        int row = ((Card)cardView.getItem()).getPlacement().getRow();
         int countOfTightBondCards = 0;
         for (CardView targetCardView: player.getRowViews()[row].getCardViews()) {
             Card targetCard = (Card) targetCardView.getItem();
@@ -18,7 +18,7 @@ public class TightBond extends Ability {
                 countOfTightBondCards++;
             }
         }
-        int newScoreForTightBondCards = countOfTightBondCards * ((UnitCard) card).getInitialScore();
+        int newScoreForTightBondCards = countOfTightBondCards * ((UnitCard)(cardView.getItem())).getInitialScore();
         for (Card targetCard : player.getRowViews()[row].getCards()) {
             if (targetCard.getAbility() instanceof TightBond) {
                 UnitCard unitcard = ((UnitCard) targetCard);

@@ -9,11 +9,13 @@ import com.ap.gwentgame.client.model.gameElements.UnitCard;
 
 public class MoralBoost extends Ability{
     @Override
-    public void run(BoardView boardView, int index, Card card) {
+    public void run(BoardView boardView, int index, CardView cardView) {
+        Card card = ((Card)cardView.getItem());
         PlayerView playerView = boardView.getCurrentPlayer();
         int row = card.getPlacement().getRow();
         for(CardView targetCardView : playerView.getRowViews()[row].getCardViews()){
-            if (targetCardView instanceof UnitCardView unitcardView && targetCardView.getItem() != card){
+            if (targetCardView instanceof UnitCardView unitcardView
+                    && targetCardView.getItem() != card){
                 unitcardView.setScore(((UnitCard)unitcardView.getItem()).getScore() + 1);
             }
         }

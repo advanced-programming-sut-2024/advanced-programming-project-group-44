@@ -8,10 +8,12 @@ import com.ap.gwentgame.client.view.ViewUtilities;
 
 public class Decoy extends Ability{
     @Override
-    public void run(BoardView boardView, int index, Card card) {
+    public void run(BoardView boardView, int index, CardView cardView) {
+        Card card = ((Card)cardView.getItem());
         PlayerView playerView = boardView.getCurrentPlayer();
-        CardView cardView = playerView.getRowViews()[card.getPlacement().getRow()].getCardViews().get(index);
-        ViewUtilities.changeCardContainer(boardView.getGamePane() , playerView.getRowViews()[card.getPlacement().getRow()], playerView.getHandView() , cardView);
+        CardView cardViewReplace = playerView.getRowViews()[card.getPlacement().getRow()].getCardViews().get(index);
+        ViewUtilities.changeCardContainer(false , boardView , playerView.getRowViews()
+                [card.getPlacement().getRow()], playerView.getHandView() , cardView);
     }
 
 }
