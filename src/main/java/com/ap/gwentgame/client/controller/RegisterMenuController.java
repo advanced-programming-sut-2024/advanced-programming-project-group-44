@@ -37,7 +37,7 @@ public class RegisterMenuController {
     private ImageView imageview;
 
     public void initialize() {
-        imageview.setImage(Backgrounds.MAINBG.getImage());
+        imageview.setImage(Backgrounds.REGISTER_MENU.getImage());
         securityQuestion.getItems().setAll(Question.values());
         securityQuestion.setValue(Question.QUESTION_1);
     }

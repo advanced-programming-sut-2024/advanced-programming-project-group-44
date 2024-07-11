@@ -1,6 +1,8 @@
 package com.ap.gwentgame.client.model.gameElementViews;
 
+import com.ap.gwentgame.client.controller.ChatBoxController;
 import com.ap.gwentgame.client.controller.MusicController;
+import com.ap.gwentgame.client.controller.ReactionMenuController;
 import com.ap.gwentgame.client.enums.assets.Backgrounds;
 import com.ap.gwentgame.client.enums.assets.Icons;
 import com.ap.gwentgame.client.model.gameElements.Board;
@@ -8,6 +10,7 @@ import com.ap.gwentgame.client.model.gameElements.Card;
 import com.ap.gwentgame.client.model.gameElements.Player;
 import com.ap.gwentgame.client.model.gameElements.WeatherCard;
 import com.ap.gwentgame.client.view.ViewUtilities;
+import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -26,6 +29,10 @@ public class BoardView {
 
     private String abilityInput;
 
+    private boolean isChatBoxOpen = false;
+    private ChatBoxController chatBoxController;
+    private ReactionMenuController reactionMenuController;
+
     private final CardViewContainer<WeatherCardView, WeatherCard> weatherCards;
 
     public BoardView(Board board, AnchorPane gamePane) {
@@ -43,6 +50,10 @@ public class BoardView {
         this.weatherCards = new CardViewContainer<>(board.getWeatherCards());
 
         initializeGameBoard();
+        initializeChatButton();
+        initializeMuteButtons();
+        initializeReactionButton();
+
     }
 
     public void initializeGameBoard() {
@@ -50,6 +61,40 @@ public class BoardView {
         weatherCards.setVisuals(gamePane, 86, 341, 177, 91, 10, 0);
         player1View.initializePlayerView();
         player2View.initializePlayerView();
+    }
+
+    public void initializeChatButton() {
+        Button chatButton = new Button();
+        chatButton.setLayoutX(1050);
+        chatButton.setLayoutY(20);
+        chatButton.setPrefSize(30, 30);
+        chatButton.setStyle("-fx-background-color: transparent;");
+        ImageView chatButtonIcon = new ImageView(Icons.CHAT.getImage());
+        chatButton.setOnMouseClicked(event -> {
+            if (isChatBoxOpen) {
+                chatBoxController.closeChatBox();
+                isChatBoxOpen = false;
+            } else {
+                chatBoxController.openChatBox();
+                isChatBoxOpen = true;
+            }
+        });
+        chatButton.setGraphic(chatButtonIcon);
+        gamePane.getChildren().add(chatButton);
+    }
+
+    public void initializeReactionButton() {
+        Button reactionButton = new Button();
+        reactionButton.setLayoutX(1000);
+        reactionButton.setLayoutY(20);
+        reactionButton.setPrefSize(30, 30);
+        reactionButton.setStyle("-fx-background-color: transparent;");
+        ImageView reactionButtonIcon = new ImageView(Icons.REACT.getImage());
+        reactionButton.setOnMouseClicked(event -> {
+            reactionMenuController.openReactionBox();
+        });
+        reactionButton.setGraphic(reactionButtonIcon);
+        gamePane.getChildren().add(reactionButton);
     }
 
     public void initializeMuteButtons() {
@@ -71,21 +116,6 @@ public class BoardView {
         gamePane.getChildren().add(muteButton);
     }
 
-    public void initializeChatButton() {
-        Button chatButton = new Button();
-        chatButton.setLayoutX(1060);
-        chatButton.setLayoutY(20);
-        chatButton.setPrefSize(30, 30);
-        chatButton.setStyle("-fx-background-color: transparent;");
-        ImageView chatButtonIcon = new ImageView();
-        //chatButtonIcon.setImage(Icons.CHAT.getImage());
-        //set on mouse clicked event to open chat window
-
-        chatButtonIcon.setFitWidth(30);
-        chatButtonIcon.setFitHeight(30);
-        chatButton.setGraphic(chatButtonIcon);
-        gamePane.getChildren().add(chatButton);
-    }
 
     public AnchorPane getGamePane() {
         return gamePane;

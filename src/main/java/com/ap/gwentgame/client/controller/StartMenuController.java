@@ -12,7 +12,7 @@ public class StartMenuController {
     public ImageView imageview;
 
     public void initialize() {
-        imageview.setImage(Backgrounds.MAINBG.getImage());
+        imageview.setImage(Backgrounds.START_MENU.getImage());
     }
 
     public void goToRegisterMenu(MouseEvent mouseEvent) throws IOException {

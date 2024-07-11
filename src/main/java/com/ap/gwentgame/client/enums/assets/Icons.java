@@ -13,7 +13,14 @@ public enum Icons {
     UNIT_CARDS_COUNT("UnitCardsCount.png"),
     SPECIAL_CARDS_COUNT("SpecialCardsCount.png"),
     TOTAL_CARD_STRENGTH("TotalCardStrength.png"),
-    HERO_CARDS_COUNT("HeroCardsCount.png");
+    HERO_CARDS_COUNT("HeroCardsCount.png"),
+    LIKE("Like.png"),
+    DISLIKE("Dislike.png"),
+    HEART("Heart.png"),
+    SEND("Send.png"),
+    CHAT("Chat.png"),
+    REACT("React.png"),
+    ;
 
     private final String name;
 

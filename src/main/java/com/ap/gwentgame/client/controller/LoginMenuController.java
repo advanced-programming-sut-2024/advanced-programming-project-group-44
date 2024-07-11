@@ -41,7 +41,7 @@ public class LoginMenuController {
 
 
     public void initialize() {
-        imageview.setImage(Backgrounds.MAINBG.getImage());
+        imageview.setImage(Backgrounds.LOGIN_MENU.getImage());
     }
 
     public void login(MouseEvent mouseEvent) {

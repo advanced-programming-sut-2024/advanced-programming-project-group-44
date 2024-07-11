@@ -21,11 +21,12 @@
          <children>
             <BorderPane prefHeight="800.0" prefWidth="1200.0">
                <top>
-                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                  <HBox spacing="20" alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                      <children>
+                        <Button layoutX="1140.0" layoutY="10.0" onMouseClicked="#runTerminal" prefHeight="60.0" prefWidth="68.0" text="Terminal" />
                         <Button fx:id="muteButton" layoutX="1090.0" layoutY="10.0" onMouseClicked="#toggleMute" prefHeight="50.0" prefWidth="50.0">
                            <graphic>
-                              <ImageView fx:id="mute" fitHeight="50.0" fitWidth="50.0" layoutX="1190.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" rotate="1.0" >
+                              <ImageView fx:id="mute" fitHeight="50.0" fitWidth="50.0" layoutX="1190.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" rotate="1.0">
                                  <image>
                                  </image>
                               </ImageView>
@@ -38,21 +39,31 @@
                   </HBox>
                </top>
                <center>
-                  <FlowPane alignment="CENTER" orientation="VERTICAL" prefHeight="744.0" prefWidth="1198.0" vgap="100.0" BorderPane.alignment="CENTER">
+                  <FlowPane alignment="CENTER" orientation="VERTICAL" prefHeight="744.0" prefWidth="1198.0" vgap="70.0" BorderPane.alignment="CENTER">
                      <children>
-                        <Label alignment="CENTER" prefHeight="80.0" prefWidth="320.0" text="Main Menu" textFill="#ebb9b9">
+                        <Label alignment="CENTER" prefHeight="80.0" prefWidth="320.0" text="Main Menu" textFill="#fffefe">
                            <font>
                               <Font size="32.0" />
                            </font>
                         </Label>
                         <VBox alignment="CENTER" spacing="20.0">
                            <children>
-                              <Button onMouseClicked="#goToProfileMenu" prefHeight="80.0" prefWidth="320.0" text="Profile Menu" textFill="#ebbbbb">
+                              <Button onMouseClicked="#goToGameMenu" prefHeight="80.0" prefWidth="320.0" text="Game Menu">
                                  <font>
                                     <Font size="32.0" />
                                  </font>
                               </Button>
-                              <Button onMouseClicked="#goToGameMenu" prefHeight="80.0" prefWidth="320.0" text="Game Menu">
+                              <Button onMouseClicked="#goToFriendRequestMenu" prefHeight="80.0" prefWidth="320.0" text="Friends" textFill="#070707">
+                                 <font>
+                                    <Font size="32.0" />
+                                 </font>
+                              </Button>
+                              <Button onMouseClicked="#goToTelevisionMenu" prefHeight="80.0" prefWidth="320.0" text="Television" textFill="#111010">
+                                 <font>
+                                    <Font size="32.0" />
+                                 </font>
+                              </Button>
+                              <Button onMouseClicked="#goToProfileMenu" prefHeight="80.0" prefWidth="320.0" text="Profile Menu" textFill="#111111">
                                  <font>
                                     <Font size="32.0" />
                                  </font>

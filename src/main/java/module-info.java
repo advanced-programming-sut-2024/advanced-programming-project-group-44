@@ -7,6 +7,11 @@ module com.ap.gwentgame {
     requires com.google.gson;
     requires java.xml;
     requires java.persistence;
+    requires java.sql;
+    requires java.naming;
+    requires java.transaction;
+    requires java.instrument;
+    requires java.mail;
 
     exports com.ap.gwentgame.client.controller;
     exports com.ap.gwentgame.client.view;

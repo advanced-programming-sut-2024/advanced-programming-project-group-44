@@ -3,6 +3,7 @@ package com.ap.gwentgame.client.controller;
 import com.ap.gwentgame.ClientCommands;
 import com.ap.gwentgame.ServerMessage;
 import com.ap.gwentgame.client.Client;
+import com.ap.gwentgame.client.enums.assets.Backgrounds;
 import com.ap.gwentgame.client.enums.assets.Icons;
 import com.ap.gwentgame.client.model.Session;
 import com.ap.gwentgame.client.model.User;
@@ -33,8 +34,11 @@ public class EditMenuController {
     private PasswordField confirmPasswordField;
     @FXML
     private ImageView back;
+    @FXML
+    private ImageView imageview;
 
     public void initialize() {
+        imageview.setImage(Backgrounds.EDIT_MENU.getImage());
         nameField.setText(Session.getLoggedInUser().getName());
         nicknameField.setText(Session.getLoggedInUser().getNickName());
         emailField.setText(Session.getLoggedInUser().getEmail());
