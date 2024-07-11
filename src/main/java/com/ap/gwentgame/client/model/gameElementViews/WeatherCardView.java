@@ -1,9 +1,8 @@
 package com.ap.gwentgame.client.model.gameElementViews;
 
-import com.ap.gwentgame.controller.ControllerUtilities;
+import com.ap.gwentgame.client.controller.ControllerUtilities;
 import com.ap.gwentgame.client.model.gameElements.SpecialCard;
 import com.ap.gwentgame.client.model.gameElements.WeatherCard;
-import com.ap.gwentgame.view.ViewUtilities;
 
 public class WeatherCardView extends SpecialCardView {
     public WeatherCardView(SpecialCard card) {

@@ -1,7 +1,6 @@
 package com.ap.gwentgame.client.model.gameElementViews;
 
 import com.ap.gwentgame.client.model.gameElements.*;
-import com.ap.gwentgame.view.ViewUtilities;
 import javafx.scene.Cursor;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

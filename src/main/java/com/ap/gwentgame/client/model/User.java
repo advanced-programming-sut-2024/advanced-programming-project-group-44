@@ -1,6 +1,6 @@
 package com.ap.gwentgame.client.model;
 
-import com.ap.gwentgame.enums.Question;
+import com.ap.gwentgame.client.enums.Question;
 import com.ap.gwentgame.client.model.gameElements.Card;
 
 

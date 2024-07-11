@@ -1,15 +1,13 @@
 package com.ap.gwentgame.client.model.gameElementViews;
 
-import com.ap.gwentgame.enums.assets.Icons;
-import com.ap.gwentgame.enums.assets.Items;
+import com.ap.gwentgame.client.enums.assets.Icons;
+import com.ap.gwentgame.client.enums.assets.Items;
 import com.ap.gwentgame.client.model.gameElements.*;
-import com.ap.gwentgame.view.ViewUtilities;
+import com.ap.gwentgame.client.view.ViewUtilities;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Shape;
 
 public class PlayerView {
     private final Player player;

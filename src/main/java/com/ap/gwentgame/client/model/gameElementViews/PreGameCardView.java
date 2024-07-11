@@ -1,10 +1,8 @@
 package com.ap.gwentgame.client.model.gameElementViews;
 
-import com.ap.gwentgame.controller.ControllerUtilities;
+import com.ap.gwentgame.client.controller.ControllerUtilities;
 import com.ap.gwentgame.client.model.gameElements.Card;
-import com.ap.gwentgame.client.model.gameElements.Item;
-import com.ap.gwentgame.view.ViewUtilities;
-import javafx.scene.Cursor;
+import com.ap.gwentgame.client.view.ViewUtilities;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 

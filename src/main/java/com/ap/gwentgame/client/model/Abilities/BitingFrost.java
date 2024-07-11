@@ -1,12 +1,9 @@
 package com.ap.gwentgame.client.model.Abilities;
 
-import com.ap.gwentgame.controller.ControllerUtilities;
+import com.ap.gwentgame.client.controller.ControllerUtilities;
 import com.ap.gwentgame.client.model.gameElementViews.BoardView;
 import com.ap.gwentgame.client.model.gameElementViews.PlayerView;
 import com.ap.gwentgame.client.model.gameElements.Card;
-import com.ap.gwentgame.client.model.gameElements.Board;
-import com.ap.gwentgame.client.model.gameElements.Player;
-import com.ap.gwentgame.view.ViewUtilities;
 
 public class BitingFrost extends Ability{
     public BitingFrost(Card card) {

@@ -1,6 +1,6 @@
 package com.ap.gwentgame.client.model.Leaders;
 
-import com.ap.gwentgame.enums.FactionType;
+import com.ap.gwentgame.client.enums.FactionType;
 import com.ap.gwentgame.client.model.Abilities.Spy;
 import com.ap.gwentgame.client.model.gameElementViews.BoardView;
 import com.ap.gwentgame.client.model.gameElementViews.CardView;

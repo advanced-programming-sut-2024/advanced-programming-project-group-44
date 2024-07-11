@@ -1,7 +1,7 @@
 package com.ap.gwentgame.client.model.gameElementViews;
 
 import com.ap.gwentgame.client.model.gameElements.UnitCard;
-import com.ap.gwentgame.view.ViewUtilities;
+import com.ap.gwentgame.client.view.ViewUtilities;
 import javafx.scene.control.Label;
 
 public class UnitCardView extends CardView {

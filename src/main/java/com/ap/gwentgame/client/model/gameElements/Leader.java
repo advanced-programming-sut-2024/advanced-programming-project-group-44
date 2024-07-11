@@ -1,6 +1,6 @@
 package com.ap.gwentgame.client.model.gameElements;
 
-import com.ap.gwentgame.enums.FactionType;
+import com.ap.gwentgame.client.enums.FactionType;
 import com.ap.gwentgame.client.model.gameElementViews.BoardView;
 
 public abstract class Leader extends Item {

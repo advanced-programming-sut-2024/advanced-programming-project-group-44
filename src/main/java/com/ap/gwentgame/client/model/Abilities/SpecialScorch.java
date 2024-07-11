@@ -1,13 +1,12 @@
 package com.ap.gwentgame.client.model.Abilities;
 
-import com.ap.gwentgame.controller.ControllerUtilities;
+import com.ap.gwentgame.client.controller.ControllerUtilities;
 import com.ap.gwentgame.client.model.gameElementViews.BoardView;
 import com.ap.gwentgame.client.model.gameElementViews.CardView;
 import com.ap.gwentgame.client.model.gameElementViews.PlayerView;
 import com.ap.gwentgame.client.model.gameElements.Card;
-import com.ap.gwentgame.client.model.gameElements.Board;
 import com.ap.gwentgame.client.model.gameElements.UnitCard;
-import com.ap.gwentgame.view.ViewUtilities;
+import com.ap.gwentgame.client.view.ViewUtilities;
 
 public class SpecialScorch extends Ability {
     public SpecialScorch(Card card) {

@@ -1,10 +1,8 @@
 package com.ap.gwentgame.client.model.gameElementViews;
 
-import com.ap.gwentgame.controller.ControllerUtilities;
-import com.ap.gwentgame.client.model.gameElements.Card;
+import com.ap.gwentgame.client.controller.ControllerUtilities;
 import com.ap.gwentgame.client.model.gameElements.Faction;
-import com.ap.gwentgame.client.model.gameElements.Leader;
-import com.ap.gwentgame.view.ViewUtilities;
+import com.ap.gwentgame.client.view.ViewUtilities;
 import javafx.scene.image.Image;
 
 public class FactionView extends ItemView{

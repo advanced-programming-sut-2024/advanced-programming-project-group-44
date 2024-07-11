@@ -1,8 +1,8 @@
 package com.ap.gwentgame.client.model.gameElements;
 
-import com.ap.gwentgame.enums.FactionType;
+import com.ap.gwentgame.client.enums.FactionType;
 import com.ap.gwentgame.client.model.Abilities.Ability;
-import com.ap.gwentgame.enums.Placement;
+import com.ap.gwentgame.client.enums.Placement;
 
 public abstract class Card extends Item {
     private Ability ability;

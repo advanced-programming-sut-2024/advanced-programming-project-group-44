@@ -1,13 +1,12 @@
 package com.ap.gwentgame.client.model.gameElementViews;
 
-import com.ap.gwentgame.controller.MusicController;
-import com.ap.gwentgame.enums.assets.Backgrounds;
-import com.ap.gwentgame.enums.assets.Icons;
+import com.ap.gwentgame.client.controller.MusicController;
+import com.ap.gwentgame.client.enums.assets.Backgrounds;
+import com.ap.gwentgame.client.enums.assets.Icons;
 import com.ap.gwentgame.client.model.gameElements.Board;
-import com.ap.gwentgame.client.model.gameElements.Card;
 import com.ap.gwentgame.client.model.gameElements.Player;
 import com.ap.gwentgame.client.model.gameElements.WeatherCard;
-import com.ap.gwentgame.view.ViewUtilities;
+import com.ap.gwentgame.client.view.ViewUtilities;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
