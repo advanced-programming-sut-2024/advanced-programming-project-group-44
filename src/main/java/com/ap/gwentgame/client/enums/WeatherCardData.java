@@ -22,7 +22,7 @@ public enum WeatherCardData {
     }
 
     public WeatherCard getWeatherCard() {
-        WeatherCard weatherCard = new WeatherCard(name, Placement.SPECIAL_PLACE, factionType);
+        WeatherCard weatherCard = new WeatherCard(name, Placement.WEATHER, factionType);
         weatherCard.setAbility(abilityType.getAbility(weatherCard));
         return weatherCard;
     }
