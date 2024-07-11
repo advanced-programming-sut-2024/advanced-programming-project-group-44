@@ -118,6 +118,23 @@ public class ControllerUtilities {
         return true;
     }
 
+//    public static String generateSuggestedUsername(String username) {
+//        String suggestedUsername;
+//        do {
+//            StringBuilder newUsername = new StringBuilder(username);
+//            int randomInt = getRandomNumberInRange(2, 30);
+//            newUsername.append(LOWERCASE.charAt(random.nextInt(LOWERCASE.length())));
+//            if (randomInt % 4 == 0) {
+//                newUsername.append("_".charAt(random.nextInt(1)));
+//            }
+//            if (randomInt % 3 == 0) {
+//                newUsername.append(UPPERCASE.charAt(random.nextInt(UPPERCASE.length())));
+//            }
+//            suggestedUsername = newUsername.toString();
+//        } while (Session.getUserByName(suggestedUsername) != null);
+//        return suggestedUsername;
+//    }
+
     public static String generateSuggestedUsername(String username) {
         String suggestedUsername;
         do {
@@ -125,15 +142,16 @@ public class ControllerUtilities {
             int randomInt = getRandomNumberInRange(2, 30);
             newUsername.append(LOWERCASE.charAt(random.nextInt(LOWERCASE.length())));
             if (randomInt % 4 == 0) {
-                newUsername.append("_".charAt(random.nextInt(1)));
+                newUsername.append("_");
             }
             if (randomInt % 3 == 0) {
                 newUsername.append(UPPERCASE.charAt(random.nextInt(UPPERCASE.length())));
             }
             suggestedUsername = newUsername.toString();
-        } while (Session.getUserByName(username) != null);
+        } while (Session.getUserByName(suggestedUsername) != null);
         return suggestedUsername;
     }
+
 
     public static boolean isStrongPassword(String password) {
         String passwordRegex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[&$@_*])[A-Za-z\\d&@$_*]{8,}$";
@@ -166,7 +184,7 @@ public class ControllerUtilities {
         return shuffleString(password.toString());
     }
 
-    private static String shuffleString(String input) {
+    public static String shuffleString(String input) {
         char[] characters = input.toCharArray();
         for (int i = 0; i < characters.length; i++) {
             int randomIndex = random.nextInt(characters.length);

@@ -28,4 +28,6 @@ module com.ap.gwentgame {
     opens com.ap.gwentgame.client.enums to javafx.fxml, com.google.gson;
     opens com.ap.gwentgame.client.enums.assets to javafx.fxml, com.google.gson;
 
+
+
 }

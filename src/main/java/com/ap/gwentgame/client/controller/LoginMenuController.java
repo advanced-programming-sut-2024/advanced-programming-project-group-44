@@ -5,6 +5,7 @@ import com.ap.gwentgame.client.view.MainMenu;
 import com.ap.gwentgame.client.view.StartMenu;
 import com.ap.gwentgame.client.enums.assets.Backgrounds;
 import com.ap.gwentgame.client.model.User;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -19,37 +20,41 @@ import java.io.IOException;
 import java.net.URL;
 
 public class LoginMenuController {
-    @FXML
-    private TextField name;
+
+    public TextField name;
 
     @FXML
-    private PasswordField password;
+    public PasswordField password;
 
     @FXML
-    private ImageView imageview;
+    public ImageView imageview;
     @FXML
 
 
     public void initialize() {
-        imageview.setImage(Backgrounds.MAINBG.getImage());
+        //imageview.setImage(Backgrounds.MAINBG.getImage());
     }
 
-    public void login(MouseEvent mouseEvent) {
-        if(!ControllerUtilities.validateLoginUsername(name)) return;
+    public String login(MouseEvent mouseEvent) {
+        if(!ControllerUtilities.validateLoginUsername(name)) return "invalid username";
         if (password.getText() == null) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setHeaderText("invalid password");
-            alert.setContentText("enter a password");
-            alert.show();
-            return;
+            Platform.runLater(() -> {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setHeaderText("Invalid Password");
+                alert.setContentText("Please enter a password.");
+                alert.show();
+            });
+            return "invalid password";
         }
 
         if(!Session.getUserByName(name.getText()).getPassword().equals(password.getText())){
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setHeaderText("Wrong Password");
-            alert.setContentText("The Password is not correct");
-            alert.show();
-            return;
+            Platform.runLater(() -> {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setHeaderText("Wrong Password");
+                alert.setContentText("The Password is not correct");
+                alert.show();
+            });
+            return "Wrong Password";
         }
 
         MainMenu main = new MainMenu();
@@ -58,20 +63,22 @@ public class LoginMenuController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return "success";
     }
 
-    public void backToStartMenu(MouseEvent mouseEvent) {
+    public String backToStartMenu(MouseEvent mouseEvent) {
         StartMenu main = new StartMenu();
         try {
             main.start(Session.getStage());
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return "success";
     }
 
-    public void goToQuestionMenu(MouseEvent mouseEvent) {
+    public String goToQuestionMenu(MouseEvent mouseEvent) {
         try {
-            if(!ControllerUtilities.validateLoginUsername(name)) return;
+            if(!ControllerUtilities.validateLoginUsername(name)) return "invalid username";
             User user = Session.getUserByName(name.getText());
             FXMLLoader fxmlLoader = new FXMLLoader(new URL(ControllerUtilities.getResourcePath("fxml/ForgotPasswordMenu.fxml")));
             Parent root = fxmlLoader.load();
@@ -94,5 +101,6 @@ public class LoginMenuController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return "success";
     }
 }

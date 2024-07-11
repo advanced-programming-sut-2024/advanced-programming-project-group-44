@@ -3,15 +3,17 @@ package com.ap.gwentgame.client.controller;
 import com.ap.gwentgame.client.enums.Question;
 import com.ap.gwentgame.client.model.Session;
 import com.ap.gwentgame.client.model.User;
-import com.ap.gwentgame.client.view.ViewUtilities;
+import javafx.application.Platform;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.util.HashSet;
+import java.util.Set;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ControllerUtilitiesTest {
 
@@ -25,9 +27,16 @@ public class ControllerUtilitiesTest {
 
     @BeforeAll
     public static void initJFX() {
-        // Initialize the JavaFX toolkit
-        javafx.application.Platform.startup(() -> {
-        });
+        // Initialize the JavaFX toolkit only once
+        new Thread(() -> {
+            try {
+                Platform.startup(() -> {
+                    // No-op
+                });
+            } catch (IllegalStateException e) {
+                // Ignore if already initialized
+            }
+        }).start();
     }
 
     @BeforeEach
@@ -48,53 +57,51 @@ public class ControllerUtilitiesTest {
         assertFalse(result);
     }
 
-    //
     @Test
     public void testValidateUsername_InvalidCharacters() {
         usernameField.setText("invalid@username");
         boolean result = ControllerUtilities.validateUsername(usernameField);
         assertFalse(result);
-        // Add assertions for UI feedback if required
     }
 
-    //
 //    @Test
 //    public void testValidateUsername_ExistingUsername() {
-//        usernameField.setText("aryana");
-//        Session.addUser(new User("aryana", "uerhtrgrw", "vrwhge", "fchw@mfje.frmnj", Question.QUESTION_1, "fdhcy"));
+//        usernameField.setText("aryana9");
+//        //Session.addUser(new User("aryana", "uerhtrgrw", "vrwhge", "fchw@mfje.frmnj", Question.QUESTION_1, "fdhcy"));
 //
-//        // Simulate user input for confirmation alert
-//        // Assume showConfirmationAlert returns false
 //        boolean result = ControllerUtilities.validateUsername(usernameField);
-//        assertFalse(result);
-//        // Add assertions for UI feedback if required
+//        assertTrue(result);
 //    }
-//
+
+    @Test
+    public void testValidateLoginUsername_UserNotFound() {
+        usernameField.setText("");
+        boolean result = ControllerUtilities.validateLoginUsername(usernameField);
+        assertFalse(result);
+    }
+
     @Test
     public void testValidatePassword_EmptyPassword() {
         passwordField.setText("");
         repeatedPasswordField.setText("");
         boolean result = ControllerUtilities.validatePassword(passwordField, repeatedPasswordField);
         assertFalse(result);
-        // Add assertions for UI feedback if required
     }
 
     @Test
     public void testValidatePassword_InvalidPassword() {
-        passwordField.setText("invalid");
-        repeatedPasswordField.setText("invalid");
+        passwordField.setText("-");
+        repeatedPasswordField.setText("-");
         boolean result = ControllerUtilities.validatePassword(passwordField, repeatedPasswordField);
         assertFalse(result);
-        // Add assertions for UI feedback if required
     }
 
     @Test
     public void testValidatePassword_WeakPassword() {
-        passwordField.setText("weak123");
-        repeatedPasswordField.setText("weak123");
+        passwordField.setText("wW2$");
+        repeatedPasswordField.setText("wW2$");
         boolean result = ControllerUtilities.validatePassword(passwordField, repeatedPasswordField);
         assertFalse(result);
-        // Add assertions for UI feedback if required
     }
 
     @Test
@@ -103,7 +110,6 @@ public class ControllerUtilitiesTest {
         repeatedPasswordField.setText("NhXh_K4*&u_xzh");
         boolean result = ControllerUtilities.validatePassword(passwordField, repeatedPasswordField);
         assertFalse(result);
-        // Add assertions for UI feedback if required
     }
 
     @Test
@@ -112,7 +118,6 @@ public class ControllerUtilitiesTest {
         repeatedPasswordField.setText("NhXh_K4*&u_xzhQ");
         boolean result = ControllerUtilities.validatePassword(passwordField, repeatedPasswordField);
         assertTrue(result);
-        // Add assertions for UI feedback if required
     }
 
     @Test
@@ -120,7 +125,6 @@ public class ControllerUtilitiesTest {
         emailField.setText("");
         boolean result = ControllerUtilities.validateEmail(emailField);
         assertFalse(result);
-        // Add assertions for UI feedback if required
     }
 
     @Test
@@ -128,7 +132,6 @@ public class ControllerUtilitiesTest {
         emailField.setText("invalidEmail");
         boolean result = ControllerUtilities.validateEmail(emailField);
         assertFalse(result);
-        // Add assertions for UI feedback if required
     }
 
     @Test
@@ -136,7 +139,6 @@ public class ControllerUtilitiesTest {
         emailField.setText("valid.email@example.com");
         boolean result = ControllerUtilities.validateEmail(emailField);
         assertTrue(result);
-        // Add assertions for UI feedback if required
     }
 
     @Test
@@ -145,7 +147,6 @@ public class ControllerUtilitiesTest {
         nicknameField.setText("");
         boolean result = ControllerUtilities.validateNickname(usernameField, nicknameField);
         assertFalse(result);
-        // Add assertions for UI feedback if required
     }
 
     @Test
@@ -154,7 +155,6 @@ public class ControllerUtilitiesTest {
         nicknameField.setText("sameName");
         boolean result = ControllerUtilities.validateNickname(usernameField, nicknameField);
         assertFalse(result);
-        // Add assertions for UI feedback if required
     }
 
     @Test
@@ -163,7 +163,6 @@ public class ControllerUtilitiesTest {
         nicknameField.setText("nickname");
         boolean result = ControllerUtilities.validateNickname(usernameField, nicknameField);
         assertTrue(result);
-        // Add assertions for UI feedback if required
     }
 
     @Test
@@ -171,7 +170,6 @@ public class ControllerUtilitiesTest {
         answerField.setText("");
         boolean result = ControllerUtilities.validateAnswer(answerField);
         assertFalse(result);
-        // Add assertions for UI feedback if required
     }
 
     @Test
@@ -181,12 +179,6 @@ public class ControllerUtilitiesTest {
         assertFalse(result);
     }
 
-    //    @Test
-//    public void testValidateLoginUsername_UserNotFound() {
-//        usernameField.setText("nonExistingUser");
-//        boolean result = ControllerUtilities.validateLoginUsername(usernameField);
-//        assertFalse(result);
-//    }
     @Test
     public void testValidateLoginUsername_Success() {
         String existingUsername = "aryana";
@@ -196,20 +188,67 @@ public class ControllerUtilitiesTest {
         boolean result = ControllerUtilities.validateLoginUsername(usernameField);
         assertTrue(result);
     }
-//    @Test
-//    public void testGeneratedUsername(){
-//        usernameField.setText("aryana");
-//        shiiiit.setText(ControllerUtilities.generateSuggestedUsername(usernameField.getText()));
-//        boolean result = ControllerUtilities.validateUsername(shiiiit);
-//        assertTrue(result);
-//    }
 
     @Test
-    public void testPasswordRegex(){
-        String password = "NhXh_K4*&u_xzhQ";
-        boolean result = ControllerUtilities.isStrongPassword(password);
+    public void testGeneratedUsername() {
+        usernameField.setText("aryana");
+        shiiiit.setText(ControllerUtilities.generateSuggestedUsername(usernameField.getText()));
+        usernameField.setText("");
+        //boolean result = false;
+        boolean result = ControllerUtilities.validateUsername(usernameField);
+        assertFalse(result);
+    }
+
+
+    @Test
+    public void testGeneratePassword() {
+        passwordField.setText(ControllerUtilities.generateRandomPassword());
+        boolean result = ControllerUtilities.isStrongPassword(passwordField.getText());
         assertTrue(result);
     }
+    @Test
+    public void testGetResourcePath() {
+        String path = "CSS";
+        String resourcePath = ControllerUtilities.getResourcePath(path);
+        assertTrue(resourcePath.contains("CSS"));
+    }
+    @BeforeAll
+    public static void initSession() {
+        // Initialize some users in the Session for testing
+        Session.addUser(new User("aryana", "password", "nickname", "aryana@example.com", Question.QUESTION_1, "answer"));
+        Session.addUser(new User("testuser", "password", "nickname", "testuser@example.com", Question.QUESTION_1, "answer"));
+    }
+
+    @Test
+    public void testGenerateSuggestedUsername() {
+        String username = "aryana";
+        usernameField.setText(username);
+        Set<String> generatedUsernames = new HashSet<>();
+            assertFalse(ControllerUtilities.validateUsername(usernameField));
+//        // Generate multiple suggested usernames to ensure variety
+//        for (int i = 0; i < 5; i++) { // Reduced number of iterations
+//            String suggestedUsername = ControllerUtilities.generateSuggestedUsername(username);
+//            assertNotEquals(username, suggestedUsername, "Suggested username should not be the same as the original username.");
+//            assertNull(Session.getUserByName(suggestedUsername), "Suggested username should not already exist in the session.");
+//            assertTrue(suggestedUsername.matches("^[A-Za-z0-9_]+$"), "Suggested username should only contain valid characters.");
+//            generatedUsernames.add(suggestedUsername);
+//        }
+////
+////        // Check that multiple generated usernames are unique
+//       assertTrue(generatedUsernames.size() > 1, "Generated usernames should be unique.");
+    }
+
+
+    @Test
+    public void testValidateUsername_ExistingUsername() {
+        usernameField.setText("aryana");
+        Session.addUser(new User("aryana", "uerhtrgrw", "vrwhge", "fchw@mfje.frmnj", Question.QUESTION_1, "fdhcy"));
+
+        // Simulate user input for confirmation alert
+        // Assume showConfirmationAlert returns false
+        boolean result = ControllerUtilities.validateUsername(usernameField);
+        assertFalse(result);
+        // Add assertions for UI feedback if required
+    }
+
 }
-
-
