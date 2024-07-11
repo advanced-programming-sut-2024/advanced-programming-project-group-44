@@ -53,7 +53,7 @@ public class CardViewContainer<T extends ItemView, K extends Item> extends Custo
 
     public void remove(ItemView itemView) {
         this.getChildren().remove(itemView);
-        cards.remove((K)itemView.getItem());
+        cards.remove((K) itemView.getItem());
     }
 
     public void clear() {

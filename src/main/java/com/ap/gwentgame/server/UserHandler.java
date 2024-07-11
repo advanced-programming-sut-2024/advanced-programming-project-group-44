@@ -6,6 +6,7 @@ import com.ap.gwentgame.ServerMessage;
 import com.ap.gwentgame.client.model.Abilities.Ability;
 import com.ap.gwentgame.client.model.PropertyMarshallerAbstractTask;
 import com.ap.gwentgame.client.model.User;
+import com.ap.gwentgame.client.model.gameElements.Board;
 import com.ap.gwentgame.client.model.gameElements.Card;
 import com.ap.gwentgame.client.model.gameElements.Leader;
 import com.ap.gwentgame.client.model.gameElements.Player;
@@ -299,9 +300,14 @@ public class UserHandler extends Thread {
             return;
         }
 
+        if ((matcher = ClientCommands.PLAY_CARD.getMatcher(messageText)).matches() ||
+                (matcher = ClientCommands.PLAY_LEADER.getMatcher(messageText)).matches() ||
+                (matcher = ClientCommands.PLAY_PASS.getMatcher(messageText)).matches()) {
+            Board board = gson.fromJson(clientMessage.getAdditionalText(), Board.class);
+            currentBoardHandler.submitCommand(messageText, board);
+        }
+
         sendResponse("Invalid message");
-
-
     }
 
     protected void sendResponse(String messageText) {

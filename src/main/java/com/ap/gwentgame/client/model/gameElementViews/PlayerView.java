@@ -75,7 +75,7 @@ public class PlayerView {
         this.specialCardViews[2] = new CardViewContainer<>(player.getSpecialCards()[2]);
 
         this.selectableContainers = new ArrayList<>();
-        otherPlayerView = this.equals(boardView.getPlayer1View()) ? boardView.getPlayer2View() : boardView.getPlayer1View();
+        this.otherPlayerView = this.equals(boardView.getPlayer1View()) ? boardView.getPlayer2View() : boardView.getPlayer1View();
     }
 
     @Override
@@ -520,4 +520,12 @@ public class PlayerView {
     }
 
 
+    public void discardRound() {
+        for (CardView cardView : handView.getCardViews()) {
+            Card card = (Card) cardView.getItem();
+            if (card.getPlacement().getRow() == 0) {
+                ViewUtilities.changeCardContainer(false, boardView, handView, discardPileView, cardView);
+            }
+        }
+    }
 }
