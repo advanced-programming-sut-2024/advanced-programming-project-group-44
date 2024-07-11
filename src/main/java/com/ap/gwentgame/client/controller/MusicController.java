@@ -1,6 +1,6 @@
 package com.ap.gwentgame.client.controller;
 
-import com.ap.gwentgame.client.controller.enums.assets.Musics;
+import com.ap.gwentgame.client.enums.assets.Musics;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 

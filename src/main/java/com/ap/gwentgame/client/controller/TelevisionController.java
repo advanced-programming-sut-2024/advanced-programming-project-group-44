@@ -1,8 +1,8 @@
 package com.ap.gwentgame.client.controller;
 
-import com.ap.gwentgame.client.controller.model.Game.GameData;
-import com.ap.gwentgame.client.controller.model.GameBox;
-import com.ap.gwentgame.client.controller.model.LiveBox;
+import com.ap.gwentgame.client.model.Game.GameData;
+import com.ap.gwentgame.client.model.GameBox;
+import com.ap.gwentgame.client.model.LiveBox;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;

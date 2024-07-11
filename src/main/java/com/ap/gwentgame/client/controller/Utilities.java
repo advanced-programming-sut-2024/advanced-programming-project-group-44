@@ -1,10 +1,10 @@
 package com.ap.gwentgame.client.controller;
 
-import com.ap.gwentgame.client.controller.model.App;
-import com.ap.gwentgame.client.controller.model.Cards.Card;
-import com.ap.gwentgame.client.controller.model.Cards.UnitCard;
-import com.ap.gwentgame.client.controller.model.Game.Player;
-import com.ap.gwentgame.client.controller.model.ItemContainer;
+import com.ap.gwentgame.client.model.App;
+import com.ap.gwentgame.client.model.Cards.Card;
+import com.ap.gwentgame.client.model.Cards.UnitCard;
+import com.ap.gwentgame.client.model.Game.Player;
+import com.ap.gwentgame.client.model.ItemContainer;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.PasswordField;

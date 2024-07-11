@@ -1,10 +1,10 @@
 package com.ap.gwentgame.client.controller;
 
-import com.ap.gwentgame.client.controller.enums.*;
-import com.ap.gwentgame.client.controller.model.Cards.PreGameCard;
-import com.ap.gwentgame.client.controller.model.Factions.*;
-import com.ap.gwentgame.client.controller.model.ItemContainer;
-import com.ap.gwentgame.client.controller.model.Leaders.Leader;
+import com.ap.gwentgame.client.enums.*;
+import com.ap.gwentgame.client.model.Cards.PreGameCard;
+import com.ap.gwentgame.client.model.Factions.*;
+import com.ap.gwentgame.client.model.ItemContainer;
+import com.ap.gwentgame.client.model.Leaders.Leader;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ScrollPane;

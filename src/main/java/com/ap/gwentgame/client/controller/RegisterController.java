@@ -1,9 +1,9 @@
 package com.ap.gwentgame.client.controller;
 
-import com.ap.gwentgame.client.controller.view.StartMenu;
-import com.ap.gwentgame.client.controller.enums.Question;
-import com.ap.gwentgame.client.controller.model.App;
-import com.ap.gwentgame.client.controller.model.User;
+import com.ap.gwentgame.client.view.StartMenu;
+import com.ap.gwentgame.client.enums.Question;
+import com.ap.gwentgame.client.model.App;
+import com.ap.gwentgame.client.model.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

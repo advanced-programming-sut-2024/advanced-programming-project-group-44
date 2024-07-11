@@ -1,10 +1,10 @@
 package com.ap.gwentgame.client.controller;
 
-import com.ap.gwentgame.client.controller.view.LoginMenu;
-import com.ap.gwentgame.client.controller.view.ProfileMenu;
-import com.ap.gwentgame.client.controller.enums.assets.Backgrounds;
-import com.ap.gwentgame.client.controller.enums.assets.Icons;
-import com.ap.gwentgame.client.controller.model.App;
+import com.ap.gwentgame.client.view.LoginMenu;
+import com.ap.gwentgame.client.view.ProfileMenu;
+import com.ap.gwentgame.client.enums.assets.Backgrounds;
+import com.ap.gwentgame.client.enums.assets.Icons;
+import com.ap.gwentgame.client.model.App;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
