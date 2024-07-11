@@ -4,6 +4,8 @@ import com.ap.gwentgame.client.controller.RequestSender;
 import com.ap.gwentgame.client.enums.Placement;
 import com.ap.gwentgame.client.enums.assets.Icons;
 import com.ap.gwentgame.client.enums.assets.Items;
+import com.ap.gwentgame.client.model.Abilities.Decoy;
+import com.ap.gwentgame.client.model.Abilities.Medic;
 import com.ap.gwentgame.client.model.Abilities.Spy;
 import com.ap.gwentgame.client.model.Session;
 import com.ap.gwentgame.client.model.gameElements.*;
@@ -422,7 +424,15 @@ public class PlayerView {
         container.setStyle("-fx-background-color: rgba(200, 150, 50, 0.2);");
 
         container.setOnMouseClicked(event -> {
-            RequestSender.playCard(player, boardView.getBoard().getID(), handView.getCardViews().indexOf(selectedCardView), selectableContainers.indexOf(container), -1);
+            int abilityInput = -1;
+            Card card = (Card) selectedCardView.getItem();
+            if (card.getAbility() instanceof Decoy){
+                abilityInput = 0;
+            }
+            else if (card.getAbility() instanceof Medic){
+                abilityInput = 0;
+            }
+            RequestSender.playCard(player, boardView.getBoard().getID(), handView.getCardViews().indexOf(selectedCardView), selectableContainers.indexOf(container), abilityInput);
             deActivateAllContainers();
         });
     }
@@ -443,9 +453,6 @@ public class PlayerView {
             targetContainer = selectableContainers.get(targetContainerIndex);
         }
 
-        if (card.getPlacement() == Placement.DECOY) {
-            //TODO
-        }
 
         if (isLocalPlayer()) {
             ViewUtilities.changeCardContainer(false, boardView, handView, targetContainer, cardView);
@@ -454,7 +461,7 @@ public class PlayerView {
         }
 
         card.getPlacement().setRow((targetContainerIndex + 1) % 3);
-        card.executeAction(boardView, -1);
+        card.executeAction(boardView, abilityInput);
 
         if (!boardView.getAgainstPlayerView().getPlayer().hasPassed()) {
             boardView.changeTurn();
