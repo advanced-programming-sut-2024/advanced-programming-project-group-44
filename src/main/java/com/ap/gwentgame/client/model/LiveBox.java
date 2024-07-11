@@ -61,8 +61,6 @@ public class LiveBox extends VBox {
         imageView.setImage(new Image(getClass().getResourceAsStream("/images/images.png")));
         //playButton.setOnAction();
 
-
-
         spacer.setMinWidth(120);
         VBox.setVgrow(spacer, Priority.ALWAYS);
         VBox.setVgrow(rightSpacer, Priority.ALWAYS);

@@ -116,8 +116,6 @@ public class BoardView {
         gamePane.getChildren().add(muteButton);
     }
 
-
-
     public AnchorPane getGamePane() {
         return gamePane;
     }
@@ -211,7 +209,7 @@ public class BoardView {
 
     public void changeTurn() {
         if (player1View.getPlayer().hasPassed() && player2View.getPlayer().hasPassed()) {
-            ViewUtilities.showInformationAlert("round finished", "round finished");
+            changeRound();
         }
 
         if (currentPlayerView == player1View) {
@@ -228,5 +226,9 @@ public class BoardView {
 
     public Board getBoard() {
         return board;
+    }
+
+    public void changeRound(){
+
     }
 }

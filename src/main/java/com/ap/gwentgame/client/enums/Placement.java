@@ -7,9 +7,9 @@ public enum Placement {
     RANGED_COMBAT(new int[]{1}),
     SIEGE(new int[]{2}),
     AGILE(new int[]{0, 1}),
-    WEATHER(new int[]{7}),
-    SPECIAL_PLACE(new int[]{4, 5, 6}),
-    DECOY(new int[]{0, 1, 2, 3, 4, 5, 6, 7});
+    WEATHER(new int[]{6}),
+    SPECIAL_PLACE(new int[]{3, 4, 5}),
+    DECOY(new int[]{0, 1, 2, 3, 4, 5, 6});
 
     private int row;
     private int[] allowedContainers;
