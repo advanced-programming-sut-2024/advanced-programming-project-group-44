@@ -7,6 +7,7 @@ import com.ap.gwentgame.client.controller.MusicController;
 import com.ap.gwentgame.client.controller.ReactionMenuController;
 import com.ap.gwentgame.client.enums.assets.Backgrounds;
 import com.ap.gwentgame.client.enums.assets.Icons;
+import com.ap.gwentgame.client.model.GameLog;
 import com.ap.gwentgame.client.model.gameElements.Board;
 import com.ap.gwentgame.client.model.gameElements.Player;
 import com.ap.gwentgame.client.model.gameElements.WeatherCard;
@@ -37,6 +38,12 @@ public class BoardView {
 
     private ChatBoxController chatBoxController;
     private ReactionMenuController reactionMenuController;
+
+    private int round = 0;
+
+    public int getRound() {
+        return round;
+    }
 
     public BoardView(Board board, AnchorPane gamePane) {
         this.board = board;
@@ -231,6 +238,7 @@ public class BoardView {
     public void changeRound(){
         player1View.discardRound();
         player2View.discardRound();
+        round++;
 
         //select winner
         PlayerView winner = player1View.getPlayer().getCurrentScore() > player2View.getPlayer().getCurrentScore() ? player1View : player2View;
@@ -248,5 +256,7 @@ public class BoardView {
 
     public void endGame(PlayerView winner, PlayerView loser){
         ViewUtilities.showInformationAlert("Game Over", winner.getPlayer().getUser().getName() + " has won the game!");
+        player1View.endGame(winner.getPlayer());
+        player2View.endGame(winner.getPlayer());
     }
 }

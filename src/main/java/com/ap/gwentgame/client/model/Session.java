@@ -44,12 +44,4 @@ public class Session {
     public static void setCurrentBoard(Board currentBoard) {
         Session.currentBoard = currentBoard;
     }
-
-    public static ArrayList<GameLog> getGameLogs() {
-        return gameLogs;
-    }
-
-    public static void addGameLog(GameLog gameLog) {
-        gameLogs.add(gameLog);
-    }
 }

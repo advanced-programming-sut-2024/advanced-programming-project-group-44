@@ -2,6 +2,7 @@ package com.ap.gwentgame.client.model;
 
 import com.ap.gwentgame.client.model.gameElements.Board;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class GameLog {
@@ -12,11 +13,12 @@ public class GameLog {
     private final int[] playerScores;
     private final int[] oponnentScores;
     private final String winner;
-    private Board board;
+    private Board initialBoard;
+    private ArrayList<String> appliedCommands;
 
-    public GameLog(String oponnentName, Date date, int playerScore, int oponnentScore, int[] playerScores, int[] oponnentScores, String winner) {
+    public GameLog(String oponnentName, int playerScore, int oponnentScore, int[] playerScores, int[] oponnentScores, String winner) {
         OponnentName = oponnentName;
-        this.date = date;
+        this.date = new Date();
         this.playerScore = playerScore;
         this.oponnentScore = oponnentScore;
         this.playerScores = playerScores;

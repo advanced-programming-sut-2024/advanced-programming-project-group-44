@@ -7,6 +7,7 @@ import com.ap.gwentgame.client.enums.assets.Items;
 import com.ap.gwentgame.client.model.Abilities.Decoy;
 import com.ap.gwentgame.client.model.Abilities.Medic;
 import com.ap.gwentgame.client.model.Abilities.Spy;
+import com.ap.gwentgame.client.model.GameLog;
 import com.ap.gwentgame.client.model.Session;
 import com.ap.gwentgame.client.model.gameElements.*;
 import com.ap.gwentgame.client.view.ViewUtilities;
@@ -313,9 +314,9 @@ public class PlayerView {
             healthIcon2.setLayoutY(50);
 
         }
+
         gamePane.getChildren().add(playerDataPane);
         playerDataPane.getChildren().addAll(factionView, playerNickName, factionName, cardCountIcon, handCardsCountLabel, healthIcon1, healthIcon2);
-
     }
 
     public void initializeScoreLabels() {
@@ -539,6 +540,9 @@ public class PlayerView {
                 ViewUtilities.changeCardContainer(false, boardView, handView, discardPileView, cardView);
             }
         }
+
+        player.getScores()[boardView.getRound()] = player.getCurrentScore();
+        player.setTotalScore(player.getTotalScore() + player.getCurrentScore());
     }
 
     public void loseRound() {
@@ -548,5 +552,10 @@ public class PlayerView {
         } else if (player.getRemainingHealth() == 0) {
             healthIcon1.setImage(Items.GEM_OFF.getImage());
         }
+    }
+
+    public void endGame(Player winner) {
+        GameLog gameLog = new GameLog(otherPlayerView.getPlayer().getUser().getName(), player.getTotalScore(), otherPlayerView.getPlayer().getTotalScore(), player.getScores(), otherPlayerView.getPlayer().getScores(), winner.getUser().getName());
+        Session.getLoggedInUser().addGameLog(gameLog);
     }
 }

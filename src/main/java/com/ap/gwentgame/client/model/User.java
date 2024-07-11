@@ -20,7 +20,8 @@ public class User {
     private final Question question;
     private final String answer;
     private final ArrayList<User> friends;
-    private int verifyInt;
+    private final ArrayList<GameLog> gameLogs = new ArrayList<>();
+
 
     public User(String name, String password, String nickName, String email, Question question, String answer) {
         this.name = name;
@@ -35,7 +36,6 @@ public class User {
         this.wins = 0;
         this.draws = 0;
         this.losses = 0;
-        this.verifyInt = 0;
         this.friends = new ArrayList<User>();
     }
 
@@ -135,11 +135,11 @@ public class User {
         friends.add(user);
     }
 
-    public void setVerificationCode(int code) {
-        this.verifyInt = code;
+    public ArrayList<GameLog> getGameLogs() {
+        return gameLogs;
     }
 
-    public int getVerificationCode() {
-        return this.verifyInt;
+    public void addGameLog(GameLog gameLog) {
+        gameLogs.add(gameLog);
     }
 }

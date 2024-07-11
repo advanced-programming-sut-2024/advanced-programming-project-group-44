@@ -20,6 +20,18 @@ public class Player implements Serializable {
     private final ArrayList<Card>[] specialCards;
     private boolean hasPassed;
 
+    private final int[] scores = new int[3];
+
+    public int getTotalScore() {
+        return totalScore;
+    }
+
+    public void setTotalScore(int totalScore) {
+        this.totalScore = totalScore;
+    }
+
+    private int totalScore = 0;
+
     public Player(User user, Faction faction, Leader leader, CardViewContainer<PreGameCardView, PreGameCard> addedCards) {
         this.user = user;
         this.faction = faction;
@@ -105,5 +117,9 @@ public class Player implements Serializable {
 
     public void setPassed(boolean hasPassed) {
         this.hasPassed = hasPassed;
+    }
+
+    public int[] getScores() {
+        return scores;
     }
 }
