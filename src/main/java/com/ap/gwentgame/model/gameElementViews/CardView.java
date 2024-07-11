@@ -14,7 +14,7 @@ public class CardView extends ItemView {
 
     @Override
     public Image getImage() {
-        String path = ControllerUtilities.getResourcePath("images/cards/game/" + ((Card)item).getFactionType().toString().toLowerCase() + "/" + item.getName().replaceAll("’", "").replaceAll("'", "") + ".jpg");
+        String path = ControllerUtilities.getResourcePath("images/cards1/game/" + ((Card)item).getFactionType().toString().toLowerCase() + "/" + item.getName().replaceAll("’", "").replaceAll("'", "") + ".jpg");
         return new Image(path);
     }
 

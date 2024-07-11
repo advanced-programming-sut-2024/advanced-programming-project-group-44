@@ -20,13 +20,13 @@ public class LeaderView extends ItemView {
 
     @Override
     public Image getImage() {
-        String path = ControllerUtilities.getResourcePath("images/cards/gameleaders/" + ((Leader) item).getFactionType().toString().toLowerCase().replaceAll("’", "").replaceAll("'", "") + "/" + item.getName() + ".jpg");
+        String path = ControllerUtilities.getResourcePath("images/cards1/gameleaders/" + ((Leader) item).getFactionType().toString().toLowerCase().replaceAll("’", "").replaceAll("'", "") + "/" + item.getName() + ".jpg");
         return new Image(path);
     }
 
     public Image getPreGameImage() {
         System.out.println();
-        String path = ControllerUtilities.getResourcePath("images/cards/pregameleaders/" + ((Leader) item).getFactionType().toString().toLowerCase().replaceAll("’", "").replaceAll("'", "") + "/" + item.getName() + ".jpg");
+        String path = ControllerUtilities.getResourcePath("images/cards1/pregameleaders/" + ((Leader) item).getFactionType().toString().toLowerCase().replaceAll("’", "").replaceAll("'", "") + "/" + item.getName() + ".jpg");
         return new Image(path);
     }
 

@@ -25,7 +25,7 @@ public class PreGameCardView extends ItemView implements Cloneable {
 
     @Override
     public Image getImage() {
-        String path = ControllerUtilities.getResourcePath("images/cards/pregame/" + (((PreGameCard)item).getCard().getFactionType().toString().toLowerCase() + "/" + item.getName() + ".jpg").replaceAll("’", "").replaceAll("'", ""));
+        String path = ControllerUtilities.getResourcePath("images/cards1/pregame/" + (((PreGameCard)item).getCard().getFactionType().toString().toLowerCase() + "/" + item.getName() + ".jpg").replaceAll("’", "").replaceAll("'", ""));
         return new Image(path);
     }
 
