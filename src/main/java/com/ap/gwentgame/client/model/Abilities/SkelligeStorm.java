@@ -6,12 +6,8 @@ import com.ap.gwentgame.client.model.gameElementViews.PlayerView;
 import com.ap.gwentgame.client.model.gameElements.Card;
 
 public class SkelligeStorm extends Ability{
-    public SkelligeStorm(Card card) {
-        super(card);
-    }
-
     @Override
-    public void run(BoardView boardView, int index) {
+    public void run(BoardView boardView, int index, Card card) {
         PlayerView playerView = boardView.getCurrentPlayer();
         PlayerView opponentView = boardView.getOpponentPlayer();
         ControllerUtilities.weatherAbility(playerView , 1);

@@ -9,12 +9,8 @@ import com.ap.gwentgame.client.model.gameElements.UnitCard;
 import com.ap.gwentgame.client.view.ViewUtilities;
 
 public class SpecialScorch extends Ability {
-    public SpecialScorch(Card card) {
-        super(card);
-    }
-
     @Override
-    public void run(BoardView boardView, int index) {
+    public void run(BoardView boardView, int index, Card card) {
         PlayerView player = boardView.getCurrentPlayer();
         PlayerView opponent = boardView.getOpponentPlayer();
         int maxScorePlayer = findMaxScoreForEachPlayer(player);

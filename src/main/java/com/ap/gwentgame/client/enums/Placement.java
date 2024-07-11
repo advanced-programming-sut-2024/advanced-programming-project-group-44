@@ -25,4 +25,8 @@ public enum Placement {
     public int getRow() {
         return this.row;
     }
+
+    public int[] getAllowedContainers() {
+        return allowedContainers;
+    }
 }

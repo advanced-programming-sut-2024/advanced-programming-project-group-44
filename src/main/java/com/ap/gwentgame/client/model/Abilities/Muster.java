@@ -8,29 +8,25 @@ import com.ap.gwentgame.client.view.ViewUtilities;
 
 import java.util.ArrayList;
 
-public class Muster extends Ability{
-    public Muster(Card card) {
-        super(card);
-    }
-
+public class Muster extends Ability {
     @Override
-    public void run(BoardView boardView, int index) {
+    public void run(BoardView boardView, int index, Card card) {
         PlayerView playerView = boardView.getCurrentPlayer();
         ArrayList<CardView> deckCards = playerView.getDeckView().getCardViews();
         ArrayList<CardView> handCards = playerView.getHandView().getCardViews();
         String cardName = card.getName().split(" ")[0];
-        for(CardView targetCardView : deckCards){
-            if(((Card)targetCardView.getItem()).getAbility() instanceof Muster &&
+        for (CardView targetCardView : deckCards) {
+            if (((Card) targetCardView.getItem()).getAbility() instanceof Muster &&
                     targetCardView.getItem().getName().contains(cardName) &&
-                    targetCardView.getItem() != card){
-                ViewUtilities.changeCardContainer(boardView.getGamePane() , playerView.getDeckView() , playerView.getHandView() , targetCardView);
+                    targetCardView.getItem() != card) {
+                ViewUtilities.changeCardContainer(false, boardView, playerView.getDeckView(), playerView.getHandView(), targetCardView);
             }
         }
-        for(CardView targetCardView : handCards){
-            if(((Card)targetCardView.getItem()).getAbility() instanceof Muster &&
+        for (CardView targetCardView : handCards) {
+            if (((Card) targetCardView.getItem()).getAbility() instanceof Muster &&
                     targetCardView.getItem().getName().contains(cardName) &&
-                    targetCardView.getItem() != card){
-                ViewUtilities.changeCardContainer(boardView.getGamePane() , playerView.getHandView() , playerView.getHandView() , targetCardView);
+                    targetCardView.getItem() != card) {
+                ViewUtilities.changeCardContainer(false, boardView, playerView.getHandView(), playerView.getHandView(), targetCardView);
             }
         }
     }

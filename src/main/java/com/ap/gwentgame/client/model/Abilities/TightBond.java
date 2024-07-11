@@ -4,16 +4,11 @@ import com.ap.gwentgame.client.model.gameElementViews.BoardView;
 import com.ap.gwentgame.client.model.gameElementViews.CardView;
 import com.ap.gwentgame.client.model.gameElementViews.PlayerView;
 import com.ap.gwentgame.client.model.gameElements.Card;
-import com.ap.gwentgame.client.model.gameElements.Board;
 import com.ap.gwentgame.client.model.gameElements.UnitCard;
 
 public class TightBond extends Ability {
-    public TightBond(Card card) {
-        super(card);
-    }
-
     @Override
-    public void run(BoardView boardView, int index) {
+    public void run(BoardView boardView, int index, Card card) {
         PlayerView player = boardView.getCurrentPlayer();
         int row = card.getPlacement().getRow();
         int countOfTightBondCards = 0;

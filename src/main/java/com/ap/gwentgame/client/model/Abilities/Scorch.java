@@ -9,12 +9,8 @@ import com.ap.gwentgame.client.model.gameElements.UnitCard;
 import com.ap.gwentgame.client.view.ViewUtilities;
 
 public class Scorch extends Ability {
-    public Scorch(Card card) {
-        super(card);
-    }
-
     @Override
-    public void run(BoardView boardView, int index) {
+    public void run(BoardView boardView, int index, Card card) {
         PlayerView opponentView = boardView.getOpponentPlayer();
         int row = card.getPlacement().getRow();
         int scoreOfUnHeroCards = ControllerUtilities.calculateScoreOfRowNotHero(opponentView , row);

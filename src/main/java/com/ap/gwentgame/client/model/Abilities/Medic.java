@@ -8,17 +8,12 @@ import com.ap.gwentgame.client.view.ViewUtilities;
 
 import java.util.ArrayList;
 
-public class Medic extends Ability{
-    public Medic(Card card) {
-        super(card);
-    }
-
+public class Medic extends Ability {
     @Override
-    public void run(BoardView boardView, int index) {
-
+    public void run(BoardView boardView, int index, Card card) {
         PlayerView playerView = boardView.getCurrentPlayer();
         ArrayList<CardView> discardCardsView = playerView.getDiscardPileView().getCardViews();
         CardView chosenCardView = discardCardsView.get(index);
-        ViewUtilities.changeCardContainer(boardView.getGamePane() , playerView.getDeckView() , playerView.getHandView() , chosenCardView);
+        ViewUtilities.changeCardContainer(false, boardView, playerView.getDeckView(), playerView.getHandView(), chosenCardView);
     }
 }

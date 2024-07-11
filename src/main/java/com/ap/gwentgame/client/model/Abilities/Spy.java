@@ -10,12 +10,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Spy extends Ability{
-    public Spy(Card card) {
-        super(card);
-    }
-
     @Override
-    public void run(BoardView boardView, int index) {
+    public void run(BoardView boardView, int index, Card card) {
         PlayerView playerView = boardView.getCurrentPlayer();
         ArrayList<CardView> deckView = playerView.getDeckView().getCardViews();
         CardView randomCardView = getRandomCard(deckView);

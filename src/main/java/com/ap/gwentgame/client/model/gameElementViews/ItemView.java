@@ -7,7 +7,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
 public abstract class ItemView extends AnchorPane{
-    protected final Item item;
+    protected Item item;
 
     public ItemView(Item item) {
         this.item = item;
@@ -15,6 +15,10 @@ public abstract class ItemView extends AnchorPane{
 
     public Item getItem() {
         return item;
+    }
+
+    public void setItem(Item item){
+        this.item = item;
     }
 
     public void initializeGraphic() {

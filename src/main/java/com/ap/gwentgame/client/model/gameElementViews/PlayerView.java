@@ -383,51 +383,8 @@ public class PlayerView {
 
         Card card = (Card) cardView.getItem();
         Placement placement = card.getPlacement();
-        switch (placement) {
-            case Placement.WEATHER -> {
-                activateContainer(boardView.getWeatherCards());
-            }
-
-            case Placement.CLOSE_COMBAT -> {
-                if (card.getAbility() instanceof Spy) {
-                    activateContainer(otherPlayerView.getRowViews()[0]);
-                } else {
-                    activateContainer(rowViews[0]);
-                }
-            }
-
-            case Placement.RANGED_COMBAT -> {
-                if (card.getAbility() instanceof Spy) {
-                    activateContainer(otherPlayerView.getRowViews()[1]);
-                } else {
-                    activateContainer(rowViews[1]);
-                }
-            }
-
-            case Placement.SIEGE -> {
-                if (card.getAbility() instanceof Spy) {
-                    activateContainer(otherPlayerView.getRowViews()[2]);
-                } else {
-                    activateContainer(rowViews[2]);
-                }
-            }
-
-            case Placement.AGILE -> {
-                activateContainer(rowViews[0]);
-                activateContainer(rowViews[1]);
-            }
-
-            case Placement.SPECIAL_PLACE -> {
-                activateContainer(specialCardViews[0]);
-                activateContainer(specialCardViews[1]);
-                activateContainer(specialCardViews[2]);
-            }
-
-            case Placement.DECOY -> {
-                for (CardViewContainer<? extends CardView, ? extends Card> container : selectableContainers) {
-                    activateContainer(container);
-                }
-            }
+        for (int containerIndex : placement.getAllowedContainers()){
+            activateContainer(selectableContainers.get(containerIndex));
         }
 
         cardView.setOnMouseClicked(event -> {
