@@ -2,7 +2,7 @@ package com.ap.gwentgame.view;
 
 import com.ap.gwentgame.controller.MusicController;
 import com.ap.gwentgame.enums.assets.FXMLs;
-import com.ap.gwentgame.model.Session;
+import com.ap.gwentgame.client.model.Session;
 import javafx.application.Application;
 import javafx.stage.Stage;
 

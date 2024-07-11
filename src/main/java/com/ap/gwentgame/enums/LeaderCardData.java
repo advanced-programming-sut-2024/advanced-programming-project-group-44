@@ -1,6 +1,6 @@
 package com.ap.gwentgame.enums;
 
-import com.ap.gwentgame.model.gameElements.Leader;
+import com.ap.gwentgame.client.model.gameElements.Leader;
 
 import static com.ap.gwentgame.enums.FactionType.*;
 
@@ -44,7 +44,7 @@ public enum LeaderCardData {
             for (String part : nameParts) {
                 leaderName.append(part.substring(0, 1).toUpperCase()).append(part.substring(1).toLowerCase());
             }
-            Class<?> leaderClass = Class.forName("com.ap.gwentgame.model.Leaders." + leaderName);
+            Class<?> leaderClass = Class.forName("com.ap.gwentgame.client.model.Leaders." + leaderName);
             return (Leader) leaderClass.getDeclaredConstructor(String.class, FactionType.class).newInstance(name, factionType);
         } catch (Exception e) {
             e.printStackTrace();

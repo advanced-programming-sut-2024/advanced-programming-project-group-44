@@ -1,9 +1,9 @@
 package com.ap.gwentgame.view;
 
 import com.ap.gwentgame.enums.assets.FXMLs;
-import com.ap.gwentgame.model.Session;
-import com.ap.gwentgame.model.gameElementViews.BoardView;
-import com.ap.gwentgame.model.gameElements.Board;
+import com.ap.gwentgame.client.model.Session;
+import com.ap.gwentgame.client.model.gameElementViews.BoardView;
+import com.ap.gwentgame.client.model.gameElements.Board;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;

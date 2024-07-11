@@ -5,7 +5,7 @@ import com.ap.gwentgame.view.PreGameMenu;
 import com.ap.gwentgame.view.ProfileMenu;
 import com.ap.gwentgame.enums.assets.Backgrounds;
 import com.ap.gwentgame.enums.assets.Icons;
-import com.ap.gwentgame.model.Session;
+import com.ap.gwentgame.client.model.Session;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;

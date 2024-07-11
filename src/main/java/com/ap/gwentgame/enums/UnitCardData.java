@@ -1,6 +1,6 @@
 package com.ap.gwentgame.enums;
 
-import com.ap.gwentgame.model.gameElements.UnitCard;
+import com.ap.gwentgame.client.model.gameElements.UnitCard;
 
 import static com.ap.gwentgame.enums.AbilityType.*;
 import static com.ap.gwentgame.enums.AbilityType.SCORCH;

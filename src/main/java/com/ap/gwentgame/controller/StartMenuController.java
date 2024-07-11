@@ -1,6 +1,6 @@
 package com.ap.gwentgame.controller;
 
-import com.ap.gwentgame.model.Session;
+import com.ap.gwentgame.client.model.Session;
 import com.ap.gwentgame.view.LoginMenu;
 import com.ap.gwentgame.view.RegisterMenu;
 import com.ap.gwentgame.enums.assets.Backgrounds;

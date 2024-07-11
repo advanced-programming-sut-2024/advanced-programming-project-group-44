@@ -1,10 +1,10 @@
 package com.ap.gwentgame.controller;
 
-import com.ap.gwentgame.model.Session;
+import com.ap.gwentgame.client.model.Session;
 import com.ap.gwentgame.view.MainMenu;
 import com.ap.gwentgame.view.StartMenu;
 import com.ap.gwentgame.enums.assets.Backgrounds;
-import com.ap.gwentgame.model.User;
+import com.ap.gwentgame.client.model.User;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

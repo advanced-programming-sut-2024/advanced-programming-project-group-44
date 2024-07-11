@@ -1,7 +1,7 @@
 package com.ap.gwentgame.controller;
 
 import com.ap.gwentgame.enums.assets.Icons;
-import com.ap.gwentgame.model.Session;
+import com.ap.gwentgame.client.model.Session;
 import com.ap.gwentgame.view.ProfileMenu;
 import com.ap.gwentgame.view.ViewUtilities;
 import javafx.fxml.FXML;

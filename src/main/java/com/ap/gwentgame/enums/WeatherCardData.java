@@ -1,6 +1,6 @@
 package com.ap.gwentgame.enums;
 
-import com.ap.gwentgame.model.gameElements.WeatherCard;
+import com.ap.gwentgame.client.model.gameElements.WeatherCard;
 
 public enum WeatherCardData {
     BITING_FROST("Biting Frost", FactionType.NEUTRAL, AbilityType.BITINGFROST, 1),

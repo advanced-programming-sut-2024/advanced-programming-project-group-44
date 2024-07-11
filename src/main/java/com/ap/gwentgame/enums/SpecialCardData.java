@@ -1,6 +1,6 @@
 package com.ap.gwentgame.enums;
 
-import com.ap.gwentgame.model.gameElements.SpecialCard;
+import com.ap.gwentgame.client.model.gameElements.SpecialCard;
 
 import static com.ap.gwentgame.enums.FactionType.*;
 

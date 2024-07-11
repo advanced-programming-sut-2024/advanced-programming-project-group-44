@@ -1,6 +1,6 @@
 package com.ap.gwentgame.controller;
 
-import com.ap.gwentgame.model.Session;
+import com.ap.gwentgame.client.model.Session;
 import com.ap.gwentgame.view.EditMenu;
 import com.ap.gwentgame.view.GameHistory;
 import com.ap.gwentgame.view.MainMenu;

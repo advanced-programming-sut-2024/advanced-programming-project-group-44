@@ -1,7 +1,7 @@
 package com.ap.gwentgame.view;
 
-import com.ap.gwentgame.model.gameElementViews.CardViewContainer;
-import com.ap.gwentgame.model.gameElementViews.ItemView;
+import com.ap.gwentgame.client.model.gameElementViews.CardViewContainer;
+import com.ap.gwentgame.client.model.gameElementViews.ItemView;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;

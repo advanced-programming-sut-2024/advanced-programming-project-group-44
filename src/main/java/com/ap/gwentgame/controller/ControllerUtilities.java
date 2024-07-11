@@ -1,11 +1,11 @@
 package com.ap.gwentgame.controller;
 
-import com.ap.gwentgame.model.Session;
-import com.ap.gwentgame.model.gameElementViews.CardView;
-import com.ap.gwentgame.model.gameElementViews.PlayerView;
-import com.ap.gwentgame.model.gameElementViews.UnitCardView;
-import com.ap.gwentgame.model.gameElements.Card;
-import com.ap.gwentgame.model.gameElements.UnitCard;
+import com.ap.gwentgame.client.model.Session;
+import com.ap.gwentgame.client.model.gameElementViews.CardView;
+import com.ap.gwentgame.client.model.gameElementViews.PlayerView;
+import com.ap.gwentgame.client.model.gameElementViews.UnitCardView;
+import com.ap.gwentgame.client.model.gameElements.Card;
+import com.ap.gwentgame.client.model.gameElements.UnitCard;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 

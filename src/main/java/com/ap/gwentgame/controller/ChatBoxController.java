@@ -1,8 +1,8 @@
 package com.ap.gwentgame.controller;
 
-import com.ap.gwentgame.model.MessageBox;
-import com.ap.gwentgame.model.Session;
-import com.ap.gwentgame.model.gameElementViews.PlayerView;
+import com.ap.gwentgame.client.model.MessageBox;
+import com.ap.gwentgame.client.model.Session;
+import com.ap.gwentgame.client.model.gameElementViews.PlayerView;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
