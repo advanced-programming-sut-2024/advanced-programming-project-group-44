@@ -131,9 +131,9 @@ public class UserHandler extends Thread {
             Database.addUser(verifyUser);
             currentUser = verifyUser;
             loggedInUsers.add(verifyUser);
+            sendResponse("verification code successful", verifyUser);
             verifyUser = null;
             verifyCode = 0;
-            sendResponse("verification code successful", verifyUser);
             return;
         }
 
