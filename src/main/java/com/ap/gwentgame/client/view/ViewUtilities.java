@@ -2,6 +2,7 @@ package com.ap.gwentgame.client.view;
 
 import com.ap.gwentgame.client.controller.MusicController;
 import com.ap.gwentgame.client.enums.assets.Icons;
+import com.ap.gwentgame.client.model.gameElementViews.BoardView;
 import com.ap.gwentgame.client.model.gameElementViews.CardViewContainer;
 import com.ap.gwentgame.client.model.gameElementViews.ItemView;
 import javafx.animation.KeyFrame;
@@ -66,7 +67,7 @@ public class ViewUtilities {
     }
 
     public static void changeNumber(Label numberLabel, int targetNumber) {
-        final int totalDuration = 2000;
+        final int totalDuration = 1000;
         final int incrementCount = targetNumber - Integer.parseInt(numberLabel.getText());
         double incrementDuration = (double) totalDuration / incrementCount;
 
@@ -77,25 +78,48 @@ public class ViewUtilities {
         timeline.play();
     }
 
-    public static void changeCardContainer(AnchorPane root, CardViewContainer from, CardViewContainer to, AnchorPane cardView) {
+    public static void changeCardContainer(BoardView boardView, CardViewContainer from, CardViewContainer to, ItemView cardView) {
         double startX = from.getLayoutX() + cardView.getLayoutX();
         double startY = from.getLayoutY() + cardView.getLayoutY();
-        double endX = to.getLayoutX() + (to.getChildren().size() * (cardView.getWidth() + to.getHgap()));
+        double endX = to.getLayoutX() + to.getCardViews().size() * (cardView.getWidth() + to.getHgap());
         double endY = to.getLayoutY();
 
-        root.getChildren().add(cardView);
+        boardView.getGamePane().getChildren().add(cardView);
+        cardView.setLayoutX(0);
+        cardView.setLayoutY(0);
 
-        TranslateTransition transition = new TranslateTransition(Duration.seconds(2), cardView);
+        TranslateTransition transition = new TranslateTransition(Duration.seconds(1), cardView);
+        transition.setInterpolator(javafx.animation.Interpolator.EASE_BOTH);
         transition.setFromX(startX);
         transition.setFromY(startY);
         transition.setToX(endX);
         transition.setToY(endY);
 
+        //create a transition to remove the card from the previous container
+        /*ArrayList replacingItemViews = from.getCardViews();
+        for (ItemView replacingItemView : replacingItemViews) {
+            if (from.getCardViews().indexOf(replacingItemView) > from.getCardViews().indexOf(cardView)) {
+                replacingItemViews.add(replacingItemView);
+            }
+        }
+
+        for (ItemView replacingItemView : from.getCardViews()) {
+            if (from.getCardViews().indexOf(replacingItemView) > from.getCardViews().indexOf(cardView)) {
+                TranslateTransition transition2 = new TranslateTransition(Duration.seconds(1), replacingItemView);
+                transition2.setInterpolator(javafx.animation.Interpolator.EASE_BOTH);
+                transition2.setFromX(from.getLayoutX() + replacingItemView.getLayoutX());
+                transition2.setFromY(from.getLayoutY() + replacingItemView.getLayoutY());
+                transition2.setToX(from.getLayoutX() + replacingItemView.getLayoutX() - (cardView.getWidth() + from.getHgap()));
+                transition2.setToY(from.getLayoutY() + replacingItemView.getLayoutY());
+                transition2.play();
+            }
+        }*/
+
         transition.setOnFinished(event -> {
-            to.getChildren().add(cardView);
-            cardView.setTranslateX(0);
-            cardView.setTranslateY(0);
-            root.getChildren().remove(cardView);
+            from.remove(cardView);
+            to.add(cardView);
+            boardView.getGamePane().getChildren().remove(cardView);
+            boardView.updateScoreLabels();
         });
 
         transition.play();
@@ -215,7 +239,7 @@ public class ViewUtilities {
         }
     }
 
-    private static void updatePositions(double movement, HBox cardBox){
+    private static void updatePositions(double movement, HBox cardBox) {
         cardBox.setLayoutX(cardBox.getLayoutX() + movement);
     }
 }

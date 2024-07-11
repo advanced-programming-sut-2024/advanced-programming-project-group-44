@@ -126,4 +126,9 @@ public class BoardView {
     public PlayerView getOpponentPlayerView() {
         return opponentPlayerView;
     }
+
+    public void updateScoreLabels() {
+        player1View.updateScoreLabels();
+        player2View.updateScoreLabels();
+    }
 }

@@ -46,6 +46,8 @@ public class CardViewContainer<T extends ItemView, K extends Item> extends FlowP
 
     public void add(T cardView) {
         this.getChildren().add(cardView);
+        cardView.setTranslateX(0);
+        cardView.setTranslateY(0);
         cards.add((K) cardView.getItem());
     }
 

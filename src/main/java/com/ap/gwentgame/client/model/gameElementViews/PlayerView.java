@@ -39,6 +39,8 @@ public class PlayerView {
 
     private final ArrayList<CardViewContainer<? extends CardView, ? extends Card>> selectableContainers;
 
+    private CardView selectedCardView;
+
     public PlayerView(Player player, int playerNumber, BoardView boardView) {
         this.player = player;
         this.playerNumber = playerNumber;
@@ -134,12 +136,6 @@ public class PlayerView {
                     setCardHighlights(cardView);
                 });
             }
-
-            gamePane.setOnMouseClicked(event -> {
-                if (event.getTarget() instanceof CardViewContainer<?,?>) {
-                    deActivateAllContainers();
-                }
-            });
         } else if (isLocalPlayer()) {
             for (CardView cardView : handView.getCardViews()) {
                 cardView.setCursor(Cursor.NONE);
@@ -149,8 +145,9 @@ public class PlayerView {
     }
 
     private void setCardHighlights(CardView cardView) {
-        PlayerView opponentPlayerView = boardView.getOpponentPlayerView();
         deActivateAllContainers();
+        PlayerView opponentPlayerView = boardView.getOpponentPlayerView();
+        selectedCardView = cardView;
 
         Card card = (Card) cardView.getItem();
         Placement placement = card.getPlacement();
@@ -203,6 +200,8 @@ public class PlayerView {
     }
 
     private void deActivateAllContainers() {
+        selectedCardView = null;
+
         PlayerView opponentPlayerView = boardView.getOpponentPlayerView();
         ArrayList<CardViewContainer<? extends CardView, ? extends Card>> opponentSelectableContainers = opponentPlayerView.getSelectableContainers();
 
@@ -217,7 +216,24 @@ public class PlayerView {
 
     private void activateContainer(CardViewContainer<? extends CardView, ? extends Card> container) {
         container.setCursor(Cursor.HAND);
-        container.setStyle("-fx-background-color: rgba(200, 150, 50, 0.5);");
+        container.setStyle("-fx-background-color: rgba(200, 150, 50, 0.2);");
+        /*gamePane.setOnMouseClicked(event -> {
+            if (event.getTarget() instanceof ItemView itemView) {
+                if (handView.contains(itemView)) {
+                    if (itemView != selectedCardView) {
+                        return;
+                    }
+
+                }
+            }
+
+            deActivateAllContainers();
+        });*/
+
+        container.setOnMouseClicked(event -> {
+            ViewUtilities.changeCardContainer(boardView, handView, container, selectedCardView);
+            deActivateAllContainers();
+        });
     }
 
     private void deactivateContainer(CardViewContainer<? extends CardView, ? extends Card> container) {
@@ -322,6 +338,7 @@ public class PlayerView {
     public void initializeScoreLabels() {
         currentScoreLabel.setPrefSize(31, 38);
         currentScoreLabel.setStyle("-fx-text-fill: #000000; -fx-font-size: 16; -fx-font-weight: bold; -fx-alignment: center;");
+        currentScoreLabel.setText("0");
 
         for (int i = 0; i < 3; i++) {
             scoreLabels[i].setPrefSize(31, 38);
