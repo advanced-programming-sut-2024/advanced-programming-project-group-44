@@ -225,6 +225,8 @@ public class BoardView {
     }
 
     public void changeRound(){
-
+        //move cards to discard pile
+        player1View.discardRound();
+        player2View.discardRound();
     }
 }
