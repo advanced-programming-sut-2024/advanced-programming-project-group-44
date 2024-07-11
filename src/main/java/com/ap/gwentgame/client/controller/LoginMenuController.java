@@ -32,7 +32,6 @@ public class LoginMenuController {
 
 
     public void initialize() {
-        //imageview.setImage(Backgrounds.MAINBG.getImage());
     }
 
     public String login(MouseEvent mouseEvent) {
@@ -56,13 +55,6 @@ public class LoginMenuController {
             });
             return "Wrong Password";
         }
-
-        MainMenu main = new MainMenu();
-        try {
-            main.start(Session.getStage());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         return "success";
     }
 
@@ -77,30 +69,8 @@ public class LoginMenuController {
     }
 
     public String goToQuestionMenu(MouseEvent mouseEvent) {
-        try {
-            if(!ControllerUtilities.validateLoginUsername(name)) return "invalid username";
-            User user = Session.getUserByName(name.getText());
-            FXMLLoader fxmlLoader = new FXMLLoader(new URL(ControllerUtilities.getResourcePath("fxml/ForgotPasswordMenu.fxml")));
-            Parent root = fxmlLoader.load();
-
-            ForgotPasswordMenuController forgotPasswordMenuController = fxmlLoader.getController();
-            String securityQuestion = user.getQuestion().toString();
-            forgotPasswordMenuController.setSecurityQuestion(securityQuestion , user.getAnswer());
-
-            Stage stage = new Stage();
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setTitle("Forgot Password");
-            stage.setScene(new Scene(root));
-            stage.showAndWait();
-
-            String enteredAnswer = forgotPasswordMenuController.getEnteredAnswer();
-            if (enteredAnswer.equals(user.getAnswer())) {
-                name.setText(user.getName());
-                password.setText(user.getPassword());
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        if(!ControllerUtilities.validateLoginUsername(name)) return "invalid username";
+        User user = Session.getUserByName(name.getText());
         return "success";
     }
 }

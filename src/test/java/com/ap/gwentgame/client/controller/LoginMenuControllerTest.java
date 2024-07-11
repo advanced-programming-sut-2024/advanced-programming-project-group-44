@@ -37,7 +37,6 @@ public class LoginMenuControllerTest extends ApplicationTest {
 
     @Override
     public void start(Stage stage) {
-        // This method must be implemented but can be left empty
     }
 
     @BeforeEach
@@ -97,24 +96,19 @@ public class LoginMenuControllerTest extends ApplicationTest {
         });
     }
 
-    //    @Test
-//    public void testLogin_Success() throws Exception {
-//        name.setText("validuser");
-//        password.setText("validpass");
-//        when(Session.getUserByName("validuser")).thenReturn(new User("validuser", "validpass", "nickname", "email@example.com", Question.QUESTION_1, "answer"));
-//        doNothing().when(Session.class);
-//        MainMenu mainMenu = mock(MainMenu.class);
-//        doNothing().when(mainMenu).start(any(Stage.class));
-//
-//        String result = loginMenuController.login(mock(MouseEvent.class));
-//        assertEquals("success", result);
-//    }
-//
+    @Test
+    public void testLogin_Success() throws Exception {
+        name.setText("validuser");
+        password.setText("validpass");
+        if (Session.getUserByName(name.getText()) == null) {
+            Session.addUser(new User("validuser", "validpass", "nickname", "email@example.com", Question.QUESTION_1, "answer"));
+        }
+        String result = loginMenuController.login(mock(MouseEvent.class));
+        assertEquals("success", result);
+    }
+
     @Test
     public void testBackToStartMenu() throws Exception {
-//        StartMenu startMenu = mock(StartMenu.class);
-//        doNothing().when(startMenu).start(any(Stage.class));
-
         String result = loginMenuController.backToStartMenu(mock(MouseEvent.class));
         assertEquals("success", result);
     }
@@ -126,14 +120,13 @@ public class LoginMenuControllerTest extends ApplicationTest {
         assertEquals("invalid username", result);
     }
 
-    //
-//    @Test
-//    public void testGoToQuestionMenu_Success() throws Exception {
-//        name.setText("validuser");
-//        if (Session.getUserByName(name.getText()) == null) {
-//            Session.addUser(new User("validuser", "validpass", "nickname", "email@example.com", Question.QUESTION_1, "answer"));
-//        }
-//        String result = loginMenuController.goToQuestionMenu(mock(MouseEvent.class));
-//        assertEquals("success", result);
-//    }
+    @Test
+    public void testGoToQuestionMenu_Success() throws Exception {
+        name.setText("validuser");
+        if (Session.getUserByName(name.getText()) == null) {
+            Session.addUser(new User("validuser", "validpass", "nickname", "email@example.com", Question.QUESTION_1, "answer"));
+        }
+        String result = loginMenuController.goToQuestionMenu(mock(MouseEvent.class));
+        assertEquals("success", result);
+    }
 }

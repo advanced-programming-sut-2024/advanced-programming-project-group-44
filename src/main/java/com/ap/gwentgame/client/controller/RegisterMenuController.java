@@ -6,6 +6,7 @@ import com.ap.gwentgame.client.view.StartMenu;
 import com.ap.gwentgame.client.enums.Question;
 import com.ap.gwentgame.client.enums.assets.Backgrounds;
 import com.ap.gwentgame.client.model.User;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
@@ -15,74 +16,58 @@ import java.util.Optional;
 
 public class RegisterMenuController {
     @FXML
-    private TextField name;
+    public TextField name;
 
-    @FXML
-    private PasswordField password;
+    public PasswordField password;
 
+    public PasswordField repeatedPassword;
     @FXML
-    private PasswordField repeatedPassword;
+    public TextField email;
     @FXML
-    private TextField email;
+    public TextField answer;
     @FXML
-    private TextField answer;
+    public TextField nickName;
     @FXML
-    private TextField nickName;
+    public ChoiceBox<Question> securityQuestion;
     @FXML
-    private ChoiceBox<Question> securityQuestion;
-    @FXML
-    private ImageView imageview;
+    public ImageView imageview;
 
-    public void initialize() {
-        imageview.setImage(Backgrounds.MAINBG.getImage());
-        securityQuestion.getItems().setAll(Question.values());
-        securityQuestion.setValue(Question.QUESTION_1);
+    public String initialize() {
+//        securityQuestion.getItems().setAll(Question.values());
+//        securityQuestion.setValue(Question.QUESTION_1);
+        return "done";
     }
 
-    public void signup(MouseEvent mouseEvent) {
-        if (!ControllerUtilities.validateUsername(name)) return;
-        if (!ControllerUtilities.validateNickname(name, nickName)) return;
-        if (!ControllerUtilities.validatePassword(password, repeatedPassword)) return;
-        if (!ControllerUtilities.validateEmail(email)) return;
-        if (!ControllerUtilities.validateAnswer(answer)) return;
-
-        User user = new User(name.getText(), password.getText(), nickName.getText(),
-                email.getText(), securityQuestion.getValue(), answer.getText());
-        Session.addUser(user);
-        Session.setLoggedInUser(user);
-
-        MainMenu main = new MainMenu();
-        try {
-            main.start(Session.getStage());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public String signup(MouseEvent mouseEvent) {
+        if (!ControllerUtilities.validateUsername(name)) return "invalid username";
+        if (!ControllerUtilities.validateNickname(name, nickName)) return "invalid nickname";
+        if (!ControllerUtilities.validatePassword(password, repeatedPassword)) return "invalid password";
+        if (!ControllerUtilities.validateEmail(email)) return "invalid email";
+        if (!ControllerUtilities.validateAnswer(answer)) return "invalid answer";
+        return "done";
 
     }
 
-    public void backToStart(MouseEvent mouseEvent) {
+    public String backToStart(MouseEvent mouseEvent) {
         StartMenu main = new StartMenu();
         try {
             main.start(Session.getStage());
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return "done";
     }
 
-    public void generatePassword(MouseEvent mouseEvent) {
+    public String generatePassword(MouseEvent mouseEvent) {
         String randomPassword = ControllerUtilities.generateRandomPassword();
+        Platform.runLater(() -> {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Random Password");
+            alert.setHeaderText("Generated Random Password");
+            alert.setContentText("Your random password is: " + randomPassword +
+                    "\nDo you want to use this password?");
 
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Random Password");
-        alert.setHeaderText("Generated Random Password");
-        alert.setContentText("Your random password is: " + randomPassword +
-                "\nDo you want to use this password?");
-
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.isPresent() && result.get() == ButtonType.OK) {
-            // Set the password fields to the generated random password
-            password.setText(randomPassword);
-            repeatedPassword.setText(randomPassword);
-        }
+        });
+        return "done";
     }
 }
