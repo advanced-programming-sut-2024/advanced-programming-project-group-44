@@ -11,7 +11,7 @@ public class FriendRequestMenu extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         Session.setStage(stage);
-        stage.setScene(FXMLs.FRIEND_REQUEST.getScene());
+        stage.setScene(FXMLs.FRIEND_REQUEST_MENU.getScene());
         stage.show();
     }
 

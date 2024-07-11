@@ -91,7 +91,7 @@ public class PreGameMenuController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        backgroundImage.setImage(Backgrounds.MAINBG.getImage());
+        backgroundImage.setImage(Backgrounds.PREGAME_MENU.getImage());
         backButtonIcon.setImage(Icons.BACK.getImage());
         muteButtonIcon.setImage(Icons.UNMUTE.getImage());
 

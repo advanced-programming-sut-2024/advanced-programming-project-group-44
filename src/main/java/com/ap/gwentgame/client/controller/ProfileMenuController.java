@@ -1,5 +1,6 @@
 package com.ap.gwentgame.client.controller;
 
+import com.ap.gwentgame.client.enums.assets.Backgrounds;
 import com.ap.gwentgame.client.model.Session;
 import com.ap.gwentgame.client.view.EditMenu;
 import com.ap.gwentgame.client.view.GameHistory;
@@ -31,8 +32,11 @@ public class ProfileMenuController {
     public Label draws;
     @FXML
     public ImageView back;
+    @FXML
+    public ImageView imageview;
 
     public void initialize() {
+        imageview.setImage(Backgrounds.PROFILE_MENU.getImage());
         username.setText(Session.getLoggedInUser().getName());
         nickname.setText(Session.getLoggedInUser().getNickName());
         highestPoint.setText(String.valueOf(Session.getLoggedInUser().getHighestPoint()));

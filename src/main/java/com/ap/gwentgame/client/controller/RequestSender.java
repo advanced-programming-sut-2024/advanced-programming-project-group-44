@@ -14,6 +14,12 @@ public class RequestSender {
         return Client.getResponse();
     }
 
+    public static ServerMessage verifyUser(String code) {
+        String messageText = "verify user" + " " + code;
+        Client.sendRequest(messageText);
+        return Client.getResponse();
+    }
+
     public static ServerMessage loginUser(String username, String password) {
         String messageText = "login user" + " " + username + " " + password;
         Client.sendRequest(messageText);

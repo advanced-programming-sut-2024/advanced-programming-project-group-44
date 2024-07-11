@@ -41,7 +41,7 @@ public class LoginMenuController {
 
 
     public void initialize() {
-        imageview.setImage(Backgrounds.MAINBG.getImage());
+        imageview.setImage(Backgrounds.LOGIN_MENU.getImage());
     }
 
     public void login(MouseEvent mouseEvent) {
@@ -64,17 +64,14 @@ public class LoginMenuController {
         }
 
         try {
-            User user = Client.getGson().fromJson(responseMessage.getAdditionalText(), User.class);
-            Session.setLoggedInUser(user);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-
-        MainMenu main = new MainMenu();
-        try {
-            main.start(Session.getStage());
-        } catch (Exception e) {
+            FXMLLoader fxmlLoader = new FXMLLoader(new URL(ControllerUtilities.getResourcePath("fxml/Verification.fxml")));
+            Parent root = fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("verification");
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+        }catch (Exception e){
             e.printStackTrace();
         }
     }

@@ -3,33 +3,24 @@ package com.ap.gwentgame.server;
 import com.ap.gwentgame.ClientCommands;
 import com.ap.gwentgame.ClientMessage;
 import com.ap.gwentgame.ServerMessage;
-import com.ap.gwentgame.client.controller.ForgotPasswordMenuController;
 import com.ap.gwentgame.client.model.Abilities.Ability;
 import com.ap.gwentgame.client.model.PropertyMarshallerAbstractTask;
-import com.ap.gwentgame.client.model.Session;
 import com.ap.gwentgame.client.model.User;
-import com.ap.gwentgame.client.model.gameElements.Board;
 import com.ap.gwentgame.client.model.gameElements.Card;
 import com.ap.gwentgame.client.model.gameElements.Leader;
 import com.ap.gwentgame.client.model.gameElements.Player;
-import com.ap.gwentgame.client.view.ViewUtilities;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import javafx.scene.shape.StrokeLineCap;
-import org.w3c.dom.ls.LSOutput;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.net.ServerSocket;
 import java.net.Socket;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.regex.Matcher;
 
 public class UserHandler extends Thread {
@@ -41,6 +32,9 @@ public class UserHandler extends Thread {
     private Player currentPlayer;
     private BoardHandler currentBoardHandler;
     private static ArrayList<User> loggedInUsers = new ArrayList<>();
+
+    private User verifyUser;
+    private int verifyCode;
 
     private static final Queue<UserHandler> randomWaitingPlayers = new LinkedList<>();
     private static final HashMap<Integer, BoardHandler> games = new HashMap<>();
@@ -113,11 +107,29 @@ public class UserHandler extends Thread {
                 return;
             }
 
+            verifyUser = user;
+            SecureRandom random = new SecureRandom();
+            verifyCode = Integer.parseInt(String.valueOf(100000 + random.nextInt(900000)));
+            EmailSender emailSender = new EmailSender();
+            emailSender.createEmailStructure(user.getEmail(), user, verifyCode);
+            sendResponse("registration successful", user);
+            return;
+        }
 
-            Database.addUser(user);
-            currentUser = user;
-            loggedInUsers.add(user);
-            sendResponse("registration successful");
+        if ((matcher = ClientCommands.VERIFY_USER.getMatcher(messageText)).matches()) {
+            String answerCode = matcher.group(1);
+
+            if (verifyCode != Integer.parseInt(answerCode)) {
+                sendResponse("verification failed - incorrect code");
+                return;
+            }
+
+            Database.addUser(verifyUser);
+            currentUser = verifyUser;
+            loggedInUsers.add(verifyUser);
+            verifyUser = null;
+            verifyCode = 0;
+            sendResponse("verification code successful", verifyUser);
             return;
         }
 
@@ -137,8 +149,11 @@ public class UserHandler extends Thread {
                 return;
             }
 
-            currentUser = user;
-            loggedInUsers.add(user);
+            verifyUser = user;
+            SecureRandom random = new SecureRandom();
+            verifyCode = Integer.parseInt(String.valueOf(100000 + random.nextInt(900000)));
+            EmailSender emailSender = new EmailSender();
+            emailSender.createEmailStructure(user.getEmail(), user, verifyCode);
             sendResponse("login successful", user);
             return;
         }
@@ -160,8 +175,6 @@ public class UserHandler extends Thread {
             String answer = matcher.group(2);
 
             User user = Database.findUserByUsername(username);
-            System.out.println(username + " " + answer);
-            System.out.println(user.getAnswer());
 
             if (!user.getAnswer().equals(answer)) {
                 sendResponse("validate answer failed - incorrect answer");

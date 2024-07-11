@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="200.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ap.gwentgame.controller.VerificationController">
+<AnchorPane prefHeight="200.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ap.gwentgame.client.controller.VerificationController">
    <children>
       <VBox alignment="TOP_CENTER" layoutX="125.0" layoutY="25.0" prefHeight="150.0" prefWidth="150.0">
          <children>
@@ -19,12 +19,12 @@
                   <Font size="13.0" />
                </font>
             </TextField>
-            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="ok" onMouseClicked="#checkCode">
+            <Button alignment="CENTER" contentDisplay="CENTER" text="ok" onMouseClicked="#checkCode">
                <VBox.margin>
                   <Insets top="15.0" />
                </VBox.margin>
             </Button>
-            <Button mnemonicParsing="false" text="Back" onMouseClicked="#back">
+            <Button text="Back" onMouseClicked="#backToRegisterMenu">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>

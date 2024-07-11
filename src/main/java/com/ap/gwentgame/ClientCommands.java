@@ -5,6 +5,7 @@ import java.util.regex.Pattern;
 
 public enum ClientCommands {
     REGISTER_USER("register user"),
+    VERIFY_USER("verify user (\\S+)"),
     LOGIN_USER("login user (\\S+) (\\S+)"),
     LOGOUT_USER("logout user"),
     GET_QUESTION("get question (\\S+)"),

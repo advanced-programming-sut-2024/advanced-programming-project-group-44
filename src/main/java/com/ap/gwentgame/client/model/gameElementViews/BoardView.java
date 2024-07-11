@@ -14,9 +14,9 @@ import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
+import java.util.HashMap;
 import java.util.regex.Matcher;
 
-import static com.ap.gwentgame.ClientCommands.PLAY_CARD;
 import static com.ap.gwentgame.ServerCommands.PLAY_PASS;
 
 public class BoardView {
@@ -24,8 +24,6 @@ public class BoardView {
     private AnchorPane gamePane;
 
     private final PlayerView player1View;
-
-
     private final PlayerView player2View;
     private PlayerView currentPlayerView;
     private PlayerView againstPlayerView;
@@ -33,6 +31,9 @@ public class BoardView {
     private String abilityInput;
 
     private final CardViewContainer<WeatherCardView, WeatherCard> weatherCards;
+
+    private ChatBoxController chatBoxController;
+    private ReactionMenuController reactionMenuController;
 
     public BoardView(Board board, AnchorPane gamePane) {
         this.board = board;
@@ -49,10 +50,9 @@ public class BoardView {
         this.weatherCards = new CardViewContainer<>(board.getWeatherCards());
 
         initializeGameBoard();
-    }
-
-    public Board getBoard() {
-        return board;
+        initializeChatButton();
+        initializeMuteButtons();
+        initializeReactionButton();
     }
 
     public void initializeGameBoard() {
@@ -60,6 +60,34 @@ public class BoardView {
         weatherCards.setVisuals(gamePane, 86, 341, 177, 91, 10, 0);
         player1View.initializePlayerView();
         player2View.initializePlayerView();
+    }
+
+    public void initializeChatButton() {
+        Button chatButton = new Button();
+        chatButton.setLayoutX(1050);
+        chatButton.setLayoutY(20);
+        chatButton.setPrefSize(30, 30);
+        chatButton.setStyle("-fx-background-color: transparent;");
+        ImageView chatButtonIcon = new ImageView(Icons.CHAT.getImage());
+        chatButton.setOnMouseClicked(event -> {
+            chatBoxController.openChatBox();
+        });
+        chatButton.setGraphic(chatButtonIcon);
+        gamePane.getChildren().add(chatButton);
+    }
+
+    public void initializeReactionButton() {
+        Button reactionButton = new Button();
+        reactionButton.setLayoutX(1000);
+        reactionButton.setLayoutY(20);
+        reactionButton.setPrefSize(30, 30);
+        reactionButton.setStyle("-fx-background-color: transparent;");
+        ImageView reactionButtonIcon = new ImageView(Icons.REACT.getImage());
+        reactionButton.setOnMouseClicked(event -> {
+            reactionMenuController.openReactionBox();
+        });
+        reactionButton.setGraphic(reactionButtonIcon);
+        gamePane.getChildren().add(reactionButton);
     }
 
     public void initializeMuteButtons() {
@@ -81,21 +109,7 @@ public class BoardView {
         gamePane.getChildren().add(muteButton);
     }
 
-    public void initializeChatButton() {
-        Button chatButton = new Button();
-        chatButton.setLayoutX(1060);
-        chatButton.setLayoutY(20);
-        chatButton.setPrefSize(30, 30);
-        chatButton.setStyle("-fx-background-color: transparent;");
-        ImageView chatButtonIcon = new ImageView();
-        //chatButtonIcon.setImage(Icons.CHAT.getImage());
-        //set on mouse clicked event to open chat window
 
-        chatButtonIcon.setFitWidth(30);
-        chatButtonIcon.setFitHeight(30);
-        chatButton.setGraphic(chatButtonIcon);
-        gamePane.getChildren().add(chatButton);
-    }
 
     public AnchorPane getGamePane() {
         return gamePane;
@@ -106,7 +120,7 @@ public class BoardView {
     }
 
     public PlayerView getOpponentPlayer() {
-        return againstPlayerView;
+        return opponentPlayerView;
     }
 
     public PlayerView getPlayer1() {
@@ -186,6 +200,44 @@ public class BoardView {
     public PlayerView getPlayer1View() {
         return player1View;
     }
+
+    public void startListening() {
+        Thread daemonThread = new Thread(() -> {
+            while (true) {
+                ServerMessage command = Client.getResponse();
+                Board updatedBoard = Client.getGson().fromJson(command.getAdditionalText(), Board.class);
+
+                if (player1View.equals(currentPlayerView) && !player1View.isLocalPlayer()) {
+                    player1View.updateFromBoard(updatedBoard);
+                }
+
+                if (player2View.equals(currentPlayerView) && !player2View.isLocalPlayer()) {
+                    player2View.updateFromBoard(updatedBoard);
+                }
+
+                Matcher matcher;
+                if ((matcher = PLAY_CARD.getMatcher(command.getMessageText())).matches()) {
+                    int id = Integer.parseInt(matcher.group(1));
+                    String playerName = matcher.group(2);
+                    int cardIndex = Integer.parseInt(matcher.group(3));
+                    int row = Integer.parseInt(matcher.group(4));
+                    int abilityInput = Integer.parseInt(matcher.group(5));
+                    PlayerView activePlayerView = playerName.equals(board.getPlayer1().getUser().getName()) ? player1View : player2View;
+                    Platform.runLater(() -> activePlayerView.playCard(cardIndex, row, abilityInput));
+                }
+
+                if ((matcher = PLAY_PASS.getMatcher(command.getMessageText())).matches()) {
+                    int id = Integer.parseInt(matcher.group(1));
+                    String playerName = matcher.group(2);
+                    PlayerView activePlayerView = playerName.equals(board.getPlayer1().getUser().getName()) ? player1View : player2View;
+                    Platform.runLater(() -> activePlayerView.playPass());
+                }
+            }
+        });
+        daemonThread.setDaemon(true);
+        daemonThread.start();
+    }
+
 
     public void changeTurn() {
         if (player1View.getPlayer().hasPassed() && player2View.getPlayer().hasPassed()) {

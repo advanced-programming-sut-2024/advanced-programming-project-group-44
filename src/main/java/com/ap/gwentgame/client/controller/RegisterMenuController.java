@@ -1,17 +1,23 @@
 package com.ap.gwentgame.client.controller;
 
-import com.ap.gwentgame.ServerMessage;
 import com.ap.gwentgame.client.model.Session;
-import com.ap.gwentgame.client.view.MainMenu;
 import com.ap.gwentgame.client.view.StartMenu;
 import com.ap.gwentgame.client.enums.Question;
 import com.ap.gwentgame.client.enums.assets.Backgrounds;
 import com.ap.gwentgame.client.model.User;
+import com.ap.gwentgame.server.EmailSender;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
+import java.io.IOException;
+import java.net.URL;
 import java.util.Optional;
 
 import static com.ap.gwentgame.ServerCommands.*;
@@ -36,13 +42,14 @@ public class RegisterMenuController {
     @FXML
     private ImageView imageview;
 
+
     public void initialize() {
-        imageview.setImage(Backgrounds.MAINBG.getImage());
+        imageview.setImage(Backgrounds.REGISTER_MENU.getImage());
         securityQuestion.getItems().setAll(Question.values());
         securityQuestion.setValue(Question.QUESTION_1);
     }
 
-    public void signup(MouseEvent mouseEvent) {
+    public void signup(MouseEvent mouseEvent) throws IOException {
         if (!ControllerUtilities.validateUsername(name)) return;
         if (!ControllerUtilities.validateNickname(name, nickName)) return;
         if (!ControllerUtilities.validatePassword(password, repeatedPassword)) return;
@@ -54,7 +61,7 @@ public class RegisterMenuController {
 
         String responseText = RequestSender.registerUser(user).getMessageText();
 
-        if (REGISTRATION_FAILED_USERNAME_TAKEN.getMatcher(responseText).matches()){
+        if (REGISTRATION_FAILED_USERNAME_TAKEN.getMatcher(responseText).matches()) {
             String suggestedUsername = ControllerUtilities.generateSuggestedUsername(name.getText());
             if (showConfirmationAlert("Already Existing Username",
                     "You should pick another username, or you can choose the suggested username.\nDo you want to change your username to " + suggestedUsername + "?")) {
@@ -63,31 +70,33 @@ public class RegisterMenuController {
             return;
         }
 
-        if (REGISTRATION_FAILED_EMAIL_TAKEN.getMatcher(responseText).matches()){
+        if (REGISTRATION_FAILED_EMAIL_TAKEN.getMatcher(responseText).matches()) {
             showInformationAlert("Email Already Taken",
                     "The email you entered is already taken. Please enter another email.");
             return;
         }
 
-        if(REGISTRATION_FAILED_NICKNAME_TAKEN.getMatcher(responseText).matches()){
+        if (REGISTRATION_FAILED_NICKNAME_TAKEN.getMatcher(responseText).matches()) {
             showInformationAlert("Nickname Already Taken",
                     "The nickname you entered is already taken. Please enter another nickname.");
             return;
         }
 
-        if (!REGISTRATION_SUCCESSFUL.getMatcher(responseText).matches()){
+        if (!REGISTRATION_SUCCESSFUL.getMatcher(responseText).matches()) {
             throw new RuntimeException("Unexpected response: " + responseText);
         }
 
-        Session.setLoggedInUser(user);
-
-        MainMenu main = new MainMenu();
         try {
-            main.start(Session.getStage());
-        } catch (Exception e) {
+            FXMLLoader fxmlLoader = new FXMLLoader(new URL(ControllerUtilities.getResourcePath("fxml/Verification.fxml")));
+            Parent root = fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("verification");
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+        }catch (Exception e){
             e.printStackTrace();
         }
-
     }
 
     public void backToStart(MouseEvent mouseEvent) {

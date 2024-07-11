@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ap.gwentgame.controller.TournamentController">
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ap.gwentgame.client.controller.TournamentController">
 <!--   <children>-->
 <!--      <HBox layoutX="60.0" layoutY="50.0" prefHeight="700.0" prefWidth="1080.0">-->
 <!--         <children>-->
