@@ -1,6 +1,8 @@
 package com.ap.gwentgame.model.Leaders;
 
 import com.ap.gwentgame.enums.FactionType;
+import com.ap.gwentgame.model.gameElementViews.BoardView;
+import com.ap.gwentgame.model.gameElementViews.PlayerView;
 import com.ap.gwentgame.model.gameElements.Board;
 import com.ap.gwentgame.model.gameElements.Leader;
 
@@ -10,7 +12,11 @@ public class EmperorOfNilfgaard extends Leader {
     }
 
     @Override
-    public void executeAbility(Board board){
+    public void executeAbility(BoardView boardView, int index) {
+        PlayerView opponentView = boardView.getOpponentPlayer();
 
+        //TODO ?????? null kardan ability leader
     }
+
+
 }
