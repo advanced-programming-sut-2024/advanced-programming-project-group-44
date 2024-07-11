@@ -12,7 +12,7 @@ public class SpecialScorch extends Ability {
     @Override
     public void run(BoardView boardView, int index, Card card) {
         PlayerView player = boardView.getCurrentPlayer();
-        PlayerView opponent = boardView.getOpponentPlayer();
+        PlayerView opponent = boardView.getAgainstPlayer();
         int maxScorePlayer = findMaxScoreForEachPlayer(player);
         int maxScoreOpponent = findMaxScoreForEachPlayer(opponent);
         int maxScore = Math.max(maxScorePlayer, maxScoreOpponent);
@@ -29,7 +29,7 @@ public class SpecialScorch extends Ability {
                     if (!((UnitCard) targetCard).isHero() &&
                             ((UnitCard) targetCard).getScore() == maxScore) {
                         UnitCard unitcard = ((UnitCard) targetCard);
-                        ViewUtilities.changeCardContainer(boardView.getGamePane(), playerView.getRowViews()[targetCard.getPlacement().getRow()], playerView.getDiscardPileView(), targetCardView);
+                        ViewUtilities.changeCardContainer(false, boardView, playerView.getRowViews()[targetCard.getPlacement().getRow()], playerView.getDiscardPileView(), targetCardView);
                     }
                 }
             }

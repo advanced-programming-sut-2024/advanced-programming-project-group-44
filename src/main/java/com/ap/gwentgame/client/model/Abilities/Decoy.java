@@ -11,7 +11,7 @@ public class Decoy extends Ability{
     public void run(BoardView boardView, int index, Card card) {
         PlayerView playerView = boardView.getCurrentPlayer();
         CardView cardView = playerView.getRowViews()[card.getPlacement().getRow()].getCardViews().get(index);
-        ViewUtilities.changeCardContainer(boardView.getGamePane() , playerView.getRowViews()[card.getPlacement().getRow()], playerView.getHandView() , cardView);
+        ViewUtilities.changeCardContainer(false, boardView , playerView.getRowViews()[card.getPlacement().getRow()], playerView.getHandView() , cardView);
     }
 
 }

@@ -11,7 +11,7 @@ import com.ap.gwentgame.client.view.ViewUtilities;
 public class Scorch extends Ability {
     @Override
     public void run(BoardView boardView, int index, Card card) {
-        PlayerView opponentView = boardView.getOpponentPlayer();
+        PlayerView opponentView = boardView.getAgainstPlayer();
         int row = card.getPlacement().getRow();
         int scoreOfUnHeroCards = ControllerUtilities.calculateScoreOfRowNotHero(opponentView, row);
         int maxScore = ControllerUtilities.calculateMaxScoreOfRowNotHero(opponentView, row);

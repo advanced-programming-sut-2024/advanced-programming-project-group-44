@@ -6,6 +6,7 @@ import com.ap.gwentgame.ServerMessage;
 import com.ap.gwentgame.client.model.Abilities.Ability;
 import com.ap.gwentgame.client.model.PropertyMarshallerAbstractTask;
 import com.ap.gwentgame.client.model.User;
+import com.ap.gwentgame.client.model.gameElements.Board;
 import com.ap.gwentgame.client.model.gameElements.Card;
 import com.ap.gwentgame.client.model.gameElements.Leader;
 import com.ap.gwentgame.client.model.gameElements.Player;

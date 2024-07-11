@@ -2,7 +2,9 @@ package com.ap.gwentgame.client.model.gameElementViews;
 
 import com.ap.gwentgame.ServerMessage;
 import com.ap.gwentgame.client.Client;
+import com.ap.gwentgame.client.controller.ChatBoxController;
 import com.ap.gwentgame.client.controller.MusicController;
+import com.ap.gwentgame.client.controller.ReactionMenuController;
 import com.ap.gwentgame.client.enums.assets.Backgrounds;
 import com.ap.gwentgame.client.enums.assets.Icons;
 import com.ap.gwentgame.client.model.gameElements.Board;
@@ -18,6 +20,7 @@ import java.util.HashMap;
 import java.util.regex.Matcher;
 
 import static com.ap.gwentgame.ServerCommands.PLAY_PASS;
+import static com.ap.gwentgame.ServerCommands.PLAY_CARD;
 
 public class BoardView {
     private final Board board;
@@ -119,8 +122,8 @@ public class BoardView {
         return currentPlayerView;
     }
 
-    public PlayerView getOpponentPlayer() {
-        return opponentPlayerView;
+    public PlayerView getAgainstPlayer() {
+        return againstPlayerView;
     }
 
     public PlayerView getPlayer1() {
@@ -154,43 +157,6 @@ public class BoardView {
     public void updateScoreLabels() {
         player1View.updateScoreLabels();
         player2View.updateScoreLabels();
-    }
-
-    public void startListening() {
-        Thread daemonThread = new Thread(() -> {
-            while (true) {
-                ServerMessage command = Client.getResponse();
-                Board updatedBoard = Client.getGson().fromJson(command.getAdditionalText(), Board.class);
-
-                if (player1View.equals(currentPlayerView) && !player1View.isLocalPlayer()) {
-                    player1View.updateFromBoard(updatedBoard);
-                }
-
-                if (player2View.equals(currentPlayerView) && !player2View.isLocalPlayer()) {
-                    player2View.updateFromBoard(updatedBoard);
-                }
-
-                Matcher matcher;
-                if ((matcher = PLAY_CARD.getMatcher(command.getMessageText())).matches()) {
-                    int id = Integer.parseInt(matcher.group(1));
-                    String playerName = matcher.group(2);
-                    int cardIndex = Integer.parseInt(matcher.group(3));
-                    int row = Integer.parseInt(matcher.group(4));
-                    int abilityInput = Integer.parseInt(matcher.group(5));
-                    PlayerView activePlayerView = playerName.equals(board.getPlayer1().getUser().getName()) ? player1View : player2View;
-                    Platform.runLater(() -> activePlayerView.playCard(cardIndex, row, abilityInput));
-                }
-
-                if ((matcher = PLAY_PASS.getMatcher(command.getMessageText())).matches()) {
-                    int id = Integer.parseInt(matcher.group(1));
-                    String playerName = matcher.group(2);
-                    PlayerView activePlayerView = playerName.equals(board.getPlayer1().getUser().getName()) ? player1View : player2View;
-                    Platform.runLater(() -> activePlayerView.playPass());
-                }
-            }
-        });
-        daemonThread.setDaemon(true);
-        daemonThread.start();
     }
 
     public PlayerView getPlayer2View() {
@@ -254,5 +220,9 @@ public class BoardView {
 
         player1View.initializeClickables();
         player2View.initializeClickables();
+    }
+
+    public Board getBoard() {
+        return board;
     }
 }

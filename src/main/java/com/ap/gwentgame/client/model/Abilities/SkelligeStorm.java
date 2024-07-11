@@ -9,11 +9,9 @@ public class SkelligeStorm extends Ability{
     @Override
     public void run(BoardView boardView, int index, Card card) {
         PlayerView playerView = boardView.getCurrentPlayer();
-        PlayerView opponentView = boardView.getOpponentPlayer();
+        PlayerView opponentView = boardView.getAgainstPlayer();
         ControllerUtilities.weatherAbility(playerView , 1);
         ControllerUtilities.weatherAbility(opponentView , 1);
         ControllerUtilities.weatherAbility(playerView , 2);
         ControllerUtilities.weatherAbility(opponentView , 2);
-    }
-//TODO stop
-}
+    }}

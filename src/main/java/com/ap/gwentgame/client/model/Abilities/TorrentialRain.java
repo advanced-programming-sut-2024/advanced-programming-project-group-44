@@ -9,7 +9,7 @@ public class TorrentialRain extends Ability{
     @Override
     public void run(BoardView boardView, int index, Card card) {
         PlayerView player = boardView.getCurrentPlayer();
-        PlayerView opponent = boardView.getOpponentPlayer();
+        PlayerView opponent = boardView.getAgainstPlayer();
         ControllerUtilities.weatherAbility(player, 2);
         ControllerUtilities.weatherAbility(opponent, 2);
     }

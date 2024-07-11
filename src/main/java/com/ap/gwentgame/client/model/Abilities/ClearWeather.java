@@ -9,7 +9,7 @@ public class ClearWeather extends Ability{
     @Override
     public void run(BoardView boardView, int index, Card card) {
         PlayerView playerView = boardView.getCurrentPlayer();
-        PlayerView opponentView = boardView.getOpponentPlayer();
+        PlayerView opponentView = boardView.getAgainstPlayer();
         ControllerUtilities.weatherAbility(playerView , 0);
         ControllerUtilities.weatherAbility(opponentView , 0);
     }
