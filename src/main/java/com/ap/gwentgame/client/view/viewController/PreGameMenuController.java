@@ -1,4 +1,4 @@
-package com.ap.gwentgame.client.controller;
+package com.ap.gwentgame.client.view.viewController;
 
 import com.ap.gwentgame.client.enums.*;
 import com.ap.gwentgame.client.enums.assets.Backgrounds;

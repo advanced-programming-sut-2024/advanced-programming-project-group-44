@@ -1,6 +1,6 @@
 package com.ap.gwentgame.client.model.gameElementViews;
 
-import com.ap.gwentgame.client.controller.MusicController;
+import com.ap.gwentgame.client.view.viewController.MusicController;
 import com.ap.gwentgame.client.enums.assets.Backgrounds;
 import com.ap.gwentgame.client.enums.assets.Icons;
 import com.ap.gwentgame.client.model.gameElements.Board;

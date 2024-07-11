@@ -13,19 +13,20 @@ import javafx.scene.input.MouseEvent;
 
 public class EditMenuController {
     @FXML
-    private TextField nameField;
+    public TextField nameField;
     @FXML
-    private TextField nicknameField;
+    public TextField nicknameField;
     @FXML
-    private TextField emailField;
+    public TextField emailField;
     @FXML
-    private PasswordField currentPasswordField;
+    public PasswordField currentPasswordField;
     @FXML
-    private PasswordField newPasswordField;
+    public PasswordField newPasswordField;
     @FXML
-    private PasswordField confirmPasswordField;
+    public PasswordField confirmPasswordField;
     @FXML
-    private ImageView back;
+    public ImageView back;
+
 
 
     public String initialize() {
@@ -44,8 +45,8 @@ public class EditMenuController {
         }
 
         if(!ControllerUtilities.validateUsername(nameField)) return "invalid username";
-        if(ControllerUtilities.validateUsername(nicknameField)) return "invalid nickname";
-        if(ControllerUtilities.validateEmail(emailField)) return "invalid email";
+        if(!ControllerUtilities.validateNickname(nameField , nicknameField)) return "invalid nickname";
+        if(!ControllerUtilities.validateEmail(emailField)) return "invalid email";
 
         Session.getLoggedInUser().setName(nameField.getText());
         Session.getLoggedInUser().setNickName(nicknameField.getText());
@@ -65,13 +66,10 @@ public class EditMenuController {
             ViewUtilities.showErrorAlert("Error", "Current password is incorrect");
             return "invalid password";
         }
-
-        if (currentPasswordField.equals(newPasswordField)) {
+        if (currentPasswordField.getText().equals(newPasswordField.getText())) {
             ViewUtilities.showErrorAlert("Error", "New password cannot be the same as the current password");
             return "same password";
         }
-
-        if(!ControllerUtilities.validatePassword(currentPasswordField, newPasswordField)) return "invalid password";
 
         Session.getLoggedInUser().setPassword(newPasswordField.getText());
         ViewUtilities.showInformationAlert("Success", "Password changed successfully");
@@ -79,12 +77,6 @@ public class EditMenuController {
     }
 
     public String backToProfileMenu(MouseEvent mouseEvent) {
-        try {
-            ProfileMenu profileMenu = new ProfileMenu();
-            profileMenu.start(Session.getStage());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         return "done";
     }
 }

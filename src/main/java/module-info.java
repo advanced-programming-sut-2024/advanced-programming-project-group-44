@@ -27,7 +27,8 @@ module com.ap.gwentgame {
     opens com.ap.gwentgame.client.model.Leaders to javafx.fxml, com.google.gson;
     opens com.ap.gwentgame.client.enums to javafx.fxml, com.google.gson;
     opens com.ap.gwentgame.client.enums.assets to javafx.fxml, com.google.gson;
-
+    exports com.ap.gwentgame.client.view.viewController;
+    opens com.ap.gwentgame.client.view.viewController to com.google.gson, javafx.fxml;
 
 
 }

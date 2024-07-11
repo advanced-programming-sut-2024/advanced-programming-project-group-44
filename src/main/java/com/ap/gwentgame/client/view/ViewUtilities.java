@@ -1,6 +1,6 @@
 package com.ap.gwentgame.client.view;
 
-import com.ap.gwentgame.client.controller.MusicController;
+import com.ap.gwentgame.client.view.viewController.MusicController;
 import com.ap.gwentgame.client.enums.assets.Icons;
 import com.ap.gwentgame.client.model.gameElementViews.CardViewContainer;
 import com.ap.gwentgame.client.model.gameElementViews.ItemView;
@@ -53,19 +53,23 @@ public class ViewUtilities {
     }
 
     public static void showInformationAlert(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(title);
-        alert.setContentText(message);
-        alert.show();
+        Platform.runLater(() -> {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle(title);
+            alert.setHeaderText(title);
+            alert.setContentText(message);
+            alert.show();
+        });
     }
 
     public static void showErrorAlert(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setHeaderText(title);
-        alert.setContentText(message);
-        alert.show();
+        Platform.runLater(() -> {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle(title);
+            alert.setHeaderText(title);
+            alert.setContentText(message);
+            alert.show();
+        });
     }
 
     public static void changeNumber(Label numberLabel, int targetNumber) {
@@ -178,7 +182,6 @@ public class ViewUtilities {
 
         itemSelector.getChildren().add(submitButton);
     }
-
 
 
     private static void updateSelectedItemView(ArrayList<? extends ItemView> itemViews, ItemView selectedItemView) {

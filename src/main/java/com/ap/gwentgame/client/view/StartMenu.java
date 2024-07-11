@@ -1,6 +1,6 @@
 package com.ap.gwentgame.client.view;
 
-import com.ap.gwentgame.client.controller.MusicController;
+import com.ap.gwentgame.client.view.viewController.MusicController;
 import com.ap.gwentgame.client.enums.assets.FXMLs;
 import com.ap.gwentgame.client.model.Session;
 import javafx.application.Application;
