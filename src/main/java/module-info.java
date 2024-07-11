@@ -6,6 +6,7 @@ module com.ap.gwentgame {
     requires javafx.media;
     requires com.google.gson;
     requires java.xml;
+    requires java.persistence;
 
     exports com.ap.gwentgame.client.controller;
     exports com.ap.gwentgame.client.view;

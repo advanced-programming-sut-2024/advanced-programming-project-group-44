@@ -1,16 +1,16 @@
 package com.ap.gwentgame.client.model;
 
 import com.ap.gwentgame.client.enums.Question;
-import com.ap.gwentgame.client.model.gameElements.Card;
+import com.ap.gwentgame.client.model.Game.GameData;
 
 
 import java.util.ArrayList;
 
 public class User {
-    private  String name;
-    private  String password;
-    private  String nickName;
-    private  String email;
+    private String name;
+    private String password;
+    private String nickName;
+    private String email;
     private int gamesPlayed;
     private int highestPoint;
     private int rank;
@@ -19,8 +19,7 @@ public class User {
     private int losses;
     private final Question question;
     private final String answer;
-    private final ArrayList<Card> deck;
-    private final ArrayList<GameLog> gameHistory;
+    private final ArrayList<User> friends;
 
     public User(String name, String password, String nickName, String email, Question question, String answer) {
         this.name = name;
@@ -35,8 +34,7 @@ public class User {
         this.wins = 0;
         this.draws = 0;
         this.losses = 0;
-        this.deck = new ArrayList<Card>();
-        this.gameHistory = new ArrayList<GameLog>();
+        this.friends = new ArrayList<User>();
     }
 
     public String getName() {
@@ -127,11 +125,11 @@ public class User {
         this.losses = losses;
     }
 
-    public ArrayList<Card> getDeck() {
-        return deck;
+    public ArrayList<User> getFriends() {
+        return this.friends;
     }
 
-    public ArrayList<GameLog> getGameHistory() {
-        return gameHistory;
+    public void addFriends(User user) {
+        friends.add(user);
     }
 }
