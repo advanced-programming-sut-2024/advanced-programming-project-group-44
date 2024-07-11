@@ -20,8 +20,11 @@ public class DestroyerOfWorlds extends Leader {
         CardView killCard2 = playerView.getHandView().getCardViews().get(index % 100);
         index = index / 100;
         CardView chosenCard = playerView.getDeckView().getCardViews().get(index % 100);
-        ViewUtilities.changeCardContainer(boardView.getGamePane(), playerView.getHandView(), playerView.getDiscardPileView(), killCard1);
-        ViewUtilities.changeCardContainer(boardView.getGamePane(), playerView.getHandView(), playerView.getDiscardPileView(), killCard2);
-        ViewUtilities.changeCardContainer(boardView.getGamePane(), playerView.getDeckView(), playerView.getHandView(), chosenCard);
+        ViewUtilities.changeCardContainer(false ,boardView, playerView.getHandView(),
+                playerView.getDiscardPileView(), killCard1);
+        ViewUtilities.changeCardContainer(false ,boardView, playerView.getHandView(),
+                playerView.getDiscardPileView(), killCard2);
+        ViewUtilities.changeCardContainer(false ,boardView, playerView.getDeckView(),
+                playerView.getHandView(), chosenCard);
     }
 }

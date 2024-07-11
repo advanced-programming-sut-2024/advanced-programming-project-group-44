@@ -22,7 +22,7 @@ public class TheWhiteFlame extends Leader {
         for(CardView cardView : deckCardViews){
             Card card = (Card) cardView.getItem();
             if(card.getName().contains("rain")){
-                ViewUtilities.changeCardContainer(boardView.getGamePane() ,
+                ViewUtilities.changeCardContainer(false , boardView ,
                         playerView.getDeckView() , boardView.getWeatherCards() , cardView);
             }
         }

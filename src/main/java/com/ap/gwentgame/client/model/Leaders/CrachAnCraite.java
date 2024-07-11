@@ -26,12 +26,12 @@ public class CrachAnCraite extends Leader {
             Card card = (Card) cardView.getItem();
             if (card instanceof UnitCard) {
                 if (!((UnitCard) card).isHero()) {
-                    ViewUtilities.changeCardContainer(boardView.getGamePane()
+                    ViewUtilities.changeCardContainer(false ,boardView
                             , playerView.getDiscardPileView()
                             , playerView.getDeckView() , cardView);
                 }
             }
-            ViewUtilities.changeCardContainer(boardView.getGamePane() ,
+            ViewUtilities.changeCardContainer(false ,boardView ,
                     playerView.getDiscardPileView() ,
                     playerView.getDeckView() , cardView);
         }

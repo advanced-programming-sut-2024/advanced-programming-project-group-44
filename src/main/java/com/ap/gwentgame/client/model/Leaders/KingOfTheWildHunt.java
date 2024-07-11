@@ -20,7 +20,7 @@ public class KingOfTheWildHunt extends Leader {
         PlayerView player = boardView.getCurrentPlayer();
         ArrayList<CardView> discardPileCards = player.getDiscardPileView().getCardViews();
         CardView chosenCardView = discardPileCards.get(index);
-        ViewUtilities.changeCardContainer(boardView.getGamePane() , player.getDiscardPileView()
+        ViewUtilities.changeCardContainer(false , boardView , player.getDiscardPileView()
                 , player.getHandView() , chosenCardView);
     }
 

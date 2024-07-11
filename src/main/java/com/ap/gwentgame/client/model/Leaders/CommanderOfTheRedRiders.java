@@ -4,6 +4,7 @@ import com.ap.gwentgame.client.enums.FactionType;
 import com.ap.gwentgame.client.model.gameElementViews.BoardView;
 import com.ap.gwentgame.client.model.gameElementViews.CardView;
 import com.ap.gwentgame.client.model.gameElementViews.PlayerView;
+import com.ap.gwentgame.client.model.gameElements.Card;
 import com.ap.gwentgame.client.model.gameElements.Leader;
 
 import java.util.ArrayList;
@@ -17,10 +18,9 @@ public class CommanderOfTheRedRiders extends Leader {
     public void executeAbility(BoardView boardView, int index) {
         PlayerView playerView = boardView.getCurrentPlayer();
         ArrayList<CardView> deckCards = playerView.getDeckView().getCardViews();
-        //TODO nadashte bashe?
-        if(index != null){
+        if(index != -1){
             CardView chosenWeatherCard = deckCards.get(index);
-            //?chosenWeatherCard
+            ((Card)chosenWeatherCard.getItem()).getAbility().run(boardView , 0 , ((Card)chosenWeatherCard.getItem()));
         }
     }
 }

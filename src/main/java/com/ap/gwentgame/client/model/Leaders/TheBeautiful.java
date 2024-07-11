@@ -17,7 +17,6 @@ public class TheBeautiful extends Leader {
     @Override
     public void executeAbility(BoardView boardView, int index) {
         PlayerView player = boardView.getCurrentPlayer();
-        //TODO check the row & check if it also happens for the opponent
         for(CardView cardView : player.getRowViews()[1].getCardViews()){
             Card card = (Card) cardView.getItem();
             if(card instanceof UnitCard && !(card.getName().contains("commander'sHorn")) &&

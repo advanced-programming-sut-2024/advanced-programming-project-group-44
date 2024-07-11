@@ -1,6 +1,7 @@
 package com.ap.gwentgame.client.model.gameElements;
 
 import com.ap.gwentgame.client.enums.FactionType;
+import com.ap.gwentgame.client.model.gameElementViews.BoardView;
 
 import java.io.Serializable;
 
@@ -15,7 +16,7 @@ public abstract class Leader extends Item implements Serializable {
         canAbilityBeExecuted = true;
     }
 
-    public abstract void executeAbility(Board board);
+    public abstract void executeAbility(BoardView boardView , int index);
 
     public FactionType getFactionType() {
         return factionType;

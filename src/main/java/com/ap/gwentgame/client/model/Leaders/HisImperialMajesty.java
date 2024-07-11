@@ -20,7 +20,7 @@ public class HisImperialMajesty extends Leader {
         int indexCard2 = index % 100;
         index = index/100;
         int indexCard3 = index % 100;
-        PlayerView opponent = boardView.getOpponentPlayer();
+        PlayerView opponent = boardView.getAgainstPlayerView();
         ArrayList<CardView> handCardsOpponent = opponent.getHandView().getCardViews();
         CardView cardView1 = handCardsOpponent.get(indexCard1);
         CardView cardView2 = handCardsOpponent.get(indexCard2);

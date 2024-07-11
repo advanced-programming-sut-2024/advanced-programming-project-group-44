@@ -18,12 +18,14 @@ public class InvaderOfTheNorth extends Leader {
     @Override
     public void executeAbility(BoardView boardView, int index) {
         PlayerView player = boardView.getCurrentPlayer();
-        PlayerView opponent = boardView.getOpponentPlayer();
+        PlayerView opponent = boardView.getAgainstPlayerView();
         ArrayList<CardView> discardPileOpponent = opponent.getDiscardPileView().getCardViews();
         CardView card = getRandomCard(discardPileOpponent);
-        ViewUtilities.changeCardContainer(boardView.getGamePane(), opponent.getDiscardPileView(), opponent.getHandView(), card);
+        ViewUtilities.changeCardContainer(false , boardView, opponent.getDiscardPileView(),
+                opponent.getHandView(), card);
         card = getRandomCard(discardPileOpponent);
-        ViewUtilities.changeCardContainer(boardView.getGamePane(), player.getDiscardPileView(), player.getHandView(), card);
+        ViewUtilities.changeCardContainer(false , boardView, player.getDiscardPileView(),
+                player.getHandView(), card);
     }
 
     public static CardView getRandomCard(ArrayList<CardView> list) {

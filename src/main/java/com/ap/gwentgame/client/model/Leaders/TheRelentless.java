@@ -16,11 +16,11 @@ public class TheRelentless extends Leader {
 
     @Override
     public void executeAbility(BoardView boardView, int index) {
-        PlayerView opponentView = boardView.getOpponentPlayer();
+        PlayerView opponentView = boardView.getAgainstPlayerView();
         PlayerView playerView = boardView.getCurrentPlayer();
         ArrayList<CardView> discardPileCardViews = opponentView.getDiscardPileView().getCardViews();
         CardView cardDiscardPile = discardPileCardViews.get(index);
-        ViewUtilities.changeCardContainer(boardView.getGamePane() ,
+        ViewUtilities.changeCardContainer(false , boardView ,
                 opponentView.getDiscardPileView() , playerView.getHandView() , cardDiscardPile);
     }
 

@@ -3,6 +3,7 @@ package com.ap.gwentgame.client.model.gameElements;
 import com.ap.gwentgame.client.enums.FactionType;
 import com.ap.gwentgame.client.model.Abilities.Ability;
 import com.ap.gwentgame.client.enums.Placement;
+import com.ap.gwentgame.client.model.gameElementViews.BoardView;
 
 import java.io.Serializable;
 
@@ -17,7 +18,7 @@ public abstract class Card extends Item implements Serializable {
         this.factionType = factionType;
     }
 
-    public void executeAction(Board board) {
+    public void executeAction(BoardView boardView , int index , Card card) {
         //ability.run(board);
     }
 

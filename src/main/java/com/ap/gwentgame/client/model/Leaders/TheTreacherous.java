@@ -16,7 +16,7 @@ public class TheTreacherous extends Leader {
     @Override
     public void executeAbility(BoardView boardView, int index) {
         PlayerView playerView = boardView.getCurrentPlayer();
-        PlayerView opponentView = boardView.getOpponentPlayer();
+        PlayerView opponentView = boardView.getAgainstPlayerView();
         doubleSpyPower(playerView);
         doubleSpyPower(opponentView);
     }

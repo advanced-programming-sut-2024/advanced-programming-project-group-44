@@ -17,7 +17,7 @@ public class LordCommanderOfTheNorth extends Leader {
 
     @Override
     public void executeAbility(BoardView boardView, int index) {
-        PlayerView opponent = boardView.getOpponentPlayer();
+        PlayerView opponent = boardView.getAgainstPlayerView();
         int score = ControllerUtilities.calculateScoreOfRowNotHero(opponent, 2);
         int maxScore = ControllerUtilities.calculateMaxScoreOfRowNotHero(opponent, 2);
         if (score >= 10) {
@@ -25,7 +25,7 @@ public class LordCommanderOfTheNorth extends Leader {
                 Card card = (Card) cardView.getItem();
                 if (card instanceof UnitCard && !((UnitCard) card).isHero()
                         && ((UnitCard) card).getScore() == maxScore) {
-                    ViewUtilities.changeCardContainer(boardView.getGamePane() , opponent.getRowViews()[2]
+                    ViewUtilities.changeCardContainer(false , boardView , opponent.getRowViews()[2]
                             , opponent.getDiscardPileView() , cardView);
                 }
             }

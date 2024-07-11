@@ -5,6 +5,7 @@ import com.ap.gwentgame.client.model.gameElementViews.BoardView;
 import com.ap.gwentgame.client.model.gameElementViews.CardView;
 import com.ap.gwentgame.client.model.gameElementViews.PlayerView;
 import com.ap.gwentgame.client.model.gameElementViews.UnitCardView;
+import com.ap.gwentgame.client.model.gameElements.Board;
 import com.ap.gwentgame.client.model.gameElements.Card;
 import com.ap.gwentgame.client.model.gameElements.Leader;
 import com.ap.gwentgame.client.model.gameElements.UnitCard;
@@ -13,6 +14,7 @@ public class BringerOfDeath extends Leader {
     public BringerOfDeath(String name, FactionType factionType) {
         super(name, factionType);
     }
+
 
     @Override
     public void executeAbility(BoardView boardView, int index) {

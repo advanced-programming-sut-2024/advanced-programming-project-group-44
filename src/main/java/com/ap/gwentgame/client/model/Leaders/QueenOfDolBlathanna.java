@@ -17,7 +17,7 @@ public class QueenOfDolBlathanna extends Leader {
 
     @Override
     public void executeAbility(BoardView boardView, int index) {
-        PlayerView opponentView = boardView.getOpponentPlayer();
+        PlayerView opponentView = boardView.getAgainstPlayerView();
         int score = ControllerUtilities.calculateScoreOfRowNotHero(opponentView , 0);
         if(score >= 10){
             int maxScore = ControllerUtilities.calculateMaxScoreOfRowNotHero(opponentView, 1);
@@ -25,7 +25,7 @@ public class QueenOfDolBlathanna extends Leader {
                 Card card = (Card) cardView.getItem();
                 if (card instanceof UnitCard && !((UnitCard) card).isHero()
                         && ((UnitCard) card).getScore() == maxScore) {
-                    ViewUtilities.changeCardContainer(boardView.getGamePane() , opponentView.getRowViews()[1]
+                    ViewUtilities.changeCardContainer(false , boardView , opponentView.getRowViews()[1]
                             , opponentView.getDiscardPileView() , cardView);
                 }
             }

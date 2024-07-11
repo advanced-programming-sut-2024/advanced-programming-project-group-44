@@ -12,9 +12,8 @@ public class EmperorOfNilfgaard extends Leader {
 
     @Override
     public void executeAbility(BoardView boardView, int index) {
-        PlayerView opponentView = boardView.getOpponentPlayer();
-
-        //TODO ?????? null kardan ability leader
+        PlayerView opponentView = boardView.getAgainstPlayerView();
+        opponentView.getLeaderView().setItem(null);
     }
 
 
