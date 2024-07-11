@@ -41,6 +41,9 @@ public class UserHandler extends Thread {
     private static final HashMap<Integer, BoardHandler> games = new HashMap<>();
     private static int gameID = 0;
 
+    private static final Queue<UserHandler> tournamentWaitingPlayers = new LinkedList<>();
+    private static final HashMap<Integer, BoardHandler> tournamentGames = new HashMap<>();
+
     private static final HashMap<User, User> friendRequests = new HashMap<>();
 
     private static final GsonBuilder builder = new GsonBuilder().registerTypeAdapter(Card.class,
@@ -307,7 +310,49 @@ public class UserHandler extends Thread {
             currentBoardHandler.submitCommand(messageText, board);
         }
 
-        sendResponse("Invalid message");
+        if ((matcher = ClientCommands.REQUEST_SPECTATE_GAME.getMatcher(messageText)).matches()) {
+            int gameID = Integer.parseInt(matcher.group(1));
+            BoardHandler boardHandler = games.get(gameID);
+            if (boardHandler == null) {
+                sendResponse("Game not found");
+                return;
+            }
+            boardHandler.addSpectator(this);
+            sendResponse("Spectating game", boardHandler.getCurrentBoard());
+            return;
+        }
+
+        if ((matcher = ClientCommands.REQUEST_TOURNAMENT_GAME.getMatcher(messageText)).matches()) {
+            currentPlayer = gson.fromJson(clientMessage.getAdditionalText(), Player.class);
+
+            if (randomWaitingPlayers.size() == 7) {
+                ArrayList<UserHandler> players = new ArrayList<>();
+                players.add(this);
+                for (int i = 0; i < 7; i++) {
+                    players.add(randomWaitingPlayers.poll());
+                }
+
+                TournamentHandler tournamentHandler = new TournamentHandler(players);
+                tournamentHandler.startTournament();
+            } else {
+                randomWaitingPlayers.add(this);
+                sendResponse("Waiting for opponent");
+                return;
+            }
+
+            sendResponse("Invalid message");
+        }
+
+        if ((matcher = ClientCommands.REQUEST_REWATCH_GAME.getMatcher(messageText)).matches()) {
+            int gameID = Integer.parseInt(matcher.group(1));
+            BoardHandler boardHandler = games.get(gameID);
+            if (boardHandler == null) {
+                sendResponse("Game not found");
+                return;
+            }
+            sendResponse("Rewatch started", boardHandler.getCurrentBoard().getInitialBoard());
+            return;
+        }
     }
 
     protected void sendResponse(String messageText) {

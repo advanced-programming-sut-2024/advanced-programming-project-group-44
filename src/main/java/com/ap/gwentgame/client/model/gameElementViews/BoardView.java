@@ -180,6 +180,7 @@ public class BoardView {
         Thread daemonThread = new Thread(() -> {
             while (true) {
                 ServerMessage command = Client.getResponse();
+                board.addCommand(command.getMessageText());
                 Board updatedBoard = Client.getGson().fromJson(command.getAdditionalText(), Board.class);
 
                 if (player1View.equals(currentPlayerView) && !player1View.isLocalPlayer()) {

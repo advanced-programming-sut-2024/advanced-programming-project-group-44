@@ -14,7 +14,7 @@ public enum ClientCommands {
     EDIT_PASSWORD("edit password (\\S+) (\\S+)"),
     REQUEST_RANDOM_GAME("GAME start random"),
     REQUEST_FRIEND_GAME("GAME start with friend (\\S+)"),
-    REQUEST_TORNAMENT_GAME("GAME start tournament"),
+    REQUEST_TOURNAMENT_GAME("GAME start tournament"),
     REQUEST_SPECTATE_GAME("GAME start spectate game (\\d+)"),
     REQUEST_REWATCH_GAME("GAME start rewatch game (\\d+)"),
     PLAY_CARD("GAME (\\d+) player (\\S+) play card (\\d+) to container (\\d+) with abilityInput (\\-?\\d+)"),

@@ -77,4 +77,12 @@ public class Board implements Serializable {
     public int getID(){
         return ID;
     }
+
+    public Board getInitialBoard() {
+        return initialBoard;
+    }
+
+    public ArrayList<String> getCommands() {
+        return commands;
+    }
 }

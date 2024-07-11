@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 public class Database {
     private static ArrayList<User> users = new ArrayList<>();
-    private static ArrayList<GameLog> games = new ArrayList<>();
 
     public static User findUserByUsername(String username){
         for(User user : users){
@@ -38,9 +37,5 @@ public class Database {
 
     public static void addUser(User user){
         users.add(user);
-    }
-
-    public static void addGame(GameLog game){
-        games.add(game);
     }
 }

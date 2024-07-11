@@ -30,7 +30,8 @@ public enum ServerCommands {
     GAME_STARTED("GAME started"),
     PLAY_CARD("GAME (\\d+) player (\\S+) play card (\\d+) to container (\\d+) with abilityInput (\\-?\\d+)"),
     PLAY_LEADER("GAME (\\d+) player (\\S+) play leader power with abilityInput (\\d+)"),
-    PLAY_PASS("GAME (\\d+) player (\\S+) play pass");
+    PLAY_PASS("GAME (\\d+) player (\\S+) play pass"),
+    REWATCH_STARTED("GAME rewatch started");
 
     private final String messageRegex;
 
