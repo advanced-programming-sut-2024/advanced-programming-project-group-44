@@ -4,6 +4,7 @@ import com.ap.gwentgame.client.model.Session;
 import com.ap.gwentgame.client.model.gameElementViews.CardView;
 import com.ap.gwentgame.client.model.gameElementViews.PlayerView;
 import com.ap.gwentgame.client.model.gameElementViews.UnitCardView;
+import com.ap.gwentgame.client.model.gameElements.Card;
 import com.ap.gwentgame.client.model.gameElements.UnitCard;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -163,15 +164,41 @@ public class ControllerUtilities {
         return new String(characters);
     }
 
-    private static int getRandomNumberInRange(int min, int max) {
-        return random.nextInt((max - min) + 1) + min;
-    }
-
     public static void weatherAbility(PlayerView playerView , int row) {
         for (CardView cardView : playerView.getRowViews()[row].getCardViews()) {
             if (cardView instanceof UnitCardView unitCardView && !((UnitCard) cardView.getItem()).isHero()) {
                 unitCardView.setScore(1);
             }
         }
+    }
+    public static void stopWeatherAbility(PlayerView playerView , int row) {
+        for (CardView cardView : playerView.getRowViews()[row].getCardViews()) {
+            if (cardView instanceof UnitCardView unitCardView && !((UnitCard) cardView.getItem()).isHero()) {
+                unitCardView.setScore(((UnitCard)(cardView.getItem())).getInitialScore());
+            }
+        }
+    }
+
+    public static int calculateScoreOfRowNotHero(PlayerView playerView , int row){
+        int score = 0;
+        for (Card card : playerView.getRowViews()[row].getCards()) {
+            if (card instanceof UnitCard && !((UnitCard) card).isHero()) {
+                score += ((UnitCard) card).getScore();
+            }
+        }
+        return score;
+    }
+    public static int calculateMaxScoreOfRowNotHero(PlayerView player , int row){
+        int maxScore = 0;
+        for (Card card : player.getRowViews()[row].getCards()) {
+            if (card instanceof UnitCard && !((UnitCard) card).isHero()) {
+                if (((UnitCard) card).getScore() > maxScore) maxScore = ((UnitCard) card).getScore();
+            }
+        }
+        return maxScore;
+    }
+
+    private static int getRandomNumberInRange(int min, int max) {
+        return random.nextInt((max - min) + 1) + min;
     }
 }

@@ -24,7 +24,6 @@ public class TightBond extends Ability {
                 UnitCard unitcard = ((UnitCard) targetCard);
                 unitcard.setScore(newScoreForTightBondCards);
             }
-            //?????? TODO ??????? card.setScore ya isHeroCheck
         }
     }
 

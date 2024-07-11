@@ -13,15 +13,15 @@ public class Scorch extends Ability {
     public void run(BoardView boardView, int index, Card card) {
         PlayerView opponentView = boardView.getOpponentPlayer();
         int row = card.getPlacement().getRow();
-        int scoreOfUnHeroCards = ControllerUtilities.calculateScoreOfRowNotHero(opponentView , row);
-        int maxScore = ControllerUtilities.calculateMaxScoreOfRowNotHero(opponentView , row);
-        if(scoreOfUnHeroCards >= 10){
-            for(CardView targetCardView : opponentView.getRowViews()[row].getCardViews()){
+        int scoreOfUnHeroCards = ControllerUtilities.calculateScoreOfRowNotHero(opponentView, row);
+        int maxScore = ControllerUtilities.calculateMaxScoreOfRowNotHero(opponentView, row);
+        if (scoreOfUnHeroCards >= 10) {
+            for (CardView targetCardView : opponentView.getRowViews()[row].getCardViews()) {
                 Card targetCard = (Card) targetCardView.getItem();
-                if(targetCard instanceof UnitCard
+                if (targetCard instanceof UnitCard
                         && ((UnitCard) targetCard).getScore() == maxScore
-                        && !((UnitCard) targetCard).isHero()){
-                    ViewUtilities.changeCardContainer(boardView.getGamePane() , opponentView.getRowViews()[row] , opponentView.getDiscardPileView() , targetCardView);
+                        && !((UnitCard) targetCard).isHero()) {
+                    ViewUtilities.changeCardContainer(false, boardView, opponentView.getRowViews()[row], opponentView.getDiscardPileView(), targetCardView);
                 }
             }
         }
