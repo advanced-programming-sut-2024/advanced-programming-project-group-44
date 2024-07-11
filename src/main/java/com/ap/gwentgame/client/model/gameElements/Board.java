@@ -14,17 +14,20 @@ public class Board implements Serializable {
     private Board InitialBoard;
     private ArrayList<String> commands;
 
+    private final int ID;
+
     private final ArrayList<WeatherCard> weatherCardCards;
 
     private final Date creationDate;
 
-    public Board(Player player1, Player player2){
+    public Board(Player player1, Player player2, int ID){
         this.player1 = player1;
         this.player2 = player2;
         this.currentPlayer = player1;
         this.opponentPlayer = player2;
         this.creationDate = new Date();
         this.weatherCardCards = new ArrayList<>();
+        this.ID = ID;
     }
 
     public Player getPlayer1() {
@@ -65,5 +68,13 @@ public class Board implements Serializable {
 
     public Date getCreationDate() {
         return creationDate;
+    }
+
+    public void addCommand(String command){
+        commands.add(command);
+    }
+
+    public int getID(){
+        return ID;
     }
 }

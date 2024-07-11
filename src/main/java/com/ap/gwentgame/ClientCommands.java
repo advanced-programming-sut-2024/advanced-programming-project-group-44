@@ -16,8 +16,8 @@ public enum ClientCommands {
     REQUEST_TORNAMENT_GAME("GAME start tournament"),
     REQUEST_SPECTATE_GAME("GAME start spectate game (\\d+)"),
     REQUEST_REWATCH_GAME("GAME start rewatch game (\\d+)"),
-    PLAY_CARD("GAME (\\d+) player (\\S+) play card (\\d+) to (\\d+) with (\\d+)"),
-    PLAY_LEADER("GAME (\\d+) player (\\S+) play leader power with (\\d+)"),
+    PLAY_CARD("GAME (\\d+) player (\\S+) play card (\\d+) to container (\\d+) with abilityInput (\\-?\\d+)"),
+    PLAY_LEADER("GAME (\\d+) player (\\S+) play leader power with abilityInput (\\d+)"),
     PLAY_PASS("GAME (\\d+) player (\\S+) play pass");
 
     private final String messageRegex;

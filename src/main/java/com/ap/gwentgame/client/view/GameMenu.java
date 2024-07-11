@@ -22,6 +22,7 @@ public class GameMenu extends Application {
         Scene gameScene = new Scene(gamePane, 1200, 800);
         stage.setScene(gameScene);
         stage.show();
+        boardView.startListening();
     }
 
     public static void main(String[] args) {

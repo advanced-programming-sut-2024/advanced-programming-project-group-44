@@ -78,11 +78,16 @@ public class ViewUtilities {
         timeline.play();
     }
 
-    public static void changeCardContainer(BoardView boardView, CardViewContainer from, CardViewContainer to, ItemView cardView) {
+    public static void changeCardContainer(boolean fromOutSide, BoardView boardView, CardViewContainer from, CardViewContainer to, ItemView cardView) {
         double startX = from.getLayoutX() + cardView.getLayoutX();
         double startY = from.getLayoutY() + cardView.getLayoutY();
         double endX = to.getLayoutX() + to.getCardViews().size() * (cardView.getWidth() + to.getHgap());
         double endY = to.getLayoutY();
+
+        if (fromOutSide){
+            startX = 600;
+            startY = -100;
+        }
 
         boardView.getGamePane().getChildren().add(cardView);
         cardView.setLayoutX(0);

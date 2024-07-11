@@ -47,10 +47,7 @@ public class UserHandler extends Thread {
     private static int gameID = 0;
 
 
-    private static final GsonBuilder builder = new GsonBuilder().registerTypeAdapter(Card.class,
-            new PropertyMarshallerAbstractTask()).registerTypeAdapter(Ability.class,
-            new PropertyMarshallerAbstractTask()).registerTypeAdapter(Leader.class,
-            new PropertyMarshallerAbstractTask());
+    private static final GsonBuilder builder = new GsonBuilder().registerTypeAdapter(Card.class, new PropertyMarshallerAbstractTask()).registerTypeAdapter(Ability.class, new PropertyMarshallerAbstractTask()).registerTypeAdapter(Leader.class, new PropertyMarshallerAbstractTask());
     private static Gson gson = builder.create();
 
 
@@ -189,13 +186,13 @@ public class UserHandler extends Thread {
             }
 
             user = Database.findUserByNickname(nickname);
-            if (user != null && user != currentUser){
+            if (user != null && user != currentUser) {
                 sendResponse("edit user failed - nickname already taken");
                 return;
             }
 
             user = Database.findUserByEmail(email);
-            if (user != null && user != currentUser){
+            if (user != null && user != currentUser) {
                 sendResponse("edit user failed - email already taken");
                 return;
             }
@@ -232,7 +229,7 @@ public class UserHandler extends Thread {
 
             if (!randomWaitingPlayers.isEmpty()) {
                 UserHandler player = randomWaitingPlayers.poll();
-                BoardHandler boardHandler = new BoardHandler(this, player);
+                BoardHandler boardHandler = new BoardHandler(this, player, gameID);
                 games.put(gameID++, boardHandler);
                 this.currentBoardHandler = boardHandler;
                 player.currentBoardHandler = boardHandler;
@@ -248,13 +245,20 @@ public class UserHandler extends Thread {
             }
         }
 
-        if((matcher = ClientCommands.LOGOUT_USER.getMatcher(messageText)).matches()){
+        if ((matcher = ClientCommands.LOGOUT_USER.getMatcher(messageText)).matches()) {
             loggedInUsers.remove(currentUser);
             currentUser = null;
             currentPlayer = null;
             currentBoardHandler = null;
             sendResponse("logout successful");
             return;
+        }
+
+        if ((matcher = ClientCommands.PLAY_CARD.getMatcher(messageText)).matches() ||
+                (matcher = ClientCommands.PLAY_PASS.getMatcher(messageText)).matches() ||
+                (matcher = ClientCommands.PLAY_LEADER.getMatcher(messageText)).matches()) {
+            Board board = gson.fromJson(clientMessage.getAdditionalText(), Board.class);
+            currentBoardHandler.submitCommand(messageText, board);
         }
 
         sendResponse("Invalid message");
