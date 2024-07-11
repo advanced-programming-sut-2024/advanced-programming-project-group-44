@@ -13,7 +13,10 @@ public enum Backgrounds {
     EDIT_MENU("EditMenu.jpg"),
     GAME_HISTORY("GameHistory.jpg"),
     PREGAME_MENU("MainBG.png"),
-    WAITING_SCREEN("WaitingScreen.jpg"),;
+    WAITING_SCREEN("WaitingScreen.jpg"),
+    TELEVISION_MENU("TelevisionMenu.jpg"),
+    FRIEND_REQUEST("FriendRequest.jpg"),
+    SCORE_BOARD("ScoreBoard.jpg"),;
 
     private final String name;
 

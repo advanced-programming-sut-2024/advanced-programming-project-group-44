@@ -246,7 +246,7 @@ public class UserHandler extends Thread {
 
             if (!randomWaitingPlayers.isEmpty()) {
                 UserHandler player = randomWaitingPlayers.poll();
-                BoardHandler boardHandler = new BoardHandler(this, player);
+                BoardHandler boardHandler = new BoardHandler(this, player, gameID);
                 games.put(gameID++, boardHandler);
                 this.currentBoardHandler = boardHandler;
                 player.currentBoardHandler = boardHandler;

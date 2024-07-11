@@ -72,6 +72,8 @@ public class BoardView {
         chatButton.setPrefSize(30, 30);
         chatButton.setStyle("-fx-background-color: transparent;");
         ImageView chatButtonIcon = new ImageView(Icons.CHAT.getImage());
+        chatButtonIcon.setFitHeight(20);
+        chatButtonIcon.setFitWidth(20);
         chatButton.setOnMouseClicked(event -> {
             chatBoxController.openChatBox();
         });
@@ -86,6 +88,8 @@ public class BoardView {
         reactionButton.setPrefSize(30, 30);
         reactionButton.setStyle("-fx-background-color: transparent;");
         ImageView reactionButtonIcon = new ImageView(Icons.REACT.getImage());
+        reactionButtonIcon.setFitHeight(20);
+        reactionButtonIcon.setFitWidth(20);
         reactionButton.setOnMouseClicked(event -> {
             reactionMenuController.openReactionBox();
         });

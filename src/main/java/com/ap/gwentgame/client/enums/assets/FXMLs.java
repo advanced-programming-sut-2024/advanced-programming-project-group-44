@@ -18,11 +18,11 @@ public enum FXMLs {
     BOARD("Board.fxml"),
     WAITING_SCREEN("WaitingScreen.fxml"),
     TELEVISION_MENU("TelevisionMenu.fxml"),
-    FRIEND_REQUEST_MENU("FriendRequestMenu.fxml"),
+    FRIEND_REQUEST_MENU("FriendRequest.fxml"),
     CHAT_BOX("ChatBox.fxml"),
     REACTION_BOX("ReactionBox.fxml"),
     SCORE_BOARD("ScoreBoard.fxml"),
-    TOURNAMENT_MENU("TournamentMenu.fxml"),
+    TOURNAMENT_MENU("Tournament.fxml"),
     VERIFICATION("Verification.fxml"),
     ;
 
