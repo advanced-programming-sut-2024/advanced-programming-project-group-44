@@ -40,6 +40,7 @@ public class UserHandler extends Thread {
     private static final HashMap<Integer, BoardHandler> games = new HashMap<>();
     private static int gameID = 0;
 
+    private static final HashMap<User, User> friendRequests = new HashMap<>();
 
     private static final GsonBuilder builder = new GsonBuilder().registerTypeAdapter(Card.class,
             new PropertyMarshallerAbstractTask()).registerTypeAdapter(Ability.class,
@@ -267,6 +268,34 @@ public class UserHandler extends Thread {
             currentPlayer = null;
             currentBoardHandler = null;
             sendResponse("logout successful");
+            return;
+        }
+
+        if ((matcher = ClientCommands.FRIEND_REQUEST.getMatcher(messageText)).matches()) {
+            sendResponse("Friend request sent");
+            User friend = Database.findUserByUsername(matcher.group(1));
+            friendRequests.put(currentUser, friend);
+            return;
+        }
+
+        if ((matcher = ClientCommands.FRIEND_ACCEPT.getMatcher(messageText)).matches()) {
+            sendResponse("Friend request accepted");
+            User friend = Database.findUserByUsername(matcher.group(1));
+            currentUser.addFriends(friend);
+            friend.addFriends(currentUser);
+            friendRequests.remove(friend);
+            return;
+        }
+
+        if ((matcher = ClientCommands.FRIEND_DECLINE.getMatcher(messageText)).matches()) {
+            sendResponse("Friend request declined");
+            User friend = Database.findUserByUsername(matcher.group(1));
+            friendRequests.remove(friend);
+            return;
+        }
+
+        if ((matcher = ClientCommands.GET_ALL_FRIEND_REQUESTS.getMatcher(messageText)).matches()) {
+            sendResponse("All friend requests", friendRequests);
             return;
         }
 

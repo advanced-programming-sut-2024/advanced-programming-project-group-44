@@ -5,6 +5,8 @@ import com.ap.gwentgame.client.Client;
 import com.ap.gwentgame.client.model.User;
 import com.ap.gwentgame.client.model.gameElements.Player;
 
+import java.util.HashMap;
+
 public class RequestSender {
     public static ServerMessage registerUser(User user) {
         String messageText = "register user";
@@ -59,4 +61,27 @@ public class RequestSender {
         String messageText = "GAME start random";
         Client.sendRequest(messageText, player);
     }
+
+    public static void requestFriendGame(Player player, String friendUsername) {
+        String messageText = "GAME start with friend" + " " + friendUsername;
+        Client.sendRequest(messageText, player);
+    }
+
+    public static void friendAccept(String friendUsername) {
+        String messageText = "friend accept" + " " + friendUsername;
+        Client.sendRequest(messageText);
+    }
+
+    public static void friendDecline(String friendUsername) {
+        String messageText = "friend decline" + " " + friendUsername;
+        Client.sendRequest(messageText);
+    }
+
+    public static ServerMessage getAllFriendRequests() {
+        String messageText = "get all friend requests";
+        Client.sendRequest(messageText);
+        return Client.getResponse();
+    }
+
+
 }
