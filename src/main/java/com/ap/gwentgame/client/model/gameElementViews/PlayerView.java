@@ -18,6 +18,7 @@ import javafx.scene.layout.AnchorPane;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Random;
 import java.util.Set;
 
 public class PlayerView {
@@ -199,13 +200,24 @@ public class PlayerView {
             delay += 1.1;
         }*/
 
+        Set<Integer> usedIndices = new HashSet<>();
+        ArrayList<CardView> cardViews = new ArrayList<>();
+        Random rand = new Random();
         for (int i = 0; i < 9; i++) {
-            int randomIndex = (int) (Math.random() * deckView.getCardViews().size());
+                int randomIndex;
+                do {
+                    randomIndex = rand.nextInt(deckView.getCardViews().size());
+                } while (usedIndices.contains(randomIndex));
+                usedIndices.add(randomIndex);
+
             CardView cardView = deckView.getCardViews().get(randomIndex);
+            cardViews.add(cardView);
             handView.add(cardView);
-            deckView.remove(cardView);
         }
 
+        for (CardView cardView : cardViews) {
+            deckView.remove(cardView);
+        }
 
         passButton.setPrefSize(50, 25);
         passButton.setLayoutX(210);
