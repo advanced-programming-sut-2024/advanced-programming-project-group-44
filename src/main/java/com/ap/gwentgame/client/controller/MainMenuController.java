@@ -27,7 +27,7 @@ public class MainMenuController {
     public Button muteButton;
 
     public void initialize() {
-        MainImage.setImage(Backgrounds.MAINBG.getImage());
+        MainImage.setImage(Backgrounds.MAIN_MENU.getImage());
         mute.setImage(Icons.UNMUTE.getImage());
     }
 
