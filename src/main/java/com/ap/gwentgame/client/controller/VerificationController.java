@@ -40,6 +40,7 @@ public class VerificationController {
         ViewUtilities.showInformationAlert("Success", "You have successfully verified your account.");
 
         User user = Client.getGson().fromJson(responseMessage.getAdditionalText(), User.class);
+        System.out.println(user.getName());
         Session.setLoggedInUser(user);
         sentCode.getScene().getWindow().hide();
 
