@@ -9,13 +9,12 @@ public class BoardHandler {
     private UserHandler player2;
     private final ArrayList<UserHandler> spectators;
     private Board currentBoard;
-    private boolean turn;
 
-    public BoardHandler(UserHandler player1, UserHandler player2){
+    public BoardHandler(UserHandler player1, UserHandler player2, int ID){
         this.player1 = player1;
         this.player2 = player2;
         this.spectators = new ArrayList<>();
-        this.currentBoard = new Board(player1.getPlayer(), player2.getPlayer());
+        this.currentBoard = new Board(player1.getPlayer(), player2.getPlayer(), ID);
     }
 
     public Board getCurrentBoard(){
@@ -28,11 +27,10 @@ public class BoardHandler {
 
     public void submitCommand(String command, Board updatedBoard){
         currentBoard = updatedBoard;
-        player1.sendResponse(command);
-        player2.sendResponse(command);
+        player1.sendResponse(command, currentBoard);
+        player2.sendResponse(command, currentBoard);
         for(UserHandler spectator : spectators){
-            spectator.sendResponse(command);
+            spectator.sendResponse(command, currentBoard);
         }
-        turn = !turn;
     }
 }

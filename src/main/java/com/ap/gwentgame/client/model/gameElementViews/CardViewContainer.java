@@ -9,7 +9,7 @@ import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
 
-public class CardViewContainer<T extends ItemView, K extends Item> extends FlowPane {
+public class CardViewContainer<T extends ItemView, K extends Item> extends CustomFlowPane {
     private final ArrayList<K> cards;
 
     public CardViewContainer(ArrayList<K> cards) {
@@ -53,7 +53,7 @@ public class CardViewContainer<T extends ItemView, K extends Item> extends FlowP
 
     public void remove(ItemView itemView) {
         this.getChildren().remove(itemView);
-        cards.remove(itemView.getItem());
+        cards.remove((K)itemView.getItem());
     }
 
     public void clear() {

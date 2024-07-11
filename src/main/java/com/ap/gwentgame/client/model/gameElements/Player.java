@@ -40,7 +40,7 @@ public class Player implements Serializable {
         for (PreGameCardView preGameCardView : addedCards.getCardViews()) {
             PreGameCard preGameCard = (PreGameCard) preGameCardView.getItem();
             for (int i = 0; i < preGameCard.getCount(); i++) {
-                this.hand.add(preGameCard.getCard());
+                this.deck.add(preGameCard.getCard());
             }
         }
     }

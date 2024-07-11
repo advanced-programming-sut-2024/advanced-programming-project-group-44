@@ -25,7 +25,10 @@ public enum ServerCommands {
     EDIT_PASSWORD_SUCCESSFUL("edit password successful"),
     EDIT_PASSWORD_FAILED_INCORRECT_PASSWORD("edit password failed - incorrect password"),
     EDIT_PASSWORD_FAILED_NO_CHANGES("edit password failed - no changes"),
-    GAME_STARTED("GAME started");
+    GAME_STARTED("GAME started"),
+    PLAY_CARD("GAME (\\d+) player (\\S+) play card (\\d+) to container (\\d+) with abilityInput (\\-?\\d+)"),
+    PLAY_LEADER("GAME (\\d+) player (\\S+) play leader power with abilityInput (\\d+)"),
+    PLAY_PASS("GAME (\\d+) player (\\S+) play pass");
 
     private final String messageRegex;
 
