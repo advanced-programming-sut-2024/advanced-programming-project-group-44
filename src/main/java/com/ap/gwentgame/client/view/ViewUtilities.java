@@ -191,7 +191,7 @@ public class ViewUtilities {
             } else {
                 itemView.setScaleX(1);
                 itemView.setScaleY(1);
-                itemView.setLayoutY(0); // Reset the position of other cards1
+                itemView.setLayoutY(0); // Reset the position of other cards
                 itemView.setStyle("-fx-font-weight: normal;");
             }
         }
