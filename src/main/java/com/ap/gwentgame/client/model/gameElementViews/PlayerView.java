@@ -40,6 +40,9 @@ public class PlayerView {
     private final CardViewContainer<CardView, Card>[] rowViews;
     private final CardViewContainer<CardView, Card>[] specialCardViews;
 
+    private ImageView healthIcon1;
+    private ImageView healthIcon2;
+
     private final ArrayList<CardViewContainer<? extends CardView, ? extends Card>> selectableContainers;
     private final PlayerView otherPlayerView;
 
@@ -200,29 +203,25 @@ public class PlayerView {
             delay += 1.1;
         }*/
 
-        Set<Integer> usedIndices = new HashSet<>();
-        ArrayList<CardView> cardViews = new ArrayList<>();
-        Random rand = new Random();
-        for (int i = 0; i < 9; i++) {
-                int randomIndex;
-                do {
-                    randomIndex = rand.nextInt(deckView.getCardViews().size());
-                } while (usedIndices.contains(randomIndex));
-                usedIndices.add(randomIndex);
-
-            CardView cardView = deckView.getCardViews().get(randomIndex);
-            cardViews.add(cardView);
-            handView.add(cardView);
-        }
-
-        for (CardView cardView : cardViews) {
-            deckView.remove(cardView);
-        }
+        getRandomHand();
 
         passButton.setPrefSize(50, 25);
         passButton.setLayoutX(210);
         passButton.setLayoutY(615);
         gamePane.getChildren().add(passButton);
+    }
+
+    public void getRandomHand() {
+        Random rand = new Random();
+        for (int i = 0; i < 9; i++) {
+            if (deckView.getChildren().isEmpty()) {
+                break;
+            }
+            int randomIndex = rand.nextInt(deckView.getChildren().size());
+            CardView cardView = (CardView) deckView.getChildren().get(randomIndex);
+            handView.add(cardView);
+            deckView.remove(cardView);
+        }
     }
 
     public void initializeInfo() {
@@ -245,11 +244,11 @@ public class PlayerView {
         handCardsCountLabel.setStyle("-fx-text-fill: #f8b864; -fx-font-size: 18;");
         handCardsCountLabel.setText(Integer.toString(player.getHand().size()));
 
-        ImageView healthIcon1 = new ImageView(Items.GEM_ON.getImage());
+        healthIcon1 = new ImageView(Items.GEM_ON.getImage());
         healthIcon1.setFitWidth(20);
         healthIcon1.setFitHeight(20);
 
-        ImageView healthIcon2 = new ImageView(Items.GEM_ON.getImage());
+        healthIcon2 = new ImageView(Items.GEM_ON.getImage());
         healthIcon2.setFitWidth(20);
         healthIcon2.setFitHeight(20);
 
@@ -438,10 +437,9 @@ public class PlayerView {
         container.setOnMouseClicked(event -> {
             int abilityInput = -1;
             Card card = (Card) selectedCardView.getItem();
-            if (card.getAbility() instanceof Decoy){
+            if (card.getAbility() instanceof Decoy) {
                 abilityInput = 0;
-            }
-            else if (card.getAbility() instanceof Medic){
+            } else if (card.getAbility() instanceof Medic) {
                 abilityInput = 0;
             }
             RequestSender.playCard(player, boardView.getBoard().getID(), handView.getCardViews().indexOf(selectedCardView), selectableContainers.indexOf(container), abilityInput);
@@ -465,15 +463,17 @@ public class PlayerView {
             targetContainer = selectableContainers.get(targetContainerIndex);
         }
 
-
         if (isLocalPlayer()) {
             ViewUtilities.changeCardContainer(false, boardView, handView, targetContainer, cardView);
         } else {
             ViewUtilities.changeCardContainer(true, boardView, handView, targetContainer, cardView);
         }
 
-        card.getPlacement().setRow((targetContainerIndex + 1) % 3);
-        card.executeAction(boardView, abilityInput);
+        card.getPlacement().setRow((targetContainerIndex) % 3);
+        if (card.getAbility() != null){
+            card.executeAction(boardView, abilityInput);
+        }
+        boardView.updateScoreLabels();
 
         if (!boardView.getAgainstPlayerView().getPlayer().hasPassed()) {
             boardView.changeTurn();
@@ -538,6 +538,15 @@ public class PlayerView {
             if (card.getPlacement().getRow() == 0) {
                 ViewUtilities.changeCardContainer(false, boardView, handView, discardPileView, cardView);
             }
+        }
+    }
+
+    public void loseRound() {
+        player.setRemainingHealth(player.getRemainingHealth() - 1);
+        if (player.getRemainingHealth() == 1) {
+            healthIcon2.setImage(Items.GEM_OFF.getImage());
+        } else if (player.getRemainingHealth() == 0) {
+            healthIcon1.setImage(Items.GEM_OFF.getImage());
         }
     }
 }

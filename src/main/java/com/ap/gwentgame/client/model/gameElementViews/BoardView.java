@@ -232,5 +232,22 @@ public class BoardView {
         //move cards to discard pile
         player1View.discardRound();
         player2View.discardRound();
+
+        //select winner
+        PlayerView winner = player1View.getPlayer().getCurrentScore() > player2View.getPlayer().getCurrentScore() ? player1View : player2View;
+        PlayerView loser = player1View.getPlayer().getCurrentScore() > player2View.getPlayer().getCurrentScore() ? player2View : player1View;
+
+        loser.loseRound();
+        if (loser.getPlayer().getRemainingHealth() == 0){
+            endGame(winner, loser);
+            return;
+        }
+
+        player1View.getRandomHand();
+        player2View.getRandomHand();
+    }
+
+    public void endGame(PlayerView winner, PlayerView loser){
+
     }
 }
