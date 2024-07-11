@@ -10,7 +10,7 @@ import com.ap.gwentgame.client.view.ViewUtilities;
 
 public class SpecialScorch extends Ability {
     @Override
-    public void run(BoardView boardView, int index, Card card) {
+    public void run(BoardView boardView, int index, CardView cardView) {
         PlayerView player = boardView.getCurrentPlayer();
         PlayerView opponent = boardView.getOpponentPlayer();
         int maxScorePlayer = findMaxScoreForEachPlayer(player);
@@ -29,7 +29,7 @@ public class SpecialScorch extends Ability {
                     if (!((UnitCard) targetCard).isHero() &&
                             ((UnitCard) targetCard).getScore() == maxScore) {
                         UnitCard unitcard = ((UnitCard) targetCard);
-                        ViewUtilities.changeCardContainer(boardView.getGamePane(), playerView.getRowViews()[targetCard.getPlacement().getRow()], playerView.getDiscardPileView(), targetCardView);
+                        ViewUtilities.changeCardContainer(false ,boardView, playerView.getRowViews()[targetCard.getPlacement().getRow()], playerView.getDiscardPileView(), targetCardView);
                     }
                 }
             }
