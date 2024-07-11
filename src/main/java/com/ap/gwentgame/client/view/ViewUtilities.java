@@ -133,6 +133,24 @@ public class ViewUtilities {
         cardBox.setLayoutY(pane.getHeight() / 2 - selectedItemReference.get().getPrefHeight() / 2);
         updatePositions(pane.getWidth() / 2 - (selectedItemReference.get().getLayoutX() + cardBox.getLayoutX() + cardBoxWidth / 2), cardBox);
 
+
+        pane.setOnKeyPressed(event -> {
+            int selectedIndex = itemViews.indexOf(selectedItemReference.get());
+            if (event.getCode() == KeyCode.RIGHT && selectedIndex < itemViews.size() - 1) {
+                selectedIndex++;
+                selectedItemReference.set(itemViews.get(selectedIndex));
+                updateSizes(itemViews, selectedItemReference.get());
+                updatePositions(pane.getWidth() / 2 - (selectedItemReference.get().getLayoutX() + cardBox.getLayoutX() + cardBoxWidth / 2), cardBox);
+            } else if (event.getCode() == KeyCode.LEFT && selectedIndex > 0) {
+                selectedIndex--;
+                selectedItemReference.set(itemViews.get(selectedIndex));
+                updateSizes(itemViews, selectedItemReference.get());
+                updatePositions(pane.getWidth() / 2 - (selectedItemReference.get().getLayoutX() + cardBox.getLayoutX() + cardBoxWidth / 2), cardBox);
+            }
+        });
+
+        pane.requestFocus();
+
         Button leftButton = new Button("<");
         leftButton.setLayoutX(20);
         leftButton.setLayoutY(pane.getHeight() / 2 - 20);
@@ -160,15 +178,6 @@ public class ViewUtilities {
             }
         });
 
-        itemSelector.requestFocus();
-        itemSelector.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.LEFT) {
-                leftButton.fire();
-            }
-            if (event.getCode() == KeyCode.RIGHT) {
-                rightButton.fire();
-            }
-        });
 
         for (ItemView itemView : itemViews) {
             itemView.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
@@ -181,8 +190,8 @@ public class ViewUtilities {
         itemSelector.getChildren().addAll(cardBox, leftButton, rightButton);
         pane.getChildren().add(itemSelector);
 
-        submitButton.setLayoutX(pane.getWidth() / 2 - 50);
-        submitButton.setLayoutY(cardBox.getLayoutY() + selectedItemReference.get().getPrefHeight() + 150);
+        submitButton.setLayoutX(pane.getWidth() / 2 - submitButton.getPrefWidth() / 2);
+        submitButton.setLayoutY(cardBox.getLayoutY() + selectedItemReference.get().getPrefHeight() + 200);
         submitButton.setText("Submit");
         submitButton.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
             pane.getChildren().remove(itemSelector);
