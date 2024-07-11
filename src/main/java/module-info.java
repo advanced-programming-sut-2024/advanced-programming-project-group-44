@@ -8,10 +8,10 @@ module com.ap.gwentgame {
     requires java.persistence;
 
 
-    exports com.ap.gwentgame.model;
-    opens com.ap.gwentgame.model to javafx.fxml;
-    exports com.ap.gwentgame.controller;
-    opens com.ap.gwentgame.controller to javafx.fxml;
-    exports com.ap.gwentgame.view;
-    opens com.ap.gwentgame.view to javafx.fxml;
+    exports com.ap.gwentgame.client.controller.model;
+    opens com.ap.gwentgame.client.controller.model to javafx.fxml;
+    exports com.ap.gwentgame.client.controller;
+    opens com.ap.gwentgame.client.controller to javafx.fxml;
+    exports com.ap.gwentgame.client.controller.view;
+    opens com.ap.gwentgame.client.controller.view to javafx.fxml;
 }
