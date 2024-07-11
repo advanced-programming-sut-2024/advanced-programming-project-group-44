@@ -135,13 +135,13 @@ public class PlayerView {
     }
 
     public void initializePlayerView() {
-        selectableContainers.add(boardView.getWeatherCards());
         selectableContainers.add(rowViews[0]);
         selectableContainers.add(rowViews[1]);
         selectableContainers.add(rowViews[2]);
         selectableContainers.add(specialCardViews[0]);
         selectableContainers.add(specialCardViews[1]);
         selectableContainers.add(specialCardViews[2]);
+        selectableContainers.add(boardView.getWeatherCards());
 
         initializeContainers();
         initializeInfo();
@@ -383,8 +383,15 @@ public class PlayerView {
 
         Card card = (Card) cardView.getItem();
         Placement placement = card.getPlacement();
-        for (int containerIndex : placement.getAllowedContainers()){
-            activateContainer(selectableContainers.get(containerIndex));
+
+        if (card.getAbility() instanceof Spy) {
+            for (int containerIndex : placement.getAllowedContainers()) {
+                activateContainer(otherPlayerView.getSelectableContainers().get(containerIndex));
+            }
+        } else {
+            for (int containerIndex : placement.getAllowedContainers()) {
+                activateContainer(selectableContainers.get(containerIndex));
+            }
         }
 
         cardView.setOnMouseClicked(event -> {
@@ -431,7 +438,7 @@ public class PlayerView {
 
         CardViewContainer<?, ?> targetContainer = null;
         if (card.getAbility() instanceof Spy) {
-            otherPlayerView.getSelectableContainers().get(targetContainerIndex);
+            targetContainer = otherPlayerView.getSelectableContainers().get(targetContainerIndex);
         } else {
             targetContainer = selectableContainers.get(targetContainerIndex);
         }
@@ -445,6 +452,9 @@ public class PlayerView {
         } else {
             ViewUtilities.changeCardContainer(true, boardView, handView, targetContainer, cardView);
         }
+
+        card.getPlacement().setRow((targetContainerIndex + 1) % 3);
+        card.executeAction(boardView, -1);
 
         if (!boardView.getAgainstPlayerView().getPlayer().hasPassed()) {
             boardView.changeTurn();
@@ -470,39 +480,33 @@ public class PlayerView {
 
         handView.clear();
         for (Card card : updatedPlayer.getHand()) {
-            if (card instanceof UnitCard unitCard){
+            if (card instanceof UnitCard unitCard) {
                 handView.add(new UnitCardView(unitCard));
-            }
-            else if (card instanceof WeatherCard weatherCard){
+            } else if (card instanceof WeatherCard weatherCard) {
                 handView.add(new WeatherCardView(weatherCard));
-            }
-            else if (card instanceof SpecialCard specialCard){
+            } else if (card instanceof SpecialCard specialCard) {
                 handView.add(new SpecialCardView(specialCard));
             }
         }
 
         deckView.clear();
         for (Card card : updatedPlayer.getDeck()) {
-            if (card instanceof UnitCard unitCard){
+            if (card instanceof UnitCard unitCard) {
                 deckView.add(new UnitCardView(unitCard));
-            }
-            else if (card instanceof WeatherCard weatherCard){
+            } else if (card instanceof WeatherCard weatherCard) {
                 deckView.add(new WeatherCardView(weatherCard));
-            }
-            else if (card instanceof SpecialCard specialCard){
+            } else if (card instanceof SpecialCard specialCard) {
                 deckView.add(new SpecialCardView(specialCard));
             }
         }
 
         discardPileView.clear();
         for (Card card : updatedPlayer.getDiscardPile()) {
-            if (card instanceof UnitCard unitCard){
+            if (card instanceof UnitCard unitCard) {
                 deckView.add(new UnitCardView(unitCard));
-            }
-            else if (card instanceof WeatherCard weatherCard){
+            } else if (card instanceof WeatherCard weatherCard) {
                 deckView.add(new WeatherCardView(weatherCard));
-            }
-            else if (card instanceof SpecialCard specialCard){
+            } else if (card instanceof SpecialCard specialCard) {
                 handView.add(new SpecialCardView(specialCard));
             }
         }

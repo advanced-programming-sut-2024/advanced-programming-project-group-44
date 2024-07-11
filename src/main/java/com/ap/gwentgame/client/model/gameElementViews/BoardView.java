@@ -112,8 +112,6 @@ public class BoardView {
         gamePane.getChildren().add(muteButton);
     }
 
-
-
     public AnchorPane getGamePane() {
         return gamePane;
     }
