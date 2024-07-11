@@ -19,7 +19,11 @@ public enum ClientCommands {
     REQUEST_REWATCH_GAME("GAME start rewatch game (\\d+)"),
     PLAY_CARD("GAME (\\d+) player (\\S+) play card (\\d+) to container (\\d+) with abilityInput (\\-?\\d+)"),
     PLAY_LEADER("GAME (\\d+) player (\\S+) play leader power with abilityInput (\\d+)"),
-    PLAY_PASS("GAME (\\d+) player (\\S+) play pass");
+    PLAY_PASS("GAME (\\d+) player (\\S+) play pass")
+    FRIEND_REQUEST("friend request (\\S+)"),
+    FRIEND_ACCEPT("friend accept (\\S+)"),
+    FRIEND_DECLINE("friend decline (\\S+)"),
+    GET_ALL_FRIEND_REQUESTS("get all friend requests"),;;
 
     private final String messageRegex;
 
@@ -31,4 +35,4 @@ public enum ClientCommands {
         return Pattern.compile(messageRegex).matcher(message);
     }
 
-    }
+}

@@ -32,11 +32,10 @@ public class ProfileMenuController {
     public Label draws;
     @FXML
     public ImageView back;
-    @FXML
-    public ImageView imageview;
+
 
     public void initialize() {
-        imageview.setImage(Backgrounds.PROFILE_MENU.getImage());
+        ProfileImage.setImage(Backgrounds.PROFILE_MENU.getImage());
         username.setText(Session.getLoggedInUser().getName());
         nickname.setText(Session.getLoggedInUser().getNickName());
         highestPoint.setText(String.valueOf(Session.getLoggedInUser().getHighestPoint()));

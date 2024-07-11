@@ -4,7 +4,6 @@ import com.ap.gwentgame.ServerMessage;
 import com.ap.gwentgame.client.Client;
 import com.ap.gwentgame.client.model.Session;
 import com.ap.gwentgame.client.model.User;
-import com.ap.gwentgame.client.model.gameElementViews.PlayerView;
 import com.ap.gwentgame.client.model.gameElements.Player;
 
 public class RequestSender {
@@ -70,5 +69,26 @@ public class RequestSender {
     public static void playPass(Player player, int ID){
         String messageText = "GAME " + ID + " player " + player.getUser().getName() + " play pass";
         Client.sendRequest(messageText, Session.getCurrentBoard());
+    }
+
+    public static void requestFriendGame(Player player, String friendUsername) {
+        String messageText = "GAME start with friend" + " " + friendUsername;
+        Client.sendRequest(messageText, player);
+    }
+
+    public static void friendAccept(String friendUsername) {
+        String messageText = "friend accept" + " " + friendUsername;
+        Client.sendRequest(messageText);
+    }
+
+    public static void friendDecline(String friendUsername) {
+        String messageText = "friend decline" + " " + friendUsername;
+        Client.sendRequest(messageText);
+    }
+
+    public static ServerMessage getAllFriendRequests() {
+        String messageText = "get all friend requests";
+        Client.sendRequest(messageText);
+        return Client.getResponse();
     }
 }
