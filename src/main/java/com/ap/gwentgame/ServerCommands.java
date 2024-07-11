@@ -10,6 +10,8 @@ public enum ServerCommands {
     REGISTRATION_FAILED_NICKNAME_TAKEN("registration failed - nickname already taken"),
     REGISTRATION_FAILED_USERNAME_TAKEN("registration failed - username already taken"),
     REGISTRATION_FAILED_EMAIL_TAKEN("registration failed - email already taken"),
+    VERIFICATION_CODE_FAILED("verification failed - incorrect code"),
+    VERIFICATION_CODE_SUCCESSFUL("verification code successful"),
     LOGIN_SUCCESSFUL("login successful"),
     LOGIN_FAILED_INCORRECT_PASSWORD("login failed - incorrect password"),
     LOGIN_FAILED_USER_NOT_FOUND("login failed - user not found"),

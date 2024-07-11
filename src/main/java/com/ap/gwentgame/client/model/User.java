@@ -20,6 +20,7 @@ public class User {
     private final Question question;
     private final String answer;
     private final ArrayList<User> friends;
+    private int verifyInt;
 
     public User(String name, String password, String nickName, String email, Question question, String answer) {
         this.name = name;
@@ -34,6 +35,7 @@ public class User {
         this.wins = 0;
         this.draws = 0;
         this.losses = 0;
+        this.verifyInt = 0;
         this.friends = new ArrayList<User>();
     }
 
@@ -131,5 +133,13 @@ public class User {
 
     public void addFriends(User user) {
         friends.add(user);
+    }
+
+    public void setVerificationCode(int code) {
+        this.verifyInt = code;
+    }
+
+    public int getVerificationCode() {
+        return this.verifyInt;
     }
 }

@@ -5,6 +5,7 @@ import java.util.regex.Pattern;
 
 public enum ClientCommands {
     REGISTER_USER("register user"),
+    VERIFY_USER("verify user (\\S+)"),
     LOGIN_USER("login user (\\S+) (\\S+)"),
     LOGOUT_USER("logout user"),
     GET_QUESTION("get question (\\S+)"),
@@ -18,7 +19,7 @@ public enum ClientCommands {
     REQUEST_REWATCH_GAME("GAME start rewatch game (\\d+)"),
     PLAY_CARD("GAME (\\d+) player (\\S+) play card (\\d+) to (\\d+) with (\\d+)"),
     PLAY_LEADER("GAME (\\d+) player (\\S+) play leader power with (\\d+)"),
-    PLAY_PASS("GAME (\\d+) player (\\S+) play pass");
+    PLAY_PASS("GAME (\\d+) player (\\S+) play pass"), ;
 
     private final String messageRegex;
 
@@ -30,4 +31,4 @@ public enum ClientCommands {
         return Pattern.compile(messageRegex).matcher(message);
     }
 
-    }
+}
