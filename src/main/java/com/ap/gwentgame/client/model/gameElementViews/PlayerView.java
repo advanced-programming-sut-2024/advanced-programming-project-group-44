@@ -541,6 +541,7 @@ public class PlayerView {
             }
         }
 
+        player.setPassed(false);
         player.getScores()[boardView.getRound()] = player.getCurrentScore();
         player.setTotalScore(player.getTotalScore() + player.getCurrentScore());
     }

@@ -316,10 +316,7 @@ public class PreGameMenuController implements Initializable {
             return;
         }
 
-        //User user = Session.getLoggedInUser();
-        //generate a random user for testing
-        String username = "test" + (int) (Math.random() * 100);
-        User user = new User(username, "test", "test", "test", Question.QUESTION_1, "test");
+        User user = Session.getLoggedInUser();
         Session.setLoggedInUser(user);
         Player player = new Player(user, selectedFaction, (Leader) selectedLeaderView.getItem(), addedCards);
         RequestSender.requestRandomGame(player);

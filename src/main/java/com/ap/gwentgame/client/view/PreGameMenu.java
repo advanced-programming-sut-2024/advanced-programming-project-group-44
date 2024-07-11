@@ -12,7 +12,6 @@ import java.io.IOException;
 public class PreGameMenu extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        Client.start();
         Session.setStage(stage);
         stage.setScene(FXMLs.PREGAME_MENU.getScene());
         stage.getScene().getStylesheets().add(ControllerUtilities.getResourcePath("CSS/style.css"));
