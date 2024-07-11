@@ -29,7 +29,6 @@ public class BoardView {
 
     private String abilityInput;
 
-    private boolean isChatBoxOpen = false;
     private ChatBoxController chatBoxController;
     private ReactionMenuController reactionMenuController;
 
@@ -71,13 +70,7 @@ public class BoardView {
         chatButton.setStyle("-fx-background-color: transparent;");
         ImageView chatButtonIcon = new ImageView(Icons.CHAT.getImage());
         chatButton.setOnMouseClicked(event -> {
-            if (isChatBoxOpen) {
-                chatBoxController.closeChatBox();
-                isChatBoxOpen = false;
-            } else {
-                chatBoxController.openChatBox();
-                isChatBoxOpen = true;
-            }
+            chatBoxController.openChatBox();
         });
         chatButton.setGraphic(chatButtonIcon);
         gamePane.getChildren().add(chatButton);
