@@ -1,0 +1,29 @@
+@font-face {
+    font-family: 'manrope';
+    src: url('com/ap/gwentgame/manrope.ttf');
+}
+
+Button {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #000000;
+    -fx-font-family: 'manrope';
+    -fx-border-color: #ffffff;
+    -fx-border-width: 2;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-font-size: 12;
+}
+
+Label {
+    -fx-text-fill: #ffffff;
+    -fx-font-family: 'manrope';
+}
+
+TextField {
+    -fx-text-fill: #000000;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-border-color: #ffffff;
+    -fx-border-width: 2;
+    -fx-font-family: 'manrope';
+}

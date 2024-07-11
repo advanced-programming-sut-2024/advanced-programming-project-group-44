@@ -63,6 +63,8 @@ public class BoardView {
         initializeChatButton();
         initializeMuteButtons();
         initializeReactionButton();
+        chatBoxController = new ChatBoxController();
+        reactionMenuController = new ReactionMenuController();
     }
 
     public void initializeGameBoard() {

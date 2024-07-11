@@ -1,5 +1,6 @@
 package com.ap.gwentgame.client.view;
 
+import com.ap.gwentgame.client.controller.ControllerUtilities;
 import com.ap.gwentgame.client.model.Session;
 import com.ap.gwentgame.client.model.gameElementViews.BoardView;
 import com.ap.gwentgame.client.model.gameElements.Board;
@@ -21,6 +22,7 @@ public class GameMenu extends Application {
         boardView = new BoardView(Session.getCurrentBoard(), gamePane);
         Scene gameScene = new Scene(gamePane, 1200, 800);
         stage.setScene(gameScene);
+        stage.getScene().getStylesheets().add(ControllerUtilities.getResourcePath("CSS/style.css"));
         stage.show();
         boardView.startListening();
     }

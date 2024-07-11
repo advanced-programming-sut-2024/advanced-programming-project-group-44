@@ -32,9 +32,6 @@ public class WaitingScreenController implements Initializable {
 
     private void checkGameStatus() {
         ServerMessage serverMessage = Client.getResponse();
-        while (serverMessage == null) {
-            serverMessage = Client.getResponse();
-        }
 
         if (GAME_STARTED.getMatcher(serverMessage.getMessageText()).matches()) {
             Board board = Client.getGson().fromJson(serverMessage.getAdditionalText(), Board.class);

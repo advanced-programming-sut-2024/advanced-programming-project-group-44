@@ -12,7 +12,7 @@ public class Board implements Serializable {
     private Player opponentPlayer;
 
     private Board initialBoard;
-    private ArrayList<String> commands;
+    private ArrayList<String> commands = new ArrayList<>();
 
     private final int ID;
 

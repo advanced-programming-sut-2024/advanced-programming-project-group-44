@@ -23,7 +23,9 @@ public enum ClientCommands {
     FRIEND_REQUEST("friend request (\\S+)"),
     FRIEND_ACCEPT("friend accept (\\S+)"),
     FRIEND_DECLINE("friend decline (\\S+)"),
-    GET_ALL_FRIEND_REQUESTS("get all friend requests");
+    GET_ALL_FRIEND_REQUESTS("get all friend requests"),
+    GAME_FINISHED("GAME (\\d+) finished"),
+    TOURNAMENT_FINISHED("TOURNAMENT GAME (\\d+) finished"),;
 
     private final String messageRegex;
 

@@ -1,6 +1,7 @@
 package com.ap.gwentgame.client.view;
 
 import com.ap.gwentgame.client.Client;
+import com.ap.gwentgame.client.controller.ControllerUtilities;
 import com.ap.gwentgame.client.enums.assets.FXMLs;
 import com.ap.gwentgame.client.model.Session;
 import javafx.application.Application;
@@ -14,6 +15,7 @@ public class PreGameMenu extends Application {
         Client.start();
         Session.setStage(stage);
         stage.setScene(FXMLs.PREGAME_MENU.getScene());
+        stage.getScene().getStylesheets().add(ControllerUtilities.getResourcePath("CSS/style.css"));
         stage.show();
     }
 

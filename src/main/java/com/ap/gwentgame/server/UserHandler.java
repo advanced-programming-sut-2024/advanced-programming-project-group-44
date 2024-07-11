@@ -43,6 +43,7 @@ public class UserHandler extends Thread {
 
     private static final Queue<UserHandler> tournamentWaitingPlayers = new LinkedList<>();
     private static final HashMap<Integer, BoardHandler> tournamentGames = new HashMap<>();
+    private static TournamentHandler tournamentHandler;
 
     private static final HashMap<User, User> friendRequests = new HashMap<>();
 
@@ -351,6 +352,28 @@ public class UserHandler extends Thread {
                 return;
             }
             sendResponse("Rewatch started", boardHandler.getCurrentBoard().getInitialBoard());
+            return;
+        }
+
+        if ((matcher = ClientCommands.GAME_FINISHED.getMatcher(messageText)).matches()) {
+            int gameID = Integer.parseInt(matcher.group(1));
+            BoardHandler boardHandler = games.get(gameID);
+            if (boardHandler == null) {
+                sendResponse("Game not found");
+                return;
+            }
+            games.remove(gameID);
+            return;
+        }
+
+        if ((matcher = ClientCommands.TOURNAMENT_FINISHED.getMatcher(messageText)).matches()) {
+            int gameID = Integer.parseInt(matcher.group(1));
+            BoardHandler boardHandler = tournamentGames.get(gameID);
+            if (boardHandler == null) {
+                sendResponse("Game not found");
+                return;
+            }
+            tournamentGames.remove(gameID);
             return;
         }
     }
