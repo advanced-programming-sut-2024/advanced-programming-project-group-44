@@ -2,10 +2,9 @@ package com.ap.gwentgame.client.controller;
 
 import com.ap.gwentgame.ServerMessage;
 import com.ap.gwentgame.client.Client;
+import com.ap.gwentgame.client.model.Session;
 import com.ap.gwentgame.client.model.User;
 import com.ap.gwentgame.client.model.gameElements.Player;
-
-import java.util.HashMap;
 
 public class RequestSender {
     public static ServerMessage registerUser(User user) {
@@ -62,6 +61,16 @@ public class RequestSender {
         Client.sendRequest(messageText, player);
     }
 
+    public static void playCard(Player player, int ID, int cardIndex, int row, int abilityInput) {
+        String messageText = "GAME " + ID + " player " + player.getUser().getName() + " play card " + cardIndex + " to container " + row + " with abilityInput " + abilityInput;
+        Client.sendRequest(messageText, Session.getCurrentBoard());
+    }
+
+    public static void playPass(Player player, int ID){
+        String messageText = "GAME " + ID + " player " + player.getUser().getName() + " play pass";
+        Client.sendRequest(messageText, Session.getCurrentBoard());
+    }
+
     public static void requestFriendGame(Player player, String friendUsername) {
         String messageText = "GAME start with friend" + " " + friendUsername;
         Client.sendRequest(messageText, player);
@@ -82,6 +91,4 @@ public class RequestSender {
         Client.sendRequest(messageText);
         return Client.getResponse();
     }
-
-
 }

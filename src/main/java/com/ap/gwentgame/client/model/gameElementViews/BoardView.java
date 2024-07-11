@@ -1,22 +1,26 @@
 package com.ap.gwentgame.client.model.gameElementViews;
 
+import com.ap.gwentgame.ServerMessage;
+import com.ap.gwentgame.client.Client;
 import com.ap.gwentgame.client.controller.ChatBoxController;
 import com.ap.gwentgame.client.controller.MusicController;
 import com.ap.gwentgame.client.controller.ReactionMenuController;
 import com.ap.gwentgame.client.enums.assets.Backgrounds;
 import com.ap.gwentgame.client.enums.assets.Icons;
 import com.ap.gwentgame.client.model.gameElements.Board;
-import com.ap.gwentgame.client.model.gameElements.Card;
 import com.ap.gwentgame.client.model.gameElements.Player;
 import com.ap.gwentgame.client.model.gameElements.WeatherCard;
 import com.ap.gwentgame.client.view.ViewUtilities;
-import javafx.fxml.FXML;
+import javafx.application.Platform;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.shape.Rectangle;
 
 import java.util.HashMap;
+import java.util.regex.Matcher;
+
+import static com.ap.gwentgame.ServerCommands.PLAY_PASS;
+import static com.ap.gwentgame.ServerCommands.PLAY_CARD;
 
 public class BoardView {
     private final Board board;
@@ -25,14 +29,14 @@ public class BoardView {
     private final PlayerView player1View;
     private final PlayerView player2View;
     private PlayerView currentPlayerView;
-    private PlayerView opponentPlayerView;
+    private PlayerView againstPlayerView;
 
     private String abilityInput;
 
+    private final CardViewContainer<WeatherCardView, WeatherCard> weatherCards;
+
     private ChatBoxController chatBoxController;
     private ReactionMenuController reactionMenuController;
-
-    private final CardViewContainer<WeatherCardView, WeatherCard> weatherCards;
 
     public BoardView(Board board, AnchorPane gamePane) {
         this.board = board;
@@ -44,7 +48,7 @@ public class BoardView {
         this.player1View = new PlayerView(player1, 1, this);
         this.player2View = new PlayerView(player2, 2, this);
         this.currentPlayerView = player1View;
-        this.opponentPlayerView = player2View;
+        this.againstPlayerView = player2View;
 
         this.weatherCards = new CardViewContainer<>(board.getWeatherCards());
 
@@ -52,7 +56,6 @@ public class BoardView {
         initializeChatButton();
         initializeMuteButtons();
         initializeReactionButton();
-
     }
 
     public void initializeGameBoard() {
@@ -110,6 +113,7 @@ public class BoardView {
     }
 
 
+
     public AnchorPane getGamePane() {
         return gamePane;
     }
@@ -118,8 +122,8 @@ public class BoardView {
         return currentPlayerView;
     }
 
-    public PlayerView getOpponentPlayer() {
-        return opponentPlayerView;
+    public PlayerView getAgainstPlayer() {
+        return againstPlayerView;
     }
 
     public PlayerView getPlayer1() {
@@ -146,12 +150,79 @@ public class BoardView {
         return currentPlayerView;
     }
 
-    public PlayerView getOpponentPlayerView() {
-        return opponentPlayerView;
+    public PlayerView getAgainstPlayerView() {
+        return againstPlayerView;
     }
 
     public void updateScoreLabels() {
         player1View.updateScoreLabels();
         player2View.updateScoreLabels();
+    }
+
+    public PlayerView getPlayer2View() {
+        return player2View;
+    }
+
+    public PlayerView getPlayer1View() {
+        return player1View;
+    }
+
+    public void startListening() {
+        Thread daemonThread = new Thread(() -> {
+            while (true) {
+                ServerMessage command = Client.getResponse();
+                Board updatedBoard = Client.getGson().fromJson(command.getAdditionalText(), Board.class);
+
+                if (player1View.equals(currentPlayerView) && !player1View.isLocalPlayer()) {
+                    player1View.updateFromBoard(updatedBoard);
+                }
+
+                if (player2View.equals(currentPlayerView) && !player2View.isLocalPlayer()) {
+                    player2View.updateFromBoard(updatedBoard);
+                }
+
+                Matcher matcher;
+                if ((matcher = PLAY_CARD.getMatcher(command.getMessageText())).matches()) {
+                    int id = Integer.parseInt(matcher.group(1));
+                    String playerName = matcher.group(2);
+                    int cardIndex = Integer.parseInt(matcher.group(3));
+                    int row = Integer.parseInt(matcher.group(4));
+                    int abilityInput = Integer.parseInt(matcher.group(5));
+                    PlayerView activePlayerView = playerName.equals(board.getPlayer1().getUser().getName()) ? player1View : player2View;
+                    Platform.runLater(() -> activePlayerView.playCard(cardIndex, row, abilityInput));
+                }
+
+                if ((matcher = PLAY_PASS.getMatcher(command.getMessageText())).matches()) {
+                    int id = Integer.parseInt(matcher.group(1));
+                    String playerName = matcher.group(2);
+                    PlayerView activePlayerView = playerName.equals(board.getPlayer1().getUser().getName()) ? player1View : player2View;
+                    Platform.runLater(() -> activePlayerView.playPass());
+                }
+            }
+        });
+        daemonThread.setDaemon(true);
+        daemonThread.start();
+    }
+
+
+    public void changeTurn() {
+        if (player1View.getPlayer().hasPassed() && player2View.getPlayer().hasPassed()) {
+            ViewUtilities.showInformationAlert("round finished", "round finished");
+        }
+
+        if (currentPlayerView == player1View) {
+            currentPlayerView = player2View;
+            againstPlayerView = player1View;
+        } else {
+            currentPlayerView = player1View;
+            againstPlayerView = player2View;
+        }
+
+        player1View.initializeClickables();
+        player2View.initializeClickables();
+    }
+
+    public Board getBoard() {
+        return board;
     }
 }

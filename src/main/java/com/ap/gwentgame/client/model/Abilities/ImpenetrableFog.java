@@ -1,11 +1,17 @@
 package com.ap.gwentgame.client.model.Abilities;
 
+import com.ap.gwentgame.client.controller.ControllerUtilities;
+import com.ap.gwentgame.client.model.gameElementViews.BoardView;
+import com.ap.gwentgame.client.model.gameElementViews.PlayerView;
 import com.ap.gwentgame.client.model.gameElements.Card;
-import com.ap.gwentgame.client.model.gameElements.Board;
 
 public class ImpenetrableFog extends Ability{
     @Override
-    public void run(Board board, Card card) {
-        // TODO implement here
+    public void run(BoardView boardView, int index, Card card) {
+        PlayerView playerView = boardView.getCurrentPlayer();
+        PlayerView opponentView = boardView.getAgainstPlayer();
+        ControllerUtilities.weatherAbility(playerView , 1);
+        ControllerUtilities.weatherAbility(opponentView , 1);
     }
+
 }
