@@ -29,7 +29,7 @@ public class Client {
 
     private static void establishConnection() {
         try {
-            Socket socket = new Socket("localhost", 2626);
+            Socket socket = new Socket("localhost", 4444);
             dataInputStream = new DataInputStream(socket.getInputStream());
             dataOutputStream = new DataOutputStream(socket.getOutputStream());
         } catch (IOException e) {

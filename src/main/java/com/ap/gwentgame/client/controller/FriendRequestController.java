@@ -1,11 +1,13 @@
 package com.ap.gwentgame.client.controller;
 
 import com.ap.gwentgame.client.enums.Question;
+import com.ap.gwentgame.client.enums.assets.Backgrounds;
 import com.ap.gwentgame.client.model.User;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -19,7 +21,8 @@ public class FriendRequestController {
 
     @FXML
     private VBox friendRequestReceievedVbox;
-
+    @FXML
+    private ImageView background;
     @FXML
     private VBox friendsSentVbox;
     private ArrayList<User> friends;
@@ -28,6 +31,7 @@ public class FriendRequestController {
 
     @FXML
     public void initialize() {
+        background.setImage(Backgrounds.FRIEND_REQUEST.getImage());
         currentUser = new User("aryana", "dkfjhuhfrw", "ariaiaia", "dfkjrwb@gmail.cnjfsh", Question.QUESTION_1, ";fvhk");
         User sender1 = new User("Sender1", "oododo", "nicNameeee", "gdg@jfej.fjhbe", Question.QUESTION_2, "dd");
         User receiver1 = new User("Receiver1", "swjhd", "djdj", "sdvhjsv", Question.QUESTION_1, "d");

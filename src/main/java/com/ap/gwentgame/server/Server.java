@@ -18,7 +18,7 @@ public class Server extends Thread {
     public static void main(String[] args) {
         ExecutorService executorService = Executors.newFixedThreadPool(10);
 
-        try (ServerSocket serverSocket = new ServerSocket(2626)) {
+        try (ServerSocket serverSocket = new ServerSocket(4444)) {
             while (true) {
                 Socket socket = serverSocket.accept();
                 executorService.submit(new UserHandler(socket));

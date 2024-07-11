@@ -1,6 +1,7 @@
 package com.ap.gwentgame.client.controller;
 
 import com.ap.gwentgame.client.enums.Question;
+import com.ap.gwentgame.client.enums.assets.Backgrounds;
 import com.ap.gwentgame.client.model.Session;
 import com.ap.gwentgame.client.model.User;
 import com.ap.gwentgame.client.view.ProfileMenu;
@@ -30,6 +31,9 @@ public class ScoreBoardController implements Initializable {
     private TableView<User> scoreBoardTable;
 
     @FXML
+    private ImageView background;
+
+    @FXML
     private TableColumn<User, String> playerNameColumn;
 
     @FXML
@@ -48,6 +52,7 @@ public class ScoreBoardController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        background.setImage(Backgrounds.SCORE_BOARD.getImage());
         Update();
 
         scoreBoardTable.setItems(userList);

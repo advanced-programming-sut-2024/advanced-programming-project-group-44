@@ -82,13 +82,13 @@ public class ReactionMenuController implements Initializable {
     public void sendEmoji(MouseEvent mouseEvent) {
         switch (((Button) mouseEvent.getSource()).getId()) {
             case "likeEmoji":
-                createReactionMessage("player1", null, new ImageView(Icons.LIKE.getImage()));
+                createReactionMessage("player1", null, emoji1);
                 break;
             case "dislikeEmoji":
-                createReactionMessage("player1", null, new ImageView(Icons.DISLIKE.getImage()));
+                createReactionMessage("player1", null, emoji2);
                 break;
             case "heartEmoji":
-                createReactionMessage("player1", null, new ImageView(Icons.HEART.getImage()));
+                createReactionMessage("player1", null, emoji3);
                 break;
         }
     }
